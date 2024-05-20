@@ -46,20 +46,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fabric-msft/fabric-web@file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-web-components/packs/fabric-web-components-0.1.1-beta.tgz::locator=fabric-web-components-test-project%40workspace%3A.":
-  version: 0.1.1-beta
-  resolution: "@fabric-msft/fabric-web@file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-web-components/packs/fabric-web-components-0.1.1-beta.tgz::locator=fabric-web-components-test-project%40workspace%3A."
-  dependencies:
-    "@floating-ui/dom": ^1.5.3
-    "@fluentui/tokens": 1.0.0-alpha.9
-    "@fluentui/web-components": 3.0.0-beta.6
-    "@microsoft/fast-element": ^2.0.0-beta.23
-    "@microsoft/fast-foundation": ^3.0.0-alpha.31
-    tabbable: ^6.2.0
-  checksum: 513c469bffd4920f6aa4fcf32a54d72b2c2b1b9d5293870e2a84e6b79caf8b84e84458fcc2ab55e4de5246d62002fccb6a4ca102b696c5a50f387838080a2fa6
-  languageName: node
-  linkType: hard
-
 "@fabric-msft/fabric-web@npm:0.1.0-beta":
   version: 0.1.0-beta
   resolution: "@fabric-msft/fabric-web@npm:0.1.0-beta"
@@ -71,6 +57,20 @@ __metadata:
     "@microsoft/fast-foundation": ^3.0.0-alpha.31
     tabbable: ^6.2.0
   checksum: 2647d4fed4acc70721209a649fd2bcb35ee7d88e5c8489bd4ffdda516d421ffbfcc627fcf24227bb7b4448449c54d2d35a6257386f69160d785ea15eb1c73ff3
+  languageName: node
+  linkType: hard
+
+"@fabric-msft/fabric-web@npm:latest":
+  version: 1.0.0-beta
+  resolution: "@fabric-msft/fabric-web@npm:1.0.0-beta"
+  dependencies:
+    "@floating-ui/dom": ^1.5.3
+    "@fluentui/tokens": 1.0.0-alpha.9
+    "@fluentui/web-components": 3.0.0-beta.15
+    "@microsoft/fast-element": ^2.0.0-beta.23
+    "@microsoft/fast-foundation": ^3.0.0-alpha.32
+    tabbable: ^6.2.0
+  checksum: 95d4391387e975581c6cf0e11fbc58113c2ea470ab0ace6ec2a219faa6481c7a37c07753c7798c638a671ef8282c0b011e4315f7d9a29b4d5b3778ca46581134
   languageName: node
   linkType: hard
 
@@ -133,6 +133,19 @@ __metadata:
   dependencies:
     "@swc/helpers": ^0.5.1
   checksum: bd21fc1bd56210ab3b201e3e7ca8d8e59011d86380106ff81ecec9a6ff475fed8f652ad7ea4a809e33425722a473a22af271facc061b64f6d98ef6245a9e5ecd
+  languageName: node
+  linkType: hard
+
+"@fluentui/web-components@npm:3.0.0-beta.15":
+  version: 3.0.0-beta.15
+  resolution: "@fluentui/web-components@npm:3.0.0-beta.15"
+  dependencies:
+    "@fluentui/tokens": 1.0.0-alpha.2
+    "@microsoft/fast-element": 2.0.0-beta.26
+    "@microsoft/fast-web-utilities": ^6.0.0
+    tabbable: ^6.2.0
+    tslib: ^2.1.0
+  checksum: fdd3aa8806727dc4ac0b877d8f648349da1becca789526da704415c63cb28e886ce4d8fdf116a0e58ef504e160c76f21ee89a6fa93de0fb489eeaed33bb2112a
   languageName: node
   linkType: hard
 
@@ -241,7 +254,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/fast-foundation@npm:^3.0.0-alpha.31":
+"@microsoft/fast-foundation@npm:^3.0.0-alpha.31, @microsoft/fast-foundation@npm:^3.0.0-alpha.32":
   version: 3.0.0-alpha.32
   resolution: "@microsoft/fast-foundation@npm:3.0.0-alpha.32"
   dependencies:
@@ -1835,7 +1848,7 @@ __metadata:
   resolution: "fabric-web-components-test-project@workspace:."
   dependencies:
     "@fabric-msft/copilot-web": "file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-copilot-web-components/packs/copilot-web-components-0.1.0-beta.tgz"
-    "@fabric-msft/fabric-web": "file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-web-components/packs/fabric-web-components-0.1.1-beta.tgz"
+    "@fabric-msft/fabric-web": latest
     "@fabric-msft/theme": latest
     parcel: ^2.12.0
   languageName: unknown

@@ -6,7 +6,7 @@
   "license": "MIT",
   "devDependencies": {
     "@fabric-msft/copilot-web": "file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-copilot-web-components/packs/copilot-web-components-0.1.0-beta.tgz",
-    "@fabric-msft/fabric-web": "file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-web-components/packs/fabric-web-components-0.1.1-beta.tgz",
+    "@fabric-msft/fabric-web": "latest",
     "@fabric-msft/theme": "latest",
     "parcel": "^2.12.0"
   },

@@ -13,26 +13,7 @@ import { ReferenceGroupEl } from "./components/reference";
 import { Citation, CitationReference } from "./components/citation";
 import LoadingButton from "./components/loading-button";
 
-import {
-  LoadingButtonDefinition,
-  PopoverDefinition,
-  TeachingBubbleDefinition,
-  MultiViewDefinition,
-  WizardDefinition,
-  WizardPanelDefinition,
-  WizardStepDefinition,
-  SvgIconDefinition,
-} from "@fabric-msft/fabric-web";
-
 LoadingButton.definition;
-SvgIconDefinition.define(customElements);
-WizardDefinition.define(customElements);
-WizardPanelDefinition.define(customElements);
-WizardStepDefinition.define(customElements);
-MultiViewDefinition.define(customElements);
-TeachingBubbleDefinition.define(customElements);
-PopoverDefinition.define(customElements);
-// LoadingButtonDefinition.define(customElements);
 
 TextareaDefinition.define(customElements);
 CitationDefinition.define(customElements);

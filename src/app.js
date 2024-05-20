@@ -4,7 +4,7 @@ import {
   CitationReferenceDefinition,
   ReferenceDefinition,
 } from "@fabric-msft/copilot-web";
-import { fabricLightTheme, setTheme } from "@horizon-msft/theme";
+import { fabricLightTheme, setTheme } from "@fabric-msft/theme";
 
 TextareaDefinition.define(customElements);
 CitationDefinition.define(customElements);

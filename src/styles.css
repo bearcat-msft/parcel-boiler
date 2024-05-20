@@ -1,0 +1,17 @@
+main {
+  height: 100vh;
+  padding: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+main div {
+  margin: 20px;
+}
+
+fluent-textarea {
+  width: 250px;
+}

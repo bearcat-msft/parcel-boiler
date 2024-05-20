@@ -1,0 +1,17 @@
+main {
+  flex-direction: column;
+  place-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 100px;
+  display: flex;
+}
+
+main div {
+  margin: 20px;
+}
+
+fluent-textarea {
+  width: 250px;
+}
+/*# sourceMappingURL=index.4d663569.css.map */

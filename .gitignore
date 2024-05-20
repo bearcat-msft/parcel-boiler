@@ -1,5 +1,4 @@
 node_modules
 .parcel
-.parcel-cache
 .yarn/cache
 dist

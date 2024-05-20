@@ -22,24 +22,25 @@ ReferenceDefinition.define(customElements);
 ReferenceListDefinition.define(customElements);
 ReferenceGroupDefinition.define(customElements);
 
-// <div class="citationReference">
-//   ${CitationReference({
-//     index: 1,
-//     label: "Citation Reference",
-//     meta1: "Citation Metadata One",
-//     meta2: "Citation Metadata Two",
-//     excerpt: "Article Excerpt",
-//     href: "www.bing.com",
-//   })}
-// </div>
-
-// <div class="referenceGroup">
-//   ${ReferenceGroupEl()}
-// </div>
-
 const components = /* html */ `
       <div>
         ${LoadingButton.component({ loading: true, text: "Loading Button" })}
+      </div>
+      <div>
+        <div class="citationReference">
+          ${CitationReference({
+            index: 1,
+            label: "Citation Reference",
+            meta1: "Citation Metadata One",
+            meta2: "Citation Metadata Two",
+            excerpt: "Article Excerpt",
+            href: "www.bing.com",
+          })}
+        </div>
+
+        <div class="referenceGroup">
+          ${ReferenceGroupEl()}
+        </div>
       </div>
 
       <div class="textArea">

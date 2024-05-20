@@ -33,6 +33,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fabric-msft/copilot-web@file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-copilot-web-components/packs/copilot-web-components-0.1.0-beta.tgz::locator=fabric-web-components-test-project%40workspace%3A.":
+  version: 0.1.0-beta
+  resolution: "@fabric-msft/copilot-web@file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-copilot-web-components/packs/copilot-web-components-0.1.0-beta.tgz::locator=fabric-web-components-test-project%40workspace%3A."
+  dependencies:
+    "@fabric-msft/fabric-web": 0.1.0-beta
+    "@fluentui/tokens": 1.0.0-alpha.2
+    "@fluentui/web-components": 3.0.0-beta.6
+    "@microsoft/fast-element": ^2.0.0-beta.23
+    "@microsoft/fast-foundation": ^3.0.0-alpha.31
+  checksum: 7af84df7716e854f06cc4baad3ddb283db09bb5bd7004dd9245c4c60e14b192586600fe35d13e58baecd119fb54e6c652ace131dbecabd4afba29e6722d0a923
+  languageName: node
+  linkType: hard
+
+"@fabric-msft/fabric-web@npm:0.1.0-beta":
+  version: 0.1.0-beta
+  resolution: "@fabric-msft/fabric-web@npm:0.1.0-beta"
+  dependencies:
+    "@floating-ui/dom": ^1.5.3
+    "@fluentui/tokens": 1.0.0-alpha.9
+    "@fluentui/web-components": 3.0.0-beta.6
+    "@microsoft/fast-element": ^2.0.0-beta.23
+    "@microsoft/fast-foundation": ^3.0.0-alpha.31
+    tabbable: ^6.2.0
+  checksum: 2647d4fed4acc70721209a649fd2bcb35ee7d88e5c8489bd4ffdda516d421ffbfcc627fcf24227bb7b4448449c54d2d35a6257386f69160d785ea15eb1c73ff3
+  languageName: node
+  linkType: hard
+
 "@floating-ui/core@npm:^1.0.0":
   version: 1.6.0
   resolution: "@floating-ui/core@npm:1.6.0"
@@ -99,38 +126,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@horizon-msft/copilot-web-components@file:../fabric-ux/libs/horizon-copilot-web-components/packs/copilot-web-components-0.0.11-beta.1.tgz::locator=horizon-web-components-test-project%40workspace%3A.":
-  version: 0.0.11-beta.1
-  resolution: "@horizon-msft/copilot-web-components@file:../fabric-ux/libs/horizon-copilot-web-components/packs/copilot-web-components-0.0.11-beta.1.tgz::locator=horizon-web-components-test-project%40workspace%3A."
-  dependencies:
-    "@fluentui/tokens": 1.0.0-alpha.2
-    "@fluentui/web-components": 3.0.0-beta.6
-    "@horizon-msft/web-components": 0.0.36
-    "@microsoft/fast-element": ^2.0.0-beta.23
-    "@microsoft/fast-foundation": ^3.0.0-alpha.31
-  checksum: 04408e72d56af66c5183376cbb2454ec8261abd6eeca85dedbc4a3f5032e15f9106304d2a349f9a82b4031cc5ae3beaea4b2873ec4bd8d4d0fdf2df9c8e3f6e4
-  languageName: node
-  linkType: hard
-
-"@horizon-msft/theme@file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/theme/packs/theme-0.0.14-test.0.tgz::locator=horizon-web-components-test-project%40workspace%3A.":
+"@horizon-msft/theme@file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/theme/packs/theme-0.0.14-test.0.tgz::locator=fabric-web-components-test-project%40workspace%3A.":
   version: 0.0.14-test.0
-  resolution: "@horizon-msft/theme@file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/theme/packs/theme-0.0.14-test.0.tgz::locator=horizon-web-components-test-project%40workspace%3A."
+  resolution: "@horizon-msft/theme@file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/theme/packs/theme-0.0.14-test.0.tgz::locator=fabric-web-components-test-project%40workspace%3A."
   dependencies:
     "@fluentui/tokens": 1.0.0-alpha.13
   checksum: 762e6b0ce00e26db993de0e399cf2e72cbca72f7ddbb8145ca080cdb68370472cf97429618c75591b0e9001324a1d45939df8ab45bb5f52d24905b2f40f7db53
-  languageName: node
-  linkType: hard
-
-"@horizon-msft/web-components@npm:0.0.36":
-  version: 0.0.36
-  resolution: "@horizon-msft/web-components@npm:0.0.36"
-  dependencies:
-    "@floating-ui/dom": ^1.5.3
-    "@fluentui/tokens": 1.0.0-alpha.9
-    "@microsoft/fast-element": ^2.0.0-beta.23
-    "@microsoft/fast-foundation": ^3.0.0-alpha.31
-    tabbable: ^6.2.0
-  checksum: 9b85e4420264ccb321a8173d156a65eaae77296308d94b1bce183f06490f56faa5192405150ce086a25beb339effc2f63a690e046a5f12971dc0335c9a458ce0
   languageName: node
   linkType: hard
 
@@ -1815,6 +1816,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fabric-web-components-test-project@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "fabric-web-components-test-project@workspace:."
+  dependencies:
+    "@fabric-msft/copilot-web": /Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-copilot-web-components/packs/copilot-web-components-0.1.0-beta.tgz
+    "@horizon-msft/theme": "file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/theme/packs/theme-0.0.14-test.0.tgz"
+    parcel: ^2.12.0
+  languageName: unknown
+  linkType: soft
+
 "fill-range@npm:^7.0.1":
   version: 7.0.1
   resolution: "fill-range@npm:7.0.1"
@@ -1903,16 +1914,6 @@ __metadata:
   checksum: 261a1357037ead75e338156b1f9452c016a37dcd3283a972a30d9e4a87441ba372c8b81f818cd0fbcd9c0354b4ae7e18b9e1afa1971164aef6d18c2b6095a8ad
   languageName: node
   linkType: hard
-
-"horizon-web-components-test-project@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "horizon-web-components-test-project@workspace:."
-  dependencies:
-    "@horizon-msft/copilot-web-components": "file:../fabric-ux/libs/horizon-copilot-web-components/packs/copilot-web-components-0.0.11-beta.1.tgz"
-    "@horizon-msft/theme": "file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/theme/packs/theme-0.0.14-test.0.tgz"
-    parcel: ^2.12.0
-  languageName: unknown
-  linkType: soft
 
 "htmlnano@npm:^2.0.0":
   version: 2.1.0

@@ -1,11 +1,11 @@
 {
-  "name": "horizon-web-components-test-project",
+  "name": "fabric-web-components-test-project",
   "version": "1.0.0",
   "description": "for testing packages from npm registry",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "@horizon-msft/copilot-web-components": "file:../fabric-ux/libs/horizon-copilot-web-components/packs/copilot-web-components-0.0.11-beta.1.tgz",
+    "@fabric-msft/copilot-web": "/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-copilot-web-components/packs/copilot-web-components-0.1.0-beta.tgz",
     "@horizon-msft/theme": "file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/theme/packs/theme-0.0.14-test.0.tgz",
     "parcel": "^2.12.0"
   },

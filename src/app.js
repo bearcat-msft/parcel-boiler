@@ -3,19 +3,8 @@ import {
   TextareaDefinition,
   CitationReferenceDefinition,
   ReferenceDefinition,
-} from "@horizon-msft/copilot-web-components";
+} from "@fabric-msft/copilot-web";
 import { fabricLightTheme, setTheme } from "@horizon-msft/theme";
-
-// function writeCssVariablesToBrowser(callback) {
-//   for (let key in fabricLightTheme) {
-//     document.documentElement.style.setProperty(
-//       `--${key}`,
-//       fabricLightTheme[key]
-//     );
-//   }
-
-//   callback && callback();
-// }
 
 TextareaDefinition.define(customElements);
 CitationDefinition.define(customElements);

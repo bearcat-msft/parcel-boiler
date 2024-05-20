@@ -5,7 +5,8 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "@fabric-msft/copilot-web": "/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-copilot-web-components/packs/copilot-web-components-0.1.0-beta.tgz",
+    "@fabric-msft/copilot-web": "file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-copilot-web-components/packs/copilot-web-components-0.1.0-beta.tgz",
+    "@fabric-msft/fabric-web": "file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/fabric-web-components/packs/fabric-web-components-0.1.1-beta.tgz",
     "@horizon-msft/theme": "file:/Users/michaelbarakat/projects/microsoft/fabric-ux/libs/theme/packs/theme-0.0.14-test.0.tgz",
     "parcel": "^2.12.0"
   },

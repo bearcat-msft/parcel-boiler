@@ -584,21 +584,12 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"bNKaB":[function(require,module,exports) {
-var _copilotWebComponents = require("@horizon-msft/copilot-web-components");
+var _copilotWeb = require("@fabric-msft/copilot-web");
 var _theme = require("@horizon-msft/theme");
-// function writeCssVariablesToBrowser(callback) {
-//   for (let key in fabricLightTheme) {
-//     document.documentElement.style.setProperty(
-//       `--${key}`,
-//       fabricLightTheme[key]
-//     );
-//   }
-//   callback && callback();
-// }
-(0, _copilotWebComponents.TextareaDefinition).define(customElements);
-(0, _copilotWebComponents.CitationDefinition).define(customElements);
-(0, _copilotWebComponents.CitationReferenceDefinition).define(customElements);
-(0, _copilotWebComponents.ReferenceDefinition).define(customElements);
+(0, _copilotWeb.TextareaDefinition).define(customElements);
+(0, _copilotWeb.CitationDefinition).define(customElements);
+(0, _copilotWeb.CitationReferenceDefinition).define(customElements);
+(0, _copilotWeb.ReferenceDefinition).define(customElements);
 const components = /* html */ `
       <div>
         <fabric-textarea></fabric-textarea>
@@ -727,7 +718,1854 @@ function injectComponents() {
 }
 (0, _theme.setTheme)((0, _theme.fabricLightTheme), undefined, injectComponents);
 
-},{"@horizon-msft/copilot-web-components":"fLiyF","@horizon-msft/theme":"cpccV"}],"fLiyF":[function(require,module,exports) {
+},{"@horizon-msft/theme":"cpccV","@fabric-msft/copilot-web":"h0SmZ"}],"cpccV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _theme = require("./theme");
+parcelHelpers.exportAll(_theme, exports);
+
+},{"./theme":"ewXaA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ewXaA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "fabricDarkTheme", ()=>fabricDarkTheme);
+parcelHelpers.export(exports, "fabricLightTheme", ()=>fabricLightTheme);
+parcelHelpers.export(exports, "setTheme", ()=>setTheme);
+parcelHelpers.export(exports, "webDarkTheme", ()=>(0, _tokens.webDarkTheme));
+parcelHelpers.export(exports, "webLightTheme", ()=>(0, _tokens.webLightTheme));
+var _tokens = require("@fluentui/tokens");
+const brandFabric = {
+    10: `#001919`,
+    20: `#012826`,
+    30: `#01322E`,
+    40: `#033F38`,
+    50: `#054D43`,
+    60: `#0A5C50`,
+    70: `#0C695A`,
+    80: `#117865`,
+    90: `#1F937E`,
+    100: `#2AAC94`,
+    110: `#3ABB9F`,
+    120: `#52C7AA`,
+    130: `#78D3B9`,
+    140: `#9EE0CB`,
+    150: `#C0ECDD`,
+    160: `#E3F7Ef`
+};
+const fabricLightTheme = (0, _tokens.createLightTheme)(brandFabric);
+const fabricDarkTheme = (0, _tokens.createDarkTheme)(brandFabric);
+/**
+ * setTheme
+
+ * Set the theme to the root or a specific element. Defaults to setting the theme to the document element.
+ * @param theme: FluentUI theme object
+ * @param target: The target element to set the theme to. Defaults to the document element.
+ * @param callback: A callback function to run after the theme is set. Usefule for running an injector to inject components after theme is loaded.
+ */ function setTheme(theme, target, callback) {
+    let targetElement = null;
+    if (target) {
+        if (target === "root") {
+            const cssVariables = Object.entries(theme).map(([key, value])=>`--${key}: ${value};`).join(" ");
+            const styleElement = document.createElement("style");
+            styleElement.innerHTML = `:root { ${cssVariables} }`;
+            document.head.appendChild(styleElement);
+        } else targetElement = document.querySelector(target);
+    } else targetElement = document.documentElement;
+    if (targetElement) Object.entries(theme).forEach(([key, value])=>{
+        targetElement.style.setProperty(`--${key}`, value);
+    });
+    callback && callback();
+    document.dispatchEvent(new CustomEvent("themeLoaded", {
+        detail: {
+            target: target || document.documentElement
+        },
+        bubbles: true
+    }));
+}
+
+},{"@fluentui/tokens":"jELFr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jELFr":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "teamsDarkTheme", ()=>(0, _index.teamsDarkTheme));
+parcelHelpers.export(exports, "teamsHighContrastTheme", ()=>(0, _index.teamsHighContrastTheme));
+parcelHelpers.export(exports, "teamsLightTheme", ()=>(0, _index.teamsLightTheme));
+parcelHelpers.export(exports, "webDarkTheme", ()=>(0, _index.webDarkTheme));
+parcelHelpers.export(exports, "webLightTheme", ()=>(0, _index.webLightTheme));
+parcelHelpers.export(exports, "createDarkTheme", ()=>(0, _index1.createDarkTheme));
+parcelHelpers.export(exports, "createHighContrastTheme", ()=>(0, _index1.createHighContrastTheme));
+parcelHelpers.export(exports, "createLightTheme", ()=>(0, _index1.createLightTheme));
+parcelHelpers.export(exports, "createTeamsDarkTheme", ()=>(0, _index1.createTeamsDarkTheme));
+parcelHelpers.export(exports, "themeToTokensObject", ()=>(0, _themeToTokensObject.themeToTokensObject));
+parcelHelpers.export(exports, "tokens", ()=>(0, _tokens.tokens));
+parcelHelpers.export(exports, "typographyStyles", ()=>(0, _index2.typographyStyles));
+var _index = require("./themes/index");
+var _index1 = require("./utils/index");
+var _themeToTokensObject = require("./themeToTokensObject");
+var _tokens = require("./tokens");
+var _index2 = require("./global/index");
+
+},{"./themes/index":false,"./utils/index":"lu6Ci","./themeToTokensObject":false,"./tokens":false,"./global/index":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lu6Ci":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _createLightTheme = require("./createLightTheme");
+parcelHelpers.exportAll(_createLightTheme, exports);
+var _createDarkTheme = require("./createDarkTheme");
+parcelHelpers.exportAll(_createDarkTheme, exports);
+var _createTeamsDarkTheme = require("./createTeamsDarkTheme");
+parcelHelpers.exportAll(_createTeamsDarkTheme, exports);
+var _createHighContrastTheme = require("./createHighContrastTheme");
+parcelHelpers.exportAll(_createHighContrastTheme, exports);
+
+},{"./createLightTheme":"e1ubi","./createDarkTheme":"lDEZ7","./createTeamsDarkTheme":false,"./createHighContrastTheme":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e1ubi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "createLightTheme", ()=>createLightTheme);
+var _lightColorPalette = require("../alias/lightColorPalette");
+var _lightColor = require("../alias/lightColor");
+var _index = require("../global/index");
+var _shadows = require("./shadows");
+var _durations = require("../global/durations");
+var _curves = require("../global/curves");
+var _spacings = require("../global/spacings");
+const createLightTheme = (brand)=>{
+    const colorTokens = (0, _lightColor.generateColorTokens)(brand);
+    return {
+        ...(0, _index.borderRadius),
+        ...(0, _index.fontSizes),
+        ...(0, _index.lineHeights),
+        ...(0, _index.fontFamilies),
+        ...(0, _index.fontWeights),
+        ...(0, _index.strokeWidths),
+        ...(0, _spacings.horizontalSpacings),
+        ...(0, _spacings.verticalSpacings),
+        ...(0, _durations.durations),
+        ...(0, _curves.curves),
+        ...colorTokens,
+        ...(0, _lightColorPalette.colorPaletteTokens),
+        ...(0, _lightColorPalette.colorStatusTokens),
+        ...(0, _shadows.createShadowTokens)(colorTokens.colorNeutralShadowAmbient, colorTokens.colorNeutralShadowKey),
+        ...(0, _shadows.createShadowTokens)(colorTokens.colorBrandShadowAmbient, colorTokens.colorBrandShadowKey, "Brand")
+    };
+};
+
+},{"../alias/lightColorPalette":"iU6ZT","../alias/lightColor":"7Vh0j","../global/index":"dc8ul","./shadows":"kLoJO","../global/durations":"haaZB","../global/curves":"9yQtW","../global/spacings":"geTNu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iU6ZT":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "colorPaletteTokens", ()=>colorPaletteTokens);
+parcelHelpers.export(exports, "colorStatusTokens", ()=>colorStatusTokens);
+var _colorPalette = require("../global/colorPalette");
+var _sharedColorNames = require("../sharedColorNames");
+var _statusColorMapping = require("../statusColorMapping");
+const statusColorPaletteTokens = (0, _sharedColorNames.statusSharedColorNames).reduce((acc, sharedColor)=>{
+    const color = sharedColor.slice(0, 1).toUpperCase() + sharedColor.slice(1);
+    const sharedColorTokens = {
+        [`colorPalette${color}Background1`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint60,
+        [`colorPalette${color}Background2`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint40,
+        [`colorPalette${color}Background3`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary,
+        [`colorPalette${color}Foreground1`]: (0, _colorPalette.statusSharedColors)[sharedColor].shade10,
+        [`colorPalette${color}Foreground2`]: (0, _colorPalette.statusSharedColors)[sharedColor].shade30,
+        [`colorPalette${color}Foreground3`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary,
+        [`colorPalette${color}BorderActive`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary,
+        [`colorPalette${color}Border1`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint40,
+        [`colorPalette${color}Border2`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary
+    };
+    return Object.assign(acc, sharedColorTokens);
+}, {});
+// one-off patch for yellow
+statusColorPaletteTokens.colorPaletteYellowForeground1 = (0, _colorPalette.statusSharedColors).yellow.shade30;
+statusColorPaletteTokens.colorPaletteRedForegroundInverted = (0, _colorPalette.statusSharedColors).red.tint20;
+statusColorPaletteTokens.colorPaletteGreenForegroundInverted = (0, _colorPalette.statusSharedColors).green.tint20;
+statusColorPaletteTokens.colorPaletteYellowForegroundInverted = (0, _colorPalette.statusSharedColors).yellow.tint40;
+const personaColorPaletteTokens = (0, _sharedColorNames.personaSharedColorNames).reduce((acc, sharedColor)=>{
+    const color = sharedColor.slice(0, 1).toUpperCase() + sharedColor.slice(1);
+    const sharedColorTokens = {
+        [`colorPalette${color}Background2`]: (0, _colorPalette.personaSharedColors)[sharedColor].tint40,
+        [`colorPalette${color}Foreground2`]: (0, _colorPalette.personaSharedColors)[sharedColor].shade30,
+        [`colorPalette${color}BorderActive`]: (0, _colorPalette.personaSharedColors)[sharedColor].primary
+    };
+    return Object.assign(acc, sharedColorTokens);
+}, {});
+const colorPaletteTokens = {
+    ...statusColorPaletteTokens,
+    ...personaColorPaletteTokens
+};
+const colorStatusTokens = Object.entries((0, _statusColorMapping.statusColorMapping)).reduce((acc, [statusColor, sharedColor])=>{
+    const color = statusColor.slice(0, 1).toUpperCase() + statusColor.slice(1);
+    // TODO: double check the mapping with design
+    const statusColorTokens = {
+        [`colorStatus${color}Background1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint60,
+        [`colorStatus${color}Background2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint40,
+        [`colorStatus${color}Background3`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary,
+        [`colorStatus${color}Foreground1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].shade10,
+        [`colorStatus${color}Foreground2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].shade30,
+        [`colorStatus${color}Foreground3`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary,
+        [`colorStatus${color}ForegroundInverted`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint30,
+        [`colorStatus${color}BorderActive`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary,
+        [`colorStatus${color}Border1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint40,
+        [`colorStatus${color}Border2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary
+    };
+    return Object.assign(acc, statusColorTokens);
+}, {});
+// one-off overrides for colorStatus tokens
+colorStatusTokens.colorStatusWarningForeground1 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).warning].shade20;
+colorStatusTokens.colorStatusWarningForeground3 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).warning].shade20;
+colorStatusTokens.colorStatusWarningBorder2 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).warning].shade20;
+
+},{"../global/colorPalette":"4YIFe","../sharedColorNames":"koxOM","../statusColorMapping":"c4B9M","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4YIFe":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "statusSharedColors", ()=>statusSharedColors);
+parcelHelpers.export(exports, "personaSharedColors", ()=>personaSharedColors);
+parcelHelpers.export(exports, "mappedStatusColors", ()=>mappedStatusColors);
+var _colors = require("./colors");
+const statusSharedColors = {
+    red: (0, _colors.red),
+    green: (0, _colors.green),
+    darkOrange: (0, _colors.darkOrange),
+    yellow: (0, _colors.yellow),
+    berry: (0, _colors.berry),
+    lightGreen: (0, _colors.lightGreen),
+    marigold: (0, _colors.marigold)
+};
+const personaSharedColors = {
+    darkRed: (0, _colors.darkRed),
+    cranberry: (0, _colors.cranberry),
+    pumpkin: (0, _colors.pumpkin),
+    peach: (0, _colors.peach),
+    gold: (0, _colors.gold),
+    brass: (0, _colors.brass),
+    brown: (0, _colors.brown),
+    forest: (0, _colors.forest),
+    seafoam: (0, _colors.seafoam),
+    darkGreen: (0, _colors.darkGreen),
+    lightTeal: (0, _colors.lightTeal),
+    teal: (0, _colors.teal),
+    steel: (0, _colors.steel),
+    blue: (0, _colors.blue),
+    royalBlue: (0, _colors.royalBlue),
+    cornflower: (0, _colors.cornflower),
+    navy: (0, _colors.navy),
+    lavender: (0, _colors.lavender),
+    purple: (0, _colors.purple),
+    grape: (0, _colors.grape),
+    lilac: (0, _colors.lilac),
+    pink: (0, _colors.pink),
+    magenta: (0, _colors.magenta),
+    plum: (0, _colors.plum),
+    beige: (0, _colors.beige),
+    mink: (0, _colors.mink),
+    platinum: (0, _colors.platinum),
+    anchor: (0, _colors.anchor)
+};
+const mappedStatusColors = {
+    cranberry: (0, _colors.cranberry),
+    green: (0, _colors.green),
+    orange: (0, _colors.orange)
+};
+
+},{"./colors":"lVTZS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lVTZS":[function(require,module,exports) {
+/* !!! DO NOT EDIT !!! */ /* This file has been generated by the token pipeline */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "grey", ()=>grey);
+parcelHelpers.export(exports, "whiteAlpha", ()=>whiteAlpha);
+parcelHelpers.export(exports, "blackAlpha", ()=>blackAlpha);
+parcelHelpers.export(exports, "grey10Alpha", ()=>grey10Alpha);
+parcelHelpers.export(exports, "grey12Alpha", ()=>grey12Alpha);
+parcelHelpers.export(exports, "grey14Alpha", ()=>grey14Alpha);
+parcelHelpers.export(exports, "white", ()=>white);
+parcelHelpers.export(exports, "black", ()=>black);
+parcelHelpers.export(exports, "hcHyperlink", ()=>hcHyperlink);
+parcelHelpers.export(exports, "hcHighlight", ()=>hcHighlight);
+parcelHelpers.export(exports, "hcDisabled", ()=>hcDisabled);
+parcelHelpers.export(exports, "hcCanvas", ()=>hcCanvas);
+parcelHelpers.export(exports, "hcCanvasText", ()=>hcCanvasText);
+parcelHelpers.export(exports, "hcHighlightText", ()=>hcHighlightText);
+parcelHelpers.export(exports, "hcButtonText", ()=>hcButtonText);
+parcelHelpers.export(exports, "hcButtonFace", ()=>hcButtonFace);
+parcelHelpers.export(exports, "darkRed", ()=>darkRed);
+parcelHelpers.export(exports, "burgundy", ()=>burgundy);
+parcelHelpers.export(exports, "cranberry", ()=>cranberry);
+parcelHelpers.export(exports, "red", ()=>red);
+parcelHelpers.export(exports, "darkOrange", ()=>darkOrange);
+parcelHelpers.export(exports, "bronze", ()=>bronze);
+parcelHelpers.export(exports, "pumpkin", ()=>pumpkin);
+parcelHelpers.export(exports, "orange", ()=>orange);
+parcelHelpers.export(exports, "peach", ()=>peach);
+parcelHelpers.export(exports, "marigold", ()=>marigold);
+parcelHelpers.export(exports, "yellow", ()=>yellow);
+parcelHelpers.export(exports, "gold", ()=>gold);
+parcelHelpers.export(exports, "brass", ()=>brass);
+parcelHelpers.export(exports, "brown", ()=>brown);
+parcelHelpers.export(exports, "darkBrown", ()=>darkBrown);
+parcelHelpers.export(exports, "lime", ()=>lime);
+parcelHelpers.export(exports, "forest", ()=>forest);
+parcelHelpers.export(exports, "seafoam", ()=>seafoam);
+parcelHelpers.export(exports, "lightGreen", ()=>lightGreen);
+parcelHelpers.export(exports, "green", ()=>green);
+parcelHelpers.export(exports, "darkGreen", ()=>darkGreen);
+parcelHelpers.export(exports, "lightTeal", ()=>lightTeal);
+parcelHelpers.export(exports, "teal", ()=>teal);
+parcelHelpers.export(exports, "darkTeal", ()=>darkTeal);
+parcelHelpers.export(exports, "cyan", ()=>cyan);
+parcelHelpers.export(exports, "steel", ()=>steel);
+parcelHelpers.export(exports, "lightBlue", ()=>lightBlue);
+parcelHelpers.export(exports, "blue", ()=>blue);
+parcelHelpers.export(exports, "royalBlue", ()=>royalBlue);
+parcelHelpers.export(exports, "darkBlue", ()=>darkBlue);
+parcelHelpers.export(exports, "cornflower", ()=>cornflower);
+parcelHelpers.export(exports, "navy", ()=>navy);
+parcelHelpers.export(exports, "lavender", ()=>lavender);
+parcelHelpers.export(exports, "purple", ()=>purple);
+parcelHelpers.export(exports, "darkPurple", ()=>darkPurple);
+parcelHelpers.export(exports, "orchid", ()=>orchid);
+parcelHelpers.export(exports, "grape", ()=>grape);
+parcelHelpers.export(exports, "berry", ()=>berry);
+parcelHelpers.export(exports, "lilac", ()=>lilac);
+parcelHelpers.export(exports, "pink", ()=>pink);
+parcelHelpers.export(exports, "hotPink", ()=>hotPink);
+parcelHelpers.export(exports, "magenta", ()=>magenta);
+parcelHelpers.export(exports, "plum", ()=>plum);
+parcelHelpers.export(exports, "beige", ()=>beige);
+parcelHelpers.export(exports, "mink", ()=>mink);
+parcelHelpers.export(exports, "silver", ()=>silver);
+parcelHelpers.export(exports, "platinum", ()=>platinum);
+parcelHelpers.export(exports, "anchor", ()=>anchor);
+parcelHelpers.export(exports, "charcoal", ()=>charcoal);
+const grey = {
+    "2": "#050505",
+    "4": "#0a0a0a",
+    "6": "#0f0f0f",
+    "8": "#141414",
+    "10": "#1a1a1a",
+    "12": "#1f1f1f",
+    "14": "#242424",
+    "16": "#292929",
+    "18": "#2e2e2e",
+    "20": "#333333",
+    "22": "#383838",
+    "24": "#3d3d3d",
+    "26": "#424242",
+    "28": "#474747",
+    "30": "#4d4d4d",
+    "32": "#525252",
+    "34": "#575757",
+    "36": "#5c5c5c",
+    "38": "#616161",
+    "40": "#666666",
+    "42": "#6b6b6b",
+    "44": "#707070",
+    "46": "#757575",
+    "48": "#7a7a7a",
+    "50": "#808080",
+    "52": "#858585",
+    "54": "#8a8a8a",
+    "56": "#8f8f8f",
+    "58": "#949494",
+    "60": "#999999",
+    "62": "#9e9e9e",
+    "64": "#a3a3a3",
+    "66": "#a8a8a8",
+    "68": "#adadad",
+    "70": "#b3b3b3",
+    "72": "#b8b8b8",
+    "74": "#bdbdbd",
+    "76": "#c2c2c2",
+    "78": "#c7c7c7",
+    "80": "#cccccc",
+    "82": "#d1d1d1",
+    "84": "#d6d6d6",
+    "86": "#dbdbdb",
+    "88": "#e0e0e0",
+    "90": "#e6e6e6",
+    "92": "#ebebeb",
+    "94": "#f0f0f0",
+    "96": "#f5f5f5",
+    "98": "#fafafa"
+};
+const whiteAlpha = {
+    "5": "rgba(255, 255, 255, 0.05)",
+    "10": "rgba(255, 255, 255, 0.1)",
+    "20": "rgba(255, 255, 255, 0.2)",
+    "30": "rgba(255, 255, 255, 0.3)",
+    "40": "rgba(255, 255, 255, 0.4)",
+    "50": "rgba(255, 255, 255, 0.5)",
+    "60": "rgba(255, 255, 255, 0.6)",
+    "70": "rgba(255, 255, 255, 0.7)",
+    "80": "rgba(255, 255, 255, 0.8)",
+    "90": "rgba(255, 255, 255, 0.9)"
+};
+const blackAlpha = {
+    "5": "rgba(0, 0, 0, 0.05)",
+    "10": "rgba(0, 0, 0, 0.1)",
+    "20": "rgba(0, 0, 0, 0.2)",
+    "30": "rgba(0, 0, 0, 0.3)",
+    "40": "rgba(0, 0, 0, 0.4)",
+    "50": "rgba(0, 0, 0, 0.5)",
+    "60": "rgba(0, 0, 0, 0.6)",
+    "70": "rgba(0, 0, 0, 0.7)",
+    "80": "rgba(0, 0, 0, 0.8)",
+    "90": "rgba(0, 0, 0, 0.9)"
+};
+const grey10Alpha = {
+    "5": "rgba(26, 26, 26, 0.05)",
+    "10": "rgba(26, 26, 26, 0.1)",
+    "20": "rgba(26, 26, 26, 0.2)",
+    "30": "rgba(26, 26, 26, 0.3)",
+    "40": "rgba(26, 26, 26, 0.4)",
+    "50": "rgba(26, 26, 26, 0.5)",
+    "60": "rgba(26, 26, 26, 0.6)",
+    "70": "rgba(26, 26, 26, 0.7)",
+    "80": "rgba(26, 26, 26, 0.8)",
+    "90": "rgba(26, 26, 26, 0.9)"
+};
+const grey12Alpha = {
+    "5": "rgba(31, 31, 31, 0.05)",
+    "10": "rgba(31, 31, 31, 0.1)",
+    "20": "rgba(31, 31, 31, 0.2)",
+    "30": "rgba(31, 31, 31, 0.3)",
+    "40": "rgba(31, 31, 31, 0.4)",
+    "50": "rgba(31, 31, 31, 0.5)",
+    "60": "rgba(31, 31, 31, 0.6)",
+    "70": "rgba(31, 31, 31, 0.7)",
+    "80": "rgba(31, 31, 31, 0.8)",
+    "90": "rgba(31, 31, 31, 0.9)"
+};
+const grey14Alpha = {
+    "5": "rgba(36, 36, 36, 0.05)",
+    "10": "rgba(36, 36, 36, 0.1)",
+    "20": "rgba(36, 36, 36, 0.2)",
+    "30": "rgba(36, 36, 36, 0.3)",
+    "40": "rgba(36, 36, 36, 0.4)",
+    "50": "rgba(36, 36, 36, 0.5)",
+    "60": "rgba(36, 36, 36, 0.6)",
+    "70": "rgba(36, 36, 36, 0.7)",
+    "80": "rgba(36, 36, 36, 0.8)",
+    "90": "rgba(36, 36, 36, 0.9)"
+};
+const white = "#ffffff";
+const black = "#000000";
+const hcHyperlink = "#ffff00";
+const hcHighlight = "#1aebff";
+const hcDisabled = "#3ff23f";
+const hcCanvas = "#000000";
+const hcCanvasText = "#ffffff";
+const hcHighlightText = "#000000";
+const hcButtonText = "#000000";
+const hcButtonFace = "#ffffff";
+const darkRed = {
+    shade50: "#130204",
+    shade40: "#230308",
+    shade30: "#420610",
+    shade20: "#590815",
+    shade10: "#690a19",
+    primary: "#750b1c",
+    tint10: "#861b2c",
+    tint20: "#962f3f",
+    tint30: "#ac4f5e",
+    tint40: "#d69ca5",
+    tint50: "#e9c7cd",
+    tint60: "#f9f0f2"
+};
+const burgundy = {
+    shade50: "#1a0607",
+    shade40: "#310b0d",
+    shade30: "#5c1519",
+    shade20: "#7d1d21",
+    shade10: "#942228",
+    primary: "#a4262c",
+    tint10: "#af393e",
+    tint20: "#ba4d52",
+    tint30: "#c86c70",
+    tint40: "#e4afb2",
+    tint50: "#f0d3d4",
+    tint60: "#fbf4f4"
+};
+const cranberry = {
+    shade50: "#200205",
+    shade40: "#3b0509",
+    shade30: "#6e0811",
+    shade20: "#960b18",
+    shade10: "#b10e1c",
+    primary: "#c50f1f",
+    tint10: "#cc2635",
+    tint20: "#d33f4c",
+    tint30: "#dc626d",
+    tint40: "#eeacb2",
+    tint50: "#f6d1d5",
+    tint60: "#fdf3f4"
+};
+const red = {
+    shade50: "#210809",
+    shade40: "#3f1011",
+    shade30: "#751d1f",
+    shade20: "#9f282b",
+    shade10: "#bc2f32",
+    primary: "#d13438",
+    tint10: "#d7494c",
+    tint20: "#dc5e62",
+    tint30: "#e37d80",
+    tint40: "#f1bbbc",
+    tint50: "#f8dadb",
+    tint60: "#fdf6f6"
+};
+const darkOrange = {
+    shade50: "#230900",
+    shade40: "#411200",
+    shade30: "#7a2101",
+    shade20: "#a62d01",
+    shade10: "#c43501",
+    primary: "#da3b01",
+    tint10: "#de501c",
+    tint20: "#e36537",
+    tint30: "#e9835e",
+    tint40: "#f4bfab",
+    tint50: "#f9dcd1",
+    tint60: "#fdf6f3"
+};
+const bronze = {
+    shade50: "#1b0a01",
+    shade40: "#321303",
+    shade30: "#5e2405",
+    shade20: "#7f3107",
+    shade10: "#963a08",
+    primary: "#a74109",
+    tint10: "#b2521e",
+    tint20: "#bc6535",
+    tint30: "#ca8057",
+    tint40: "#e5bba4",
+    tint50: "#f1d9cc",
+    tint60: "#fbf5f2"
+};
+const pumpkin = {
+    shade50: "#200d03",
+    shade40: "#3d1805",
+    shade30: "#712d09",
+    shade20: "#9a3d0c",
+    shade10: "#b6480e",
+    primary: "#ca5010",
+    tint10: "#d06228",
+    tint20: "#d77440",
+    tint30: "#df8e64",
+    tint40: "#efc4ad",
+    tint50: "#f7dfd2",
+    tint60: "#fdf7f4"
+};
+const orange = {
+    shade50: "#271002",
+    shade40: "#4a1e04",
+    shade30: "#8a3707",
+    shade20: "#bc4b09",
+    shade10: "#de590b",
+    primary: "#f7630c",
+    tint10: "#f87528",
+    tint20: "#f98845",
+    tint30: "#faa06b",
+    tint40: "#fdcfb4",
+    tint50: "#fee5d7",
+    tint60: "#fff9f5"
+};
+const peach = {
+    shade50: "#291600",
+    shade40: "#4d2a00",
+    shade30: "#8f4e00",
+    shade20: "#c26a00",
+    shade10: "#e67e00",
+    primary: "#ff8c00",
+    tint10: "#ff9a1f",
+    tint20: "#ffa83d",
+    tint30: "#ffba66",
+    tint40: "#ffddb3",
+    tint50: "#ffedd6",
+    tint60: "#fffaf5"
+};
+const marigold = {
+    shade50: "#251a00",
+    shade40: "#463100",
+    shade30: "#835b00",
+    shade20: "#b27c00",
+    shade10: "#d39300",
+    primary: "#eaa300",
+    tint10: "#edad1c",
+    tint20: "#efb839",
+    tint30: "#f2c661",
+    tint40: "#f9e2ae",
+    tint50: "#fcefd3",
+    tint60: "#fefbf4"
+};
+const yellow = {
+    primary: "#fde300",
+    shade10: "#e4cc00",
+    shade20: "#c0ad00",
+    shade30: "#817400",
+    shade40: "#4c4400",
+    shade50: "#282400",
+    tint10: "#fde61e",
+    tint20: "#fdea3d",
+    tint30: "#feee66",
+    tint40: "#fef7b2",
+    tint50: "#fffad6",
+    tint60: "#fffef5"
+};
+const gold = {
+    shade50: "#1f1900",
+    shade40: "#3a2f00",
+    shade30: "#6c5700",
+    shade20: "#937700",
+    shade10: "#ae8c00",
+    primary: "#c19c00",
+    tint10: "#c8a718",
+    tint20: "#d0b232",
+    tint30: "#dac157",
+    tint40: "#ecdfa5",
+    tint50: "#f5eece",
+    tint60: "#fdfbf2"
+};
+const brass = {
+    shade50: "#181202",
+    shade40: "#2e2103",
+    shade30: "#553e06",
+    shade20: "#745408",
+    shade10: "#89640a",
+    primary: "#986f0b",
+    tint10: "#a47d1e",
+    tint20: "#b18c34",
+    tint30: "#c1a256",
+    tint40: "#e0cea2",
+    tint50: "#efe4cb",
+    tint60: "#fbf8f2"
+};
+const brown = {
+    shade50: "#170e07",
+    shade40: "#2b1a0e",
+    shade30: "#50301a",
+    shade20: "#6c4123",
+    shade10: "#804d29",
+    primary: "#8e562e",
+    tint10: "#9c663f",
+    tint20: "#a97652",
+    tint30: "#bb8f6f",
+    tint40: "#ddc3b0",
+    tint50: "#edded3",
+    tint60: "#faf7f4"
+};
+const darkBrown = {
+    shade50: "#0c0704",
+    shade40: "#170c08",
+    shade30: "#2b1710",
+    shade20: "#3a1f15",
+    shade10: "#452519",
+    primary: "#4d291c",
+    tint10: "#623a2b",
+    tint20: "#784d3e",
+    tint30: "#946b5c",
+    tint40: "#caada3",
+    tint50: "#e3d2cb",
+    tint60: "#f8f3f2"
+};
+const lime = {
+    shade50: "#121b06",
+    shade40: "#23330b",
+    shade30: "#405f14",
+    shade20: "#57811b",
+    shade10: "#689920",
+    primary: "#73aa24",
+    tint10: "#81b437",
+    tint20: "#90be4c",
+    tint30: "#a4cc6c",
+    tint40: "#cfe5af",
+    tint50: "#e5f1d3",
+    tint60: "#f8fcf4"
+};
+const forest = {
+    shade50: "#0c1501",
+    shade40: "#162702",
+    shade30: "#294903",
+    shade20: "#376304",
+    shade10: "#427505",
+    primary: "#498205",
+    tint10: "#599116",
+    tint20: "#6ba02b",
+    tint30: "#85b44c",
+    tint40: "#bdd99b",
+    tint50: "#dbebc7",
+    tint60: "#f6faf0"
+};
+const seafoam = {
+    shade50: "#002111",
+    shade40: "#003d20",
+    shade30: "#00723b",
+    shade20: "#009b51",
+    shade10: "#00b85f",
+    primary: "#00cc6a",
+    tint10: "#19d279",
+    tint20: "#34d889",
+    tint30: "#5ae0a0",
+    tint40: "#a8f0cd",
+    tint50: "#cff7e4",
+    tint60: "#f3fdf8"
+};
+const lightGreen = {
+    shade50: "#031a02",
+    shade40: "#063004",
+    shade30: "#0b5a08",
+    shade20: "#0e7a0b",
+    shade10: "#11910d",
+    primary: "#13a10e",
+    tint10: "#27ac22",
+    tint20: "#3db838",
+    tint30: "#5ec75a",
+    tint40: "#a7e3a5",
+    tint50: "#cef0cd",
+    tint60: "#f2fbf2"
+};
+const green = {
+    shade50: "#031403",
+    shade40: "#052505",
+    shade30: "#094509",
+    shade20: "#0c5e0c",
+    shade10: "#0e700e",
+    primary: "#107c10",
+    tint10: "#218c21",
+    tint20: "#359b35",
+    tint30: "#54b054",
+    tint40: "#9fd89f",
+    tint50: "#c9eac9",
+    tint60: "#f1faf1"
+};
+const darkGreen = {
+    shade50: "#021102",
+    shade40: "#032003",
+    shade30: "#063b06",
+    shade20: "#085108",
+    shade10: "#0a5f0a",
+    primary: "#0b6a0b",
+    tint10: "#1a7c1a",
+    tint20: "#2d8e2d",
+    tint30: "#4da64d",
+    tint40: "#9ad29a",
+    tint50: "#c6e7c6",
+    tint60: "#f0f9f0"
+};
+const lightTeal = {
+    shade50: "#001d1f",
+    shade40: "#00373a",
+    shade30: "#00666d",
+    shade20: "#008b94",
+    shade10: "#00a5af",
+    primary: "#00b7c3",
+    tint10: "#18bfca",
+    tint20: "#32c8d1",
+    tint30: "#58d3db",
+    tint40: "#a6e9ed",
+    tint50: "#cef3f5",
+    tint60: "#f2fcfd"
+};
+const teal = {
+    shade50: "#001516",
+    shade40: "#012728",
+    shade30: "#02494c",
+    shade20: "#026467",
+    shade10: "#037679",
+    primary: "#038387",
+    tint10: "#159195",
+    tint20: "#2aa0a4",
+    tint30: "#4cb4b7",
+    tint40: "#9bd9db",
+    tint50: "#c7ebec",
+    tint60: "#f0fafa"
+};
+const darkTeal = {
+    shade50: "#001010",
+    shade40: "#001f1f",
+    shade30: "#003939",
+    shade20: "#004e4e",
+    shade10: "#005c5c",
+    primary: "#006666",
+    tint10: "#0e7878",
+    tint20: "#218b8b",
+    tint30: "#41a3a3",
+    tint40: "#92d1d1",
+    tint50: "#c2e7e7",
+    tint60: "#eff9f9"
+};
+const cyan = {
+    shade50: "#00181e",
+    shade40: "#002e38",
+    shade30: "#005669",
+    shade20: "#00748f",
+    shade10: "#008aa9",
+    primary: "#0099bc",
+    tint10: "#18a4c4",
+    tint20: "#31afcc",
+    tint30: "#56bfd7",
+    tint40: "#a4deeb",
+    tint50: "#cdedf4",
+    tint60: "#f2fafc"
+};
+const steel = {
+    shade50: "#000f12",
+    shade40: "#001b22",
+    shade30: "#00333f",
+    shade20: "#004555",
+    shade10: "#005265",
+    primary: "#005b70",
+    tint10: "#0f6c81",
+    tint20: "#237d92",
+    tint30: "#4496a9",
+    tint40: "#94c8d4",
+    tint50: "#c3e1e8",
+    tint60: "#eff7f9"
+};
+const lightBlue = {
+    shade50: "#091823",
+    shade40: "#112d42",
+    shade30: "#20547c",
+    shade20: "#2c72a8",
+    shade10: "#3487c7",
+    primary: "#3a96dd",
+    tint10: "#4fa1e1",
+    tint20: "#65ade5",
+    tint30: "#83bdeb",
+    tint40: "#bfddf5",
+    tint50: "#dcedfa",
+    tint60: "#f6fafe"
+};
+const blue = {
+    shade50: "#001322",
+    shade40: "#002440",
+    shade30: "#004377",
+    shade20: "#005ba1",
+    shade10: "#006cbf",
+    primary: "#0078d4",
+    tint10: "#1a86d9",
+    tint20: "#3595de",
+    tint30: "#5caae5",
+    tint40: "#a9d3f2",
+    tint50: "#d0e7f8",
+    tint60: "#f3f9fd"
+};
+const royalBlue = {
+    shade50: "#000c16",
+    shade40: "#00172a",
+    shade30: "#002c4e",
+    shade20: "#003b6a",
+    shade10: "#00467e",
+    primary: "#004e8c",
+    tint10: "#125e9a",
+    tint20: "#286fa8",
+    tint30: "#4a89ba",
+    tint40: "#9abfdc",
+    tint50: "#c7dced",
+    tint60: "#f0f6fa"
+};
+const darkBlue = {
+    shade50: "#000910",
+    shade40: "#00111f",
+    shade30: "#002039",
+    shade20: "#002b4e",
+    shade10: "#00335c",
+    primary: "#003966",
+    tint10: "#0e4a78",
+    tint20: "#215c8b",
+    tint30: "#4178a3",
+    tint40: "#92b5d1",
+    tint50: "#c2d6e7",
+    tint60: "#eff4f9"
+};
+const cornflower = {
+    shade50: "#0d1126",
+    shade40: "#182047",
+    shade30: "#2c3c85",
+    shade20: "#3c51b4",
+    shade10: "#4760d5",
+    primary: "#4f6bed",
+    tint10: "#637cef",
+    tint20: "#778df1",
+    tint30: "#93a4f4",
+    tint40: "#c8d1fa",
+    tint50: "#e1e6fc",
+    tint60: "#f7f9fe"
+};
+const navy = {
+    shade50: "#00061d",
+    shade40: "#000c36",
+    shade30: "#001665",
+    shade20: "#001e89",
+    shade10: "#0023a2",
+    primary: "#0027b4",
+    tint10: "#173bbd",
+    tint20: "#3050c6",
+    tint30: "#546fd2",
+    tint40: "#a3b2e8",
+    tint50: "#ccd5f3",
+    tint60: "#f2f4fc"
+};
+const lavender = {
+    shade50: "#120f25",
+    shade40: "#221d46",
+    shade30: "#3f3682",
+    shade20: "#5649b0",
+    shade10: "#6656d1",
+    primary: "#7160e8",
+    tint10: "#8172eb",
+    tint20: "#9184ee",
+    tint30: "#a79cf1",
+    tint40: "#d2ccf8",
+    tint50: "#e7e4fb",
+    tint60: "#f9f8fe"
+};
+const purple = {
+    shade50: "#0f0717",
+    shade40: "#1c0e2b",
+    shade30: "#341a51",
+    shade20: "#46236e",
+    shade10: "#532982",
+    primary: "#5c2e91",
+    tint10: "#6b3f9e",
+    tint20: "#7c52ab",
+    tint30: "#9470bd",
+    tint40: "#c6b1de",
+    tint50: "#e0d3ed",
+    tint60: "#f7f4fb"
+};
+const darkPurple = {
+    shade50: "#0a0411",
+    shade40: "#130820",
+    shade30: "#240f3c",
+    shade20: "#311552",
+    shade10: "#3a1861",
+    primary: "#401b6c",
+    tint10: "#512b7e",
+    tint20: "#633e8f",
+    tint30: "#7e5ca7",
+    tint40: "#b9a3d3",
+    tint50: "#d8cce7",
+    tint60: "#f5f2f9"
+};
+const orchid = {
+    shade50: "#16101d",
+    shade40: "#281e37",
+    shade30: "#4c3867",
+    shade20: "#674c8c",
+    shade10: "#795aa6",
+    primary: "#8764b8",
+    tint10: "#9373c0",
+    tint20: "#a083c9",
+    tint30: "#b29ad4",
+    tint40: "#d7caea",
+    tint50: "#e9e2f4",
+    tint60: "#f9f8fc"
+};
+const grape = {
+    shade50: "#160418",
+    shade40: "#29072e",
+    shade30: "#4c0d55",
+    shade20: "#671174",
+    shade10: "#7a1589",
+    primary: "#881798",
+    tint10: "#952aa4",
+    tint20: "#a33fb1",
+    tint30: "#b55fc1",
+    tint40: "#d9a7e0",
+    tint50: "#eaceef",
+    tint60: "#faf2fb"
+};
+const berry = {
+    shade50: "#1f091d",
+    shade40: "#3a1136",
+    shade30: "#6d2064",
+    shade20: "#932b88",
+    shade10: "#af33a1",
+    primary: "#c239b3",
+    tint10: "#c94cbc",
+    tint20: "#d161c4",
+    tint30: "#da7ed0",
+    tint40: "#edbbe7",
+    tint50: "#f5daf2",
+    tint60: "#fdf5fc"
+};
+const lilac = {
+    shade50: "#1c0b1f",
+    shade40: "#35153a",
+    shade30: "#63276d",
+    shade20: "#863593",
+    shade10: "#9f3faf",
+    primary: "#b146c2",
+    tint10: "#ba58c9",
+    tint20: "#c36bd1",
+    tint30: "#cf87da",
+    tint40: "#e6bfed",
+    tint50: "#f2dcf5",
+    tint60: "#fcf6fd"
+};
+const pink = {
+    shade50: "#24091b",
+    shade40: "#441232",
+    shade30: "#80215d",
+    shade20: "#ad2d7e",
+    shade10: "#cd3595",
+    primary: "#e43ba6",
+    tint10: "#e750b0",
+    tint20: "#ea66ba",
+    tint30: "#ef85c8",
+    tint40: "#f7c0e3",
+    tint50: "#fbddf0",
+    tint60: "#fef6fb"
+};
+const hotPink = {
+    shade50: "#240016",
+    shade40: "#44002a",
+    shade30: "#7f004e",
+    shade20: "#ad006a",
+    shade10: "#cc007e",
+    primary: "#e3008c",
+    tint10: "#e61c99",
+    tint20: "#ea38a6",
+    tint30: "#ee5fb7",
+    tint40: "#f7adda",
+    tint50: "#fbd2eb",
+    tint60: "#fef4fa"
+};
+const magenta = {
+    shade50: "#1f0013",
+    shade40: "#390024",
+    shade30: "#6b0043",
+    shade20: "#91005a",
+    shade10: "#ac006b",
+    primary: "#bf0077",
+    tint10: "#c71885",
+    tint20: "#ce3293",
+    tint30: "#d957a8",
+    tint40: "#eca5d1",
+    tint50: "#f5cee6",
+    tint60: "#fcf2f9"
+};
+const plum = {
+    shade50: "#13000c",
+    shade40: "#240017",
+    shade30: "#43002b",
+    shade20: "#5a003b",
+    shade10: "#6b0045",
+    primary: "#77004d",
+    tint10: "#87105d",
+    tint20: "#98246f",
+    tint30: "#ad4589",
+    tint40: "#d696c0",
+    tint50: "#e9c4dc",
+    tint60: "#faf0f6"
+};
+const beige = {
+    shade50: "#141313",
+    shade40: "#252323",
+    shade30: "#444241",
+    shade20: "#5d5958",
+    shade10: "#6e6968",
+    primary: "#7a7574",
+    tint10: "#8a8584",
+    tint20: "#9a9594",
+    tint30: "#afabaa",
+    tint40: "#d7d4d4",
+    tint50: "#eae8e8",
+    tint60: "#faf9f9"
+};
+const mink = {
+    shade50: "#0f0e0e",
+    shade40: "#1c1b1a",
+    shade30: "#343231",
+    shade20: "#474443",
+    shade10: "#54514f",
+    primary: "#5d5a58",
+    tint10: "#706d6b",
+    tint20: "#84817e",
+    tint30: "#9e9b99",
+    tint40: "#cecccb",
+    tint50: "#e5e4e3",
+    tint60: "#f8f8f8"
+};
+const silver = {
+    shade50: "#151818",
+    shade40: "#282d2e",
+    shade30: "#4a5356",
+    shade20: "#657174",
+    shade10: "#78868a",
+    primary: "#859599",
+    tint10: "#92a1a5",
+    tint20: "#a0aeb1",
+    tint30: "#b3bfc2",
+    tint40: "#d8dfe0",
+    tint50: "#eaeeef",
+    tint60: "#fafbfb"
+};
+const platinum = {
+    shade50: "#111314",
+    shade40: "#1f2426",
+    shade30: "#3b4447",
+    shade20: "#505c60",
+    shade10: "#5f6d71",
+    primary: "#69797e",
+    tint10: "#79898d",
+    tint20: "#89989d",
+    tint30: "#a0adb2",
+    tint40: "#cdd6d8",
+    tint50: "#e4e9ea",
+    tint60: "#f8f9fa"
+};
+const anchor = {
+    shade50: "#090a0b",
+    shade40: "#111315",
+    shade30: "#202427",
+    shade20: "#2b3135",
+    shade10: "#333a3f",
+    primary: "#394146",
+    tint10: "#4d565c",
+    tint20: "#626c72",
+    tint30: "#808a90",
+    tint40: "#bcc3c7",
+    tint50: "#dbdfe1",
+    tint60: "#f6f7f8"
+};
+const charcoal = {
+    shade50: "#090909",
+    shade40: "#111111",
+    shade30: "#202020",
+    shade20: "#2b2b2b",
+    shade10: "#333333",
+    primary: "#393939",
+    tint10: "#515151",
+    tint20: "#686868",
+    tint30: "#888888",
+    tint40: "#c4c4c4",
+    tint50: "#dfdfdf",
+    tint60: "#f7f7f7"
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"koxOM":[function(require,module,exports) {
+/* Names of colors used in shared color palette alias tokens for status. */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "statusSharedColorNames", ()=>statusSharedColorNames);
+parcelHelpers.export(exports, "personaSharedColorNames", ()=>personaSharedColorNames);
+parcelHelpers.export(exports, "mappedStatusColorNames", ()=>mappedStatusColorNames);
+parcelHelpers.export(exports, "unusedSharedColorNames", ()=>unusedSharedColorNames);
+const statusSharedColorNames = [
+    "red",
+    "green",
+    "darkOrange",
+    "yellow",
+    "berry",
+    "lightGreen",
+    "marigold"
+];
+const personaSharedColorNames = [
+    "darkRed",
+    "cranberry",
+    "pumpkin",
+    "peach",
+    "gold",
+    "brass",
+    "brown",
+    "forest",
+    "seafoam",
+    "darkGreen",
+    "lightTeal",
+    "teal",
+    "steel",
+    "blue",
+    "royalBlue",
+    "cornflower",
+    "navy",
+    "lavender",
+    "purple",
+    "grape",
+    "lilac",
+    "pink",
+    "magenta",
+    "plum",
+    "beige",
+    "mink",
+    "platinum",
+    "anchor"
+];
+const mappedStatusColorNames = [
+    "cranberry",
+    "green",
+    "orange"
+];
+const unusedSharedColorNames = [
+    "burgundy",
+    "bronze",
+    "orange",
+    "darkBrown",
+    "lime",
+    "darkTeal",
+    "cyan",
+    "lightBlue",
+    "darkBlue",
+    "darkPurple",
+    "orchid",
+    "hotPink",
+    "silver",
+    "charcoal"
+];
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c4B9M":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "statusColorMapping", ()=>statusColorMapping);
+const statusColorMapping = {
+    success: "green",
+    warning: "orange",
+    danger: "cranberry"
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7Vh0j":[function(require,module,exports) {
+/* !!! DO NOT EDIT !!! */ /* This file has been generated by the token pipeline */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "generateColorTokens", ()=>generateColorTokens);
+var _colors = require("../global/colors");
+const generateColorTokens = (brand)=>({
+        colorNeutralForeground1: (0, _colors.grey)[14],
+        colorNeutralForeground1Hover: (0, _colors.grey)[14],
+        colorNeutralForeground1Pressed: (0, _colors.grey)[14],
+        colorNeutralForeground1Selected: (0, _colors.grey)[14],
+        colorNeutralForeground2: (0, _colors.grey)[26],
+        colorNeutralForeground2Hover: (0, _colors.grey)[14],
+        colorNeutralForeground2Pressed: (0, _colors.grey)[14],
+        colorNeutralForeground2Selected: (0, _colors.grey)[14],
+        colorNeutralForeground2BrandHover: brand[80],
+        colorNeutralForeground2BrandPressed: brand[70],
+        colorNeutralForeground2BrandSelected: brand[80],
+        colorNeutralForeground3: (0, _colors.grey)[38],
+        colorNeutralForeground3Hover: (0, _colors.grey)[26],
+        colorNeutralForeground3Pressed: (0, _colors.grey)[26],
+        colorNeutralForeground3Selected: (0, _colors.grey)[26],
+        colorNeutralForeground3BrandHover: brand[80],
+        colorNeutralForeground3BrandPressed: brand[70],
+        colorNeutralForeground3BrandSelected: brand[80],
+        colorNeutralForeground4: (0, _colors.grey)[44],
+        colorNeutralForegroundDisabled: (0, _colors.grey)[74],
+        colorNeutralForegroundInvertedDisabled: (0, _colors.whiteAlpha)[40],
+        colorBrandForegroundLink: brand[70],
+        colorBrandForegroundLinkHover: brand[60],
+        colorBrandForegroundLinkPressed: brand[40],
+        colorBrandForegroundLinkSelected: brand[70],
+        colorNeutralForeground2Link: (0, _colors.grey)[26],
+        colorNeutralForeground2LinkHover: (0, _colors.grey)[14],
+        colorNeutralForeground2LinkPressed: (0, _colors.grey)[14],
+        colorNeutralForeground2LinkSelected: (0, _colors.grey)[14],
+        colorCompoundBrandForeground1: brand[80],
+        colorCompoundBrandForeground1Hover: brand[70],
+        colorCompoundBrandForeground1Pressed: brand[60],
+        colorBrandForeground1: brand[80],
+        colorBrandForeground2: brand[70],
+        colorBrandForeground2Hover: brand[60],
+        colorBrandForeground2Pressed: brand[30],
+        colorNeutralForeground1Static: (0, _colors.grey)[14],
+        colorNeutralForegroundStaticInverted: (0, _colors.white),
+        colorNeutralForegroundInverted: (0, _colors.white),
+        colorNeutralForegroundInvertedHover: (0, _colors.white),
+        colorNeutralForegroundInvertedPressed: (0, _colors.white),
+        colorNeutralForegroundInvertedSelected: (0, _colors.white),
+        colorNeutralForegroundInverted2: (0, _colors.white),
+        colorNeutralForegroundOnBrand: (0, _colors.white),
+        colorNeutralForegroundInvertedLink: (0, _colors.white),
+        colorNeutralForegroundInvertedLinkHover: (0, _colors.white),
+        colorNeutralForegroundInvertedLinkPressed: (0, _colors.white),
+        colorNeutralForegroundInvertedLinkSelected: (0, _colors.white),
+        colorBrandForegroundInverted: brand[100],
+        colorBrandForegroundInvertedHover: brand[110],
+        colorBrandForegroundInvertedPressed: brand[100],
+        colorBrandForegroundOnLight: brand[80],
+        colorBrandForegroundOnLightHover: brand[70],
+        colorBrandForegroundOnLightPressed: brand[50],
+        colorBrandForegroundOnLightSelected: brand[60],
+        colorNeutralBackground1: (0, _colors.white),
+        colorNeutralBackground1Hover: (0, _colors.grey)[96],
+        colorNeutralBackground1Pressed: (0, _colors.grey)[88],
+        colorNeutralBackground1Selected: (0, _colors.grey)[92],
+        colorNeutralBackground2: (0, _colors.grey)[98],
+        colorNeutralBackground2Hover: (0, _colors.grey)[94],
+        colorNeutralBackground2Pressed: (0, _colors.grey)[86],
+        colorNeutralBackground2Selected: (0, _colors.grey)[90],
+        colorNeutralBackground3: (0, _colors.grey)[96],
+        colorNeutralBackground3Hover: (0, _colors.grey)[92],
+        colorNeutralBackground3Pressed: (0, _colors.grey)[84],
+        colorNeutralBackground3Selected: (0, _colors.grey)[88],
+        colorNeutralBackground4: (0, _colors.grey)[94],
+        colorNeutralBackground4Hover: (0, _colors.grey)[98],
+        colorNeutralBackground4Pressed: (0, _colors.grey)[96],
+        colorNeutralBackground4Selected: (0, _colors.white),
+        colorNeutralBackground5: (0, _colors.grey)[92],
+        colorNeutralBackground5Hover: (0, _colors.grey)[96],
+        colorNeutralBackground5Pressed: (0, _colors.grey)[94],
+        colorNeutralBackground5Selected: (0, _colors.grey)[98],
+        colorNeutralBackground6: (0, _colors.grey)[90],
+        colorNeutralBackgroundInverted: (0, _colors.grey)[16],
+        colorNeutralBackgroundStatic: (0, _colors.grey)[20],
+        colorNeutralBackgroundAlpha: (0, _colors.whiteAlpha)[50],
+        colorNeutralBackgroundAlpha2: (0, _colors.whiteAlpha)[80],
+        colorSubtleBackground: "transparent",
+        colorSubtleBackgroundHover: (0, _colors.grey)[96],
+        colorSubtleBackgroundPressed: (0, _colors.grey)[88],
+        colorSubtleBackgroundSelected: (0, _colors.grey)[92],
+        colorSubtleBackgroundLightAlphaHover: (0, _colors.whiteAlpha)[70],
+        colorSubtleBackgroundLightAlphaPressed: (0, _colors.whiteAlpha)[50],
+        colorSubtleBackgroundLightAlphaSelected: "transparent",
+        colorSubtleBackgroundInverted: "transparent",
+        colorSubtleBackgroundInvertedHover: (0, _colors.blackAlpha)[10],
+        colorSubtleBackgroundInvertedPressed: (0, _colors.blackAlpha)[30],
+        colorSubtleBackgroundInvertedSelected: (0, _colors.blackAlpha)[20],
+        colorTransparentBackground: "transparent",
+        colorTransparentBackgroundHover: "transparent",
+        colorTransparentBackgroundPressed: "transparent",
+        colorTransparentBackgroundSelected: "transparent",
+        colorNeutralBackgroundDisabled: (0, _colors.grey)[94],
+        colorNeutralBackgroundInvertedDisabled: (0, _colors.whiteAlpha)[10],
+        colorNeutralStencil1: (0, _colors.grey)[90],
+        colorNeutralStencil2: (0, _colors.grey)[98],
+        colorNeutralStencil1Alpha: (0, _colors.blackAlpha)[10],
+        colorNeutralStencil2Alpha: (0, _colors.blackAlpha)[5],
+        colorBackgroundOverlay: (0, _colors.blackAlpha)[40],
+        colorScrollbarOverlay: (0, _colors.blackAlpha)[50],
+        colorBrandBackground: brand[80],
+        colorBrandBackgroundHover: brand[70],
+        colorBrandBackgroundPressed: brand[40],
+        colorBrandBackgroundSelected: brand[60],
+        colorCompoundBrandBackground: brand[80],
+        colorCompoundBrandBackgroundHover: brand[70],
+        colorCompoundBrandBackgroundPressed: brand[60],
+        colorBrandBackgroundStatic: brand[80],
+        colorBrandBackground2: brand[160],
+        colorBrandBackground2Hover: brand[150],
+        colorBrandBackground2Pressed: brand[130],
+        colorBrandBackgroundInverted: (0, _colors.white),
+        colorBrandBackgroundInvertedHover: brand[160],
+        colorBrandBackgroundInvertedPressed: brand[140],
+        colorBrandBackgroundInvertedSelected: brand[150],
+        colorNeutralStrokeAccessible: (0, _colors.grey)[38],
+        colorNeutralStrokeAccessibleHover: (0, _colors.grey)[34],
+        colorNeutralStrokeAccessiblePressed: (0, _colors.grey)[30],
+        colorNeutralStrokeAccessibleSelected: brand[80],
+        colorNeutralStroke1: (0, _colors.grey)[82],
+        colorNeutralStroke1Hover: (0, _colors.grey)[78],
+        colorNeutralStroke1Pressed: (0, _colors.grey)[70],
+        colorNeutralStroke1Selected: (0, _colors.grey)[74],
+        colorNeutralStroke2: (0, _colors.grey)[88],
+        colorNeutralStroke3: (0, _colors.grey)[94],
+        colorNeutralStrokeSubtle: (0, _colors.grey)[88],
+        colorNeutralStrokeOnBrand: (0, _colors.white),
+        colorNeutralStrokeOnBrand2: (0, _colors.white),
+        colorNeutralStrokeOnBrand2Hover: (0, _colors.white),
+        colorNeutralStrokeOnBrand2Pressed: (0, _colors.white),
+        colorNeutralStrokeOnBrand2Selected: (0, _colors.white),
+        colorBrandStroke1: brand[80],
+        colorBrandStroke2: brand[140],
+        colorBrandStroke2Hover: brand[120],
+        colorBrandStroke2Pressed: brand[80],
+        colorBrandStroke2Contrast: brand[140],
+        colorCompoundBrandStroke: brand[80],
+        colorCompoundBrandStrokeHover: brand[70],
+        colorCompoundBrandStrokePressed: brand[60],
+        colorNeutralStrokeDisabled: (0, _colors.grey)[88],
+        colorNeutralStrokeInvertedDisabled: (0, _colors.whiteAlpha)[40],
+        colorTransparentStroke: "transparent",
+        colorTransparentStrokeInteractive: "transparent",
+        colorTransparentStrokeDisabled: "transparent",
+        colorNeutralStrokeAlpha: (0, _colors.blackAlpha)[5],
+        colorNeutralStrokeAlpha2: (0, _colors.whiteAlpha)[20],
+        colorStrokeFocus1: (0, _colors.white),
+        colorStrokeFocus2: (0, _colors.black),
+        colorNeutralShadowAmbient: "rgba(0,0,0,0.12)",
+        colorNeutralShadowKey: "rgba(0,0,0,0.14)",
+        colorNeutralShadowAmbientLighter: "rgba(0,0,0,0.06)",
+        colorNeutralShadowKeyLighter: "rgba(0,0,0,0.07)",
+        colorNeutralShadowAmbientDarker: "rgba(0,0,0,0.20)",
+        colorNeutralShadowKeyDarker: "rgba(0,0,0,0.24)",
+        colorBrandShadowAmbient: "rgba(0,0,0,0.30)",
+        colorBrandShadowKey: "rgba(0,0,0,0.25)"
+    });
+
+},{"../global/colors":"lVTZS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dc8ul":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _borderRadius = require("./borderRadius");
+parcelHelpers.exportAll(_borderRadius, exports);
+var _colors = require("./colors");
+parcelHelpers.exportAll(_colors, exports);
+var _curves = require("./curves");
+parcelHelpers.exportAll(_curves, exports);
+var _durations = require("./durations");
+parcelHelpers.exportAll(_durations, exports);
+var _fonts = require("./fonts");
+parcelHelpers.exportAll(_fonts, exports);
+var _spacings = require("./spacings");
+parcelHelpers.exportAll(_spacings, exports);
+var _strokeWidths = require("./strokeWidths");
+parcelHelpers.exportAll(_strokeWidths, exports);
+parcelHelpers.exportAll(_borderRadius, exports);
+var _typographyStyles = require("./typographyStyles");
+parcelHelpers.exportAll(_typographyStyles, exports);
+
+},{"./borderRadius":"iED6W","./colors":false,"./curves":false,"./durations":false,"./fonts":"4kqeU","./spacings":false,"./strokeWidths":"8gk9M","./typographyStyles":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iED6W":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "borderRadius", ()=>borderRadius);
+const borderRadius = {
+    borderRadiusNone: "0",
+    borderRadiusSmall: "2px",
+    borderRadiusMedium: "4px",
+    borderRadiusLarge: "6px",
+    borderRadiusXLarge: "8px",
+    borderRadiusCircular: "10000px"
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9yQtW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "curves", ()=>curves);
+const curves = {
+    curveAccelerateMax: "cubic-bezier(0.9,0.1,1,0.2)",
+    curveAccelerateMid: "cubic-bezier(1,0,1,1)",
+    curveAccelerateMin: "cubic-bezier(0.8,0,0.78,1)",
+    curveDecelerateMax: "cubic-bezier(0.1,0.9,0.2,1)",
+    curveDecelerateMid: "cubic-bezier(0,0,0,1)",
+    curveDecelerateMin: "cubic-bezier(0.33,0,0.1,1)",
+    curveEasyEaseMax: "cubic-bezier(0.8,0,0.2,1)",
+    curveEasyEase: "cubic-bezier(0.33,0,0.67,1)",
+    curveLinear: "cubic-bezier(0,0,1,1)"
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"haaZB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "durations", ()=>durations);
+const durations = {
+    durationUltraFast: "50ms",
+    durationFaster: "100ms",
+    durationFast: "150ms",
+    durationNormal: "200ms",
+    durationGentle: "250ms",
+    durationSlow: "300ms",
+    durationSlower: "400ms",
+    durationUltraSlow: "500ms"
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4kqeU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "fontSizes", ()=>fontSizes);
+parcelHelpers.export(exports, "lineHeights", ()=>lineHeights);
+parcelHelpers.export(exports, "fontWeights", ()=>fontWeights);
+parcelHelpers.export(exports, "fontFamilies", ()=>fontFamilies);
+const fontSizes = {
+    fontSizeBase100: "10px",
+    fontSizeBase200: "12px",
+    fontSizeBase300: "14px",
+    fontSizeBase400: "16px",
+    fontSizeBase500: "20px",
+    fontSizeBase600: "24px",
+    fontSizeHero700: "28px",
+    fontSizeHero800: "32px",
+    fontSizeHero900: "40px",
+    fontSizeHero1000: "68px"
+};
+const lineHeights = {
+    lineHeightBase100: "14px",
+    lineHeightBase200: "16px",
+    lineHeightBase300: "20px",
+    lineHeightBase400: "22px",
+    lineHeightBase500: "28px",
+    lineHeightBase600: "32px",
+    lineHeightHero700: "36px",
+    lineHeightHero800: "40px",
+    lineHeightHero900: "52px",
+    lineHeightHero1000: "92px"
+};
+const fontWeights = {
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightSemibold: 600,
+    fontWeightBold: 700
+};
+const fontFamilies = {
+    fontFamilyBase: "'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif",
+    fontFamilyMonospace: "Consolas, 'Courier New', Courier, monospace",
+    fontFamilyNumeric: "Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif"
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"geTNu":[function(require,module,exports) {
+// Intentionally not exported! Use horizontalSpacings and verticalSpacings instead.
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "horizontalSpacings", ()=>horizontalSpacings);
+parcelHelpers.export(exports, "verticalSpacings", ()=>verticalSpacings);
+const spacings = {
+    none: "0",
+    xxs: "2px",
+    xs: "4px",
+    sNudge: "6px",
+    s: "8px",
+    mNudge: "10px",
+    m: "12px",
+    l: "16px",
+    xl: "20px",
+    xxl: "24px",
+    xxxl: "32px"
+};
+const horizontalSpacings = {
+    spacingHorizontalNone: spacings.none,
+    spacingHorizontalXXS: spacings.xxs,
+    spacingHorizontalXS: spacings.xs,
+    spacingHorizontalSNudge: spacings.sNudge,
+    spacingHorizontalS: spacings.s,
+    spacingHorizontalMNudge: spacings.mNudge,
+    spacingHorizontalM: spacings.m,
+    spacingHorizontalL: spacings.l,
+    spacingHorizontalXL: spacings.xl,
+    spacingHorizontalXXL: spacings.xxl,
+    spacingHorizontalXXXL: spacings.xxxl
+};
+const verticalSpacings = {
+    spacingVerticalNone: spacings.none,
+    spacingVerticalXXS: spacings.xxs,
+    spacingVerticalXS: spacings.xs,
+    spacingVerticalSNudge: spacings.sNudge,
+    spacingVerticalS: spacings.s,
+    spacingVerticalMNudge: spacings.mNudge,
+    spacingVerticalM: spacings.m,
+    spacingVerticalL: spacings.l,
+    spacingVerticalXL: spacings.xl,
+    spacingVerticalXXL: spacings.xxl,
+    spacingVerticalXXXL: spacings.xxxl
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8gk9M":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "strokeWidths", ()=>strokeWidths);
+const strokeWidths = {
+    strokeWidthThin: "1px",
+    strokeWidthThick: "2px",
+    strokeWidthThicker: "3px",
+    strokeWidthThickest: "4px"
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kLoJO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "createShadowTokens", ()=>createShadowTokens);
+function createShadowTokens(ambientColor, keyColor, tokenSuffix = "") {
+    return {
+        [`shadow2${tokenSuffix}`]: `0 0 2px ${ambientColor}, 0 1px 2px ${keyColor}`,
+        [`shadow4${tokenSuffix}`]: `0 0 2px ${ambientColor}, 0 2px 4px ${keyColor}`,
+        [`shadow8${tokenSuffix}`]: `0 0 2px ${ambientColor}, 0 4px 8px ${keyColor}`,
+        [`shadow16${tokenSuffix}`]: `0 0 2px ${ambientColor}, 0 8px 16px ${keyColor}`,
+        [`shadow28${tokenSuffix}`]: `0 0 8px ${ambientColor}, 0 14px 28px ${keyColor}`,
+        [`shadow64${tokenSuffix}`]: `0 0 8px ${ambientColor}, 0 32px 64px ${keyColor}`
+    };
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lDEZ7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "createDarkTheme", ()=>createDarkTheme);
+var _darkColorPalette = require("../alias/darkColorPalette");
+var _darkColor = require("../alias/darkColor");
+var _index = require("../global/index");
+var _shadows = require("./shadows");
+var _durations = require("../global/durations");
+var _curves = require("../global/curves");
+var _spacings = require("../global/spacings");
+const createDarkTheme = (brand)=>{
+    const colorTokens = (0, _darkColor.generateColorTokens)(brand);
+    return {
+        ...(0, _index.borderRadius),
+        ...(0, _index.fontSizes),
+        ...(0, _index.lineHeights),
+        ...(0, _index.fontFamilies),
+        ...(0, _index.fontWeights),
+        ...(0, _index.strokeWidths),
+        ...(0, _spacings.horizontalSpacings),
+        ...(0, _spacings.verticalSpacings),
+        ...(0, _durations.durations),
+        ...(0, _curves.curves),
+        ...colorTokens,
+        ...(0, _darkColorPalette.colorPaletteTokens),
+        ...(0, _darkColorPalette.colorStatusTokens),
+        ...(0, _shadows.createShadowTokens)(colorTokens.colorNeutralShadowAmbient, colorTokens.colorNeutralShadowKey),
+        ...(0, _shadows.createShadowTokens)(colorTokens.colorBrandShadowAmbient, colorTokens.colorBrandShadowKey, "Brand")
+    };
+};
+
+},{"../alias/darkColorPalette":"eNKuQ","../alias/darkColor":"7JwI6","../global/index":"dc8ul","./shadows":"kLoJO","../global/durations":"haaZB","../global/curves":"9yQtW","../global/spacings":"geTNu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eNKuQ":[function(require,module,exports) {
+/* color palette used in both darkTheme and teamsDarkTheme */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "colorPaletteTokens", ()=>colorPaletteTokens);
+parcelHelpers.export(exports, "colorStatusTokens", ()=>colorStatusTokens);
+var _colorPalette = require("../global/colorPalette");
+var _sharedColorNames = require("../sharedColorNames");
+var _statusColorMapping = require("../statusColorMapping");
+const statusColorPaletteTokens = (0, _sharedColorNames.statusSharedColorNames).reduce((acc, sharedColor)=>{
+    const color = sharedColor.slice(0, 1).toUpperCase() + sharedColor.slice(1);
+    const sharedColorTokens = {
+        [`colorPalette${color}Background1`]: (0, _colorPalette.statusSharedColors)[sharedColor].shade40,
+        [`colorPalette${color}Background2`]: (0, _colorPalette.statusSharedColors)[sharedColor].shade30,
+        [`colorPalette${color}Background3`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary,
+        [`colorPalette${color}Foreground1`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint30,
+        [`colorPalette${color}Foreground2`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint40,
+        [`colorPalette${color}Foreground3`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint20,
+        [`colorPalette${color}BorderActive`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint30,
+        [`colorPalette${color}Border1`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary,
+        [`colorPalette${color}Border2`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint20
+    };
+    return Object.assign(acc, sharedColorTokens);
+}, {});
+// one-off patches
+statusColorPaletteTokens.colorPaletteRedForeground3 = (0, _colorPalette.statusSharedColors).red.tint30;
+statusColorPaletteTokens.colorPaletteRedBorder2 = (0, _colorPalette.statusSharedColors).red.tint30;
+statusColorPaletteTokens.colorPaletteGreenForeground3 = (0, _colorPalette.statusSharedColors).green.tint40;
+statusColorPaletteTokens.colorPaletteGreenBorder2 = (0, _colorPalette.statusSharedColors).green.tint40;
+statusColorPaletteTokens.colorPaletteDarkOrangeForeground3 = (0, _colorPalette.statusSharedColors).darkOrange.tint30;
+statusColorPaletteTokens.colorPaletteDarkOrangeBorder2 = (0, _colorPalette.statusSharedColors).darkOrange.tint30;
+statusColorPaletteTokens.colorPaletteRedForegroundInverted = (0, _colorPalette.statusSharedColors).red.primary;
+statusColorPaletteTokens.colorPaletteGreenForegroundInverted = (0, _colorPalette.statusSharedColors).green.primary;
+statusColorPaletteTokens.colorPaletteYellowForegroundInverted = (0, _colorPalette.statusSharedColors).yellow.shade30;
+const personaColorPaletteTokens = (0, _sharedColorNames.personaSharedColorNames).reduce((acc, sharedColor)=>{
+    const color = sharedColor.slice(0, 1).toUpperCase() + sharedColor.slice(1);
+    const sharedColorTokens = {
+        [`colorPalette${color}Background2`]: (0, _colorPalette.personaSharedColors)[sharedColor].shade30,
+        [`colorPalette${color}Foreground2`]: (0, _colorPalette.personaSharedColors)[sharedColor].tint40,
+        [`colorPalette${color}BorderActive`]: (0, _colorPalette.personaSharedColors)[sharedColor].tint30
+    };
+    return Object.assign(acc, sharedColorTokens);
+}, {});
+// one-off patches
+personaColorPaletteTokens.colorPaletteDarkRedBackground2 = (0, _colorPalette.personaSharedColors).darkRed.shade20;
+personaColorPaletteTokens.colorPalettePlumBackground2 = (0, _colorPalette.personaSharedColors).plum.shade20;
+const colorPaletteTokens = {
+    ...statusColorPaletteTokens,
+    ...personaColorPaletteTokens
+};
+const colorStatusTokens = Object.entries((0, _statusColorMapping.statusColorMapping)).reduce((acc, [statusColor, sharedColor])=>{
+    const color = statusColor.slice(0, 1).toUpperCase() + statusColor.slice(1);
+    // TODO: double check the mapping with design - see the one-off patches above
+    const statusColorTokens = {
+        [`colorStatus${color}Background1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].shade40,
+        [`colorStatus${color}Background2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].shade30,
+        [`colorStatus${color}Background3`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary,
+        [`colorStatus${color}Foreground1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint30,
+        [`colorStatus${color}Foreground2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint40,
+        [`colorStatus${color}Foreground3`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint20,
+        [`colorStatus${color}BorderActive`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint30,
+        [`colorStatus${color}ForegroundInverted`]: (0, _colorPalette.mappedStatusColors)[sharedColor].shade10,
+        [`colorStatus${color}Border1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary,
+        [`colorStatus${color}Border2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint20
+    };
+    return Object.assign(acc, statusColorTokens);
+}, {});
+// one-off overrides for colorStatus tokens
+colorStatusTokens.colorStatusDangerForeground3 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).danger].tint30;
+colorStatusTokens.colorStatusDangerBorder2 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).danger].tint30;
+colorStatusTokens.colorStatusSuccessForeground3 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).success].tint40;
+colorStatusTokens.colorStatusSuccessBorder2 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).success].tint40;
+colorStatusTokens.colorStatusWarningForegroundInverted = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).warning].shade20;
+
+},{"../global/colorPalette":"4YIFe","../sharedColorNames":"koxOM","../statusColorMapping":"c4B9M","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7JwI6":[function(require,module,exports) {
+/* !!! DO NOT EDIT !!! */ /* This file has been generated by the token pipeline */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "generateColorTokens", ()=>generateColorTokens);
+var _colors = require("../global/colors");
+const generateColorTokens = (brand)=>({
+        colorNeutralForeground1: (0, _colors.white),
+        colorNeutralForeground1Hover: (0, _colors.white),
+        colorNeutralForeground1Pressed: (0, _colors.white),
+        colorNeutralForeground1Selected: (0, _colors.white),
+        colorNeutralForeground2: (0, _colors.grey)[84],
+        colorNeutralForeground2Hover: (0, _colors.white),
+        colorNeutralForeground2Pressed: (0, _colors.white),
+        colorNeutralForeground2Selected: (0, _colors.white),
+        colorNeutralForeground2BrandHover: brand[100],
+        colorNeutralForeground2BrandPressed: brand[90],
+        colorNeutralForeground2BrandSelected: brand[100],
+        colorNeutralForeground3: (0, _colors.grey)[68],
+        colorNeutralForeground3Hover: (0, _colors.grey)[84],
+        colorNeutralForeground3Pressed: (0, _colors.grey)[84],
+        colorNeutralForeground3Selected: (0, _colors.grey)[84],
+        colorNeutralForeground3BrandHover: brand[100],
+        colorNeutralForeground3BrandPressed: brand[90],
+        colorNeutralForeground3BrandSelected: brand[100],
+        colorNeutralForeground4: (0, _colors.grey)[60],
+        colorNeutralForegroundDisabled: (0, _colors.grey)[36],
+        colorNeutralForegroundInvertedDisabled: (0, _colors.whiteAlpha)[40],
+        colorBrandForegroundLink: brand[100],
+        colorBrandForegroundLinkHover: brand[110],
+        colorBrandForegroundLinkPressed: brand[90],
+        colorBrandForegroundLinkSelected: brand[100],
+        colorNeutralForeground2Link: (0, _colors.grey)[84],
+        colorNeutralForeground2LinkHover: (0, _colors.white),
+        colorNeutralForeground2LinkPressed: (0, _colors.white),
+        colorNeutralForeground2LinkSelected: (0, _colors.white),
+        colorCompoundBrandForeground1: brand[100],
+        colorCompoundBrandForeground1Hover: brand[110],
+        colorCompoundBrandForeground1Pressed: brand[90],
+        colorBrandForeground1: brand[100],
+        colorBrandForeground2: brand[110],
+        colorBrandForeground2Hover: brand[130],
+        colorBrandForeground2Pressed: brand[160],
+        colorNeutralForeground1Static: (0, _colors.grey)[14],
+        colorNeutralForegroundStaticInverted: (0, _colors.white),
+        colorNeutralForegroundInverted: (0, _colors.grey)[14],
+        colorNeutralForegroundInvertedHover: (0, _colors.grey)[14],
+        colorNeutralForegroundInvertedPressed: (0, _colors.grey)[14],
+        colorNeutralForegroundInvertedSelected: (0, _colors.grey)[14],
+        colorNeutralForegroundInverted2: (0, _colors.grey)[14],
+        colorNeutralForegroundOnBrand: (0, _colors.white),
+        colorNeutralForegroundInvertedLink: (0, _colors.white),
+        colorNeutralForegroundInvertedLinkHover: (0, _colors.white),
+        colorNeutralForegroundInvertedLinkPressed: (0, _colors.white),
+        colorNeutralForegroundInvertedLinkSelected: (0, _colors.white),
+        colorBrandForegroundInverted: brand[80],
+        colorBrandForegroundInvertedHover: brand[70],
+        colorBrandForegroundInvertedPressed: brand[60],
+        colorBrandForegroundOnLight: brand[80],
+        colorBrandForegroundOnLightHover: brand[70],
+        colorBrandForegroundOnLightPressed: brand[50],
+        colorBrandForegroundOnLightSelected: brand[60],
+        colorNeutralBackground1: (0, _colors.grey)[16],
+        colorNeutralBackground1Hover: (0, _colors.grey)[24],
+        colorNeutralBackground1Pressed: (0, _colors.grey)[12],
+        colorNeutralBackground1Selected: (0, _colors.grey)[22],
+        colorNeutralBackground2: (0, _colors.grey)[12],
+        colorNeutralBackground2Hover: (0, _colors.grey)[20],
+        colorNeutralBackground2Pressed: (0, _colors.grey)[8],
+        colorNeutralBackground2Selected: (0, _colors.grey)[18],
+        colorNeutralBackground3: (0, _colors.grey)[8],
+        colorNeutralBackground3Hover: (0, _colors.grey)[16],
+        colorNeutralBackground3Pressed: (0, _colors.grey)[4],
+        colorNeutralBackground3Selected: (0, _colors.grey)[14],
+        colorNeutralBackground4: (0, _colors.grey)[4],
+        colorNeutralBackground4Hover: (0, _colors.grey)[12],
+        colorNeutralBackground4Pressed: (0, _colors.black),
+        colorNeutralBackground4Selected: (0, _colors.grey)[10],
+        colorNeutralBackground5: (0, _colors.black),
+        colorNeutralBackground5Hover: (0, _colors.grey)[8],
+        colorNeutralBackground5Pressed: (0, _colors.grey)[2],
+        colorNeutralBackground5Selected: (0, _colors.grey)[6],
+        colorNeutralBackground6: (0, _colors.grey)[20],
+        colorNeutralBackgroundInverted: (0, _colors.white),
+        colorNeutralBackgroundStatic: (0, _colors.grey)[24],
+        colorNeutralBackgroundAlpha: (0, _colors.grey10Alpha)[50],
+        colorNeutralBackgroundAlpha2: (0, _colors.grey12Alpha)[70],
+        colorSubtleBackground: "transparent",
+        colorSubtleBackgroundHover: (0, _colors.grey)[22],
+        colorSubtleBackgroundPressed: (0, _colors.grey)[18],
+        colorSubtleBackgroundSelected: (0, _colors.grey)[20],
+        colorSubtleBackgroundLightAlphaHover: (0, _colors.grey14Alpha)[80],
+        colorSubtleBackgroundLightAlphaPressed: (0, _colors.grey14Alpha)[50],
+        colorSubtleBackgroundLightAlphaSelected: "transparent",
+        colorSubtleBackgroundInverted: "transparent",
+        colorSubtleBackgroundInvertedHover: (0, _colors.blackAlpha)[10],
+        colorSubtleBackgroundInvertedPressed: (0, _colors.blackAlpha)[30],
+        colorSubtleBackgroundInvertedSelected: (0, _colors.blackAlpha)[20],
+        colorTransparentBackground: "transparent",
+        colorTransparentBackgroundHover: "transparent",
+        colorTransparentBackgroundPressed: "transparent",
+        colorTransparentBackgroundSelected: "transparent",
+        colorNeutralBackgroundDisabled: (0, _colors.grey)[8],
+        colorNeutralBackgroundInvertedDisabled: (0, _colors.whiteAlpha)[10],
+        colorNeutralStencil1: (0, _colors.grey)[34],
+        colorNeutralStencil2: (0, _colors.grey)[20],
+        colorNeutralStencil1Alpha: (0, _colors.whiteAlpha)[10],
+        colorNeutralStencil2Alpha: (0, _colors.whiteAlpha)[5],
+        colorBackgroundOverlay: (0, _colors.blackAlpha)[50],
+        colorScrollbarOverlay: (0, _colors.whiteAlpha)[60],
+        colorBrandBackground: brand[70],
+        colorBrandBackgroundHover: brand[80],
+        colorBrandBackgroundPressed: brand[40],
+        colorBrandBackgroundSelected: brand[60],
+        colorCompoundBrandBackground: brand[100],
+        colorCompoundBrandBackgroundHover: brand[110],
+        colorCompoundBrandBackgroundPressed: brand[90],
+        colorBrandBackgroundStatic: brand[80],
+        colorBrandBackground2: brand[20],
+        colorBrandBackground2Hover: brand[40],
+        colorBrandBackground2Pressed: brand[10],
+        colorBrandBackgroundInverted: (0, _colors.white),
+        colorBrandBackgroundInvertedHover: brand[160],
+        colorBrandBackgroundInvertedPressed: brand[140],
+        colorBrandBackgroundInvertedSelected: brand[150],
+        colorNeutralStrokeAccessible: (0, _colors.grey)[68],
+        colorNeutralStrokeAccessibleHover: (0, _colors.grey)[74],
+        colorNeutralStrokeAccessiblePressed: (0, _colors.grey)[70],
+        colorNeutralStrokeAccessibleSelected: brand[100],
+        colorNeutralStroke1: (0, _colors.grey)[40],
+        colorNeutralStroke1Hover: (0, _colors.grey)[46],
+        colorNeutralStroke1Pressed: (0, _colors.grey)[42],
+        colorNeutralStroke1Selected: (0, _colors.grey)[44],
+        colorNeutralStroke2: (0, _colors.grey)[32],
+        colorNeutralStroke3: (0, _colors.grey)[24],
+        colorNeutralStrokeSubtle: (0, _colors.grey)[4],
+        colorNeutralStrokeOnBrand: (0, _colors.grey)[16],
+        colorNeutralStrokeOnBrand2: (0, _colors.white),
+        colorNeutralStrokeOnBrand2Hover: (0, _colors.white),
+        colorNeutralStrokeOnBrand2Pressed: (0, _colors.white),
+        colorNeutralStrokeOnBrand2Selected: (0, _colors.white),
+        colorBrandStroke1: brand[100],
+        colorBrandStroke2: brand[50],
+        colorBrandStroke2Hover: brand[50],
+        colorBrandStroke2Pressed: brand[30],
+        colorBrandStroke2Contrast: brand[50],
+        colorCompoundBrandStroke: brand[100],
+        colorCompoundBrandStrokeHover: brand[110],
+        colorCompoundBrandStrokePressed: brand[90],
+        colorNeutralStrokeDisabled: (0, _colors.grey)[26],
+        colorNeutralStrokeInvertedDisabled: (0, _colors.whiteAlpha)[40],
+        colorTransparentStroke: "transparent",
+        colorTransparentStrokeInteractive: "transparent",
+        colorTransparentStrokeDisabled: "transparent",
+        colorNeutralStrokeAlpha: (0, _colors.whiteAlpha)[10],
+        colorNeutralStrokeAlpha2: (0, _colors.whiteAlpha)[20],
+        colorStrokeFocus1: (0, _colors.black),
+        colorStrokeFocus2: (0, _colors.white),
+        colorNeutralShadowAmbient: "rgba(0,0,0,0.24)",
+        colorNeutralShadowKey: "rgba(0,0,0,0.28)",
+        colorNeutralShadowAmbientLighter: "rgba(0,0,0,0.12)",
+        colorNeutralShadowKeyLighter: "rgba(0,0,0,0.14)",
+        colorNeutralShadowAmbientDarker: "rgba(0,0,0,0.40)",
+        colorNeutralShadowKeyDarker: "rgba(0,0,0,0.48)",
+        colorBrandShadowAmbient: "rgba(0,0,0,0.30)",
+        colorBrandShadowKey: "rgba(0,0,0,0.25)"
+    });
+
+},{"../global/colors":"lVTZS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h0SmZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Citation", ()=>Citation);
@@ -771,7 +2609,7 @@ parcelHelpers.export(exports, "TextareaTemplate", ()=>template);
 var _fastElement = require("@microsoft/fast-element");
 var _webComponents = require("@fluentui/web-components");
 var _fastFoundation = require("@microsoft/fast-foundation");
-var _webComponents1 = require("@horizon-msft/web-components");
+var _fabricWeb = require("@fabric-msft/fabric-web");
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -981,7 +2819,7 @@ const DesignSystem = Object.freeze({
      * ## popoverPlacement
      *
      * Sets the location of the popover when user hovers over citation
-     */ this.popoverPosition = (0, _webComponents1.PositioningShorthand).belowCenter;
+     */ this.popoverPosition = (0, _fabricWeb.PositioningShorthand).belowCenter;
         /**
      * # popoverContent
      *
@@ -993,6 +2831,11 @@ const DesignSystem = Object.freeze({
      * Controls whether the popover is openable/showable
      */ this.hasPopover = false;
         /**
+     * ## repositionMode
+     *
+     * Controls the repositioning behavior of the popover when it is about to overflow the viewport.
+     */ this.repositionMode = (0, _fabricWeb.PopoverRepositionModes).flip;
+        /**
      * # show
      *
      * shows popover when set to true
@@ -1001,12 +2844,16 @@ const DesignSystem = Object.freeze({
         this.popoverReference = undefined;
         this.mouseInPopover = true;
         /**
-     * # handleHoverLeave
+     * ## handleHoverLeave
      *
      * handler for popover hiding
      * @param event
      */ this.handleHoverLeave = ()=>{
-            if (this.hasPopover && !this.mouseInPopover) this.show = false;
+            this.emitMouseLeaveEvent();
+            if (this.hasPopover && !this.mouseInPopover) {
+                this.show = false;
+                this.emitChangeEvent();
+            }
         };
         /**
      * # handlePopoverEnter
@@ -1061,7 +2908,42 @@ const DesignSystem = Object.freeze({
    * @param event
    */ handleHoverEnter() {
         this.mouseInPopover = true;
-        if (this.hasPopover) this.show = true;
+        this.emitMouseEnterEvent();
+        if (this.hasPopover) {
+            this.show = true;
+            this.emitChangeEvent();
+        }
+    }
+    /**
+   * ## emitMouseEnterEvent
+   */ emitMouseEnterEvent() {
+        this.dispatchEvent(new CustomEvent("mouseenter", {
+            detail: {
+                target: this
+            },
+            bubbles: true
+        }));
+    }
+    /**
+   * ## emitMouseLeaveEvent
+   */ emitMouseLeaveEvent() {
+        this.dispatchEvent(new CustomEvent("mouseleave", {
+            detail: {
+                target: this
+            },
+            bubbles: true
+        }));
+    }
+    /**
+   * ## emitChangeEvent
+   */ emitChangeEvent() {
+        this.dispatchEvent(new CustomEvent("change", {
+            detail: {
+                target: this,
+                show: this.show
+            },
+            bubbles: true
+        }));
     }
     /**
    *  # handleKeyboardEvents
@@ -1096,7 +2978,7 @@ const DesignSystem = Object.freeze({
     }
     connectedCallback() {
         super.connectedCallback();
-        (0, _webComponents1.PopoverDefinition).define(DesignSystem.registry);
+        (0, _fabricWeb.PopoverDefinition).define(DesignSystem.registry);
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -1129,6 +3011,11 @@ __decorate([
 ], Citation.prototype, "hasPopover", void 0);
 __decorate([
     (0, _fastElement.attr)({
+        attribute: "reposition-mode"
+    })
+], Citation.prototype, "repositionMode", void 0);
+__decorate([
+    (0, _fastElement.attr)({
         converter: (0, _fastElement.booleanConverter)
     })
 ], Citation.prototype, "show", void 0);
@@ -1148,7 +3035,7 @@ const styles$6 = (0, _fastElement.css)`
  * The template for the Citation component.
  * @public
  */ function CitationTemplate(options = {}) {
-    return (0, _fastElement.html)` ${(0, _fastFoundation.startSlotTemplate)(options)}<div class="base" part="base"><hwc-popover beak clickable="false" open="${(x)=>x.show}" class="popover" position="${(x)=>x.popoverPosition}" repositionMode="flip" anchor="citation-anchor" ${(0, _fastElement.ref)("popoverReference")}><div slot="popover-content" class="popover-content"><slot name="popover" ${(0, _fastElement.slotted)("popoverContent")}></slot></div><a tabindex="0" href="${(x)=>x.href}" target="${(x)=>x.target}" id="citation-anchor" class="citation-number" aria-label="${(x)=>`Citation ${x.index}`}" slot="popover-trigger"><slot name="index" ${(0, _fastElement.slotted)("indexReference")}></slot></a></hwc-popover></div>${(0, _fastFoundation.endSlotTemplate)(options)} `;
+    return (0, _fastElement.html)` ${(0, _fastFoundation.startSlotTemplate)(options)}<div class="base" part="base"><fabric-popover beak clickable="false" open="${(x)=>x.show}" class="popover" position="${(x)=>x.popoverPosition}" reposition-mode="${(x)=>x.repositionMode}" anchor="citation-anchor" ${(0, _fastElement.ref)("popoverReference")}><div slot="popover-content" class="popover-content"><slot name="popover" ${(0, _fastElement.slotted)("popoverContent")}></slot></div><a tabindex="0" href="${(x)=>x.href}" target="${(x)=>x.target}" id="citation-anchor" class="citation-number" aria-label="${(x)=>`Citation ${x.index}`}" slot="popover-trigger"><slot name="index" ${(0, _fastElement.slotted)("indexReference")}></slot></a></fabric-popover></div>${(0, _fastFoundation.endSlotTemplate)(options)} `;
 }
 const template$6 = CitationTemplate();
 /**
@@ -1193,6 +3080,16 @@ const template$6 = CitationTemplate();
      *
      * @type boolean
      */ this.expanded = false;
+    }
+    /**
+   * ## expandedChanged
+   * When the expanded property changes, we need to update the aria-expanded attribute.
+   */ expandedChanged() {
+        this.dispatchEvent(new CustomEvent("change", {
+            detail: {
+                expanded: this.expanded
+            }
+        }));
     }
     connectedCallback() {
         super.connectedCallback();
@@ -1484,6 +3381,17 @@ const ReferenceAttributeNames = {
    */ metadataTextThreeChanged() {
         if (this.metadataTextThree && this.metadataTextThree.length > 0) this.hasMetadataTextThree = true;
         else this.hasMetadataTextThree = false;
+    }
+    /**
+   * ## expandedChanged
+   */ expandedChanged() {
+        this.dispatchEvent(new CustomEvent("change", {
+            detail: {
+                target: this,
+                expanded: this.expanded
+            },
+            bubbles: true
+        }));
     }
     /**
    * ## emitDismissEvent
@@ -1927,7 +3835,10 @@ const TextareaAttributeNames = {
      * @param inputRef to FluentTextField which is actually FASTTextField
      *
      */ this.handleTextareaInput = (inputRef)=>{
-            if (inputRef) this.updateControlUiValues(inputRef.value);
+            if (inputRef) {
+                this.updateControlUiValues(inputRef.value);
+                this.emitChangeEvent();
+            }
         };
         /**
      * ## handleTextareaPaste
@@ -1960,22 +3871,37 @@ const TextareaAttributeNames = {
      *
      * adds event handlers for the DOM textarea in the shadowRoot
      */ this.handleTextareaEvents = ()=>{
-            var _a, _b, _c, _d, _e;
+            var _a, _b, _c, _d, _e, _f, _g, _h;
             this.inputRef = (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.querySelector("textarea");
-            (_b = this.inputRef) === null || _b === void 0 || _b.addEventListener("input", ()=>this.handleTextareaInput(this.inputRef));
-            (_c = this.inputRef) === null || _c === void 0 || _c.addEventListener("paste", (event)=>this.handleTextareaPaste(event, this.inputRef));
-            (_d = this.inputRef) === null || _d === void 0 || _d.addEventListener("keydown", this.handleTextareaKeydown);
-            (_e = this.inputRef) === null || _e === void 0 || _e.addEventListener("keyup", ()=>this.isTextareaKeyPressed = false);
+            (_b = this.inputRef) === null || _b === void 0 || _b.addEventListener("select", ()=>{
+                this.emitSelectEvent();
+            });
+            (_c = this.inputRef) === null || _c === void 0 || _c.addEventListener("focus", ()=>{
+                this.emitFocusEvent();
+            });
+            (_d = this.inputRef) === null || _d === void 0 || _d.addEventListener("blur", ()=>{
+                this.emitBlurEvent();
+            });
+            (_e = this.inputRef) === null || _e === void 0 || _e.addEventListener("input", ()=>this.handleTextareaInput(this.inputRef));
+            (_f = this.inputRef) === null || _f === void 0 || _f.addEventListener("paste", (event)=>this.handleTextareaPaste(event, this.inputRef));
+            (_g = this.inputRef) === null || _g === void 0 || _g.addEventListener("keydown", this.handleTextareaKeydown);
+            (_h = this.inputRef) === null || _h === void 0 || _h.addEventListener("keyup", ()=>this.isTextareaKeyPressed = false);
         };
         /**
      * ## removeTextareaEvents
      */ this.removeTextareaEvents = ()=>{
-            var _a, _b, _c, _d, _e;
+            var _a, _b, _c, _d, _e, _f, _g;
             this.inputRef = (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.querySelector("textarea");
-            (_b = this.inputRef) === null || _b === void 0 || _b.removeEventListener("input", ()=>this.handleTextareaInput(this.inputRef));
-            (_c = this.inputRef) === null || _c === void 0 || _c.removeEventListener("paste", (event)=>this.handleTextareaPaste(event, this.inputRef));
-            (_d = this.inputRef) === null || _d === void 0 || _d.removeEventListener("keydown", this.handleTextareaKeydown);
-            (_e = this.inputRef) === null || _e === void 0 || _e.removeEventListener("keyup", ()=>this.isTextareaKeyPressed = false);
+            (_b = this.inputRef) === null || _b === void 0 || _b.removeEventListener("select", ()=>{
+                this.emitSelectEvent();
+            });
+            (_c = this.inputRef) === null || _c === void 0 || _c.removeEventListener("focus", ()=>{
+                this.emitFocusEvent();
+            });
+            (_d = this.inputRef) === null || _d === void 0 || _d.removeEventListener("input", ()=>this.handleTextareaInput(this.inputRef));
+            (_e = this.inputRef) === null || _e === void 0 || _e.removeEventListener("paste", (event)=>this.handleTextareaPaste(event, this.inputRef));
+            (_f = this.inputRef) === null || _f === void 0 || _f.removeEventListener("keydown", this.handleTextareaKeydown);
+            (_g = this.inputRef) === null || _g === void 0 || _g.removeEventListener("keyup", ()=>this.isTextareaKeyPressed = false);
         };
         /**
      * ## emitSubmitEvent
@@ -1983,6 +3909,57 @@ const TextareaAttributeNames = {
      * Emits a TextareaSubmitEvent
      */ this.emitSubmitEvent = ()=>{
             this.dispatchEvent(new CustomEvent(TextareaSubmitEventName, {
+                detail: {
+                    target: this,
+                    value: this.value || ""
+                },
+                bubbles: true
+            }));
+        };
+        /**
+     * ## emitSelectEvent
+     *
+     * Emits a focus event
+     */ this.emitSelectEvent = ()=>{
+            this.dispatchEvent(new CustomEvent("select", {
+                detail: {
+                    target: this,
+                    value: this.value || ""
+                },
+                bubbles: true
+            }));
+        };
+        /**
+     * ## emitFocusEvent
+     *
+     * Emits a focus event
+     */ this.emitFocusEvent = ()=>{
+            this.dispatchEvent(new CustomEvent("focus", {
+                detail: {
+                    target: this,
+                    value: this.value || ""
+                },
+                bubbles: true
+            }));
+        };
+        /**
+     * ## emitBlurEvent
+     *
+     * Emits a focus event
+     */ this.emitBlurEvent = ()=>{
+            this.dispatchEvent(new CustomEvent("blur", {
+                detail: {
+                    target: this,
+                    value: this.value || ""
+                },
+                bubbles: true
+            }));
+        };
+        /**
+     * ## emitChangeEvent
+     * Emits a change event
+     */ this.emitChangeEvent = ()=>{
+            this.dispatchEvent(new CustomEvent("change", {
                 detail: {
                     target: this,
                     value: this.value || ""
@@ -2192,7 +4169,7 @@ const styles = (0, _fastElement.css)`
     }
 });
 
-},{"@microsoft/fast-element":"j6ee6","@fluentui/web-components":"hZW12","@microsoft/fast-foundation":"cd0ab","@horizon-msft/web-components":"8dVhi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6ee6":[function(require,module,exports) {
+},{"@microsoft/fast-element":"j6ee6","@fluentui/web-components":"hZW12","@microsoft/fast-foundation":"cd0ab","@fabric-msft/fabric-web":"b5wkx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j6ee6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _debugJs = require("./debug.js");
@@ -2262,37 +4239,7 @@ Object.assign(FAST, {
     }
 });
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"db3kA":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"db3kA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "FAST", ()=>(0, _platformJs.FAST));
@@ -10312,5392 +12259,2822 @@ function display(displayValue) {
     return `${hidden}:host{display:${displayValue}}`;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8dVhi":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b5wkx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "CollisionEdge", ()=>Yi);
+parcelHelpers.export(exports, "MultiView", ()=>at);
+parcelHelpers.export(exports, "MultiViewController", ()=>_i);
+parcelHelpers.export(exports, "MultiViewControllerDefinition", ()=>Wi);
+parcelHelpers.export(exports, "MultiViewDefinition", ()=>Hi);
+parcelHelpers.export(exports, "MultiViewGroup", ()=>qi);
+parcelHelpers.export(exports, "MultiViewGroupDefinition", ()=>Xi);
+parcelHelpers.export(exports, "Popover", ()=>os);
+parcelHelpers.export(exports, "PopoverDefinition", ()=>rs);
+parcelHelpers.export(exports, "PopoverEventNames", ()=>es);
+parcelHelpers.export(exports, "PopoverPositions", ()=>Zi);
+parcelHelpers.export(exports, "PopoverRepositionModes", ()=>Ji);
+parcelHelpers.export(exports, "PopoverStyles", ()=>is);
+parcelHelpers.export(exports, "PopoverTemplate", ()=>ss);
+parcelHelpers.export(exports, "PositioningShorthand", ()=>Qi);
+parcelHelpers.export(exports, "Step", ()=>as);
+parcelHelpers.export(exports, "StepDefinition", ()=>ps);
+parcelHelpers.export(exports, "StepState", ()=>ns);
+parcelHelpers.export(exports, "Stepper", ()=>fs);
+parcelHelpers.export(exports, "StepperDefinition", ()=>ms);
+parcelHelpers.export(exports, "SvgIcon", ()=>Ss);
+parcelHelpers.export(exports, "SvgIconDefinition", ()=>Ps);
+parcelHelpers.export(exports, "TeachingBubble", ()=>Es);
+parcelHelpers.export(exports, "TeachingBubbleDefinition", ()=>$s);
+parcelHelpers.export(exports, "TeachingBubblePlacement", ()=>Fs);
+parcelHelpers.export(exports, "TeachingBubbleSize", ()=>Is);
+parcelHelpers.export(exports, "Wizard", ()=>Vs);
+parcelHelpers.export(exports, "WizardDefinition", ()=>zs);
+parcelHelpers.export(exports, "WizardPanel", ()=>Hs);
+parcelHelpers.export(exports, "WizardPanelDefinition", ()=>Gs);
+parcelHelpers.export(exports, "WizardStep", ()=>Ls);
+parcelHelpers.export(exports, "WizardStepDefinition", ()=>Os);
+parcelHelpers.export(exports, "WizardStepState", ()=>ns);
+parcelHelpers.export(exports, "multiViewControllerStyles", ()=>ji);
+parcelHelpers.export(exports, "multiViewControllerTemplate", ()=>Gi);
+parcelHelpers.export(exports, "multiViewGroupStyles", ()=>Ki);
+parcelHelpers.export(exports, "multiViewGroupTemplate", ()=>Ui);
+parcelHelpers.export(exports, "multiViewStyles", ()=>Di);
+parcelHelpers.export(exports, "multiViewTemplate", ()=>zi);
+parcelHelpers.export(exports, "stepStyles", ()=>ls);
+parcelHelpers.export(exports, "stepTemplate", ()=>us);
+parcelHelpers.export(exports, "stepperStyles", ()=>gs);
+parcelHelpers.export(exports, "stepperTemplate", ()=>vs);
+parcelHelpers.export(exports, "styles", ()=>Ms);
+parcelHelpers.export(exports, "svgIconStyles", ()=>Cs);
+parcelHelpers.export(exports, "svgIconTemplate", ()=>Bs);
+parcelHelpers.export(exports, "teachingBubbleStyles", ()=>As);
+parcelHelpers.export(exports, "teachingBubbleTemplate", ()=>Ts);
+parcelHelpers.export(exports, "template", ()=>Ns);
+parcelHelpers.export(exports, "wizardPanelStyles", ()=>_s);
+parcelHelpers.export(exports, "wizardPanelTemplate", ()=>js);
+parcelHelpers.export(exports, "wizardStyles", ()=>Rs);
+parcelHelpers.export(exports, "wizardTemplate", ()=>Ds);
 var global = arguments[3];
-(function(global, factory) {
-    factory(exports);
-})(this, function(exports1) {
-    "use strict";
-    /******************************************************************************
-    Copyright (c) Microsoft Corporation.
-
-    Permission to use, copy, modify, and/or distribute this software for any
-    purpose with or without fee is hereby granted.
-
-    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-    PERFORMANCE OF THIS SOFTWARE.
-    ***************************************************************************** */ /* global Reflect, Promise, SuppressedError, Symbol */ function __decorate(decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
+function e(e, t, o, i) {
+    var s, r = arguments.length, n = r < 3 ? t : null === i ? i = Object.getOwnPropertyDescriptor(t, o) : i;
+    if ("object" == typeof Reflect && "function" == typeof Reflect.decorate) n = Reflect.decorate(e, t, o, i);
+    else for(var a = e.length - 1; a >= 0; a--)(s = e[a]) && (n = (r < 3 ? s(n) : r > 3 ? s(t, o, n) : s(t, o)) || n);
+    return r > 3 && n && Object.defineProperty(t, o, n), n;
+}
+let t;
+"function" == typeof SuppressedError && SuppressedError;
+const o = "fast-kernel";
+try {
+    if (document.currentScript) t = document.currentScript.getAttribute(o);
+    else {
+        const e = document.getElementsByTagName("script");
+        t = e[e.length - 1].getAttribute(o);
     }
-    typeof SuppressedError === "function" && SuppressedError;
-    let kernelMode;
-    const kernelAttr = "fast-kernel";
-    try {
-        if (document.currentScript) kernelMode = document.currentScript.getAttribute(kernelAttr);
-        else {
-            const scripts = document.getElementsByTagName("script");
-            const currentScript = scripts[scripts.length - 1];
-            kernelMode = currentScript.getAttribute(kernelAttr);
-        }
-    } catch (e) {
-        kernelMode = "isolate";
-    }
-    let KernelServiceId;
-    switch(kernelMode){
-        case "share":
-            KernelServiceId = Object.freeze({
-                updateQueue: 1,
-                observable: 2,
-                contextEvent: 3,
-                elementRegistry: 4
-            });
-            break;
-        case "share-v2":
-            KernelServiceId = Object.freeze({
-                updateQueue: 1.2,
-                observable: 2.2,
-                contextEvent: 3.2,
-                elementRegistry: 4.2
-            });
-            break;
-        default:
-            // fully isolate the kernel from all other FAST instances
-            const postfix = `-${Math.random().toString(36).substring(2, 8)}`;
-            KernelServiceId = Object.freeze({
-                updateQueue: `1.2${postfix}`,
-                observable: `2.2${postfix}`,
-                contextEvent: `3.2${postfix}`,
-                elementRegistry: `4.2${postfix}`
-            });
-            break;
-    }
-    /**
-     * Determines whether or not an object is a function.
-     * @public
-     */ const isFunction = (object)=>typeof object === "function";
-    /**
-     * Determines whether or not an object is a string.
-     * @public
-     */ const isString = (object)=>typeof object === "string";
-    /**
-     * A function which does nothing.
-     * @public
-     */ const noop = ()=>void 0;
-    var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
-    /* eslint-disable @typescript-eslint/ban-ts-comment */ (function ensureGlobalThis() {
-        if (typeof globalThis !== "undefined") // We're running in a modern environment.
-        return;
-        // @ts-ignore
-        if (typeof commonjsGlobal !== "undefined") // We're running in NodeJS
-        // @ts-ignore
-        commonjsGlobal.globalThis = commonjsGlobal;
-        else if (typeof self !== "undefined") self.globalThis = self;
-        else if (typeof window !== "undefined") // We're running in the browser's main thread.
-        window.globalThis = window;
-        else {
-            // Hopefully we never get here...
-            // Not all environments allow eval and Function. Use only as a last resort:
-            // eslint-disable-next-line no-new-func
-            const result = new Function("return this")();
-            result.globalThis = result;
-        }
-    })();
-    // ensure FAST global - duplicated debug.ts
-    const propConfig = {
-        configurable: false,
-        enumerable: false,
-        writable: false
-    };
-    if (globalThis.FAST === void 0) Reflect.defineProperty(globalThis, "FAST", Object.assign({
-        value: Object.create(null)
-    }, propConfig));
-    /**
-     * The FAST global.
-     * @public
-     */ const FAST = globalThis.FAST;
-    if (FAST.getById === void 0) {
-        const storage = Object.create(null);
-        Reflect.defineProperty(FAST, "getById", Object.assign({
-            value (id, initialize) {
-                let found = storage[id];
-                if (found === void 0) found = initialize ? storage[id] = initialize() : null;
-                return found;
-            }
-        }, propConfig));
-    }
-    if (FAST.error === void 0) Object.assign(FAST, {
-        warn () {},
-        error (code) {
-            return new Error(`Error ${code}`);
-        },
-        addMessages () {}
-    });
-    /**
-     * A readonly, empty array.
-     * @remarks
-     * Typically returned by APIs that return arrays when there are
-     * no actual items to return.
-     * @public
-     */ const emptyArray = Object.freeze([]);
-    /**
-     * Do not change. Part of shared kernel contract.
-     * @internal
-     */ function createTypeRegistry() {
-        const typeToDefinition = new Map();
-        return Object.freeze({
-            register (definition) {
-                if (typeToDefinition.has(definition.type)) return false;
-                typeToDefinition.set(definition.type, definition);
-                return true;
-            },
-            getByType (key) {
-                return typeToDefinition.get(key);
-            },
-            getForInstance (object) {
-                if (object === null || object === void 0) return void 0;
-                return typeToDefinition.get(object.constructor);
-            }
+} catch (e) {
+    t = "isolate";
+}
+let i;
+switch(t){
+    case "share":
+        i = Object.freeze({
+            updateQueue: 1,
+            observable: 2,
+            contextEvent: 3,
+            elementRegistry: 4
         });
+        break;
+    case "share-v2":
+        i = Object.freeze({
+            updateQueue: 1.2,
+            observable: 2.2,
+            contextEvent: 3.2,
+            elementRegistry: 4.2
+        });
+        break;
+    default:
+        const e1 = `-${Math.random().toString(36).substring(2, 8)}`;
+        i = Object.freeze({
+            updateQueue: `1.2${e1}`,
+            observable: `2.2${e1}`,
+            contextEvent: `3.2${e1}`,
+            elementRegistry: `4.2${e1}`
+        });
+}
+const s = (e)=>"function" == typeof e, r = (e)=>"string" == typeof e, n = ()=>{};
+var a = "undefined" != typeof globalThis ? globalThis : "undefined" != typeof window ? window : "undefined" != typeof global ? global : "undefined" != typeof self ? self : {};
+!function() {
+    if ("undefined" == typeof globalThis) {
+        if (void 0 !== a) a.globalThis = a;
+        else if ("undefined" != typeof self) self.globalThis = self;
+        else if ("undefined" != typeof window) window.globalThis = window;
+        else {
+            const e = new Function("return this")();
+            e.globalThis = e;
+        }
     }
-    /**
-     * Creates a function capable of locating metadata associated with a type.
-     * @returns A metadata locator function.
-     * @internal
-     */ function createMetadataLocator() {
-        const metadataLookup = new WeakMap();
-        return function(target) {
-            let metadata = metadataLookup.get(target);
-            if (metadata === void 0) {
-                let currentTarget = Reflect.getPrototypeOf(target);
-                while(metadata === void 0 && currentTarget !== null){
-                    metadata = metadataLookup.get(currentTarget);
-                    currentTarget = Reflect.getPrototypeOf(currentTarget);
-                }
-                metadata = metadata === void 0 ? [] : metadata.slice(0);
-                metadataLookup.set(target, metadata);
-            }
-            return metadata;
-        };
-    }
-    /**
-     * Makes a type noop for JSON serialization.
-     * @param type - The type to make noop for JSON serialization.
-     * @internal
-     */ function makeSerializationNoop(type) {
-        type.prototype.toJSON = noop;
-    }
-    /**
-     * The type of HTML aspect to target.
-     * @public
-     */ const DOMAspect = Object.freeze({
-        /**
-         * Not aspected.
-         */ none: 0,
-        /**
-         * An attribute.
-         */ attribute: 1,
-        /**
-         * A boolean attribute.
-         */ booleanAttribute: 2,
-        /**
-         * A property.
-         */ property: 3,
-        /**
-         * Content
-         */ content: 4,
-        /**
-         * A token list.
-         */ tokenList: 5,
-        /**
-         * An event.
-         */ event: 6
+}();
+const l = {
+    configurable: !1,
+    enumerable: !1,
+    writable: !1
+};
+void 0 === globalThis.FAST && Reflect.defineProperty(globalThis, "FAST", Object.assign({
+    value: Object.create(null)
+}, l));
+const d = globalThis.FAST;
+if (void 0 === d.getById) {
+    const e = Object.create(null);
+    Reflect.defineProperty(d, "getById", Object.assign({
+        value (t, o) {
+            let i = e[t];
+            return void 0 === i && (i = o ? e[t] = o() : null), i;
+        }
+    }, l));
+}
+void 0 === d.error && Object.assign(d, {
+    warn () {},
+    error: (e)=>new Error(`Error ${e}`),
+    addMessages () {}
+});
+const c = Object.freeze([]);
+function h() {
+    const e = new Map;
+    return Object.freeze({
+        register: (t)=>!e.has(t.type) && (e.set(t.type, t), !0),
+        getByType: (t)=>e.get(t),
+        getForInstance (t) {
+            if (null != t) return e.get(t.constructor);
+        }
     });
-    const createHTML$1 = (html)=>html;
-    const fastTrustedType = globalThis.trustedTypes ? globalThis.trustedTypes.createPolicy("fast-html", {
-        createHTML: createHTML$1
-    }) : {
-        createHTML: createHTML$1
+}
+function u() {
+    const e = new WeakMap;
+    return function(t) {
+        let o = e.get(t);
+        if (void 0 === o) {
+            let i = Reflect.getPrototypeOf(t);
+            for(; void 0 === o && null !== i;)o = e.get(i), i = Reflect.getPrototypeOf(i);
+            o = void 0 === o ? [] : o.slice(0), e.set(t, o);
+        }
+        return o;
     };
-    let defaultPolicy = Object.freeze({
-        createHTML (value) {
-            return fastTrustedType.createHTML(value);
-        },
-        protect (tagName, aspect, aspectName, sink) {
-            return sink;
+}
+function p(e) {
+    e.prototype.toJSON = n;
+}
+const f = Object.freeze({
+    none: 0,
+    attribute: 1,
+    booleanAttribute: 2,
+    property: 3,
+    content: 4,
+    tokenList: 5,
+    event: 6
+}), g = (e)=>e, v = globalThis.trustedTypes ? globalThis.trustedTypes.createPolicy("fast-html", {
+    createHTML: g
+}) : {
+    createHTML: g
+};
+let m = Object.freeze({
+    createHTML: (e)=>v.createHTML(e),
+    protect: (e, t, o, i)=>i
+});
+const b = m, w = Object.freeze({
+    get policy () {
+        return m;
+    },
+    setPolicy (e) {
+        if (m !== b) throw d.error(1201);
+        m = e;
+    },
+    setAttribute (e, t, o) {
+        null == o ? e.removeAttribute(t) : e.setAttribute(t, o);
+    },
+    setBooleanAttribute (e, t, o) {
+        o ? e.setAttribute(t, "") : e.removeAttribute(t);
+    }
+}), y = d.getById(i.updateQueue, ()=>{
+    const e = [], t = [], o = globalThis.requestAnimationFrame;
+    let i = !0;
+    function s() {
+        if (t.length) throw t.shift();
+    }
+    function r(o) {
+        try {
+            o.call();
+        } catch (o) {
+            if (!i) throw e.length = 0, o;
+            t.push(o), setTimeout(s, 0);
         }
+    }
+    function n() {
+        let t = 0;
+        for(; t < e.length;)if (r(e[t]), t++, t > 1024) {
+            for(let o = 0, i = e.length - t; o < i; o++)e[o] = e[o + t];
+            e.length -= t, t = 0;
+        }
+        e.length = 0;
+    }
+    function a(t) {
+        e.push(t), e.length < 2 && (i ? o(n) : n());
+    }
+    return Object.freeze({
+        enqueue: a,
+        next: ()=>new Promise(a),
+        process: n,
+        setMode: (e)=>i = e
     });
-    const fastPolicy = defaultPolicy;
-    /**
-     * Common DOM APIs.
-     * @public
-     */ const DOM = Object.freeze({
-        /**
-         * Gets the dom policy used by the templating system.
-         */ get policy () {
-            return defaultPolicy;
-        },
-        /**
-         * Sets the dom policy used by the templating system.
-         * @param policy - The policy to set.
-         * @remarks
-         * This API can only be called once, for security reasons. It should be
-         * called by the application developer at the start of their program.
-         */ setPolicy (value) {
-            if (defaultPolicy !== fastPolicy) throw FAST.error(1201 /* Message.onlySetDOMPolicyOnce */ );
-            defaultPolicy = value;
-        },
-        /**
-         * Sets an attribute value on an element.
-         * @param element - The element to set the attribute value on.
-         * @param attributeName - The attribute name to set.
-         * @param value - The value of the attribute to set.
-         * @remarks
-         * If the value is `null` or `undefined`, the attribute is removed, otherwise
-         * it is set to the provided value using the standard `setAttribute` API.
-         */ setAttribute (element, attributeName, value) {
-            value === null || value === undefined ? element.removeAttribute(attributeName) : element.setAttribute(attributeName, value);
-        },
-        /**
-         * Sets a boolean attribute value.
-         * @param element - The element to set the boolean attribute value on.
-         * @param attributeName - The attribute name to set.
-         * @param value - The value of the attribute to set.
-         * @remarks
-         * If the value is true, the attribute is added; otherwise it is removed.
-         */ setBooleanAttribute (element, attributeName, value) {
-            value ? element.setAttribute(attributeName, "") : element.removeAttribute(attributeName);
+});
+class x {
+    constructor(e, t){
+        this.sub1 = void 0, this.sub2 = void 0, this.spillover = void 0, this.subject = e, this.sub1 = t;
+    }
+    has(e) {
+        return void 0 === this.spillover ? this.sub1 === e || this.sub2 === e : -1 !== this.spillover.indexOf(e);
+    }
+    subscribe(e) {
+        const t = this.spillover;
+        if (void 0 === t) {
+            if (this.has(e)) return;
+            if (void 0 === this.sub1) return void (this.sub1 = e);
+            if (void 0 === this.sub2) return void (this.sub2 = e);
+            this.spillover = [
+                this.sub1,
+                this.sub2,
+                e
+            ], this.sub1 = void 0, this.sub2 = void 0;
+        } else -1 === t.indexOf(e) && t.push(e);
+    }
+    unsubscribe(e) {
+        const t = this.spillover;
+        if (void 0 === t) this.sub1 === e ? this.sub1 = void 0 : this.sub2 === e && (this.sub2 = void 0);
+        else {
+            const o = t.indexOf(e);
+            -1 !== o && t.splice(o, 1);
         }
-    });
-    /**
-     * The default UpdateQueue.
-     * @public
-     */ const Updates = FAST.getById(KernelServiceId.updateQueue, ()=>{
-        const tasks = [];
-        const pendingErrors = [];
-        const rAF = globalThis.requestAnimationFrame;
-        let updateAsync = true;
-        function throwFirstError() {
-            if (pendingErrors.length) throw pendingErrors.shift();
+    }
+    notify(e) {
+        const t = this.spillover, o = this.subject;
+        if (void 0 === t) {
+            const t = this.sub1, i = this.sub2;
+            void 0 !== t && t.handleChange(o, e), void 0 !== i && i.handleChange(o, e);
+        } else for(let i = 0, s = t.length; i < s; ++i)t[i].handleChange(o, e);
+    }
+}
+class k {
+    constructor(e){
+        this.subscribers = {}, this.subjectSubscribers = null, this.subject = e;
+    }
+    notify(e) {
+        var t, o;
+        null === (t = this.subscribers[e]) || void 0 === t || t.notify(e), null === (o = this.subjectSubscribers) || void 0 === o || o.notify(e);
+    }
+    subscribe(e, t) {
+        var o, i;
+        let s;
+        s = t ? null !== (o = this.subscribers[t]) && void 0 !== o ? o : this.subscribers[t] = new x(this.subject) : null !== (i = this.subjectSubscribers) && void 0 !== i ? i : this.subjectSubscribers = new x(this.subject), s.subscribe(e);
+    }
+    unsubscribe(e, t) {
+        var o, i;
+        t ? null === (o = this.subscribers[t]) || void 0 === o || o.unsubscribe(e) : null === (i = this.subjectSubscribers) || void 0 === i || i.unsubscribe(e);
+    }
+}
+const S = Object.freeze({
+    unknown: void 0,
+    coupled: 1
+}), C = d.getById(i.observable, ()=>{
+    const e = y.enqueue, t = /(:|&&|\|\||if|\?\.)/, o = new WeakMap;
+    let i, n = (e)=>{
+        throw d.error(1101);
+    };
+    function a(e) {
+        var t;
+        let i = null !== (t = e.$fastController) && void 0 !== t ? t : o.get(e);
+        return void 0 === i && (Array.isArray(e) ? i = n(e) : o.set(e, i = new k(e))), i;
+    }
+    const l = u();
+    class c {
+        constructor(e){
+            this.name = e, this.field = `_${e}`, this.callback = `${e}Changed`;
         }
-        function tryRunTask(task) {
+        getValue(e) {
+            return void 0 !== i && i.watch(e, this.name), e[this.field];
+        }
+        setValue(e, t) {
+            const o = this.field, i = e[o];
+            if (i !== t) {
+                e[o] = t;
+                const r = e[this.callback];
+                s(r) && r.call(e, i, t), a(e).notify(this.name);
+            }
+        }
+    }
+    class h extends x {
+        constructor(e, t, o = !1){
+            super(e, t), this.expression = e, this.isVolatileBinding = o, this.needsRefresh = !0, this.needsQueue = !0, this.isAsync = !0, this.first = this, this.last = null, this.propertySource = void 0, this.propertyName = void 0, this.notifier = void 0, this.next = void 0;
+        }
+        setMode(e) {
+            this.isAsync = this.needsQueue = e;
+        }
+        bind(e) {
+            this.controller = e;
+            const t = this.observe(e.source, e.context);
+            return !e.isBound && this.requiresUnbind(e) && e.onUnbind(this), t;
+        }
+        requiresUnbind(e) {
+            return e.sourceLifetime !== S.coupled || this.first !== this.last || this.first.propertySource !== e.source;
+        }
+        unbind(e) {
+            this.dispose();
+        }
+        observe(e, t) {
+            this.needsRefresh && null !== this.last && this.dispose();
+            const o = i;
+            let s;
+            i = this.needsRefresh ? this : void 0, this.needsRefresh = this.isVolatileBinding;
             try {
-                task.call();
-            } catch (error) {
-                if (updateAsync) {
-                    pendingErrors.push(error);
-                    setTimeout(throwFirstError, 0);
-                } else {
-                    tasks.length = 0;
-                    throw error;
-                }
+                s = this.expression(e, t);
+            } finally{
+                i = o;
+            }
+            return s;
+        }
+        disconnect() {
+            this.dispose();
+        }
+        dispose() {
+            if (null !== this.last) {
+                let e = this.first;
+                for(; void 0 !== e;)e.notifier.unsubscribe(this, e.propertyName), e = e.next;
+                this.last = null, this.needsRefresh = this.needsQueue = this.isAsync;
             }
         }
-        function process() {
-            const capacity = 1024;
-            let index = 0;
-            while(index < tasks.length){
-                tryRunTask(tasks[index]);
-                index++;
-                // Prevent leaking memory for long chains of recursive calls to `enqueue`.
-                // If we call `enqueue` within a task scheduled by `enqueue`, the queue will
-                // grow, but to avoid an O(n) walk for every task we execute, we don't
-                // shift tasks off the queue after they have been executed.
-                // Instead, we periodically shift 1024 tasks off the queue.
-                if (index > capacity) {
-                    // Manually shift all values starting at the index back to the
-                    // beginning of the queue.
-                    for(let scan = 0, newLength = tasks.length - index; scan < newLength; scan++)tasks[scan] = tasks[scan + index];
-                    tasks.length -= index;
-                    index = 0;
+        watch(e, t) {
+            const o = this.last, s = a(e), r = null === o ? this.first : {};
+            if (r.propertySource = e, r.propertyName = t, r.notifier = s, s.subscribe(this, t), null !== o) {
+                if (!this.needsRefresh) {
+                    let t;
+                    i = void 0, t = o.propertySource[o.propertyName], i = this, e === t && (this.needsRefresh = !0);
                 }
+                o.next = r;
             }
-            tasks.length = 0;
+            this.last = r;
         }
-        function enqueue(callable) {
-            tasks.push(callable);
-            if (tasks.length < 2) updateAsync ? rAF(process) : process();
+        handleChange() {
+            this.needsQueue ? (this.needsQueue = !1, e(this)) : this.isAsync || this.call();
         }
-        return Object.freeze({
-            enqueue,
-            next: ()=>new Promise(enqueue),
-            process,
-            setMode: (isAsync)=>updateAsync = isAsync
-        });
-    });
-    /**
-     * An implementation of {@link Notifier} that efficiently keeps track of
-     * subscribers interested in a specific change notification on an
-     * observable subject.
-     *
-     * @remarks
-     * This set is optimized for the most common scenario of 1 or 2 subscribers.
-     * With this in mind, it can store a subscriber in an internal field, allowing it to avoid Array#push operations.
-     * If the set ever exceeds two subscribers, it upgrades to an array automatically.
-     * @public
-     */ class SubscriberSet {
-        /**
-         * Creates an instance of SubscriberSet for the specified subject.
-         * @param subject - The subject that subscribers will receive notifications from.
-         * @param initialSubscriber - An initial subscriber to changes.
-         */ constructor(subject, initialSubscriber){
-            this.sub1 = void 0;
-            this.sub2 = void 0;
-            this.spillover = void 0;
-            this.subject = subject;
-            this.sub1 = initialSubscriber;
+        call() {
+            null !== this.last && (this.needsQueue = this.isAsync, this.notify(this));
         }
-        /**
-         * Checks whether the provided subscriber has been added to this set.
-         * @param subscriber - The subscriber to test for inclusion in this set.
-         */ has(subscriber) {
-            return this.spillover === void 0 ? this.sub1 === subscriber || this.sub2 === subscriber : this.spillover.indexOf(subscriber) !== -1;
-        }
-        /**
-         * Subscribes to notification of changes in an object's state.
-         * @param subscriber - The object that is subscribing for change notification.
-         */ subscribe(subscriber) {
-            const spillover = this.spillover;
-            if (spillover === void 0) {
-                if (this.has(subscriber)) return;
-                if (this.sub1 === void 0) {
-                    this.sub1 = subscriber;
-                    return;
-                }
-                if (this.sub2 === void 0) {
-                    this.sub2 = subscriber;
-                    return;
-                }
-                this.spillover = [
-                    this.sub1,
-                    this.sub2,
-                    subscriber
-                ];
-                this.sub1 = void 0;
-                this.sub2 = void 0;
-            } else {
-                const index = spillover.indexOf(subscriber);
-                if (index === -1) spillover.push(subscriber);
-            }
-        }
-        /**
-         * Unsubscribes from notification of changes in an object's state.
-         * @param subscriber - The object that is unsubscribing from change notification.
-         */ unsubscribe(subscriber) {
-            const spillover = this.spillover;
-            if (spillover === void 0) {
-                if (this.sub1 === subscriber) this.sub1 = void 0;
-                else if (this.sub2 === subscriber) this.sub2 = void 0;
-            } else {
-                const index = spillover.indexOf(subscriber);
-                if (index !== -1) spillover.splice(index, 1);
-            }
-        }
-        /**
-         * Notifies all subscribers.
-         * @param args - Data passed along to subscribers during notification.
-         */ notify(args) {
-            const spillover = this.spillover;
-            const subject = this.subject;
-            if (spillover === void 0) {
-                const sub1 = this.sub1;
-                const sub2 = this.sub2;
-                if (sub1 !== void 0) sub1.handleChange(subject, args);
-                if (sub2 !== void 0) sub2.handleChange(subject, args);
-            } else for(let i = 0, ii = spillover.length; i < ii; ++i)spillover[i].handleChange(subject, args);
+        *records() {
+            let e = this.first;
+            for(; void 0 !== e;)yield e, e = e.next;
         }
     }
-    /**
-     * An implementation of Notifier that allows subscribers to be notified
-     * of individual property changes on an object.
-     * @public
-     */ class PropertyChangeNotifier {
-        /**
-         * Creates an instance of PropertyChangeNotifier for the specified subject.
-         * @param subject - The object that subscribers will receive notifications for.
-         */ constructor(subject){
-            this.subscribers = {};
-            this.subjectSubscribers = null;
-            this.subject = subject;
-        }
-        /**
-         * Notifies all subscribers, based on the specified property.
-         * @param propertyName - The property name, passed along to subscribers during notification.
-         */ notify(propertyName) {
-            var _a, _b;
-            (_a = this.subscribers[propertyName]) === null || _a === void 0 || _a.notify(propertyName);
-            (_b = this.subjectSubscribers) === null || _b === void 0 || _b.notify(propertyName);
-        }
-        /**
-         * Subscribes to notification of changes in an object's state.
-         * @param subscriber - The object that is subscribing for change notification.
-         * @param propertyToWatch - The name of the property that the subscriber is interested in watching for changes.
-         */ subscribe(subscriber, propertyToWatch) {
-            var _a, _b;
-            let subscribers;
-            if (propertyToWatch) subscribers = (_a = this.subscribers[propertyToWatch]) !== null && _a !== void 0 ? _a : this.subscribers[propertyToWatch] = new SubscriberSet(this.subject);
-            else subscribers = (_b = this.subjectSubscribers) !== null && _b !== void 0 ? _b : this.subjectSubscribers = new SubscriberSet(this.subject);
-            subscribers.subscribe(subscriber);
-        }
-        /**
-         * Unsubscribes from notification of changes in an object's state.
-         * @param subscriber - The object that is unsubscribing from change notification.
-         * @param propertyToUnwatch - The name of the property that the subscriber is no longer interested in watching.
-         */ unsubscribe(subscriber, propertyToUnwatch) {
-            var _a, _b;
-            if (propertyToUnwatch) (_a = this.subscribers[propertyToUnwatch]) === null || _a === void 0 || _a.unsubscribe(subscriber);
-            else (_b = this.subjectSubscribers) === null || _b === void 0 || _b.unsubscribe(subscriber);
-        }
-    }
-    /**
-     * Describes how the source's lifetime relates to its controller's lifetime.
-     * @public
-     */ const SourceLifetime = Object.freeze({
-        /**
-         * The source to controller lifetime relationship is unknown.
-         */ unknown: void 0,
-        /**
-         * The source and controller lifetimes are coupled to one another.
-         * They can/will be GC'd together.
-         */ coupled: 1
-    });
-    /**
-     * Common Observable APIs.
-     * @public
-     */ const Observable = FAST.getById(KernelServiceId.observable, ()=>{
-        const queueUpdate = Updates.enqueue;
-        const volatileRegex = /(:|&&|\|\||if|\?\.)/;
-        const notifierLookup = new WeakMap();
-        let watcher = void 0;
-        let createArrayObserver = (array)=>{
-            throw FAST.error(1101 /* Message.needsArrayObservation */ );
-        };
-        function getNotifier(source) {
-            var _a;
-            let found = (_a = source.$fastController) !== null && _a !== void 0 ? _a : notifierLookup.get(source);
-            if (found === void 0) Array.isArray(source) ? found = createArrayObserver(source) : notifierLookup.set(source, found = new PropertyChangeNotifier(source));
-            return found;
-        }
-        const getAccessors = createMetadataLocator();
-        class DefaultObservableAccessor {
-            constructor(name){
-                this.name = name;
-                this.field = `_${name}`;
-                this.callback = `${name}Changed`;
-            }
-            getValue(source) {
-                if (watcher !== void 0) watcher.watch(source, this.name);
-                return source[this.field];
-            }
-            setValue(source, newValue) {
-                const field = this.field;
-                const oldValue = source[field];
-                if (oldValue !== newValue) {
-                    source[field] = newValue;
-                    const callback = source[this.callback];
-                    if (isFunction(callback)) callback.call(source, oldValue, newValue);
-                    getNotifier(source).notify(this.name);
-                }
-            }
-        }
-        class ExpressionNotifierImplementation extends SubscriberSet {
-            constructor(expression, initialSubscriber, isVolatileBinding = false){
-                super(expression, initialSubscriber);
-                this.expression = expression;
-                this.isVolatileBinding = isVolatileBinding;
-                this.needsRefresh = true;
-                this.needsQueue = true;
-                this.isAsync = true;
-                this.first = this;
-                this.last = null;
-                this.propertySource = void 0;
-                this.propertyName = void 0;
-                this.notifier = void 0;
-                this.next = void 0;
-            }
-            setMode(isAsync) {
-                this.isAsync = this.needsQueue = isAsync;
-            }
-            bind(controller) {
-                this.controller = controller;
-                const value = this.observe(controller.source, controller.context);
-                if (!controller.isBound && this.requiresUnbind(controller)) controller.onUnbind(this);
-                return value;
-            }
-            requiresUnbind(controller) {
-                return controller.sourceLifetime !== SourceLifetime.coupled || this.first !== this.last || this.first.propertySource !== controller.source;
-            }
-            unbind(controller) {
-                this.dispose();
-            }
-            observe(source, context) {
-                if (this.needsRefresh && this.last !== null) this.dispose();
-                const previousWatcher = watcher;
-                watcher = this.needsRefresh ? this : void 0;
-                this.needsRefresh = this.isVolatileBinding;
-                let result;
-                try {
-                    result = this.expression(source, context);
-                } finally{
-                    watcher = previousWatcher;
-                }
-                return result;
-            }
-            // backwards compat with v1 kernel
-            disconnect() {
-                this.dispose();
-            }
-            dispose() {
-                if (this.last !== null) {
-                    let current = this.first;
-                    while(current !== void 0){
-                        current.notifier.unsubscribe(this, current.propertyName);
-                        current = current.next;
-                    }
-                    this.last = null;
-                    this.needsRefresh = this.needsQueue = this.isAsync;
-                }
-            }
-            watch(propertySource, propertyName) {
-                const prev = this.last;
-                const notifier = getNotifier(propertySource);
-                const current = prev === null ? this.first : {};
-                current.propertySource = propertySource;
-                current.propertyName = propertyName;
-                current.notifier = notifier;
-                notifier.subscribe(this, propertyName);
-                if (prev !== null) {
-                    if (!this.needsRefresh) {
-                        // Declaring the variable prior to assignment below circumvents
-                        // a bug in Angular's optimization process causing infinite recursion
-                        // of this watch() method. Details https://github.com/microsoft/fast/issues/4969
-                        let prevValue;
-                        watcher = void 0;
-                        /* eslint-disable-next-line */ prevValue = prev.propertySource[prev.propertyName];
-                        /* eslint-disable-next-line */ watcher = this;
-                        if (propertySource === prevValue) this.needsRefresh = true;
-                    }
-                    prev.next = current;
-                }
-                this.last = current;
-            }
-            handleChange() {
-                if (this.needsQueue) {
-                    this.needsQueue = false;
-                    queueUpdate(this);
-                } else if (!this.isAsync) this.call();
-            }
-            call() {
-                if (this.last !== null) {
-                    this.needsQueue = this.isAsync;
-                    this.notify(this);
-                }
-            }
-            *records() {
-                let next = this.first;
-                while(next !== void 0){
-                    yield next;
-                    next = next.next;
-                }
-            }
-        }
-        makeSerializationNoop(ExpressionNotifierImplementation);
-        return Object.freeze({
-            /**
-             * @internal
-             * @param factory - The factory used to create array observers.
-             */ setArrayObserverFactory (factory) {
-                createArrayObserver = factory;
-            },
-            /**
-             * Gets a notifier for an object or Array.
-             * @param source - The object or Array to get the notifier for.
-             */ getNotifier,
-            /**
-             * Records a property change for a source object.
-             * @param source - The object to record the change against.
-             * @param propertyName - The property to track as changed.
-             */ track (source, propertyName) {
-                watcher && watcher.watch(source, propertyName);
-            },
-            /**
-             * Notifies watchers that the currently executing property getter or function is volatile
-             * with respect to its observable dependencies.
-             */ trackVolatile () {
-                watcher && (watcher.needsRefresh = true);
-            },
-            /**
-             * Notifies subscribers of a source object of changes.
-             * @param source - the object to notify of changes.
-             * @param args - The change args to pass to subscribers.
-             */ notify (source, args) {
-                /* eslint-disable-next-line @typescript-eslint/no-use-before-define */ getNotifier(source).notify(args);
-            },
-            /**
-             * Defines an observable property on an object or prototype.
-             * @param target - The target object to define the observable on.
-             * @param nameOrAccessor - The name of the property to define as observable;
-             * or a custom accessor that specifies the property name and accessor implementation.
-             */ defineProperty (target, nameOrAccessor) {
-                if (isString(nameOrAccessor)) nameOrAccessor = new DefaultObservableAccessor(nameOrAccessor);
-                getAccessors(target).push(nameOrAccessor);
-                Reflect.defineProperty(target, nameOrAccessor.name, {
-                    enumerable: true,
-                    get () {
-                        return nameOrAccessor.getValue(this);
-                    },
-                    set (newValue) {
-                        nameOrAccessor.setValue(this, newValue);
-                    }
-                });
-            },
-            /**
-             * Finds all the observable accessors defined on the target,
-             * including its prototype chain.
-             * @param target - The target object to search for accessor on.
-             */ getAccessors,
-            /**
-             * Creates a {@link ExpressionNotifier} that can watch the
-             * provided {@link Expression} for changes.
-             * @param expression - The binding to observe.
-             * @param initialSubscriber - An initial subscriber to changes in the binding value.
-             * @param isVolatileBinding - Indicates whether the binding's dependency list must be re-evaluated on every value evaluation.
-             */ binding (expression, initialSubscriber, isVolatileBinding = this.isVolatileBinding(expression)) {
-                return new ExpressionNotifierImplementation(expression, initialSubscriber, isVolatileBinding);
-            },
-            /**
-             * Determines whether a binding expression is volatile and needs to have its dependency list re-evaluated
-             * on every evaluation of the value.
-             * @param expression - The binding to inspect.
-             */ isVolatileBinding (expression) {
-                return volatileRegex.test(expression.toString());
-            }
-        });
-    });
-    /**
-     * Decorator: Defines an observable property on the target.
-     * @param target - The target to define the observable on.
-     * @param nameOrAccessor - The property name or accessor to define the observable as.
-     * @public
-     */ function observable(target, nameOrAccessor) {
-        Observable.defineProperty(target, nameOrAccessor);
-    }
-    const contextEvent = FAST.getById(KernelServiceId.contextEvent, ()=>{
-        let current = null;
-        return {
-            get () {
-                return current;
-            },
-            set (event) {
-                current = event;
-            }
-        };
-    });
-    /**
-     * Provides additional contextual information available to behaviors and expressions.
-     * @public
-     */ const ExecutionContext = Object.freeze({
-        /**
-         * A default execution context.
-         */ default: {
-            index: 0,
-            length: 0,
-            get event () {
-                return ExecutionContext.getEvent();
-            },
-            eventDetail () {
-                return this.event.detail;
-            },
-            eventTarget () {
-                return this.event.target;
-            }
+    return p(h), Object.freeze({
+        setArrayObserverFactory (e) {
+            n = e;
         },
-        /**
-         * Gets the current event.
-         * @returns An event object.
-         */ getEvent () {
-            return contextEvent.get();
+        getNotifier: a,
+        track (e, t) {
+            i && i.watch(e, t);
         },
-        /**
-         * Sets the current event.
-         * @param event - An event object.
-         */ setEvent (event) {
-            contextEvent.set(event);
-        }
-    });
-    /**
-     * Captures a binding expression along with related information and capabilities.
-     *
-     * @public
-     */ class Binding {
-        /**
-         * Creates a binding.
-         * @param evaluate - Evaluates the binding.
-         * @param policy - The security policy to associate with this binding.
-         * @param isVolatile - Indicates whether the binding is volatile.
-         */ constructor(evaluate, policy, isVolatile = false){
-            this.evaluate = evaluate;
-            this.policy = policy;
-            this.isVolatile = isVolatile;
-        }
-    }
-    class OneWayBinding extends Binding {
-        createObserver(subscriber) {
-            return Observable.binding(this.evaluate, subscriber, this.isVolatile);
-        }
-    }
-    /**
-     * Creates an standard binding.
-     * @param expression - The binding to refresh when changed.
-     * @param policy - The security policy to associate with th binding.
-     * @param isVolatile - Indicates whether the binding is volatile or not.
-     * @returns A binding configuration.
-     * @public
-     */ function oneWay(expression, policy, isVolatile = Observable.isVolatileBinding(expression)) {
-        return new OneWayBinding(expression, policy, isVolatile);
-    }
-    class OneTimeBinding extends Binding {
-        createObserver() {
-            return this;
-        }
-        bind(controller) {
-            return this.evaluate(controller.source, controller.context);
-        }
-    }
-    makeSerializationNoop(OneTimeBinding);
-    /**
-     * Creates a one time binding
-     * @param expression - The binding to refresh when signaled.
-     * @param policy - The security policy to associate with th binding.
-     * @returns A binding configuration.
-     * @public
-     */ function oneTime(expression, policy) {
-        return new OneTimeBinding(expression, policy);
-    }
-    let DefaultStyleStrategy;
-    function reduceStyles(styles) {
-        return styles.map((x)=>x instanceof ElementStyles ? reduceStyles(x.styles) : [
-                x
-            ]).reduce((prev, curr)=>prev.concat(curr), []);
-    }
-    /**
-     * Represents styles that can be applied to a custom element.
-     * @public
-     */ class ElementStyles {
-        /**
-         * Creates an instance of ElementStyles.
-         * @param styles - The styles that will be associated with elements.
-         */ constructor(styles){
-            this.styles = styles;
-            this.targets = new WeakSet();
-            this._strategy = null;
-            this.behaviors = styles.map((x)=>x instanceof ElementStyles ? x.behaviors : null).reduce((prev, curr)=>curr === null ? prev : prev === null ? curr : prev.concat(curr), null);
-        }
-        /**
-         * Gets the StyleStrategy associated with these element styles.
-         */ get strategy() {
-            if (this._strategy === null) this.withStrategy(DefaultStyleStrategy);
-            return this._strategy;
-        }
-        /** @internal */ addStylesTo(target) {
-            this.strategy.addStylesTo(target);
-            this.targets.add(target);
-        }
-        /** @internal */ removeStylesFrom(target) {
-            this.strategy.removeStylesFrom(target);
-            this.targets.delete(target);
-        }
-        /** @internal */ isAttachedTo(target) {
-            return this.targets.has(target);
-        }
-        /**
-         * Associates behaviors with this set of styles.
-         * @param behaviors - The behaviors to associate.
-         */ withBehaviors(...behaviors) {
-            this.behaviors = this.behaviors === null ? behaviors : this.behaviors.concat(behaviors);
-            return this;
-        }
-        /**
-         * Sets the strategy that handles adding/removing these styles for an element.
-         * @param strategy - The strategy to use.
-         */ withStrategy(Strategy) {
-            this._strategy = new Strategy(reduceStyles(this.styles));
-            return this;
-        }
-        /**
-         * Sets the default strategy type to use when creating style strategies.
-         * @param Strategy - The strategy type to construct.
-         */ static setDefaultStrategy(Strategy) {
-            DefaultStyleStrategy = Strategy;
-        }
-        /**
-         * Normalizes a set of composable style options.
-         * @param styles - The style options to normalize.
-         * @returns A singular ElementStyles instance or undefined.
-         */ static normalize(styles) {
-            return styles === void 0 ? void 0 : Array.isArray(styles) ? new ElementStyles(styles) : styles instanceof ElementStyles ? styles : new ElementStyles([
-                styles
-            ]);
-        }
-    }
-    /**
-     * Indicates whether the DOM supports the adoptedStyleSheets feature.
-     */ ElementStyles.supportsAdoptedStyleSheets = Array.isArray(document.adoptedStyleSheets) && "replace" in CSSStyleSheet.prototype;
-    const registry$1 = createTypeRegistry();
-    /**
-     * Instructs the css engine to provide dynamic styles or
-     * associate behaviors with styles.
-     * @public
-     */ const CSSDirective = Object.freeze({
-        /**
-         * Gets the directive definition associated with the instance.
-         * @param instance - The directive instance to retrieve the definition for.
-         */ getForInstance: registry$1.getForInstance,
-        /**
-         * Gets the directive definition associated with the specified type.
-         * @param type - The directive type to retrieve the definition for.
-         */ getByType: registry$1.getByType,
-        /**
-         * Defines a CSSDirective.
-         * @param type - The type to define as a directive.
-         */ define (type) {
-            registry$1.register({
-                type
+        trackVolatile () {
+            i && (i.needsRefresh = !0);
+        },
+        notify (e, t) {
+            a(e).notify(t);
+        },
+        defineProperty (e, t) {
+            r(t) && (t = new c(t)), l(e).push(t), Reflect.defineProperty(e, t.name, {
+                enumerable: !0,
+                get () {
+                    return t.getValue(this);
+                },
+                set (e) {
+                    t.setValue(this, e);
+                }
             });
-            return type;
-        }
-    });
-    /**
-     * Decorator: Defines a CSSDirective.
-     * @public
-     */ function cssDirective() {
-        /* eslint-disable-next-line @typescript-eslint/explicit-function-return-type */ return function(type) {
-            CSSDirective.define(type);
-        };
-    }
-    function handleChange(directive, controller, observer) {
-        controller.source.style.setProperty(directive.targetAspect, observer.bind(controller));
-    }
-    /**
-     * Enables bindings in CSS.
-     *
-     * @public
-     */ class CSSBindingDirective {
-        /**
-         * Creates an instance of CSSBindingDirective.
-         * @param dataBinding - The binding to use in CSS.
-         * @param targetAspect - The CSS property to target.
-         */ constructor(dataBinding, targetAspect){
-            this.dataBinding = dataBinding;
-            this.targetAspect = targetAspect;
-        }
-        /**
-         * Creates a CSS fragment to interpolate into the CSS document.
-         * @returns - the string to interpolate into CSS
-         */ createCSS(add) {
-            add(this);
-            return `var(${this.targetAspect})`;
-        }
-        /**
-         * Executed when this behavior is attached to a controller.
-         * @param controller - Controls the behavior lifecycle.
-         */ addedCallback(controller) {
-            var _a;
-            const element = controller.source;
-            if (!element.$cssBindings) {
-                element.$cssBindings = new Map();
-                const setAttribute = element.setAttribute;
-                element.setAttribute = (attr, value)=>{
-                    setAttribute.call(element, attr, value);
-                    if (attr === "style") element.$cssBindings.forEach((v, k)=>handleChange(k, v.controller, v.observer));
-                };
-            }
-            const observer = (_a = controller[this.targetAspect]) !== null && _a !== void 0 ? _a : controller[this.targetAspect] = this.dataBinding.createObserver(this, this);
-            observer.controller = controller;
-            controller.source.$cssBindings.set(this, {
-                controller,
-                observer
-            });
-        }
-        /**
-         * Executed when this behavior's host is connected.
-         * @param controller - Controls the behavior lifecycle.
-         */ connectedCallback(controller) {
-            handleChange(this, controller, controller[this.targetAspect]);
-        }
-        /**
-         * Executed when this behavior is detached from a controller.
-         * @param controller - Controls the behavior lifecycle.
-         */ removedCallback(controller) {
-            if (controller.source.$cssBindings) controller.source.$cssBindings.delete(this);
-        }
-        /**
-         * Called when a subject this instance has subscribed to changes.
-         * @param subject - The subject of the change.
-         * @param args - The event args detailing the change that occurred.
-         *
-         * @internal
-         */ handleChange(_, observer) {
-            handleChange(this, observer.controller, observer);
-        }
-    }
-    CSSDirective.define(CSSBindingDirective);
-    const marker$1 = `${Math.random().toString(36).substring(2, 8)}`;
-    let varId = 0;
-    const nextCSSVariable = ()=>`--v${marker$1}${++varId}`;
-    function collectStyles(strings, values) {
-        const styles = [];
-        let cssString = "";
-        const behaviors = [];
-        const add = (behavior)=>{
-            behaviors.push(behavior);
-        };
-        for(let i = 0, ii = strings.length - 1; i < ii; ++i){
-            cssString += strings[i];
-            let value = values[i];
-            if (isFunction(value)) value = new CSSBindingDirective(oneWay(value), nextCSSVariable()).createCSS(add);
-            else if (value instanceof Binding) value = new CSSBindingDirective(value, nextCSSVariable()).createCSS(add);
-            else if (CSSDirective.getForInstance(value) !== void 0) value = value.createCSS(add);
-            if (value instanceof ElementStyles || value instanceof CSSStyleSheet) {
-                if (cssString.trim() !== "") {
-                    styles.push(cssString);
-                    cssString = "";
-                }
-                styles.push(value);
-            } else cssString += value;
-        }
-        cssString += strings[strings.length - 1];
-        if (cssString.trim() !== "") styles.push(cssString);
-        return {
-            styles,
-            behaviors
-        };
-    }
-    /**
-     * Transforms a template literal string into styles.
-     * @param strings - The string fragments that are interpolated with the values.
-     * @param values - The values that are interpolated with the string fragments.
-     * @remarks
-     * The css helper supports interpolation of strings and ElementStyle instances.
-     * @public
-     */ const css = (strings, ...values)=>{
-        const { styles, behaviors } = collectStyles(strings, values);
-        const elementStyles = new ElementStyles(styles);
-        return behaviors.length ? elementStyles.withBehaviors(...behaviors) : elementStyles;
-    };
-    class CSSPartial {
-        constructor(styles, behaviors){
-            this.behaviors = behaviors;
-            this.css = "";
-            const stylesheets = styles.reduce((accumulated, current)=>{
-                if (isString(current)) this.css += current;
-                else accumulated.push(current);
-                return accumulated;
-            }, []);
-            if (stylesheets.length) this.styles = new ElementStyles(stylesheets);
-        }
-        createCSS(add) {
-            this.behaviors.forEach(add);
-            if (this.styles) add(this);
-            return this.css;
-        }
-        addedCallback(controller) {
-            controller.addStyles(this.styles);
-        }
-        removedCallback(controller) {
-            controller.removeStyles(this.styles);
-        }
-    }
-    CSSDirective.define(CSSPartial);
-    css.partial = (strings, ...values)=>{
-        const { styles, behaviors } = collectStyles(strings, values);
-        return new CSSPartial(styles, behaviors);
-    };
-    const marker = `fast-${Math.random().toString(36).substring(2, 8)}`;
-    const interpolationStart = `${marker}{`;
-    const interpolationEnd = `}${marker}`;
-    const interpolationEndLength = interpolationEnd.length;
-    let id$1 = 0;
-    /** @internal */ const nextId = ()=>`${marker}-${++id$1}`;
-    /**
-     * Common APIs related to markup generation.
-     * @public
-     */ const Markup = Object.freeze({
-        /**
-         * Creates a placeholder string suitable for marking out a location *within*
-         * an attribute value or HTML content.
-         * @param index - The directive index to create the placeholder for.
-         * @remarks
-         * Used internally by binding directives.
-         */ interpolation: (id)=>`${interpolationStart}${id}${interpolationEnd}`,
-        /**
-         * Creates a placeholder that manifests itself as an attribute on an
-         * element.
-         * @param attributeName - The name of the custom attribute.
-         * @param index - The directive index to create the placeholder for.
-         * @remarks
-         * Used internally by attribute directives such as `ref`, `slotted`, and `children`.
-         */ attribute: (id)=>`${nextId()}="${interpolationStart}${id}${interpolationEnd}"`,
-        /**
-         * Creates a placeholder that manifests itself as a marker within the DOM structure.
-         * @param index - The directive index to create the placeholder for.
-         * @remarks
-         * Used internally by structural directives such as `repeat`.
-         */ comment: (id)=>`<!--${interpolationStart}${id}${interpolationEnd}-->`
-    });
-    /**
-     * Common APIs related to content parsing.
-     * @public
-     */ const Parser = Object.freeze({
-        /**
-         * Parses text content or HTML attribute content, separating out the static strings
-         * from the directives.
-         * @param value - The content or attribute string to parse.
-         * @param factories - A list of directives to search for in the string.
-         * @returns A heterogeneous array of static strings interspersed with
-         * directives or null if no directives are found in the string.
-         */ parse (value, factories) {
-            const parts = value.split(interpolationStart);
-            if (parts.length === 1) return null;
-            const result = [];
-            for(let i = 0, ii = parts.length; i < ii; ++i){
-                const current = parts[i];
-                const index = current.indexOf(interpolationEnd);
-                let literal;
-                if (index === -1) literal = current;
-                else {
-                    const factoryId = current.substring(0, index);
-                    result.push(factories[factoryId]);
-                    literal = current.substring(index + interpolationEndLength);
-                }
-                if (literal !== "") result.push(literal);
-            }
-            return result;
-        }
-    });
-    const registry = createTypeRegistry();
-    /**
-     * Instructs the template engine to apply behavior to a node.
-     * @public
-     */ const HTMLDirective = Object.freeze({
-        /**
-         * Gets the directive definition associated with the instance.
-         * @param instance - The directive instance to retrieve the definition for.
-         */ getForInstance: registry.getForInstance,
-        /**
-         * Gets the directive definition associated with the specified type.
-         * @param type - The directive type to retrieve the definition for.
-         */ getByType: registry.getByType,
-        /**
-         * Defines an HTMLDirective based on the options.
-         * @param type - The type to define as a directive.
-         * @param options - Options that specify the directive's application.
-         */ define (type, options) {
-            options = options || {};
-            options.type = type;
-            registry.register(options);
-            return type;
         },
-        /**
-         *
-         * @param directive - The directive to assign the aspect to.
-         * @param value - The value to base the aspect determination on.
-         * @remarks
-         * If a falsy value is provided, then the content aspect will be assigned.
-         */ assignAspect (directive, value) {
-            if (!value) {
-                directive.aspectType = DOMAspect.content;
-                return;
-            }
-            directive.sourceAspect = value;
-            switch(value[0]){
-                case ":":
-                    directive.targetAspect = value.substring(1);
-                    directive.aspectType = directive.targetAspect === "classList" ? DOMAspect.tokenList : DOMAspect.property;
-                    break;
-                case "?":
-                    directive.targetAspect = value.substring(1);
-                    directive.aspectType = DOMAspect.booleanAttribute;
-                    break;
-                case "@":
-                    directive.targetAspect = value.substring(1);
-                    directive.aspectType = DOMAspect.event;
-                    break;
-                default:
-                    directive.targetAspect = value;
-                    directive.aspectType = DOMAspect.attribute;
-                    break;
-            }
-        }
+        getAccessors: l,
+        binding (e, t, o = this.isVolatileBinding(e)) {
+            return new h(e, t, o);
+        },
+        isVolatileBinding: (e)=>t.test(e.toString())
     });
-    /**
-     * Decorator: Defines an HTMLDirective.
-     * @param options - Provides options that specify the directive's application.
-     * @public
-     */ function htmlDirective(options) {
-        /* eslint-disable-next-line @typescript-eslint/explicit-function-return-type */ return function(type) {
-            HTMLDirective.define(type, options);
-        };
-    }
-    /**
-     * A base class used for attribute directives that don't need internal state.
-     * @public
-     */ class StatelessAttachedAttributeDirective {
-        /**
-         * Creates an instance of RefDirective.
-         * @param options - The options to use in configuring the directive.
-         */ constructor(options){
-            this.options = options;
+});
+function B(e, t) {
+    C.defineProperty(e, t);
+}
+const P = d.getById(i.contextEvent, ()=>{
+    let e = null;
+    return {
+        get: ()=>e,
+        set (t) {
+            e = t;
         }
-        /**
-         * Creates a placeholder string based on the directive's index within the template.
-         * @param index - The index of the directive within the template.
-         * @remarks
-         * Creates a custom attribute placeholder.
-         */ createHTML(add) {
-            return Markup.attribute(add(this));
-        }
-        /**
-         * Creates a behavior.
-         * @param targets - The targets available for behaviors to be attached to.
-         */ createBehavior() {
-            return this;
-        }
-    }
-    makeSerializationNoop(StatelessAttachedAttributeDirective);
-    function updateContent(target, aspect, value, controller) {
-        // If there's no actual value, then this equates to the
-        // empty string for the purposes of content bindings.
-        if (value === null || value === undefined) value = "";
-        // If the value has a "create" method, then it's a ContentTemplate.
-        if (value.create) {
-            target.textContent = "";
-            let view = target.$fastView;
-            // If there's no previous view that we might be able to
-            // reuse then create a new view from the template.
-            if (view === void 0) view = value.create();
-            else // If there is a previous view, but it wasn't created
-            // from the same template as the new value, then we
-            // need to remove the old view if it's still in the DOM
-            // and create a new view from the template.
-            if (target.$fastTemplate !== value) {
-                if (view.isComposed) {
-                    view.remove();
-                    view.unbind();
-                }
-                view = value.create();
-            }
-            // It's possible that the value is the same as the previous template
-            // and that there's actually no need to compose it.
-            if (!view.isComposed) {
-                view.isComposed = true;
-                view.bind(controller.source, controller.context);
-                view.insertBefore(target);
-                target.$fastView = view;
-                target.$fastTemplate = value;
-            } else if (view.needsBindOnly) {
-                view.needsBindOnly = false;
-                view.bind(controller.source, controller.context);
-            }
-        } else {
-            const view = target.$fastView;
-            // If there is a view and it's currently composed into
-            // the DOM, then we need to remove it.
-            if (view !== void 0 && view.isComposed) {
-                view.isComposed = false;
-                view.remove();
-                if (view.needsBindOnly) view.needsBindOnly = false;
-                else view.unbind();
-            }
-            target.textContent = value;
-        }
-    }
-    function updateTokenList(target, aspect, value) {
-        var _a;
-        const lookup = `${this.id}-t`;
-        const state = (_a = target[lookup]) !== null && _a !== void 0 ? _a : target[lookup] = {
-            v: 0,
-            cv: Object.create(null)
-        };
-        const classVersions = state.cv;
-        let version = state.v;
-        const tokenList = target[aspect];
-        // Add the classes, tracking the version at which they were added.
-        if (value !== null && value !== undefined && value.length) {
-            const names = value.split(/\s+/);
-            for(let i = 0, ii = names.length; i < ii; ++i){
-                const currentName = names[i];
-                if (currentName === "") continue;
-                classVersions[currentName] = version;
-                tokenList.add(currentName);
-            }
-        }
-        state.v = version + 1;
-        // If this is the first call to add classes, there's no need to remove old ones.
-        if (version === 0) return;
-        // Remove classes from the previous version.
-        version -= 1;
-        for(const name in classVersions)if (classVersions[name] === version) tokenList.remove(name);
-    }
-    const sinkLookup = {
-        [DOMAspect.attribute]: DOM.setAttribute,
-        [DOMAspect.booleanAttribute]: DOM.setBooleanAttribute,
-        [DOMAspect.property]: (t, a, v)=>t[a] = v,
-        [DOMAspect.content]: updateContent,
-        [DOMAspect.tokenList]: updateTokenList,
-        [DOMAspect.event]: ()=>void 0
     };
-    /**
-     * A directive that applies bindings.
-     * @public
-     */ class HTMLBindingDirective {
-        /**
-         * Creates an instance of HTMLBindingDirective.
-         * @param dataBinding - The binding configuration to apply.
-         */ constructor(dataBinding){
-            this.dataBinding = dataBinding;
-            this.updateTarget = null;
-            /**
-             * The type of aspect to target.
-             */ this.aspectType = DOMAspect.content;
-        }
-        /**
-         * Creates HTML to be used within a template.
-         * @param add - Can be used to add  behavior factories to a template.
-         */ createHTML(add) {
-            return Markup.interpolation(add(this));
-        }
-        /**
-         * Creates a behavior.
-         */ createBehavior() {
-            var _a;
-            if (this.updateTarget === null) {
-                const sink = sinkLookup[this.aspectType];
-                const policy = (_a = this.dataBinding.policy) !== null && _a !== void 0 ? _a : this.policy;
-                if (!sink) throw FAST.error(1205 /* Message.unsupportedBindingBehavior */ );
-                this.data = `${this.id}-d`;
-                this.updateTarget = policy.protect(this.targetTagName, this.aspectType, this.targetAspect, sink);
-            }
-            return this;
-        }
-        /** @internal */ bind(controller) {
-            var _a;
-            const target = controller.targets[this.targetNodeId];
-            switch(this.aspectType){
-                case DOMAspect.event:
-                    target[this.data] = controller;
-                    target.addEventListener(this.targetAspect, this, this.dataBinding.options);
-                    break;
-                case DOMAspect.content:
-                    controller.onUnbind(this);
-                // intentional fall through
-                default:
-                    const observer = (_a = target[this.data]) !== null && _a !== void 0 ? _a : target[this.data] = this.dataBinding.createObserver(this, this);
-                    observer.target = target;
-                    observer.controller = controller;
-                    this.updateTarget(target, this.targetAspect, observer.bind(controller), controller);
-                    break;
-            }
-        }
-        /** @internal */ unbind(controller) {
-            const target = controller.targets[this.targetNodeId];
-            const view = target.$fastView;
-            if (view !== void 0 && view.isComposed) {
-                view.unbind();
-                view.needsBindOnly = true;
-            }
-        }
-        /** @internal */ handleEvent(event) {
-            const controller = event.currentTarget[this.data];
-            if (controller.isBound) {
-                ExecutionContext.setEvent(event);
-                const result = this.dataBinding.evaluate(controller.source, controller.context);
-                ExecutionContext.setEvent(null);
-                if (result !== true) event.preventDefault();
-            }
-        }
-        /** @internal */ handleChange(binding, observer) {
-            const target = observer.target;
-            const controller = observer.controller;
-            this.updateTarget(target, this.targetAspect, observer.bind(controller), controller);
-        }
-    }
-    HTMLDirective.define(HTMLBindingDirective, {
-        aspected: true
-    });
-    function removeNodeSequence(firstNode, lastNode) {
-        const parent = firstNode.parentNode;
-        let current = firstNode;
-        let next;
-        while(current !== lastNode){
-            next = current.nextSibling;
-            parent.removeChild(current);
-            current = next;
-        }
-        parent.removeChild(lastNode);
-    }
-    /**
-     * The standard View implementation, which also implements ElementView and SyntheticView.
-     * @public
-     */ class HTMLView {
-        /**
-         * Constructs an instance of HTMLView.
-         * @param fragment - The html fragment that contains the nodes for this view.
-         * @param behaviors - The behaviors to be applied to this view.
-         */ constructor(fragment, factories, targets){
-            this.fragment = fragment;
-            this.factories = factories;
-            this.targets = targets;
-            this.behaviors = null;
-            this.unbindables = [];
-            /**
-             * The data that the view is bound to.
-             */ this.source = null;
-            /**
-             * Indicates whether the controller is bound.
-             */ this.isBound = false;
-            /**
-             * Indicates how the source's lifetime relates to the controller's lifetime.
-             */ this.sourceLifetime = SourceLifetime.unknown;
-            /**
-             * The execution context the view is running within.
-             */ this.context = this;
-            /**
-             * The index of the current item within a repeat context.
-             */ this.index = 0;
-            /**
-             * The length of the current collection within a repeat context.
-             */ this.length = 0;
-            this.firstChild = fragment.firstChild;
-            this.lastChild = fragment.lastChild;
-        }
-        /**
-         * The current event within an event handler.
-         */ get event() {
-            return ExecutionContext.getEvent();
-        }
-        /**
-         * Indicates whether the current item within a repeat context
-         * has an even index.
-         */ get isEven() {
-            return this.index % 2 === 0;
-        }
-        /**
-         * Indicates whether the current item within a repeat context
-         * has an odd index.
-         */ get isOdd() {
-            return this.index % 2 !== 0;
-        }
-        /**
-         * Indicates whether the current item within a repeat context
-         * is the first item in the collection.
-         */ get isFirst() {
-            return this.index === 0;
-        }
-        /**
-         * Indicates whether the current item within a repeat context
-         * is somewhere in the middle of the collection.
-         */ get isInMiddle() {
-            return !this.isFirst && !this.isLast;
-        }
-        /**
-         * Indicates whether the current item within a repeat context
-         * is the last item in the collection.
-         */ get isLast() {
-            return this.index === this.length - 1;
-        }
-        /**
-         * Returns the typed event detail of a custom event.
-         */ eventDetail() {
+}), E = Object.freeze({
+    default: {
+        index: 0,
+        length: 0,
+        get event () {
+            return E.getEvent();
+        },
+        eventDetail () {
             return this.event.detail;
-        }
-        /**
-         * Returns the typed event target of the event.
-         */ eventTarget() {
+        },
+        eventTarget () {
             return this.event.target;
         }
-        /**
-         * Appends the view's DOM nodes to the referenced node.
-         * @param node - The parent node to append the view's DOM nodes to.
-         */ appendTo(node) {
-            node.appendChild(this.fragment);
-        }
-        /**
-         * Inserts the view's DOM nodes before the referenced node.
-         * @param node - The node to insert the view's DOM before.
-         */ insertBefore(node) {
-            if (this.fragment.hasChildNodes()) node.parentNode.insertBefore(this.fragment, node);
-            else {
-                const end = this.lastChild;
-                if (node.previousSibling === end) return;
-                const parentNode = node.parentNode;
-                let current = this.firstChild;
-                let next;
-                while(current !== end){
-                    next = current.nextSibling;
-                    parentNode.insertBefore(current, node);
-                    current = next;
-                }
-                parentNode.insertBefore(end, node);
-            }
-        }
-        /**
-         * Removes the view's DOM nodes.
-         * The nodes are not disposed and the view can later be re-inserted.
-         */ remove() {
-            const fragment = this.fragment;
-            const end = this.lastChild;
-            let current = this.firstChild;
-            let next;
-            while(current !== end){
-                next = current.nextSibling;
-                fragment.appendChild(current);
-                current = next;
-            }
-            fragment.appendChild(end);
-        }
-        /**
-         * Removes the view and unbinds its behaviors, disposing of DOM nodes afterward.
-         * Once a view has been disposed, it cannot be inserted or bound again.
-         */ dispose() {
-            removeNodeSequence(this.firstChild, this.lastChild);
-            this.unbind();
-        }
-        onUnbind(behavior) {
-            this.unbindables.push(behavior);
-        }
-        /**
-         * Binds a view's behaviors to its binding source.
-         * @param source - The binding source for the view's binding behaviors.
-         * @param context - The execution context to run the behaviors within.
-         */ bind(source, context = this) {
-            if (this.source === source) return;
-            let behaviors = this.behaviors;
-            if (behaviors === null) {
-                this.source = source;
-                this.context = context;
-                this.behaviors = behaviors = new Array(this.factories.length);
-                const factories = this.factories;
-                for(let i = 0, ii = factories.length; i < ii; ++i){
-                    const behavior = factories[i].createBehavior();
-                    behavior.bind(this);
-                    behaviors[i] = behavior;
-                }
-            } else {
-                if (this.source !== null) this.evaluateUnbindables();
-                this.isBound = false;
-                this.source = source;
-                this.context = context;
-                for(let i = 0, ii = behaviors.length; i < ii; ++i)behaviors[i].bind(this);
-            }
-            this.isBound = true;
-        }
-        /**
-         * Unbinds a view's behaviors from its binding source.
-         */ unbind() {
-            if (!this.isBound || this.source === null) return;
-            this.evaluateUnbindables();
-            this.source = null;
-            this.context = this;
-            this.isBound = false;
-        }
-        evaluateUnbindables() {
-            const unbindables = this.unbindables;
-            for(let i = 0, ii = unbindables.length; i < ii; ++i)unbindables[i].unbind(this);
-            unbindables.length = 0;
-        }
-        /**
-         * Efficiently disposes of a contiguous range of synthetic view instances.
-         * @param views - A contiguous range of views to be disposed.
-         */ static disposeContiguousBatch(views) {
-            if (views.length === 0) return;
-            removeNodeSequence(views[0].firstChild, views[views.length - 1].lastChild);
-            for(let i = 0, ii = views.length; i < ii; ++i)views[i].unbind();
-        }
+    },
+    getEvent: ()=>P.get(),
+    setEvent (e) {
+        P.set(e);
     }
-    makeSerializationNoop(HTMLView);
-    Observable.defineProperty(HTMLView.prototype, "index");
-    Observable.defineProperty(HTMLView.prototype, "length");
-    const targetIdFrom = (parentId, nodeIndex)=>`${parentId}.${nodeIndex}`;
-    const descriptorCache = {};
-    // used to prevent creating lots of objects just to track node and index while compiling
-    const next = {
-        index: 0,
-        node: null
-    };
-    function tryWarn(name) {
-        if (!name.startsWith("fast-")) FAST.warn(1204 /* Message.hostBindingWithoutHost */ , {
-            name
+});
+class A {
+    constructor(e, t, o = !1){
+        this.evaluate = e, this.policy = t, this.isVolatile = o;
+    }
+}
+class T extends A {
+    createObserver(e) {
+        return C.binding(this.evaluate, e, this.isVolatile);
+    }
+}
+function $(e, t, o = C.isVolatileBinding(e)) {
+    return new T(e, t, o);
+}
+class I extends A {
+    createObserver() {
+        return this;
+    }
+    bind(e) {
+        return this.evaluate(e.source, e.context);
+    }
+}
+function F(e, t) {
+    return new I(e, t);
+}
+let L;
+function M(e) {
+    return e.map((e)=>e instanceof N ? M(e.styles) : [
+            e
+        ]).reduce((e, t)=>e.concat(t), []);
+}
+p(I);
+class N {
+    constructor(e){
+        this.styles = e, this.targets = new WeakSet, this._strategy = null, this.behaviors = e.map((e)=>e instanceof N ? e.behaviors : null).reduce((e, t)=>null === t ? e : null === e ? t : e.concat(t), null);
+    }
+    get strategy() {
+        return null === this._strategy && this.withStrategy(L), this._strategy;
+    }
+    addStylesTo(e) {
+        this.strategy.addStylesTo(e), this.targets.add(e);
+    }
+    removeStylesFrom(e) {
+        this.strategy.removeStylesFrom(e), this.targets.delete(e);
+    }
+    isAttachedTo(e) {
+        return this.targets.has(e);
+    }
+    withBehaviors(...e) {
+        return this.behaviors = null === this.behaviors ? e : this.behaviors.concat(e), this;
+    }
+    withStrategy(e) {
+        return this._strategy = new e(M(this.styles)), this;
+    }
+    static setDefaultStrategy(e) {
+        L = e;
+    }
+    static normalize(e) {
+        return void 0 === e ? void 0 : Array.isArray(e) ? new N(e) : e instanceof N ? e : new N([
+            e
+        ]);
+    }
+}
+N.supportsAdoptedStyleSheets = Array.isArray(document.adoptedStyleSheets) && "replace" in CSSStyleSheet.prototype;
+const O = h(), V = Object.freeze({
+    getForInstance: O.getForInstance,
+    getByType: O.getByType,
+    define: (e)=>(O.register({
+            type: e
+        }), e)
+});
+function R(e, t, o) {
+    t.source.style.setProperty(e.targetAspect, o.bind(t));
+}
+class D {
+    constructor(e, t){
+        this.dataBinding = e, this.targetAspect = t;
+    }
+    createCSS(e) {
+        return e(this), `var(${this.targetAspect})`;
+    }
+    addedCallback(e) {
+        var t;
+        const o = e.source;
+        if (!o.$cssBindings) {
+            o.$cssBindings = new Map;
+            const e = o.setAttribute;
+            o.setAttribute = (t, i)=>{
+                e.call(o, t, i), "style" === t && o.$cssBindings.forEach((e, t)=>R(t, e.controller, e.observer));
+            };
+        }
+        const i = null !== (t = e[this.targetAspect]) && void 0 !== t ? t : e[this.targetAspect] = this.dataBinding.createObserver(this, this);
+        i.controller = e, e.source.$cssBindings.set(this, {
+            controller: e,
+            observer: i
         });
     }
-    const warningHost = new Proxy(document.createElement("div"), {
-        get (target, property) {
-            tryWarn(property);
-            const value = Reflect.get(target, property);
-            return isFunction(value) ? value.bind(target) : value;
-        },
-        set (target, property, value) {
-            tryWarn(property);
-            return Reflect.set(target, property, value);
-        }
-    });
-    class CompilationContext {
-        constructor(fragment, directives, policy){
-            this.fragment = fragment;
-            this.directives = directives;
-            this.policy = policy;
-            this.proto = null;
-            this.nodeIds = new Set();
-            this.descriptors = {};
-            this.factories = [];
-        }
-        addFactory(factory, parentId, nodeId, targetIndex, tagName) {
-            var _a, _b;
-            if (!this.nodeIds.has(nodeId)) {
-                this.nodeIds.add(nodeId);
-                this.addTargetDescriptor(parentId, nodeId, targetIndex);
-            }
-            factory.id = (_a = factory.id) !== null && _a !== void 0 ? _a : nextId();
-            factory.targetNodeId = nodeId;
-            factory.targetTagName = tagName;
-            factory.policy = (_b = factory.policy) !== null && _b !== void 0 ? _b : this.policy;
-            this.factories.push(factory);
-        }
-        freeze() {
-            this.proto = Object.create(null, this.descriptors);
-            return this;
-        }
-        addTargetDescriptor(parentId, targetId, targetIndex) {
-            const descriptors = this.descriptors;
-            if (targetId === "r" || // root
-            targetId === "h" || // host
-            descriptors[targetId]) return;
-            if (!descriptors[parentId]) {
-                const index = parentId.lastIndexOf(".");
-                const grandparentId = parentId.substring(0, index);
-                const childIndex = parseInt(parentId.substring(index + 1));
-                this.addTargetDescriptor(grandparentId, parentId, childIndex);
-            }
-            let descriptor = descriptorCache[targetId];
-            if (!descriptor) {
-                const field = `_${targetId}`;
-                descriptorCache[targetId] = descriptor = {
-                    get () {
-                        var _a;
-                        return (_a = this[field]) !== null && _a !== void 0 ? _a : this[field] = this[parentId].childNodes[targetIndex];
-                    }
-                };
-            }
-            descriptors[targetId] = descriptor;
-        }
-        createView(hostBindingTarget) {
-            const fragment = this.fragment.cloneNode(true);
-            const targets = Object.create(this.proto);
-            targets.r = fragment;
-            targets.h = hostBindingTarget !== null && hostBindingTarget !== void 0 ? hostBindingTarget : warningHost;
-            for (const id of this.nodeIds)targets[id]; // trigger locator
-            return new HTMLView(fragment, this.factories, targets);
-        }
+    connectedCallback(e) {
+        R(this, e, e[this.targetAspect]);
     }
-    function compileAttributes(context, parentId, node, nodeId, nodeIndex, includeBasicValues = false) {
-        const attributes = node.attributes;
-        const directives = context.directives;
-        for(let i = 0, ii = attributes.length; i < ii; ++i){
-            const attr = attributes[i];
-            const attrValue = attr.value;
-            const parseResult = Parser.parse(attrValue, directives);
-            let result = null;
-            if (parseResult === null) {
-                if (includeBasicValues) {
-                    result = new HTMLBindingDirective(oneTime(()=>attrValue, context.policy));
-                    HTMLDirective.assignAspect(result, attr.name);
-                }
-            } else /* eslint-disable-next-line @typescript-eslint/no-use-before-define */ result = Compiler.aggregate(parseResult, context.policy);
-            if (result !== null) {
-                node.removeAttributeNode(attr);
-                i--;
-                ii--;
-                context.addFactory(result, parentId, nodeId, nodeIndex, node.tagName);
-            }
-        }
+    removedCallback(e) {
+        e.source.$cssBindings && e.source.$cssBindings.delete(this);
     }
-    function compileContent(context, node, parentId, nodeId, nodeIndex) {
-        const parseResult = Parser.parse(node.textContent, context.directives);
-        if (parseResult === null) {
-            next.node = node.nextSibling;
-            next.index = nodeIndex + 1;
-            return next;
-        }
-        let currentNode;
-        let lastNode = currentNode = node;
-        for(let i = 0, ii = parseResult.length; i < ii; ++i){
-            const currentPart = parseResult[i];
-            if (i !== 0) {
-                nodeIndex++;
-                nodeId = targetIdFrom(parentId, nodeIndex);
-                currentNode = lastNode.parentNode.insertBefore(document.createTextNode(""), lastNode.nextSibling);
-            }
-            if (isString(currentPart)) currentNode.textContent = currentPart;
+    handleChange(e, t) {
+        R(this, t.controller, t);
+    }
+}
+V.define(D);
+const z = `${Math.random().toString(36).substring(2, 8)}`;
+let H = 0;
+const _ = ()=>`--v${z}${++H}`;
+function j(e, t) {
+    const o = [];
+    let i = "";
+    const r = [], n = (e)=>{
+        r.push(e);
+    };
+    for(let r = 0, a = e.length - 1; r < a; ++r){
+        i += e[r];
+        let a = t[r];
+        s(a) ? a = new D($(a), _()).createCSS(n) : a instanceof A ? a = new D(a, _()).createCSS(n) : void 0 !== V.getForInstance(a) && (a = a.createCSS(n)), a instanceof N || a instanceof CSSStyleSheet ? ("" !== i.trim() && (o.push(i), i = ""), o.push(a)) : i += a;
+    }
+    return i += e[e.length - 1], "" !== i.trim() && o.push(i), {
+        styles: o,
+        behaviors: r
+    };
+}
+const G = (e, ...t)=>{
+    const { styles: o, behaviors: i } = j(e, t), s = new N(o);
+    return i.length ? s.withBehaviors(...i) : s;
+};
+class W {
+    constructor(e, t){
+        this.behaviors = t, this.css = "";
+        const o = e.reduce((e, t)=>(r(t) ? this.css += t : e.push(t), e), []);
+        o.length && (this.styles = new N(o));
+    }
+    createCSS(e) {
+        return this.behaviors.forEach(e), this.styles && e(this), this.css;
+    }
+    addedCallback(e) {
+        e.addStyles(this.styles);
+    }
+    removedCallback(e) {
+        e.removeStyles(this.styles);
+    }
+}
+V.define(W), G.partial = (e, ...t)=>{
+    const { styles: o, behaviors: i } = j(e, t);
+    return new W(o, i);
+};
+const q = `fast-${Math.random().toString(36).substring(2, 8)}`, K = `${q}{`, U = `}${q}`, X = U.length;
+let Y = 0;
+const Q = ()=>`${q}-${++Y}`, Z = Object.freeze({
+    interpolation: (e)=>`${K}${e}${U}`,
+    attribute: (e)=>`${Q()}="${K}${e}${U}"`,
+    comment: (e)=>`\x3c!--${K}${e}${U}--\x3e`
+}), J = Object.freeze({
+    parse (e, t) {
+        const o = e.split(K);
+        if (1 === o.length) return null;
+        const i = [];
+        for(let e = 0, s = o.length; e < s; ++e){
+            const s = o[e], r = s.indexOf(U);
+            let n;
+            if (-1 === r) n = s;
             else {
-                currentNode.textContent = " ";
-                HTMLDirective.assignAspect(currentPart);
-                context.addFactory(currentPart, parentId, nodeId, nodeIndex, null);
+                const e = s.substring(0, r);
+                i.push(t[e]), n = s.substring(r + X);
             }
-            lastNode = currentNode;
+            "" !== n && i.push(n);
         }
-        next.index = nodeIndex + 1;
-        next.node = lastNode.nextSibling;
-        return next;
+        return i;
     }
-    function compileChildren(context, parent, parentId) {
-        let nodeIndex = 0;
-        let childNode = parent.firstChild;
-        while(childNode){
-            /* eslint-disable-next-line @typescript-eslint/no-use-before-define */ const result = compileNode(context, parentId, childNode, nodeIndex);
-            childNode = result.node;
-            nodeIndex = result.index;
-        }
-    }
-    function compileNode(context, parentId, node, nodeIndex) {
-        const nodeId = targetIdFrom(parentId, nodeIndex);
-        switch(node.nodeType){
-            case 1:
-                compileAttributes(context, parentId, node, nodeId, nodeIndex);
-                compileChildren(context, node, nodeId);
+}), ee = h(), te = Object.freeze({
+    getForInstance: ee.getForInstance,
+    getByType: ee.getByType,
+    define: (e, t)=>((t = t || {}).type = e, ee.register(t), e),
+    assignAspect (e, t) {
+        if (t) switch(e.sourceAspect = t, t[0]){
+            case ":":
+                e.targetAspect = t.substring(1), e.aspectType = "classList" === e.targetAspect ? f.tokenList : f.property;
                 break;
-            case 3:
-                return compileContent(context, node, parentId, nodeId, nodeIndex);
-            case 8:
-                const parts = Parser.parse(node.data, context.directives);
-                if (parts !== null) context.addFactory(/* eslint-disable-next-line @typescript-eslint/no-use-before-define */ Compiler.aggregate(parts), parentId, nodeId, nodeIndex, null);
+            case "?":
+                e.targetAspect = t.substring(1), e.aspectType = f.booleanAttribute;
                 break;
+            case "@":
+                e.targetAspect = t.substring(1), e.aspectType = f.event;
+                break;
+            default:
+                e.targetAspect = t, e.aspectType = f.attribute;
         }
-        next.index = nodeIndex + 1;
-        next.node = node.nextSibling;
-        return next;
+        else e.aspectType = f.content;
     }
-    function isMarker(node, directives) {
-        return node && node.nodeType == 8 && Parser.parse(node.data, directives) !== null;
+});
+class oe {
+    constructor(e){
+        this.options = e;
     }
-    const templateTag = "TEMPLATE";
-    /**
-     * Common APIs related to compilation.
-     * @public
-     */ const Compiler = {
-        /**
-         * Compiles a template and associated directives into a compilation
-         * result which can be used to create views.
-         * @param html - The html string or template element to compile.
-         * @param factories - The behavior factories referenced by the template.
-         * @param policy - The security policy to compile the html with.
-         * @remarks
-         * The template that is provided for compilation is altered in-place
-         * and cannot be compiled again. If the original template must be preserved,
-         * it is recommended that you clone the original and pass the clone to this API.
-         * @public
-         */ compile (html, factories, policy = DOM.policy) {
-            let template;
-            if (isString(html)) {
-                template = document.createElement(templateTag);
-                template.innerHTML = policy.createHTML(html);
-                const fec = template.content.firstElementChild;
-                if (fec !== null && fec.tagName === templateTag) template = fec;
-            } else template = html;
-            if (!template.content.firstChild && !template.content.lastChild) template.content.appendChild(document.createComment(""));
-            // https://bugs.chromium.org/p/chromium/issues/detail?id=1111864
-            const fragment = document.adoptNode(template.content);
-            const context = new CompilationContext(fragment, factories, policy);
-            compileAttributes(context, "", template, /* host */ "h", 0, true);
-            if (// If the first node in a fragment is a marker, that means it's an unstable first node,
-            // because something like a when, repeat, etc. could add nodes before the marker.
-            // To mitigate this, we insert a stable first node. However, if we insert a node,
-            // that will alter the result of the TreeWalker. So, we also need to offset the target index.
-            isMarker(fragment.firstChild, factories) || // Or if there is only one node and a directive, it means the template's content
-            // is *only* the directive. In that case, HTMLView.dispose() misses any nodes inserted by
-            // the directive. Inserting a new node ensures proper disposal of nodes added by the directive.
-            fragment.childNodes.length === 1 && Object.keys(factories).length > 0) fragment.insertBefore(document.createComment(""), fragment.firstChild);
-            compileChildren(context, fragment, /* root */ "r");
-            next.node = null; // prevent leaks
-            return context.freeze();
-        },
-        /**
-         * Sets the default compilation strategy that will be used by the ViewTemplate whenever
-         * it needs to compile a view preprocessed with the html template function.
-         * @param strategy - The compilation strategy to use when compiling templates.
-         */ setDefaultStrategy (strategy) {
-            this.compile = strategy;
-        },
-        /**
-         * Aggregates an array of strings and directives into a single directive.
-         * @param parts - A heterogeneous array of static strings interspersed with
-         * directives.
-         * @param policy - The security policy to use with the aggregated bindings.
-         * @returns A single inline directive that aggregates the behavior of all the parts.
-         */ aggregate (parts, policy = DOM.policy) {
-            if (parts.length === 1) return parts[0];
-            let sourceAspect;
-            let binding;
-            let isVolatile = false;
-            let bindingPolicy = void 0;
-            const partCount = parts.length;
-            const finalParts = parts.map((x)=>{
-                if (isString(x)) return ()=>x;
-                sourceAspect = x.sourceAspect || sourceAspect;
-                binding = x.dataBinding || binding;
-                isVolatile = isVolatile || x.dataBinding.isVolatile;
-                bindingPolicy = bindingPolicy || x.dataBinding.policy;
-                return x.dataBinding.evaluate;
-            });
-            const expression = (scope, context)=>{
-                let output = "";
-                for(let i = 0; i < partCount; ++i)output += finalParts[i](scope, context);
-                return output;
-            };
-            binding.evaluate = expression;
-            binding.isVolatile = isVolatile;
-            binding.policy = bindingPolicy !== null && bindingPolicy !== void 0 ? bindingPolicy : policy;
-            const directive = new HTMLBindingDirective(binding);
-            HTMLDirective.assignAspect(directive, sourceAspect);
-            return directive;
-        }
-    };
-    // Much thanks to LitHTML for working this out!
-    const lastAttributeNameRegex = /* eslint-disable-next-line no-control-regex */ /([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
-    const noFactories = Object.create(null);
-    /**
-     * Inlines a template into another template.
-     * @public
-     */ class InlineTemplateDirective {
-        /**
-         * Creates an instance of InlineTemplateDirective.
-         * @param template - The template to inline.
-         */ constructor(html, factories = noFactories){
-            this.html = html;
-            this.factories = factories;
-        }
-        /**
-         * Creates HTML to be used within a template.
-         * @param add - Can be used to add  behavior factories to a template.
-         */ createHTML(add) {
-            const factories = this.factories;
-            for(const key in factories)add(factories[key]);
-            return this.html;
-        }
+    createHTML(e) {
+        return Z.attribute(e(this));
     }
-    /**
-     * An empty template partial.
-     */ InlineTemplateDirective.empty = new InlineTemplateDirective("");
-    HTMLDirective.define(InlineTemplateDirective);
-    function createHTML(value, prevString, add, definition = HTMLDirective.getForInstance(value)) {
-        if (definition.aspected) {
-            const match = lastAttributeNameRegex.exec(prevString);
-            if (match !== null) HTMLDirective.assignAspect(value, match[2]);
-        }
-        return value.createHTML(add);
+    createBehavior() {
+        return this;
     }
-    /**
-     * A template capable of creating HTMLView instances or rendering directly to DOM.
-     * @public
-     */ class ViewTemplate {
-        /**
-         * Creates an instance of ViewTemplate.
-         * @param html - The html representing what this template will instantiate, including placeholders for directives.
-         * @param factories - The directives that will be connected to placeholders in the html.
-         * @param policy - The security policy to use when compiling this template.
-         */ constructor(html, factories = {}, policy){
-            this.policy = policy;
-            this.result = null;
-            this.html = html;
-            this.factories = factories;
+}
+p(oe);
+const ie = {
+    [f.attribute]: w.setAttribute,
+    [f.booleanAttribute]: w.setBooleanAttribute,
+    [f.property]: (e, t, o)=>e[t] = o,
+    [f.content]: function(e, t, o, i) {
+        if (null == o && (o = ""), o.create) {
+            e.textContent = "";
+            let t = e.$fastView;
+            void 0 === t ? t = o.create() : e.$fastTemplate !== o && (t.isComposed && (t.remove(), t.unbind()), t = o.create()), t.isComposed ? t.needsBindOnly && (t.needsBindOnly = !1, t.bind(i.source, i.context)) : (t.isComposed = !0, t.bind(i.source, i.context), t.insertBefore(e), e.$fastView = t, e.$fastTemplate = o);
+        } else {
+            const t = e.$fastView;
+            void 0 !== t && t.isComposed && (t.isComposed = !1, t.remove(), t.needsBindOnly ? t.needsBindOnly = !1 : t.unbind()), e.textContent = o;
         }
-        /**
-         * Creates an HTMLView instance based on this template definition.
-         * @param hostBindingTarget - The element that host behaviors will be bound to.
-         */ create(hostBindingTarget) {
-            if (this.result === null) this.result = Compiler.compile(this.html, this.factories, this.policy);
-            return this.result.createView(hostBindingTarget);
-        }
-        /**
-         * Returns a directive that can inline the template.
-         */ inline() {
-            return new InlineTemplateDirective(isString(this.html) ? this.html : this.html.innerHTML, this.factories);
-        }
-        /**
-         * Sets the DOMPolicy for this template.
-         * @param policy - The policy to associated with this template.
-         * @returns The modified template instance.
-         * @remarks
-         * The DOMPolicy can only be set once for a template and cannot be
-         * set after the template is compiled.
-         */ withPolicy(policy) {
-            if (this.result) throw FAST.error(1208 /* Message.cannotSetTemplatePolicyAfterCompilation */ );
-            if (this.policy) throw FAST.error(1207 /* Message.onlySetTemplatePolicyOnce */ );
-            this.policy = policy;
-            return this;
-        }
-        /**
-         * Creates an HTMLView from this template, binds it to the source, and then appends it to the host.
-         * @param source - The data source to bind the template to.
-         * @param host - The Element where the template will be rendered.
-         * @param hostBindingTarget - An HTML element to target the host bindings at if different from the
-         * host that the template is being attached to.
-         */ render(source, host, hostBindingTarget) {
-            const view = this.create(hostBindingTarget);
-            view.bind(source);
-            view.appendTo(host);
-            return view;
-        }
-        /**
-         * Creates a template based on a set of static strings and dynamic values.
-         * @param strings - The static strings to create the template with.
-         * @param values - The dynamic values to create the template with.
-         * @param policy - The DOMPolicy to associated with the template.
-         * @returns A ViewTemplate.
-         * @remarks
-         * This API should not be used directly under normal circumstances because constructing
-         * a template in this way, if not done properly, can open up the application to XSS
-         * attacks. When using this API, provide a strong DOMPolicy that can properly sanitize
-         * and also be sure to manually sanitize all static strings particularly if they can
-         * come from user input.
-         */ static create(strings, values, policy) {
-            let html = "";
-            const factories = Object.create(null);
-            const add = (factory)=>{
-                var _a;
-                const id = (_a = factory.id) !== null && _a !== void 0 ? _a : factory.id = nextId();
-                factories[id] = factory;
-                return id;
-            };
-            for(let i = 0, ii = strings.length - 1; i < ii; ++i){
-                const currentString = strings[i];
-                let currentValue = values[i];
-                let definition;
-                html += currentString;
-                if (isFunction(currentValue)) currentValue = new HTMLBindingDirective(oneWay(currentValue));
-                else if (currentValue instanceof Binding) currentValue = new HTMLBindingDirective(currentValue);
-                else if (!(definition = HTMLDirective.getForInstance(currentValue))) {
-                    const staticValue = currentValue;
-                    currentValue = new HTMLBindingDirective(oneTime(()=>staticValue));
-                }
-                html += createHTML(currentValue, currentString, add, definition);
+    },
+    [f.tokenList]: function(e, t, o) {
+        var i;
+        const s = `${this.id}-t`, r = null !== (i = e[s]) && void 0 !== i ? i : e[s] = {
+            v: 0,
+            cv: Object.create(null)
+        }, n = r.cv;
+        let a = r.v;
+        const l = e[t];
+        if (null != o && o.length) {
+            const e = o.split(/\s+/);
+            for(let t = 0, o = e.length; t < o; ++t){
+                const o = e[t];
+                "" !== o && (n[o] = a, l.add(o));
             }
-            return new ViewTemplate(html + strings[strings.length - 1], factories, policy);
+        }
+        if (r.v = a + 1, 0 !== a) {
+            a -= 1;
+            for(const e in n)n[e] === a && l.remove(e);
+        }
+    },
+    [f.event]: ()=>{}
+};
+class se {
+    constructor(e){
+        this.dataBinding = e, this.updateTarget = null, this.aspectType = f.content;
+    }
+    createHTML(e) {
+        return Z.interpolation(e(this));
+    }
+    createBehavior() {
+        var e;
+        if (null === this.updateTarget) {
+            const t = ie[this.aspectType], o = null !== (e = this.dataBinding.policy) && void 0 !== e ? e : this.policy;
+            if (!t) throw d.error(1205);
+            this.data = `${this.id}-d`, this.updateTarget = o.protect(this.targetTagName, this.aspectType, this.targetAspect, t);
+        }
+        return this;
+    }
+    bind(e) {
+        var t;
+        const o = e.targets[this.targetNodeId];
+        switch(this.aspectType){
+            case f.event:
+                o[this.data] = e, o.addEventListener(this.targetAspect, this, this.dataBinding.options);
+                break;
+            case f.content:
+                e.onUnbind(this);
+            default:
+                const i = null !== (t = o[this.data]) && void 0 !== t ? t : o[this.data] = this.dataBinding.createObserver(this, this);
+                i.target = o, i.controller = e, this.updateTarget(o, this.targetAspect, i.bind(e), e);
         }
     }
-    makeSerializationNoop(ViewTemplate);
-    /**
-     * Transforms a template literal string into a ViewTemplate.
-     * @param strings - The string fragments that are interpolated with the values.
-     * @param values - The values that are interpolated with the string fragments.
-     * @remarks
-     * The html helper supports interpolation of strings, numbers, binding expressions,
-     * other template instances, and Directive instances.
-     * @public
-     */ const html = (strings, ...values)=>{
-        if (Array.isArray(strings) && Array.isArray(strings.raw)) return ViewTemplate.create(strings, values);
-        throw FAST.error(1206 /* Message.directCallToHTMLTagNotAllowed */ );
-    };
-    html.partial = (html)=>{
-        return new InlineTemplateDirective(html);
-    };
-    /**
-     * The runtime behavior for template references.
-     * @public
-     */ class RefDirective extends StatelessAttachedAttributeDirective {
-        /**
-         * Bind this behavior.
-         * @param controller - The view controller that manages the lifecycle of this behavior.
-         */ bind(controller) {
-            controller.source[this.options] = controller.targets[this.targetNodeId];
+    unbind(e) {
+        const t = e.targets[this.targetNodeId].$fastView;
+        void 0 !== t && t.isComposed && (t.unbind(), t.needsBindOnly = !0);
+    }
+    handleEvent(e) {
+        const t = e.currentTarget[this.data];
+        if (t.isBound) {
+            E.setEvent(e);
+            const o = this.dataBinding.evaluate(t.source, t.context);
+            E.setEvent(null), !0 !== o && e.preventDefault();
         }
     }
-    HTMLDirective.define(RefDirective);
-    /**
-     * A directive that observes the updates a property with a reference to the element.
-     * @param propertyName - The name of the property to assign the reference to.
-     * @public
-     */ const ref = (propertyName)=>new RefDirective(propertyName);
-    const noTemplate = ()=>null;
-    function normalizeBinding(value) {
-        return value === undefined ? noTemplate : isFunction(value) ? value : ()=>value;
+    handleChange(e, t) {
+        const o = t.target, i = t.controller;
+        this.updateTarget(o, this.targetAspect, t.bind(i), i);
     }
-    /**
-     * A directive that enables basic conditional rendering in a template.
-     * @param condition - The condition to test for rendering.
-     * @param templateOrTemplateBinding - The template or a binding that gets
-     * the template to render when the condition is true.
-     * @param elseTemplateOrTemplateBinding - Optional template or binding that that
-     * gets the template to render when the conditional is false.
-     * @public
-     */ function when(condition, templateOrTemplateBinding, elseTemplateOrTemplateBinding) {
-        const dataBinding = isFunction(condition) ? condition : ()=>condition;
-        const templateBinding = normalizeBinding(templateOrTemplateBinding);
-        const elseBinding = normalizeBinding(elseTemplateOrTemplateBinding);
-        return (source, context)=>dataBinding(source, context) ? templateBinding(source, context) : elseBinding(source, context);
+}
+function re(e, t) {
+    const o = e.parentNode;
+    let i, s = e;
+    for(; s !== t;)i = s.nextSibling, o.removeChild(s), s = i;
+    o.removeChild(t);
+}
+te.define(se, {
+    aspected: !0
+});
+class ne {
+    constructor(e, t, o){
+        this.fragment = e, this.factories = t, this.targets = o, this.behaviors = null, this.unbindables = [], this.source = null, this.isBound = !1, this.sourceLifetime = S.unknown, this.context = this, this.index = 0, this.length = 0, this.firstChild = e.firstChild, this.lastChild = e.lastChild;
     }
-    /**
-     * A base class for node observation.
-     * @public
-     * @remarks
-     * Internally used by the SlottedDirective and the ChildrenDirective.
-     */ class NodeObservationDirective extends StatelessAttachedAttributeDirective {
-        /**
-         * The unique id of the factory.
-         */ get id() {
-            return this._id;
-        }
-        set id(value) {
-            this._id = value;
-            this._controllerProperty = `${value}-c`;
-        }
-        /**
-         * Bind this behavior to the source.
-         * @param source - The source to bind to.
-         * @param context - The execution context that the binding is operating within.
-         * @param targets - The targets that behaviors in a view can attach to.
-         */ bind(controller) {
-            const target = controller.targets[this.targetNodeId];
-            target[this._controllerProperty] = controller;
-            this.updateTarget(controller.source, this.computeNodes(target));
-            this.observe(target);
-            controller.onUnbind(this);
-        }
-        /**
-         * Unbinds this behavior from the source.
-         * @param source - The source to unbind from.
-         * @param context - The execution context that the binding is operating within.
-         * @param targets - The targets that behaviors in a view can attach to.
-         */ unbind(controller) {
-            const target = controller.targets[this.targetNodeId];
-            this.updateTarget(controller.source, emptyArray);
-            this.disconnect(target);
-            target[this._controllerProperty] = null;
-        }
-        /**
-         * Gets the data source for the target.
-         * @param target - The target to get the source for.
-         * @returns The source.
-         */ getSource(target) {
-            return target[this._controllerProperty].source;
-        }
-        /**
-         * Updates the source property with the computed nodes.
-         * @param source - The source object to assign the nodes property to.
-         * @param value - The nodes to assign to the source object property.
-         */ updateTarget(source, value) {
-            source[this.options.property] = value;
-        }
-        /**
-         * Computes the set of nodes that should be assigned to the source property.
-         * @param target - The target to compute the nodes for.
-         * @returns The computed nodes.
-         * @remarks
-         * Applies filters if provided.
-         */ computeNodes(target) {
-            let nodes = this.getNodes(target);
-            if ("filter" in this.options) nodes = nodes.filter(this.options.filter);
-            return nodes;
+    get event() {
+        return E.getEvent();
+    }
+    get isEven() {
+        return this.index % 2 == 0;
+    }
+    get isOdd() {
+        return this.index % 2 != 0;
+    }
+    get isFirst() {
+        return 0 === this.index;
+    }
+    get isInMiddle() {
+        return !this.isFirst && !this.isLast;
+    }
+    get isLast() {
+        return this.index === this.length - 1;
+    }
+    eventDetail() {
+        return this.event.detail;
+    }
+    eventTarget() {
+        return this.event.target;
+    }
+    appendTo(e) {
+        e.appendChild(this.fragment);
+    }
+    insertBefore(e) {
+        if (this.fragment.hasChildNodes()) e.parentNode.insertBefore(this.fragment, e);
+        else {
+            const t = this.lastChild;
+            if (e.previousSibling === t) return;
+            const o = e.parentNode;
+            let i, s = this.firstChild;
+            for(; s !== t;)i = s.nextSibling, o.insertBefore(s, e), s = i;
+            o.insertBefore(t, e);
         }
     }
-    const slotEvent = "slotchange";
-    /**
-     * The runtime behavior for slotted node observation.
-     * @public
-     */ class SlottedDirective extends NodeObservationDirective {
-        /**
-         * Begins observation of the nodes.
-         * @param target - The target to observe.
-         */ observe(target) {
-            target.addEventListener(slotEvent, this);
+    remove() {
+        const e = this.fragment, t = this.lastChild;
+        let o, i = this.firstChild;
+        for(; i !== t;)o = i.nextSibling, e.appendChild(i), i = o;
+        e.appendChild(t);
+    }
+    dispose() {
+        re(this.firstChild, this.lastChild), this.unbind();
+    }
+    onUnbind(e) {
+        this.unbindables.push(e);
+    }
+    bind(e, t = this) {
+        if (this.source === e) return;
+        let o = this.behaviors;
+        if (null === o) {
+            this.source = e, this.context = t, this.behaviors = o = new Array(this.factories.length);
+            const i = this.factories;
+            for(let e = 0, t = i.length; e < t; ++e){
+                const t = i[e].createBehavior();
+                t.bind(this), o[e] = t;
+            }
+        } else {
+            null !== this.source && this.evaluateUnbindables(), this.isBound = !1, this.source = e, this.context = t;
+            for(let e = 0, t = o.length; e < t; ++e)o[e].bind(this);
         }
-        /**
-         * Disconnects observation of the nodes.
-         * @param target - The target to unobserve.
-         */ disconnect(target) {
-            target.removeEventListener(slotEvent, this);
-        }
-        /**
-         * Retrieves the raw nodes that should be assigned to the source property.
-         * @param target - The target to get the node to.
-         */ getNodes(target) {
-            return target.assignedNodes(this.options);
-        }
-        /** @internal */ handleEvent(event) {
-            const target = event.currentTarget;
-            this.updateTarget(this.getSource(target), this.computeNodes(target));
+        this.isBound = !0;
+    }
+    unbind() {
+        this.isBound && null !== this.source && (this.evaluateUnbindables(), this.source = null, this.context = this, this.isBound = !1);
+    }
+    evaluateUnbindables() {
+        const e = this.unbindables;
+        for(let t = 0, o = e.length; t < o; ++t)e[t].unbind(this);
+        e.length = 0;
+    }
+    static disposeContiguousBatch(e) {
+        if (0 !== e.length) {
+            re(e[0].firstChild, e[e.length - 1].lastChild);
+            for(let t = 0, o = e.length; t < o; ++t)e[t].unbind();
         }
     }
-    HTMLDirective.define(SlottedDirective);
-    /**
-     * A directive that observes the `assignedNodes()` of a slot and updates a property
-     * whenever they change.
-     * @param propertyOrOptions - The options used to configure slotted node observation.
-     * @public
-     */ function slotted(propertyOrOptions) {
-        if (isString(propertyOrOptions)) propertyOrOptions = {
-            property: propertyOrOptions
-        };
-        return new SlottedDirective(propertyOrOptions);
-    }
-    const booleanMode = "boolean";
-    const reflectMode = "reflect";
-    /**
-     * Metadata used to configure a custom attribute's behavior.
-     * @public
-     */ const AttributeConfiguration = Object.freeze({
-        /**
-         * Locates all attribute configurations associated with a type.
-         */ locate: createMetadataLocator()
+}
+p(ne), C.defineProperty(ne.prototype, "index"), C.defineProperty(ne.prototype, "length");
+const ae = (e, t)=>`${e}.${t}`, le = {}, de = {
+    index: 0,
+    node: null
+};
+function ce(e) {
+    e.startsWith("fast-") || d.warn(1204, {
+        name: e
     });
-    /**
-     * A {@link ValueConverter} that converts to and from `boolean` values.
-     * @remarks
-     * Used automatically when the `boolean` {@link AttributeMode} is selected.
-     * @public
-     */ const booleanConverter = {
-        toView (value) {
-            return value ? "true" : "false";
-        },
-        fromView (value) {
-            return value === null || value === void 0 || value === "false" || value === false || value === 0 ? false : true;
-        }
-    };
-    function toNumber(value) {
-        if (value === null || value === undefined) return null;
-        const number = value * 1;
-        return isNaN(number) ? null : number;
+}
+const he = new Proxy(document.createElement("div"), {
+    get (e, t) {
+        ce(t);
+        const o = Reflect.get(e, t);
+        return s(o) ? o.bind(e) : o;
+    },
+    set: (e, t, o)=>(ce(t), Reflect.set(e, t, o))
+});
+class ue {
+    constructor(e, t, o){
+        this.fragment = e, this.directives = t, this.policy = o, this.proto = null, this.nodeIds = new Set, this.descriptors = {}, this.factories = [];
     }
-    /**
-     * A {@link ValueConverter} that converts to and from `number` values.
-     * @remarks
-     * This converter allows for nullable numbers, returning `null` if the
-     * input was `null`, `undefined`, or `NaN`.
-     * @public
-     */ const nullableNumberConverter = {
-        toView (value) {
-            const output = toNumber(value);
-            return output ? output.toString() : output;
-        },
-        fromView: toNumber
-    };
-    /**
-     * An implementation of {@link Accessor} that supports reactivity,
-     * change callbacks, attribute reflection, and type conversion for
-     * custom elements.
-     * @public
-     */ class AttributeDefinition {
-        /**
-         * Creates an instance of AttributeDefinition.
-         * @param Owner - The class constructor that owns this attribute.
-         * @param name - The name of the property associated with the attribute.
-         * @param attribute - The name of the attribute in HTML.
-         * @param mode - The {@link AttributeMode} that describes the behavior of this attribute.
-         * @param converter - A {@link ValueConverter} that integrates with the property getter/setter
-         * to convert values to and from a DOM string.
-         */ constructor(Owner, name, attribute = name.toLowerCase(), mode = reflectMode, converter){
-            this.guards = new Set();
-            this.Owner = Owner;
-            this.name = name;
-            this.attribute = attribute;
-            this.mode = mode;
-            this.converter = converter;
-            this.fieldName = `_${name}`;
-            this.callbackName = `${name}Changed`;
-            this.hasCallback = this.callbackName in Owner.prototype;
-            if (mode === booleanMode && converter === void 0) this.converter = booleanConverter;
+    addFactory(e, t, o, i, s) {
+        var r, n;
+        this.nodeIds.has(o) || (this.nodeIds.add(o), this.addTargetDescriptor(t, o, i)), e.id = null !== (r = e.id) && void 0 !== r ? r : Q(), e.targetNodeId = o, e.targetTagName = s, e.policy = null !== (n = e.policy) && void 0 !== n ? n : this.policy, this.factories.push(e);
+    }
+    freeze() {
+        return this.proto = Object.create(null, this.descriptors), this;
+    }
+    addTargetDescriptor(e, t, o) {
+        const i = this.descriptors;
+        if ("r" === t || "h" === t || i[t]) return;
+        if (!i[e]) {
+            const t = e.lastIndexOf("."), o = e.substring(0, t), i = parseInt(e.substring(t + 1));
+            this.addTargetDescriptor(o, e, i);
         }
-        /**
-         * Sets the value of the attribute/property on the source element.
-         * @param source - The source element to access.
-         * @param value - The value to set the attribute/property to.
-         */ setValue(source, newValue) {
-            const oldValue = source[this.fieldName];
-            const converter = this.converter;
-            if (converter !== void 0) newValue = converter.fromView(newValue);
-            if (oldValue !== newValue) {
-                source[this.fieldName] = newValue;
-                this.tryReflectToAttribute(source);
-                if (this.hasCallback) source[this.callbackName](oldValue, newValue);
-                source.$fastController.notify(this.name);
-            }
-        }
-        /**
-         * Gets the value of the attribute/property on the source element.
-         * @param source - The source element to access.
-         */ getValue(source) {
-            Observable.track(source, this.name);
-            return source[this.fieldName];
-        }
-        /** @internal */ onAttributeChangedCallback(element, value) {
-            if (this.guards.has(element)) return;
-            this.guards.add(element);
-            this.setValue(element, value);
-            this.guards.delete(element);
-        }
-        tryReflectToAttribute(element) {
-            const mode = this.mode;
-            const guards = this.guards;
-            if (guards.has(element) || mode === "fromView") return;
-            Updates.enqueue(()=>{
-                guards.add(element);
-                const latestValue = element[this.fieldName];
-                switch(mode){
-                    case reflectMode:
-                        const converter = this.converter;
-                        DOM.setAttribute(element, this.attribute, converter !== void 0 ? converter.toView(latestValue) : latestValue);
-                        break;
-                    case booleanMode:
-                        DOM.setBooleanAttribute(element, this.attribute, latestValue);
-                        break;
+        let s = le[t];
+        if (!s) {
+            const i = `_${t}`;
+            le[t] = s = {
+                get () {
+                    var t;
+                    return null !== (t = this[i]) && void 0 !== t ? t : this[i] = this[e].childNodes[o];
                 }
-                guards.delete(element);
-            });
-        }
-        /**
-         * Collects all attribute definitions associated with the owner.
-         * @param Owner - The class constructor to collect attribute for.
-         * @param attributeLists - Any existing attributes to collect and merge with those associated with the owner.
-         * @internal
-         */ static collect(Owner, ...attributeLists) {
-            const attributes = [];
-            attributeLists.push(AttributeConfiguration.locate(Owner));
-            for(let i = 0, ii = attributeLists.length; i < ii; ++i){
-                const list = attributeLists[i];
-                if (list === void 0) continue;
-                for(let j = 0, jj = list.length; j < jj; ++j){
-                    const config = list[j];
-                    if (isString(config)) attributes.push(new AttributeDefinition(Owner, config));
-                    else attributes.push(new AttributeDefinition(Owner, config.property, config.attribute, config.mode, config.converter));
-                }
-            }
-            return attributes;
-        }
-    }
-    function attr(configOrTarget, prop) {
-        let config;
-        function decorator($target, $prop) {
-            if (arguments.length > 1) // Non invocation:
-            // - @attr
-            // Invocation with or w/o opts:
-            // - @attr()
-            // - @attr({...opts})
-            config.property = $prop;
-            AttributeConfiguration.locate($target.constructor).push(config);
-        }
-        if (arguments.length > 1) {
-            // Non invocation:
-            // - @attr
-            config = {};
-            decorator(configOrTarget, prop);
-            return;
-        }
-        // Invocation with or w/o opts:
-        // - @attr()
-        // - @attr({...opts})
-        config = configOrTarget === void 0 ? {} : configOrTarget;
-        return decorator;
-    }
-    const defaultShadowOptions = {
-        mode: "open"
-    };
-    const defaultElementOptions = {};
-    const fastElementBaseTypes = new Set();
-    const fastElementRegistry = FAST.getById(KernelServiceId.elementRegistry, ()=>createTypeRegistry());
-    /**
-     * Defines metadata for a FASTElement.
-     * @public
-     */ class FASTElementDefinition {
-        constructor(type, nameOrConfig = type.definition){
-            var _a;
-            this.platformDefined = false;
-            if (isString(nameOrConfig)) nameOrConfig = {
-                name: nameOrConfig
             };
-            this.type = type;
-            this.name = nameOrConfig.name;
-            this.template = nameOrConfig.template;
-            this.registry = (_a = nameOrConfig.registry) !== null && _a !== void 0 ? _a : customElements;
-            const proto = type.prototype;
-            const attributes = AttributeDefinition.collect(type, nameOrConfig.attributes);
-            const observedAttributes = new Array(attributes.length);
-            const propertyLookup = {};
-            const attributeLookup = {};
-            for(let i = 0, ii = attributes.length; i < ii; ++i){
-                const current = attributes[i];
-                observedAttributes[i] = current.attribute;
-                propertyLookup[current.name] = current;
-                attributeLookup[current.attribute] = current;
-                Observable.defineProperty(proto, current);
-            }
-            Reflect.defineProperty(type, "observedAttributes", {
-                value: observedAttributes,
-                enumerable: true
-            });
-            this.attributes = attributes;
-            this.propertyLookup = propertyLookup;
-            this.attributeLookup = attributeLookup;
-            this.shadowOptions = nameOrConfig.shadowOptions === void 0 ? defaultShadowOptions : nameOrConfig.shadowOptions === null ? void 0 : Object.assign(Object.assign({}, defaultShadowOptions), nameOrConfig.shadowOptions);
-            this.elementOptions = nameOrConfig.elementOptions === void 0 ? defaultElementOptions : Object.assign(Object.assign({}, defaultElementOptions), nameOrConfig.elementOptions);
-            this.styles = ElementStyles.normalize(nameOrConfig.styles);
-            fastElementRegistry.register(this);
         }
-        /**
-         * Indicates if this element has been defined in at least one registry.
-         */ get isDefined() {
-            return this.platformDefined;
-        }
-        /**
-         * Defines a custom element based on this definition.
-         * @param registry - The element registry to define the element in.
-         * @remarks
-         * This operation is idempotent per registry.
-         */ define(registry = this.registry) {
-            const type = this.type;
-            if (!registry.get(this.name)) {
-                this.platformDefined = true;
-                registry.define(this.name, type, this.elementOptions);
-            }
-            return this;
-        }
-        /**
-         * Creates an instance of FASTElementDefinition.
-         * @param type - The type this definition is being created for.
-         * @param nameOrDef - The name of the element to define or a config object
-         * that describes the element to define.
-         */ static compose(type, nameOrDef) {
-            if (fastElementBaseTypes.has(type) || fastElementRegistry.getByType(type)) return new FASTElementDefinition(class extends type {
-            }, nameOrDef);
-            return new FASTElementDefinition(type, nameOrDef);
-        }
-        /**
-         * Registers a FASTElement base type.
-         * @param type - The type to register as a base type.
-         * @internal
-         */ static registerBaseType(type) {
-            fastElementBaseTypes.add(type);
-        }
+        i[t] = s;
     }
-    /**
-     * Gets the element definition associated with the specified type.
-     * @param type - The custom element type to retrieve the definition for.
-     */ FASTElementDefinition.getByType = fastElementRegistry.getByType;
-    /**
-     * Gets the element definition associated with the instance.
-     * @param instance - The custom element instance to retrieve the definition for.
-     */ FASTElementDefinition.getForInstance = fastElementRegistry.getForInstance;
-    const defaultEventOptions = {
-        bubbles: true,
-        composed: true,
-        cancelable: true
-    };
-    const isConnectedPropertyName = "isConnected";
-    const shadowRoots = new WeakMap();
-    function getShadowRoot(element) {
-        var _a, _b;
-        return (_b = (_a = element.shadowRoot) !== null && _a !== void 0 ? _a : shadowRoots.get(element)) !== null && _b !== void 0 ? _b : null;
+    createView(e) {
+        const t = this.fragment.cloneNode(!0), o = Object.create(this.proto);
+        o.r = t, o.h = null != e ? e : he;
+        for (const e of this.nodeIds)o[e];
+        return new ne(t, this.factories, o);
     }
-    let elementControllerStrategy;
-    /**
-     * Controls the lifecycle and rendering of a `FASTElement`.
-     * @public
-     */ class ElementController extends PropertyChangeNotifier {
-        /**
-         * Creates a Controller to control the specified element.
-         * @param element - The element to be controlled by this controller.
-         * @param definition - The element definition metadata that instructs this
-         * controller in how to handle rendering and other platform integrations.
-         * @internal
-         */ constructor(element, definition){
-            super(element);
-            this.boundObservables = null;
-            this.needsInitialization = true;
-            this.hasExistingShadowRoot = false;
-            this._template = null;
-            this.stage = 3 /* Stages.disconnected */ ;
-            /**
-             * A guard against connecting behaviors multiple times
-             * during connect in scenarios where a behavior adds
-             * another behavior during it's connectedCallback
-             */ this.guardBehaviorConnection = false;
-            this.behaviors = null;
-            this._mainStyles = null;
-            /**
-             * This allows Observable.getNotifier(...) to return the Controller
-             * when the notifier for the Controller itself is being requested. The
-             * result is that the Observable system does not need to create a separate
-             * instance of Notifier for observables on the Controller. The component and
-             * the controller will now share the same notifier, removing one-object construct
-             * per web component instance.
-             */ this.$fastController = this;
-            /**
-             * The view associated with the custom element.
-             * @remarks
-             * If `null` then the element is managing its own rendering.
-             */ this.view = null;
-            this.source = element;
-            this.definition = definition;
-            const shadowOptions = definition.shadowOptions;
-            if (shadowOptions !== void 0) {
-                let shadowRoot = element.shadowRoot;
-                if (shadowRoot) this.hasExistingShadowRoot = true;
-                else {
-                    shadowRoot = element.attachShadow(shadowOptions);
-                    if (shadowOptions.mode === "closed") shadowRoots.set(element, shadowRoot);
+}
+function pe(e, t, o, i, s, r = !1) {
+    const n = o.attributes, a = e.directives;
+    for(let l = 0, d = n.length; l < d; ++l){
+        const c = n[l], h = c.value, u = J.parse(h, a);
+        let p = null;
+        null === u ? r && (p = new se(F(()=>h, e.policy)), te.assignAspect(p, c.name)) : p = me.aggregate(u, e.policy), null !== p && (o.removeAttributeNode(c), l--, d--, e.addFactory(p, t, i, s, o.tagName));
+    }
+}
+function fe(e, t, o) {
+    let i = 0, s = t.firstChild;
+    for(; s;){
+        const t = ge(e, o, s, i);
+        s = t.node, i = t.index;
+    }
+}
+function ge(e, t, o, i) {
+    const s = ae(t, i);
+    switch(o.nodeType){
+        case 1:
+            pe(e, t, o, s, i), fe(e, o, s);
+            break;
+        case 3:
+            return function(e, t, o, i, s) {
+                const n = J.parse(t.textContent, e.directives);
+                if (null === n) return de.node = t.nextSibling, de.index = s + 1, de;
+                let a, l = a = t;
+                for(let t = 0, d = n.length; t < d; ++t){
+                    const d = n[t];
+                    0 !== t && (s++, i = ae(o, s), a = l.parentNode.insertBefore(document.createTextNode(""), l.nextSibling)), r(d) ? a.textContent = d : (a.textContent = " ", te.assignAspect(d), e.addFactory(d, o, i, s, null)), l = a;
                 }
+                return de.index = s + 1, de.node = l.nextSibling, de;
+            }(e, o, t, s, i);
+        case 8:
+            const n = J.parse(o.data, e.directives);
+            null !== n && e.addFactory(me.aggregate(n), t, s, i, null);
+    }
+    return de.index = i + 1, de.node = o.nextSibling, de;
+}
+const ve = "TEMPLATE", me = {
+    compile (e, t, o = w.policy) {
+        let i;
+        if (r(e)) {
+            i = document.createElement(ve), i.innerHTML = o.createHTML(e);
+            const t = i.content.firstElementChild;
+            null !== t && t.tagName === ve && (i = t);
+        } else i = e;
+        i.content.firstChild || i.content.lastChild || i.content.appendChild(document.createComment(""));
+        const s = document.adoptNode(i.content), n = new ue(s, t, o);
+        var a, l;
+        return pe(n, "", i, "h", 0, !0), a = s.firstChild, l = t, (a && 8 == a.nodeType && null !== J.parse(a.data, l) || 1 === s.childNodes.length && Object.keys(t).length > 0) && s.insertBefore(document.createComment(""), s.firstChild), fe(n, s, "r"), de.node = null, n.freeze();
+    },
+    setDefaultStrategy (e) {
+        this.compile = e;
+    },
+    aggregate (e, t = w.policy) {
+        if (1 === e.length) return e[0];
+        let o, i, s, n = !1;
+        const a = e.length, l = e.map((e)=>r(e) ? ()=>e : (o = e.sourceAspect || o, i = e.dataBinding || i, n = n || e.dataBinding.isVolatile, s = s || e.dataBinding.policy, e.dataBinding.evaluate));
+        i.evaluate = (e, t)=>{
+            let o = "";
+            for(let i = 0; i < a; ++i)o += l[i](e, t);
+            return o;
+        }, i.isVolatile = n, i.policy = null != s ? s : t;
+        const d = new se(i);
+        return te.assignAspect(d, o), d;
+    }
+}, be = /([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/, we = Object.create(null);
+class ye {
+    constructor(e, t = we){
+        this.html = e, this.factories = t;
+    }
+    createHTML(e) {
+        const t = this.factories;
+        for(const o in t)e(t[o]);
+        return this.html;
+    }
+}
+function xe(e, t, o, i = te.getForInstance(e)) {
+    if (i.aspected) {
+        const o = be.exec(t);
+        null !== o && te.assignAspect(e, o[2]);
+    }
+    return e.createHTML(o);
+}
+ye.empty = new ye(""), te.define(ye);
+class ke {
+    constructor(e, t = {}, o){
+        this.policy = o, this.result = null, this.html = e, this.factories = t;
+    }
+    create(e) {
+        return null === this.result && (this.result = me.compile(this.html, this.factories, this.policy)), this.result.createView(e);
+    }
+    inline() {
+        return new ye(r(this.html) ? this.html : this.html.innerHTML, this.factories);
+    }
+    withPolicy(e) {
+        if (this.result) throw d.error(1208);
+        if (this.policy) throw d.error(1207);
+        return this.policy = e, this;
+    }
+    render(e, t, o) {
+        const i = this.create(o);
+        return i.bind(e), i.appendTo(t), i;
+    }
+    static create(e, t, o) {
+        let i = "";
+        const r = Object.create(null), n = (e)=>{
+            var t;
+            const o = null !== (t = e.id) && void 0 !== t ? t : e.id = Q();
+            return r[o] = e, o;
+        };
+        for(let o = 0, r = e.length - 1; o < r; ++o){
+            const r = e[o];
+            let a, l = t[o];
+            if (i += r, s(l)) l = new se($(l));
+            else if (l instanceof A) l = new se(l);
+            else if (!(a = te.getForInstance(l))) {
+                const e = l;
+                l = new se(F(()=>e));
             }
-            // Capture any observable values that were set by the binding engine before
-            // the browser upgraded the element. Then delete the property since it will
-            // shadow the getter/setter that is required to make the observable operate.
-            // Later, in the connect callback, we'll re-apply the values.
-            const accessors = Observable.getAccessors(element);
-            if (accessors.length > 0) {
-                const boundObservables = this.boundObservables = Object.create(null);
-                for(let i = 0, ii = accessors.length; i < ii; ++i){
-                    const propertyName = accessors[i].name;
-                    const value = element[propertyName];
-                    if (value !== void 0) {
-                        delete element[propertyName];
-                        boundObservables[propertyName] = value;
+            i += xe(l, r, n, a);
+        }
+        return new ke(i + e[e.length - 1], r, o);
+    }
+}
+p(ke);
+const Se = (e, ...t)=>{
+    if (Array.isArray(e) && Array.isArray(e.raw)) return ke.create(e, t);
+    throw d.error(1206);
+};
+Se.partial = (e)=>new ye(e);
+class Ce extends oe {
+    bind(e) {
+        e.source[this.options] = e.targets[this.targetNodeId];
+    }
+}
+te.define(Ce);
+const Be = (e)=>new Ce(e), Pe = ()=>null;
+function Ee(e) {
+    return void 0 === e ? Pe : s(e) ? e : ()=>e;
+}
+function Ae(e, t, o) {
+    const i = s(e) ? e : ()=>e, r = Ee(t), n = Ee(o);
+    return (e, t)=>i(e, t) ? r(e, t) : n(e, t);
+}
+class Te extends oe {
+    get id() {
+        return this._id;
+    }
+    set id(e) {
+        this._id = e, this._controllerProperty = `${e}-c`;
+    }
+    bind(e) {
+        const t = e.targets[this.targetNodeId];
+        t[this._controllerProperty] = e, this.updateTarget(e.source, this.computeNodes(t)), this.observe(t), e.onUnbind(this);
+    }
+    unbind(e) {
+        const t = e.targets[this.targetNodeId];
+        this.updateTarget(e.source, c), this.disconnect(t), t[this._controllerProperty] = null;
+    }
+    getSource(e) {
+        return e[this._controllerProperty].source;
+    }
+    updateTarget(e, t) {
+        e[this.options.property] = t;
+    }
+    computeNodes(e) {
+        let t = this.getNodes(e);
+        return "filter" in this.options && (t = t.filter(this.options.filter)), t;
+    }
+}
+const $e = "slotchange";
+class Ie extends Te {
+    observe(e) {
+        e.addEventListener($e, this);
+    }
+    disconnect(e) {
+        e.removeEventListener($e, this);
+    }
+    getNodes(e) {
+        return e.assignedNodes(this.options);
+    }
+    handleEvent(e) {
+        const t = e.currentTarget;
+        this.updateTarget(this.getSource(t), this.computeNodes(t));
+    }
+}
+function Fe(e) {
+    return r(e) && (e = {
+        property: e
+    }), new Ie(e);
+}
+te.define(Ie);
+const Le = "boolean", Me = "reflect", Ne = Object.freeze({
+    locate: u()
+}), Oe = {
+    toView: (e)=>e ? "true" : "false",
+    fromView: (e)=>null != e && "false" !== e && !1 !== e && 0 !== e
+};
+function Ve(e) {
+    if (null == e) return null;
+    const t = 1 * e;
+    return isNaN(t) ? null : t;
+}
+const Re = {
+    toView (e) {
+        const t = Ve(e);
+        return t ? t.toString() : t;
+    },
+    fromView: Ve
+};
+class De {
+    constructor(e, t, o = t.toLowerCase(), i = Me, s){
+        this.guards = new Set, this.Owner = e, this.name = t, this.attribute = o, this.mode = i, this.converter = s, this.fieldName = `_${t}`, this.callbackName = `${t}Changed`, this.hasCallback = this.callbackName in e.prototype, i === Le && void 0 === s && (this.converter = Oe);
+    }
+    setValue(e, t) {
+        const o = e[this.fieldName], i = this.converter;
+        void 0 !== i && (t = i.fromView(t)), o !== t && (e[this.fieldName] = t, this.tryReflectToAttribute(e), this.hasCallback && e[this.callbackName](o, t), e.$fastController.notify(this.name));
+    }
+    getValue(e) {
+        return C.track(e, this.name), e[this.fieldName];
+    }
+    onAttributeChangedCallback(e, t) {
+        this.guards.has(e) || (this.guards.add(e), this.setValue(e, t), this.guards.delete(e));
+    }
+    tryReflectToAttribute(e) {
+        const t = this.mode, o = this.guards;
+        o.has(e) || "fromView" === t || y.enqueue(()=>{
+            o.add(e);
+            const i = e[this.fieldName];
+            switch(t){
+                case Me:
+                    const t1 = this.converter;
+                    w.setAttribute(e, this.attribute, void 0 !== t1 ? t1.toView(i) : i);
+                    break;
+                case Le:
+                    w.setBooleanAttribute(e, this.attribute, i);
+            }
+            o.delete(e);
+        });
+    }
+    static collect(e, ...t) {
+        const o = [];
+        t.push(Ne.locate(e));
+        for(let i = 0, s = t.length; i < s; ++i){
+            const s = t[i];
+            if (void 0 !== s) for(let t = 0, i = s.length; t < i; ++t){
+                const i = s[t];
+                r(i) ? o.push(new De(e, i)) : o.push(new De(e, i.property, i.attribute, i.mode, i.converter));
+            }
+        }
+        return o;
+    }
+}
+function ze(e, t) {
+    let o;
+    function i(e, t) {
+        arguments.length > 1 && (o.property = t), Ne.locate(e.constructor).push(o);
+    }
+    return arguments.length > 1 ? (o = {}, void i(e, t)) : (o = void 0 === e ? {} : e, i);
+}
+const He = {
+    mode: "open"
+}, _e = {}, je = new Set, Ge = d.getById(i.elementRegistry, ()=>h());
+class We {
+    constructor(e, t = e.definition){
+        var o;
+        this.platformDefined = !1, r(t) && (t = {
+            name: t
+        }), this.type = e, this.name = t.name, this.template = t.template, this.registry = null !== (o = t.registry) && void 0 !== o ? o : customElements;
+        const i = e.prototype, s = De.collect(e, t.attributes), n = new Array(s.length), a = {}, l = {};
+        for(let e = 0, t = s.length; e < t; ++e){
+            const t = s[e];
+            n[e] = t.attribute, a[t.name] = t, l[t.attribute] = t, C.defineProperty(i, t);
+        }
+        Reflect.defineProperty(e, "observedAttributes", {
+            value: n,
+            enumerable: !0
+        }), this.attributes = s, this.propertyLookup = a, this.attributeLookup = l, this.shadowOptions = void 0 === t.shadowOptions ? He : null === t.shadowOptions ? void 0 : Object.assign(Object.assign({}, He), t.shadowOptions), this.elementOptions = void 0 === t.elementOptions ? _e : Object.assign(Object.assign({}, _e), t.elementOptions), this.styles = N.normalize(t.styles), Ge.register(this);
+    }
+    get isDefined() {
+        return this.platformDefined;
+    }
+    define(e = this.registry) {
+        const t = this.type;
+        return e.get(this.name) || (this.platformDefined = !0, e.define(this.name, t, this.elementOptions)), this;
+    }
+    static compose(e, t) {
+        return je.has(e) || Ge.getByType(e) ? new We(class extends e {
+        }, t) : new We(e, t);
+    }
+    static registerBaseType(e) {
+        je.add(e);
+    }
+}
+We.getByType = Ge.getByType, We.getForInstance = Ge.getForInstance;
+const qe = {
+    bubbles: !0,
+    composed: !0,
+    cancelable: !0
+}, Ke = "isConnected", Ue = new WeakMap;
+function Xe(e) {
+    var t, o;
+    return null !== (o = null !== (t = e.shadowRoot) && void 0 !== t ? t : Ue.get(e)) && void 0 !== o ? o : null;
+}
+let Ye;
+class Qe extends k {
+    constructor(e, t){
+        super(e), this.boundObservables = null, this.needsInitialization = !0, this.hasExistingShadowRoot = !1, this._template = null, this.stage = 3, this.guardBehaviorConnection = !1, this.behaviors = null, this._mainStyles = null, this.$fastController = this, this.view = null, this.source = e, this.definition = t;
+        const o = t.shadowOptions;
+        if (void 0 !== o) {
+            let t = e.shadowRoot;
+            t ? this.hasExistingShadowRoot = !0 : (t = e.attachShadow(o), "closed" === o.mode && Ue.set(e, t));
+        }
+        const i = C.getAccessors(e);
+        if (i.length > 0) {
+            const t = this.boundObservables = Object.create(null);
+            for(let o = 0, s = i.length; o < s; ++o){
+                const s = i[o].name, r = e[s];
+                void 0 !== r && (delete e[s], t[s] = r);
+            }
+        }
+    }
+    get isConnected() {
+        return C.track(this, Ke), 1 === this.stage;
+    }
+    get context() {
+        var e, t;
+        return null !== (t = null === (e = this.view) || void 0 === e ? void 0 : e.context) && void 0 !== t ? t : E.default;
+    }
+    get isBound() {
+        var e, t;
+        return null !== (t = null === (e = this.view) || void 0 === e ? void 0 : e.isBound) && void 0 !== t && t;
+    }
+    get sourceLifetime() {
+        var e;
+        return null === (e = this.view) || void 0 === e ? void 0 : e.sourceLifetime;
+    }
+    get template() {
+        var e;
+        if (null === this._template) {
+            const t = this.definition;
+            this.source.resolveTemplate ? this._template = this.source.resolveTemplate() : t.template && (this._template = null !== (e = t.template) && void 0 !== e ? e : null);
+        }
+        return this._template;
+    }
+    set template(e) {
+        this._template !== e && (this._template = e, this.needsInitialization || this.renderTemplate(e));
+    }
+    get mainStyles() {
+        var e;
+        if (null === this._mainStyles) {
+            const t = this.definition;
+            this.source.resolveStyles ? this._mainStyles = this.source.resolveStyles() : t.styles && (this._mainStyles = null !== (e = t.styles) && void 0 !== e ? e : null);
+        }
+        return this._mainStyles;
+    }
+    set mainStyles(e) {
+        this._mainStyles !== e && (null !== this._mainStyles && this.removeStyles(this._mainStyles), this._mainStyles = e, this.needsInitialization || this.addStyles(e));
+    }
+    onUnbind(e) {
+        var t;
+        null === (t = this.view) || void 0 === t || t.onUnbind(e);
+    }
+    addBehavior(e) {
+        var t, o;
+        const i = null !== (t = this.behaviors) && void 0 !== t ? t : this.behaviors = new Map, s = null !== (o = i.get(e)) && void 0 !== o ? o : 0;
+        0 === s ? (i.set(e, 1), e.addedCallback && e.addedCallback(this), !e.connectedCallback || this.guardBehaviorConnection || 1 !== this.stage && 0 !== this.stage || e.connectedCallback(this)) : i.set(e, s + 1);
+    }
+    removeBehavior(e, t = !1) {
+        const o = this.behaviors;
+        if (null === o) return;
+        const i = o.get(e);
+        void 0 !== i && (1 === i || t ? (o.delete(e), e.disconnectedCallback && 3 !== this.stage && e.disconnectedCallback(this), e.removedCallback && e.removedCallback(this)) : o.set(e, i - 1));
+    }
+    addStyles(e) {
+        var t;
+        if (!e) return;
+        const o = this.source;
+        if (e instanceof HTMLElement) (null !== (t = Xe(o)) && void 0 !== t ? t : this.source).append(e);
+        else if (!e.isAttachedTo(o)) {
+            const t = e.behaviors;
+            if (e.addStylesTo(o), null !== t) for(let e = 0, o = t.length; e < o; ++e)this.addBehavior(t[e]);
+        }
+    }
+    removeStyles(e) {
+        var t;
+        if (!e) return;
+        const o = this.source;
+        if (e instanceof HTMLElement) (null !== (t = Xe(o)) && void 0 !== t ? t : o).removeChild(e);
+        else if (e.isAttachedTo(o)) {
+            const t = e.behaviors;
+            if (e.removeStylesFrom(o), null !== t) for(let e = 0, o = t.length; e < o; ++e)this.removeBehavior(t[e]);
+        }
+    }
+    connect() {
+        if (3 !== this.stage) return;
+        if (this.stage = 0, null !== this.boundObservables) {
+            const e = this.source, t = this.boundObservables, o = Object.keys(t);
+            for(let i = 0, s = o.length; i < s; ++i){
+                const s = o[i];
+                e[s] = t[s];
+            }
+            this.boundObservables = null;
+        }
+        const e = this.behaviors;
+        if (null !== e) {
+            this.guardBehaviorConnection = !0;
+            for (const t of e.keys())t.connectedCallback && t.connectedCallback(this);
+            this.guardBehaviorConnection = !1;
+        }
+        this.needsInitialization ? (this.renderTemplate(this.template), this.addStyles(this.mainStyles), this.needsInitialization = !1) : null !== this.view && this.view.bind(this.source), this.stage = 1, C.notify(this, Ke);
+    }
+    disconnect() {
+        if (1 !== this.stage) return;
+        this.stage = 2, C.notify(this, Ke), null !== this.view && this.view.unbind();
+        const e = this.behaviors;
+        if (null !== e) for (const t of e.keys())t.disconnectedCallback && t.disconnectedCallback(this);
+        this.stage = 3;
+    }
+    onAttributeChangedCallback(e, t, o) {
+        const i = this.definition.attributeLookup[e];
+        void 0 !== i && i.onAttributeChangedCallback(this.source, o);
+    }
+    emit(e, t, o) {
+        return 1 === this.stage && this.source.dispatchEvent(new CustomEvent(e, Object.assign(Object.assign({
+            detail: t
+        }, qe), o)));
+    }
+    renderTemplate(e) {
+        var t;
+        const o = this.source, i = null !== (t = Xe(o)) && void 0 !== t ? t : o;
+        if (null !== this.view) this.view.dispose(), this.view = null;
+        else if (!this.needsInitialization || this.hasExistingShadowRoot) {
+            this.hasExistingShadowRoot = !1;
+            for(let e = i.firstChild; null !== e; e = i.firstChild)i.removeChild(e);
+        }
+        e && (this.view = e.render(o, i, o), this.view.sourceLifetime = S.coupled);
+    }
+    static forCustomElement(e) {
+        const t = e.$fastController;
+        if (void 0 !== t) return t;
+        const o = We.getForInstance(e);
+        if (void 0 === o) throw d.error(1401);
+        return e.$fastController = new Ye(e, o);
+    }
+    static setStrategy(e) {
+        Ye = e;
+    }
+}
+function Ze(e) {
+    var t;
+    return "adoptedStyleSheets" in e ? e : null !== (t = Xe(e)) && void 0 !== t ? t : e.getRootNode();
+}
+p(Qe), Qe.setStrategy(Qe);
+class Je {
+    constructor(e){
+        const t = Je.styleSheetCache;
+        this.sheets = e.map((e)=>{
+            if (e instanceof CSSStyleSheet) return e;
+            let o = t.get(e);
+            return void 0 === o && (o = new CSSStyleSheet, o.replaceSync(e), t.set(e, o)), o;
+        });
+    }
+    addStylesTo(e) {
+        it(Ze(e), this.sheets);
+    }
+    removeStylesFrom(e) {
+        st(Ze(e), this.sheets);
+    }
+}
+Je.styleSheetCache = new Map;
+let et = 0;
+function tt(e) {
+    return e === document ? document.body : e;
+}
+class ot {
+    constructor(e){
+        this.styles = e, this.styleClass = "fast-" + ++et;
+    }
+    addStylesTo(e) {
+        e = tt(Ze(e));
+        const t = this.styles, o = this.styleClass;
+        for(let i = 0; i < t.length; i++){
+            const s = document.createElement("style");
+            s.innerHTML = t[i], s.className = o, e.append(s);
+        }
+    }
+    removeStylesFrom(e) {
+        const t = (e = tt(Ze(e))).querySelectorAll(`.${this.styleClass}`);
+        for(let o = 0, i = t.length; o < i; ++o)e.removeChild(t[o]);
+    }
+}
+let it = (e, t)=>{
+    e.adoptedStyleSheets = [
+        ...e.adoptedStyleSheets,
+        ...t
+    ];
+}, st = (e, t)=>{
+    e.adoptedStyleSheets = e.adoptedStyleSheets.filter((e)=>-1 === t.indexOf(e));
+};
+if (N.supportsAdoptedStyleSheets) {
+    try {
+        document.adoptedStyleSheets.push(), document.adoptedStyleSheets.splice(), it = (e, t)=>{
+            e.adoptedStyleSheets.push(...t);
+        }, st = (e, t)=>{
+            for (const o of t){
+                const t = e.adoptedStyleSheets.indexOf(o);
+                -1 !== t && e.adoptedStyleSheets.splice(t, 1);
+            }
+        };
+    } catch (e) {}
+    N.setDefaultStrategy(Je);
+} else N.setDefaultStrategy(ot);
+function rt(e) {
+    const t = class extends e {
+        constructor(){
+            super(), Qe.forCustomElement(this);
+        }
+        $emit(e, t, o) {
+            return this.$fastController.emit(e, t, o);
+        }
+        connectedCallback() {
+            this.$fastController.connect();
+        }
+        disconnectedCallback() {
+            this.$fastController.disconnect();
+        }
+        attributeChangedCallback(e, t, o) {
+            this.$fastController.onAttributeChangedCallback(e, t, o);
+        }
+    };
+    return We.registerBaseType(t), t;
+}
+const nt = Object.assign(rt(HTMLElement), {
+    from: function(e) {
+        return rt(e);
+    },
+    define: function(e, t) {
+        return s(e) ? We.compose(e, t).define().type : We.compose(this, e).define().type;
+    },
+    compose: function(e, t) {
+        return s(e) ? We.compose(e, t) : We.compose(this, e);
+    }
+});
+class at extends nt {
+    constructor(){
+        super(...arguments), this.hidden = !0;
+    }
+    hiddenChanged(e, t) {
+        e !== t && this.$emit("hiddenchanged", this.hidden);
+    }
+}
+e([
+    ze({
+        mode: "boolean"
+    })
+], at.prototype, "hidden", void 0);
+const lt = Object.freeze({
+    prefix: "fabric",
+    shadowRootMode: "open",
+    registry: customElements
+}), dt = "ArrowDown", ct = "ArrowUp", ht = "Enter", ut = "Escape", pt = "Home", ft = "Tab";
+let gt = 0;
+function vt(e = "") {
+    return `${e}${gt++}`;
+}
+function mt(e) {
+    return e ? "string" == typeof e ? new ye(e) : "inline" in e ? e.inline() : e : ye.empty;
+}
+function bt(e) {
+    return Se`
+        <slot name="end" ${Be("end")}>${mt(e.end)}</slot>
+    `.inline();
+}
+function wt(e) {
+    return Se`
+        <slot name="start" ${Be("start")}>${mt(e.start)}</slot>
+    `.inline();
+}
+function yt(e) {
+    return `:host([hidden]){display:none}:host{display:${e}}`;
+}
+function xt(e) {
+    const t = e.parentElement;
+    if (t) return t;
+    {
+        const t = e.getRootNode();
+        if (t.host instanceof HTMLElement) return t.host;
+    }
+    return null;
+}
+class kt {
+    constructor(e){
+        this.value = e, this.notifier = C.getNotifier(this), this.dependencies = new Set, this.binding = C.binding(e, this), this.binding.setMode(!1);
+    }
+    static getOrCreate(e) {
+        let t = kt.cache.get(e);
+        return t || (t = new kt(e), kt.cache.set(e, t), t);
+    }
+    evaluate(e, t) {
+        return this.binding.observe((o)=>{
+            if (this.dependencies.add(o), t === o) {
+                if (e.parent) return e.parent.getTokenValue(o);
+                throw new Error("DesignTokenNode has encountered a circular token reference. Avoid this by setting the token value for an ancestor node.");
+            }
+            return e.getTokenValue(o);
+        });
+    }
+    handleChange() {
+        this.notifier.notify(void 0);
+    }
+}
+kt.cache = new WeakMap;
+class St {
+    constructor(e, t, o, i){
+        this.token = e, this.evaluator = t, this.node = o, this.subscriber = i, this.value = t.evaluate(o, e), this.subscriber && C.getNotifier(this.evaluator).subscribe(this.subscriber);
+    }
+    dispose() {
+        this.subscriber && C.getNotifier(this.evaluator).unsubscribe(this.subscriber);
+    }
+    update() {
+        return this.value = this.evaluator.evaluate(this.node, this.token), this;
+    }
+}
+class Ct {
+    constructor(e, t, o, i){
+        this.target = e, this.type = t, this.token = o, this.value = i;
+    }
+    notify() {
+        C.getNotifier(this.token).notify(this);
+    }
+}
+class Bt {
+    constructor(){
+        this._parent = null, this._children = new Set, this._values = new Map, this._derived = new Map, this.dependencyGraph = new Map;
+    }
+    static isDerivedTokenValue(e) {
+        return "function" == typeof e;
+    }
+    static isDerivedFor(e, t) {
+        return e._derived.has(t);
+    }
+    static collectDerivedContext(e) {
+        const t = new Map;
+        if (null === e.parent) return t;
+        let o = Bt.getAssignedTokensForNode(e), i = e.parent;
+        do {
+            const e = Bt.getAssignedTokensForNode(i);
+            for(let s = 0, r = e.length; s < r; s++){
+                const r = e[s];
+                !o.includes(r) && Bt.isDerivedFor(i, r) && t.set(r, i._derived.get(r));
+            }
+            o = Array.from(new Set(o.concat(e))), i = i.parent;
+        }while (null !== i);
+        return t;
+    }
+    static getLocalTokenValue(e, t) {
+        return Bt.isAssigned(e, t) ? Bt.isDerivedFor(e, t) ? e._derived.get(t).value : e._values.get(t) : void 0;
+    }
+    static getOrCreateDependencyGraph(e, t) {
+        let o = e.dependencyGraph.get(t);
+        return o || (o = new Set, e.dependencyGraph.set(t, o), o);
+    }
+    static notify() {
+        const e = this._notifications;
+        this._notifications = [];
+        for (const t of e)t.notify();
+    }
+    static queueNotification(...e) {
+        this._notifications.push(...e);
+    }
+    static getAssignedTokensForNode(e) {
+        return Array.from(e._values.keys());
+    }
+    static composeAssignedTokensForNode(e) {
+        const t = new Set(Bt.getAssignedTokensForNode(e));
+        let o = e.parent;
+        for(; null !== o;){
+            const e = Bt.getAssignedTokensForNode(o);
+            for (const o of e)t.add(o);
+            o = o.parent;
+        }
+        return Array.from(t);
+    }
+    static isAssigned(e, t) {
+        return e._values.has(t);
+    }
+    get parent() {
+        return this._parent;
+    }
+    get children() {
+        return Array.from(this._children);
+    }
+    appendChild(e) {
+        var t, o;
+        let i = null;
+        null !== e.parent && (i = Bt.composeAssignedTokensForNode(e.parent), e.parent._children.delete(e));
+        const s = Bt.composeAssignedTokensForNode(this), r = Bt.collectDerivedContext(this);
+        e._parent = this, this._children.add(e);
+        for (const o of s){
+            let s = 0;
+            if (null !== i) {
+                const e = i.indexOf(o);
+                -1 !== e && (s = 1, i.splice(e, 1));
+            }
+            e.dispatch(new Ct(this, s, o, null === (t = r.get(o)) || void 0 === t ? void 0 : t.evaluator.value));
+        }
+        if (null !== i && i.length > 0) for (const t of i)e.dispatch(new Ct(this, 2, t, null === (o = r.get(t)) || void 0 === o ? void 0 : o.evaluator.value));
+        Bt.notify();
+    }
+    removeChild(e) {
+        if (e.parent === this) {
+            const t = Bt.composeAssignedTokensForNode(this);
+            e._parent = null, this._children.delete(e);
+            for (const o of t)e.dispatch(new Ct(this, 2, o));
+            Bt.notify();
+        }
+    }
+    dispose() {
+        this.parent && (this.parent._children.delete(this), this._parent = null);
+        for (const [, e] of this._derived)e.dispose();
+    }
+    setTokenValue(e, t) {
+        const o = Bt.isAssigned(this, e) || Bt.isDerivedFor(this, e) ? 1 : 0, i = Bt.getLocalTokenValue(this, e);
+        this._values.set(e, t), Bt.isDerivedFor(this, e) && this.tearDownDerivedTokenValue(e);
+        const s = Bt.isDerivedTokenValue(t), r = Bt.collectDerivedContext(this);
+        let n;
+        if (s) n = this.setupDerivedTokenValue(e, t, !0).value;
+        else n = t;
+        i !== n && Bt.queueNotification(new Ct(this, o, e, t)), this.dispatch(new Ct(this, o, e, t)), r.forEach((e, t)=>{
+            if (!Bt.isDerivedFor(this, t)) Bt.getLocalTokenValue(this, t) !== (e = this.setupDerivedTokenValue(t, e.evaluator.value)).value && Bt.queueNotification(new Ct(this, 1, t, e.evaluator.value)), this.dispatch(new Ct(this, 0, t, e.evaluator.value));
+        }), Bt.notify();
+    }
+    getTokenValue(e) {
+        let t, o = this;
+        for(; null !== o;){
+            if (Bt.isDerivedFor(o, e)) {
+                t = o._derived.get(e).value;
+                break;
+            }
+            if (Bt.isAssigned(o, e)) {
+                t = o._values.get(e);
+                break;
+            }
+            o = o._parent;
+        }
+        if (void 0 !== t) return t;
+        throw new Error(`No value set for token ${e} in node tree.`);
+    }
+    deleteTokenValue(e) {
+        if (Bt.isAssigned(this, e)) {
+            const t = Bt.getLocalTokenValue(this, e);
+            let o;
+            this._values.delete(e), this.tearDownDerivedTokenValue(e);
+            try {
+                o = this.getTokenValue(e);
+            } catch (e) {
+                o = void 0;
+            }
+            Bt.queueNotification(new Ct(this, 2, e)), t !== o && this.dispatch(new Ct(this, 2, e)), Bt.notify();
+        }
+    }
+    dispatch(e) {
+        var t, o, i;
+        if (this !== e.target) {
+            const { token: s } = e, r = Bt.isAssigned(this, s), n = r && (null === (t = this._derived.get(s)) || void 0 === t ? void 0 : t.evaluator.dependencies.has(s));
+            if (r && !n) return;
+            2 === e.type && !r && Bt.isDerivedFor(this, s) && (this.tearDownDerivedTokenValue(s), Bt.queueNotification(new Ct(this, 2, s))), n && (e = new Ct(this, 1, s, null === (o = this._derived.get(s)) || void 0 === o ? void 0 : o.evaluator.value));
+            const { value: a } = e;
+            if (a && Bt.isDerivedTokenValue(a)) {
+                const t = kt.getOrCreate(a).dependencies;
+                let o = !1;
+                for (const e of t)if (Bt.isAssigned(this, e)) {
+                    o = !0;
+                    break;
+                }
+                if (o) {
+                    const t = null === (i = this._derived.get(s)) || void 0 === i ? void 0 : i.value, o = this.setupDerivedTokenValue(s, a);
+                    if (t !== o.value) {
+                        const i = new Ct(this, void 0 === t ? 0 : 1, s, o.evaluator.value);
+                        Bt.queueNotification(i), e = i;
                     }
                 }
             }
         }
-        /**
-         * Indicates whether or not the custom element has been
-         * connected to the document.
-         */ get isConnected() {
-            Observable.track(this, isConnectedPropertyName);
-            return this.stage === 1 /* Stages.connected */ ;
-        }
-        /**
-         * The context the expression is evaluated against.
-         */ get context() {
-            var _a, _b;
-            return (_b = (_a = this.view) === null || _a === void 0 ? void 0 : _a.context) !== null && _b !== void 0 ? _b : ExecutionContext.default;
-        }
-        /**
-         * Indicates whether the controller is bound.
-         */ get isBound() {
-            var _a, _b;
-            return (_b = (_a = this.view) === null || _a === void 0 ? void 0 : _a.isBound) !== null && _b !== void 0 ? _b : false;
-        }
-        /**
-         * Indicates how the source's lifetime relates to the controller's lifetime.
-         */ get sourceLifetime() {
-            var _a;
-            return (_a = this.view) === null || _a === void 0 ? void 0 : _a.sourceLifetime;
-        }
-        /**
-         * Gets/sets the template used to render the component.
-         * @remarks
-         * This value can only be accurately read after connect but can be set at any time.
-         */ get template() {
-            var _a;
-            // 1. Template overrides take top precedence.
-            if (this._template === null) {
-                const definition = this.definition;
-                if (this.source.resolveTemplate) // 2. Allow for element instance overrides next.
-                this._template = this.source.resolveTemplate();
-                else if (definition.template) // 3. Default to the static definition.
-                this._template = (_a = definition.template) !== null && _a !== void 0 ? _a : null;
-            }
-            return this._template;
-        }
-        set template(value) {
-            if (this._template === value) return;
-            this._template = value;
-            if (!this.needsInitialization) this.renderTemplate(value);
-        }
-        /**
-         * The main set of styles used for the component, independent
-         * of any dynamically added styles.
-         */ get mainStyles() {
-            var _a;
-            // 1. Styles overrides take top precedence.
-            if (this._mainStyles === null) {
-                const definition = this.definition;
-                if (this.source.resolveStyles) // 2. Allow for element instance overrides next.
-                this._mainStyles = this.source.resolveStyles();
-                else if (definition.styles) // 3. Default to the static definition.
-                this._mainStyles = (_a = definition.styles) !== null && _a !== void 0 ? _a : null;
-            }
-            return this._mainStyles;
-        }
-        set mainStyles(value) {
-            if (this._mainStyles === value) return;
-            if (this._mainStyles !== null) this.removeStyles(this._mainStyles);
-            this._mainStyles = value;
-            if (!this.needsInitialization) this.addStyles(value);
-        }
-        /**
-         * Registers an unbind handler with the controller.
-         * @param behavior - An object to call when the controller unbinds.
-         */ onUnbind(behavior) {
-            var _a;
-            (_a = this.view) === null || _a === void 0 || _a.onUnbind(behavior);
-        }
-        /**
-         * Adds the behavior to the component.
-         * @param behavior - The behavior to add.
-         */ addBehavior(behavior) {
-            var _a, _b;
-            const targetBehaviors = (_a = this.behaviors) !== null && _a !== void 0 ? _a : this.behaviors = new Map();
-            const count = (_b = targetBehaviors.get(behavior)) !== null && _b !== void 0 ? _b : 0;
-            if (count === 0) {
-                targetBehaviors.set(behavior, 1);
-                behavior.addedCallback && behavior.addedCallback(this);
-                if (behavior.connectedCallback && !this.guardBehaviorConnection && (this.stage === 1 /* Stages.connected */  || this.stage === 0 /* Stages.connecting */ )) behavior.connectedCallback(this);
-            } else targetBehaviors.set(behavior, count + 1);
-        }
-        /**
-         * Removes the behavior from the component.
-         * @param behavior - The behavior to remove.
-         * @param force - Forces removal even if this behavior was added more than once.
-         */ removeBehavior(behavior, force = false) {
-            const targetBehaviors = this.behaviors;
-            if (targetBehaviors === null) return;
-            const count = targetBehaviors.get(behavior);
-            if (count === void 0) return;
-            if (count === 1 || force) {
-                targetBehaviors.delete(behavior);
-                if (behavior.disconnectedCallback && this.stage !== 3 /* Stages.disconnected */ ) behavior.disconnectedCallback(this);
-                behavior.removedCallback && behavior.removedCallback(this);
-            } else targetBehaviors.set(behavior, count - 1);
-        }
-        /**
-         * Adds styles to this element. Providing an HTMLStyleElement will attach the element instance to the shadowRoot.
-         * @param styles - The styles to add.
-         */ addStyles(styles) {
-            var _a;
-            if (!styles) return;
-            const source = this.source;
-            if (styles instanceof HTMLElement) {
-                const target = (_a = getShadowRoot(source)) !== null && _a !== void 0 ? _a : this.source;
-                target.append(styles);
-            } else if (!styles.isAttachedTo(source)) {
-                const sourceBehaviors = styles.behaviors;
-                styles.addStylesTo(source);
-                if (sourceBehaviors !== null) for(let i = 0, ii = sourceBehaviors.length; i < ii; ++i)this.addBehavior(sourceBehaviors[i]);
-            }
-        }
-        /**
-         * Removes styles from this element. Providing an HTMLStyleElement will detach the element instance from the shadowRoot.
-         * @param styles - the styles to remove.
-         */ removeStyles(styles) {
-            var _a;
-            if (!styles) return;
-            const source = this.source;
-            if (styles instanceof HTMLElement) {
-                const target = (_a = getShadowRoot(source)) !== null && _a !== void 0 ? _a : source;
-                target.removeChild(styles);
-            } else if (styles.isAttachedTo(source)) {
-                const sourceBehaviors = styles.behaviors;
-                styles.removeStylesFrom(source);
-                if (sourceBehaviors !== null) for(let i = 0, ii = sourceBehaviors.length; i < ii; ++i)this.removeBehavior(sourceBehaviors[i]);
-            }
-        }
-        /**
-         * Runs connected lifecycle behavior on the associated element.
-         */ connect() {
-            if (this.stage !== 3 /* Stages.disconnected */ ) return;
-            this.stage = 0 /* Stages.connecting */ ;
-            // If we have any observables that were bound, re-apply their values.
-            if (this.boundObservables !== null) {
-                const element = this.source;
-                const boundObservables = this.boundObservables;
-                const propertyNames = Object.keys(boundObservables);
-                for(let i = 0, ii = propertyNames.length; i < ii; ++i){
-                    const propertyName = propertyNames[i];
-                    element[propertyName] = boundObservables[propertyName];
-                }
-                this.boundObservables = null;
-            }
-            const behaviors = this.behaviors;
-            if (behaviors !== null) {
-                this.guardBehaviorConnection = true;
-                for (const key of behaviors.keys())key.connectedCallback && key.connectedCallback(this);
-                this.guardBehaviorConnection = false;
-            }
-            if (this.needsInitialization) {
-                this.renderTemplate(this.template);
-                this.addStyles(this.mainStyles);
-                this.needsInitialization = false;
-            } else if (this.view !== null) this.view.bind(this.source);
-            this.stage = 1 /* Stages.connected */ ;
-            Observable.notify(this, isConnectedPropertyName);
-        }
-        /**
-         * Runs disconnected lifecycle behavior on the associated element.
-         */ disconnect() {
-            if (this.stage !== 1 /* Stages.connected */ ) return;
-            this.stage = 2 /* Stages.disconnecting */ ;
-            Observable.notify(this, isConnectedPropertyName);
-            if (this.view !== null) this.view.unbind();
-            const behaviors = this.behaviors;
-            if (behaviors !== null) for (const key of behaviors.keys())key.disconnectedCallback && key.disconnectedCallback(this);
-            this.stage = 3 /* Stages.disconnected */ ;
-        }
-        /**
-         * Runs the attribute changed callback for the associated element.
-         * @param name - The name of the attribute that changed.
-         * @param oldValue - The previous value of the attribute.
-         * @param newValue - The new value of the attribute.
-         */ onAttributeChangedCallback(name, oldValue, newValue) {
-            const attrDef = this.definition.attributeLookup[name];
-            if (attrDef !== void 0) attrDef.onAttributeChangedCallback(this.source, newValue);
-        }
-        /**
-         * Emits a custom HTML event.
-         * @param type - The type name of the event.
-         * @param detail - The event detail object to send with the event.
-         * @param options - The event options. By default bubbles and composed.
-         * @remarks
-         * Only emits events if connected.
-         */ emit(type, detail, options) {
-            if (this.stage === 1 /* Stages.connected */ ) return this.source.dispatchEvent(new CustomEvent(type, Object.assign(Object.assign({
-                detail
-            }, defaultEventOptions), options)));
-            return false;
-        }
-        renderTemplate(template) {
-            var _a;
-            // When getting the host to render to, we start by looking
-            // up the shadow root. If there isn't one, then that means
-            // we're doing a Light DOM render to the element's direct children.
-            const element = this.source;
-            const host = (_a = getShadowRoot(element)) !== null && _a !== void 0 ? _a : element;
-            if (this.view !== null) {
-                // If there's already a view, we need to unbind and remove through dispose.
-                this.view.dispose();
-                this.view = null;
-            } else if (!this.needsInitialization || this.hasExistingShadowRoot) {
-                this.hasExistingShadowRoot = false;
-                // If there was previous custom rendering, we need to clear out the host.
-                for(let child = host.firstChild; child !== null; child = host.firstChild)host.removeChild(child);
-            }
-            if (template) {
-                // If a new template was provided, render it.
-                this.view = template.render(element, host, element);
-                this.view.sourceLifetime = SourceLifetime.coupled;
-            }
-        }
-        /**
-         * Locates or creates a controller for the specified element.
-         * @param element - The element to return the controller for.
-         * @remarks
-         * The specified element must have a {@link FASTElementDefinition}
-         * registered either through the use of the {@link customElement}
-         * decorator or a call to `FASTElement.define`.
-         */ static forCustomElement(element) {
-            const controller = element.$fastController;
-            if (controller !== void 0) return controller;
-            const definition = FASTElementDefinition.getForInstance(element);
-            if (definition === void 0) throw FAST.error(1401 /* Message.missingElementDefinition */ );
-            return element.$fastController = new elementControllerStrategy(element, definition);
-        }
-        /**
-         * Sets the strategy that ElementController.forCustomElement uses to construct
-         * ElementController instances for an element.
-         * @param strategy - The strategy to use.
-         */ static setStrategy(strategy) {
-            elementControllerStrategy = strategy;
-        }
+        this.collectLocalChangeRecords(e).forEach((e)=>{
+            Bt.queueNotification(e), this.dispatch(e);
+        }), this.notifyChildren(e);
     }
-    makeSerializationNoop(ElementController);
-    // Set default strategy for ElementController
-    ElementController.setStrategy(ElementController);
-    /**
-     * Converts a styleTarget into the operative target. When the provided target is an Element
-     * that is a FASTElement, the function will return the ShadowRoot for that element. Otherwise,
-     * it will return the root node for the element.
-     * @param target
-     * @returns
-     */ function normalizeStyleTarget(target) {
-        var _a;
-        if ("adoptedStyleSheets" in target) return target;
-        else return (_a = getShadowRoot(target)) !== null && _a !== void 0 ? _a : target.getRootNode();
+    collectLocalChangeRecords(e) {
+        const t = new Map;
+        for (const o of Bt.getOrCreateDependencyGraph(this, e.token))o.value !== o.update().value && t.set(o.token, new Ct(this, 1, o.token, o.evaluator.value));
+        return t;
     }
-    // Default StyleStrategy implementations are defined in this module because they
-    // require access to element shadowRoots, and we don't want to leak shadowRoot
-    // objects out of this module.
-    /**
-     * https://wicg.github.io/construct-stylesheets/
-     * https://developers.google.com/web/updates/2019/02/constructable-stylesheets
-     *
-     * @internal
-     */ class AdoptedStyleSheetsStrategy {
-        constructor(styles){
-            const styleSheetCache = AdoptedStyleSheetsStrategy.styleSheetCache;
-            this.sheets = styles.map((x)=>{
-                if (x instanceof CSSStyleSheet) return x;
-                let sheet = styleSheetCache.get(x);
-                if (sheet === void 0) {
-                    sheet = new CSSStyleSheet();
-                    sheet.replaceSync(x);
-                    styleSheetCache.set(x, sheet);
-                }
-                return sheet;
+    notifyChildren(...e) {
+        if (this.children.length) for(let t = 0, o = this.children.length; t < o; t++)for(let o = 0; o < e.length; o++)this.children[t].dispatch(e[o]);
+    }
+    tearDownDerivedTokenValue(e) {
+        if (Bt.isDerivedFor(this, e)) {
+            const t = this._derived.get(e);
+            t.dispose(), this._derived.delete(e), t.evaluator.dependencies.forEach((e)=>{
+                Bt.getOrCreateDependencyGraph(this, e).delete(t);
             });
         }
-        addStylesTo(target) {
-            addAdoptedStyleSheets(normalizeStyleTarget(target), this.sheets);
-        }
-        removeStylesFrom(target) {
-            removeAdoptedStyleSheets(normalizeStyleTarget(target), this.sheets);
-        }
     }
-    AdoptedStyleSheetsStrategy.styleSheetCache = new Map();
-    let id = 0;
-    const nextStyleId = ()=>`fast-${++id}`;
-    function usableStyleTarget(target) {
-        return target === document ? document.body : target;
-    }
-    /**
-     * @internal
-     */ class StyleElementStrategy {
-        constructor(styles){
-            this.styles = styles;
-            this.styleClass = nextStyleId();
-        }
-        addStylesTo(target) {
-            target = usableStyleTarget(normalizeStyleTarget(target));
-            const styles = this.styles;
-            const styleClass = this.styleClass;
-            for(let i = 0; i < styles.length; i++){
-                const element = document.createElement("style");
-                element.innerHTML = styles[i];
-                element.className = styleClass;
-                target.append(element);
-            }
-        }
-        removeStylesFrom(target) {
-            target = usableStyleTarget(normalizeStyleTarget(target));
-            const styles = target.querySelectorAll(`.${this.styleClass}`);
-            for(let i = 0, ii = styles.length; i < ii; ++i)target.removeChild(styles[i]);
-        }
-    }
-    let addAdoptedStyleSheets = (target, sheets)=>{
-        target.adoptedStyleSheets = [
-            ...target.adoptedStyleSheets,
-            ...sheets
-        ];
-    };
-    let removeAdoptedStyleSheets = (target, sheets)=>{
-        target.adoptedStyleSheets = target.adoptedStyleSheets.filter((x)=>sheets.indexOf(x) === -1);
-    };
-    if (ElementStyles.supportsAdoptedStyleSheets) {
-        try {
-            // Test if browser implementation uses FrozenArray.
-            // If not, use push / splice to alter the stylesheets
-            // in place. This circumvents a bug in Safari 16.4 where
-            // periodically, assigning the array would previously
-            // cause sheets to be removed.
-            document.adoptedStyleSheets.push();
-            document.adoptedStyleSheets.splice();
-            addAdoptedStyleSheets = (target, sheets)=>{
-                target.adoptedStyleSheets.push(...sheets);
-            };
-            removeAdoptedStyleSheets = (target, sheets)=>{
-                for (const sheet of sheets){
-                    const index = target.adoptedStyleSheets.indexOf(sheet);
-                    if (index !== -1) target.adoptedStyleSheets.splice(index, 1);
+    setupDerivedTokenValue(e, t, o = !1) {
+        const i = new St(e, kt.getOrCreate(t), this, o ? {
+            handleChange: ()=>{
+                if (i.value !== i.update().value) {
+                    const e = new Ct(this, 1, i.token, i.evaluator.value);
+                    Bt.queueNotification(e), this.dispatch(e), Bt.notify();
                 }
-            };
-        } catch (e) {
-        // Do nothing if an error is thrown, the default
-        // case handles FrozenArray.
-        }
-        ElementStyles.setDefaultStrategy(AdoptedStyleSheetsStrategy);
-    } else ElementStyles.setDefaultStrategy(StyleElementStrategy);
-    /* eslint-disable-next-line @typescript-eslint/explicit-function-return-type */ function createFASTElement(BaseType) {
-        const type = class extends BaseType {
-            constructor(){
-                /* eslint-disable-next-line */ super();
-                ElementController.forCustomElement(this);
             }
-            $emit(type, detail, options) {
-                return this.$fastController.emit(type, detail, options);
-            }
-            connectedCallback() {
-                this.$fastController.connect();
-            }
-            disconnectedCallback() {
-                this.$fastController.disconnect();
-            }
-            attributeChangedCallback(name, oldValue, newValue) {
-                this.$fastController.onAttributeChangedCallback(name, oldValue, newValue);
-            }
-        };
-        FASTElementDefinition.registerBaseType(type);
-        return type;
+        } : void 0);
+        return this._derived.set(e, i), i.evaluator.dependencies.forEach((t)=>{
+            t !== e && Bt.getOrCreateDependencyGraph(this, t).add(i);
+        }), i;
     }
-    function compose(type, nameOrDef) {
-        if (isFunction(type)) return FASTElementDefinition.compose(type, nameOrDef);
-        return FASTElementDefinition.compose(this, type);
+}
+Bt._notifications = [];
+class Pt {
+    setProperty(e, t) {
+        y.enqueue(()=>this.target.setProperty(e, t));
     }
-    function define(type, nameOrDef) {
-        if (isFunction(type)) return FASTElementDefinition.compose(type, nameOrDef).define().type;
-        return FASTElementDefinition.compose(this, type).define().type;
+    removeProperty(e) {
+        y.enqueue(()=>this.target.removeProperty(e));
     }
-    function from(BaseType) {
-        return createFASTElement(BaseType);
+}
+class Et extends Pt {
+    constructor(){
+        super();
+        const e = new CSSStyleSheet;
+        this.target = e.cssRules[e.insertRule(":root{}")].style, document.adoptedStyleSheets = [
+            ...document.adoptedStyleSheets,
+            e
+        ];
     }
-    /**
-     * A minimal base class for FASTElements that also provides
-     * static helpers for working with FASTElements.
-     * @public
-     */ const FASTElement = Object.assign(createFASTElement(HTMLElement), {
-        /**
-         * Creates a new FASTElement base class inherited from the
-         * provided base type.
-         * @param BaseType - The base element type to inherit from.
-         */ from,
-        /**
-         * Defines a platform custom element based on the provided type and definition.
-         * @param type - The custom element type to define.
-         * @param nameOrDef - The name of the element to define or a definition object
-         * that describes the element to define.
-         */ define,
-        /**
-         * Defines metadata for a FASTElement which can be used to later define the element.
-         * @public
-         */ compose
-    });
-    /**
-     * A class representing a MultiView.
-     * @class
-     * @extends FASTElement
-     */ class MultiView extends FASTElement {
-        constructor(){
-            super(...arguments);
-            /**
-             * Determines the hidden state of the multi-view
-             * @public
-             * @remarks
-             * HTML Attribute: hidden
-             * @type {boolean}
-             */ this.hidden = true;
-        }
-        hiddenChanged() {
-            this.$emit("hiddenChanged", this.hidden);
+}
+class At extends Pt {
+    constructor(){
+        super(), this.style = document.createElement("style"), document.head.appendChild(this.style);
+        const { sheet: e } = this.style;
+        if (e) {
+            const t = e.insertRule(":root{}", e.cssRules.length);
+            this.target = e.cssRules[t].style;
         }
     }
-    __decorate([
-        attr({
-            mode: "boolean"
-        })
-    ], MultiView.prototype, "hidden", void 0);
-    const DesignSystem = Object.freeze({
-        prefix: "hwc",
-        shadowRootMode: "open",
-        registry: customElements
-    });
-    /**
-     * String values for use with KeyboardEvent.key
-     */ const keyArrowDown = "ArrowDown";
-    const keyArrowUp = "ArrowUp";
-    const keyEnd = "End";
-    const keyEnter = "Enter";
-    const keyEscape = "Escape";
-    const keyHome = "Home";
-    const keySpace = " ";
-    const keyTab = "Tab";
-    /**
-     * This method keeps a given value within the bounds of a min and max value. If the value
-     * is larger than the max, the minimum value will be returned. If the value is smaller than the minimum,
-     * the maximum will be returned. Otherwise, the value is returned un-changed.
-     */ /**
-     * Ensures that a value is between a min and max value. If value is lower than min, min will be returned.
-     * If value is greater than max, max will be returned.
-     */ function limit(min, max, value) {
-        return Math.min(Math.max(value, min), max);
+}
+class Tt {
+    constructor(e){
+        this.store = new Map, this.target = null;
+        const t = e.$fastController;
+        this.style = document.createElement("style"), t.addStyles(this.style), C.getNotifier(t).subscribe(this, "isConnected"), this.handleChange(t, "isConnected");
     }
-    let uniqueIdCounter = 0;
-    /**
-     * Generates a unique ID based on incrementing a counter.
-     */ function uniqueId(prefix = "") {
-        return `${prefix}${uniqueIdCounter++}`;
+    targetChanged() {
+        if (null !== this.target) for (const [e, t] of this.store.entries())this.target.setProperty(e, t);
     }
-    /**
-     * A function to compose template options.
-     * @public
-     */ function staticallyCompose(item) {
-        if (!item) return InlineTemplateDirective.empty;
-        if (typeof item === "string") return new InlineTemplateDirective(item);
-        if ("inline" in item) return item.inline();
-        return item;
+    setProperty(e, t) {
+        this.store.set(e, t), y.enqueue(()=>{
+            null !== this.target && this.target.setProperty(e, t);
+        });
     }
-    /**
-     * The template for the end slot.
-     * For use with {@link StartEnd}
-     *
-     * @public
-     */ function endSlotTemplate(options) {
-        return html`
-        <slot name="end" ${ref("end")}>${staticallyCompose(options.end)}</slot>
-    `.inline();
+    removeProperty(e) {
+        this.store.delete(e), y.enqueue(()=>{
+            null !== this.target && this.target.removeProperty(e);
+        });
     }
-    /**
-     * The template for the start slots.
-     * For use with {@link StartEnd}
-     *
-     * @public
-     */ function startSlotTemplate(options) {
-        return html`
-        <slot name="start" ${ref("start")}>${staticallyCompose(options.start)}</slot>
-    `.inline();
+    handleChange(e, t) {
+        const { sheet: o } = this.style;
+        if (o) {
+            const e = o.insertRule(":host{}", o.cssRules.length);
+            this.target = o.cssRules[e].style;
+        } else this.target = null;
     }
-    /**
-     * A CSS fragment to set `display: none;` when the host is hidden using the [hidden] attribute.
-     * @public
-     */ const hidden = `:host([hidden]){display:none}`;
-    /**
-     * Applies a CSS display property.
-     * Also adds CSS rules to not display the element when the [hidden] attribute is applied to the element.
-     * @param display - The CSS display property value
-     * @public
-     */ function display(displayValue) {
-        return `${hidden}:host{display:${displayValue}}`;
+}
+e([
+    B
+], Tt.prototype, "target", void 0);
+class $t {
+    setProperty(e, t) {
+        $t.properties[e] = t;
+        for (const o of $t.roots.values())o.setProperty(e, t);
     }
-    /**
-     * Retrieves the "composed parent" element of a node, ignoring DOM tree boundaries.
-     * When the parent of a node is a shadow-root, it will return the host
-     * element of the shadow root. Otherwise it will return the parent node or null if
-     * no parent node exists.
-     * @param element - The element for which to retrieve the composed parent
-     *
-     * @public
-     */ function composedParent(element) {
-        const parentNode = element.parentElement;
-        if (parentNode) return parentNode;
-        else {
-            const rootNode = element.getRootNode();
-            if (rootNode.host instanceof HTMLElement) // this is shadow-root
-            return rootNode.host;
+    removeProperty(e) {
+        delete $t.properties[e];
+        for (const t of $t.roots.values())t.removeProperty(e);
+    }
+    static registerRoot(e) {
+        const { roots: t } = $t;
+        if (!t.has(e)) {
+            t.add(e);
+            for(const t in $t.properties)e.setProperty(t, $t.properties[t]);
+        }
+    }
+    static unregisterRoot(e) {
+        const { roots: t } = $t;
+        if (t.has(e)) {
+            t.delete(e);
+            for(const t in $t.properties)e.removeProperty(t);
+        }
+    }
+}
+$t.roots = new Set, $t.properties = {};
+const It = new WeakMap, Ft = N.supportsAdoptedStyleSheets ? class extends Pt {
+    constructor(e){
+        super();
+        const t = new CSSStyleSheet;
+        this.target = t.cssRules[t.insertRule(":host{}")].style, e.$fastController.addStyles(new N([
+            t
+        ]));
+    }
+} : Tt, Lt = Object.freeze({
+    getOrCreate (e) {
+        if (It.has(e)) return It.get(e);
+        let t;
+        return t = e instanceof Document ? N.supportsAdoptedStyleSheets ? new Et : new At : new Ft(e), It.set(e, t), t;
+    }
+});
+class Mt {
+    constructor(e){
+        this.subscriberNotifier = {
+            handleChange: (e, t)=>{
+                const o = {
+                    target: t.target === Rt.defaultNode ? "default" : t.target.target,
+                    token: this
+                };
+                this.subscribers.notify(o);
+            }
+        }, this.name = e.name, C.getNotifier(this).subscribe(this.subscriberNotifier);
+    }
+    get $value() {
+        return this.default;
+    }
+    get default() {
+        return Rt.defaultNode.getTokenValue(this);
+    }
+    get subscribers() {
+        return this._subscribers || (this._subscribers = new x(this)), this._subscribers;
+    }
+    static isCSSDesignTokenConfiguration(e) {
+        return "string" == typeof e.cssCustomPropertyName;
+    }
+    static create(e) {
+        return "string" == typeof e ? new Nt({
+            name: e,
+            cssCustomPropertyName: e
+        }) : Mt.isCSSDesignTokenConfiguration(e) ? new Nt(e) : new Mt(e);
+    }
+    static withStrategy(e) {
+        Rt.withStrategy(e);
+    }
+    static registerDefaultStyleTarget(e = document) {
+        (e instanceof nt || e instanceof Document) && (e = Lt.getOrCreate(e)), $t.registerRoot(e);
+    }
+    static unregisterDefaultStyleTarget(e = document) {
+        (e instanceof nt || e instanceof Document) && (e = Lt.getOrCreate(e)), $t.unregisterRoot(e);
+    }
+    getValueFor(e) {
+        return Rt.getOrCreate(e).getTokenValue(this);
+    }
+    setValueFor(e, t) {
+        Rt.getOrCreate(e).setTokenValue(this, this.normalizeValue(t));
+    }
+    deleteValueFor(e) {
+        return Rt.getOrCreate(e).deleteTokenValue(this), this;
+    }
+    withDefault(e) {
+        return Rt.defaultNode.setTokenValue(this, this.normalizeValue(e)), this;
+    }
+    subscribe(e) {
+        this.subscribers.subscribe(e);
+    }
+    unsubscribe(e) {
+        this.subscribers.unsubscribe(e);
+    }
+    alias(e) {
+        return (t)=>t(e);
+    }
+    normalizeValue(e) {
+        return e instanceof Mt && (e = this.alias(e)), e;
+    }
+}
+let Nt = class extends Mt {
+    constructor(e){
+        super(e), this.cssReflector = {
+            handleChange: (e, t)=>{
+                const o = t.target === Rt.defaultNode ? Rt.rootStyleSheetTarget : t.target instanceof Rt ? Lt.getOrCreate(t.target.target) : null;
+                o && (2 === t.type ? o.removeProperty(this.cssCustomProperty) : o.setProperty(this.cssCustomProperty, this.resolveCSSValue(t.target.getTokenValue(this))));
+            }
+        }, this.cssCustomProperty = `--${e.cssCustomPropertyName}`, this.cssVar = `var(${this.cssCustomProperty})`, C.getNotifier(this).subscribe(this.cssReflector);
+    }
+    createCSS() {
+        return this.cssVar;
+    }
+    createHTML() {
+        return this.cssVar;
+    }
+    resolveCSSValue(e) {
+        return e && "function" == typeof e.createCSS ? e.createCSS() : e;
+    }
+};
+var Ot;
+Nt = e([
+    function(e) {
+        V.define(e);
+    },
+    function(e) {
+        te.define(e, Ot);
+    }
+], Nt);
+const Vt = {
+    contains: function(e, t) {
+        let o = t;
+        for(; null !== o;){
+            if (o === e) return !0;
+            o = xt(o);
+        }
+        return !1;
+    },
+    parent (e) {
+        let t = xt(e);
+        for(; null !== t;){
+            if (t instanceof nt) return t;
+            t = xt(t);
         }
         return null;
     }
-    /**
-     * Determines if the reference element contains the test element in a "composed" DOM tree that
-     * ignores shadow DOM boundaries.
-     *
-     * Returns true of the test element is a descendent of the reference, or exists in
-     * a shadow DOM that is a logical descendent of the reference. Otherwise returns false.
-     * @param reference - The element to test for containment against.
-     * @param test - The element being tested for containment.
-     *
-     * @public
-     */ function composedContains(reference, test) {
-        let current = test;
-        while(current !== null){
-            if (current === reference) return true;
-            current = composedParent(current);
-        }
-        return false;
+};
+class Rt extends Bt {
+    constructor(e){
+        super(), this.target = e, this.setTokenValue = this.lazyAttachToDefault(super.setTokenValue), this.getTokenValue = this.lazyAttachToDefault(super.getTokenValue), this.deleteTokenValue = this.lazyAttachToDefault(super.deleteTokenValue);
     }
-    class DerivedValueEvaluator {
-        constructor(value){
-            this.value = value;
-            this.notifier = Observable.getNotifier(this);
-            this.dependencies = new Set();
-            this.binding = Observable.binding(value, this);
-            this.binding.setMode(false);
-        }
-        static getOrCreate(value) {
-            let v = DerivedValueEvaluator.cache.get(value);
-            if (v) return v;
-            v = new DerivedValueEvaluator(value);
-            DerivedValueEvaluator.cache.set(value, v);
-            return v;
-        }
-        evaluate(node, tokenContext) {
-            const resolve = (token)=>{
-                this.dependencies.add(token);
-                if (tokenContext === token) {
-                    if (node.parent) return node.parent.getTokenValue(token);
-                    throw new Error("DesignTokenNode has encountered a circular token reference. Avoid this by setting the token value for an ancestor node.");
-                } else return node.getTokenValue(token);
-            };
-            return this.binding.observe(resolve);
-        }
-        handleChange() {
-            this.notifier.notify(undefined);
+    static get strategy() {
+        return void 0 === this._strategy && Rt.withStrategy(Vt), this._strategy;
+    }
+    connectedCallback(e) {
+        let t = Rt.findParent(e.source);
+        if (null === t && (t = Rt.defaultNode), t !== this.parent) {
+            const o = [];
+            for (const i of t.children)i instanceof Rt && Rt.strategy.contains(e.source, i.target) && o.push(i);
+            t.appendChild(this);
+            for (const e of o)this.appendChild(e);
         }
     }
-    DerivedValueEvaluator.cache = new WeakMap();
-    class DerivedValue {
-        constructor(token, evaluator, node, subscriber){
-            this.token = token;
-            this.evaluator = evaluator;
-            this.node = node;
-            this.subscriber = subscriber;
-            this.value = evaluator.evaluate(node, token);
-            if (this.subscriber) Observable.getNotifier(this.evaluator).subscribe(this.subscriber);
-        }
-        dispose() {
-            if (this.subscriber) Observable.getNotifier(this.evaluator).unsubscribe(this.subscriber);
-        }
-        update() {
-            this.value = this.evaluator.evaluate(this.node, this.token);
-            return this;
-        }
+    disconnectedCallback(e) {
+        Rt.cache.delete(this.target), this.dispose();
     }
-    /**
-     * @internal
-     */ class DesignTokenChangeRecordImpl {
-        constructor(target, type, token, value){
-            this.target = target;
-            this.type = type;
-            this.token = token;
-            this.value = value;
-        }
-        notify() {
-            Observable.getNotifier(this.token).notify(this);
-        }
+    static getOrCreate(e) {
+        let t = Rt.cache.get(e);
+        return t || (t = new Rt(e), Rt.cache.set(e, t), e.$fastController.addBehavior(Rt.strategy), e.$fastController.addBehavior(t), t);
     }
-    /**
-     * @public
-     */ class DesignTokenNode {
-        constructor(){
-            this._parent = null;
-            this._children = new Set();
-            this._values = new Map();
-            this._derived = new Map();
-            this.dependencyGraph = new Map();
-        }
-        /**
-         * Determines if a value is a {@link DerivedDesignTokenValue}
-         * @param value - The value to test
-         */ static isDerivedTokenValue(value) {
-            return typeof value === "function";
-        }
-        /**
-         * Determines if a token has a derived value for a node.
-         */ static isDerivedFor(node, token) {
-            return node._derived.has(token);
-        }
-        /**
-         * Collects token/value pairs for all derived token / values set on upstream nodes.
-         */ static collectDerivedContext(node) {
-            const collected = new Map();
-            // Exit early if  there is no parent
-            if (node.parent === null) return collected;
-            let ignored = DesignTokenNode.getAssignedTokensForNode(node);
-            let current = node.parent;
-            do {
-                const assigned = DesignTokenNode.getAssignedTokensForNode(current);
-                for(let i = 0, l = assigned.length; i < l; i++){
-                    const token = assigned[i];
-                    if (!ignored.includes(token) && DesignTokenNode.isDerivedFor(current, token)) collected.set(token, current._derived.get(token));
-                }
-                ignored = Array.from(new Set(ignored.concat(assigned)));
-                current = current.parent;
-            }while (current !== null);
-            return collected;
-        }
-        /**
-         * Resolves the local value for a token if it is assigned, otherwise returns undefined.
-         */ static getLocalTokenValue(node, token) {
-            return !DesignTokenNode.isAssigned(node, token) ? undefined : DesignTokenNode.isDerivedFor(node, token) ? node._derived.get(token).value : node._values.get(token);
-        }
-        static getOrCreateDependencyGraph(node, token) {
-            let dependents = node.dependencyGraph.get(token);
-            if (dependents) return dependents;
-            dependents = new Set();
-            node.dependencyGraph.set(token, dependents);
-            return dependents;
-        }
-        /**
-         * Emit all queued notifications
-         */ static notify() {
-            const notifications = this._notifications;
-            this._notifications = [];
-            for (const record of notifications)record.notify();
-        }
-        static queueNotification(...records) {
-            this._notifications.push(...records);
-        }
-        /**
-         * Retrieves all tokens assigned directly to a node.
-         * @param node - the node to retrieve assigned tokens for
-         * @returns
-         */ static getAssignedTokensForNode(node) {
-            return Array.from(node._values.keys());
-        }
-        /**
-         * Retrieves all tokens assigned to the node and ancestor nodes.
-         * @param node - the node to compose assigned tokens for
-         */ static composeAssignedTokensForNode(node) {
-            const tokens = new Set(DesignTokenNode.getAssignedTokensForNode(node));
-            let current = node.parent;
-            while(current !== null){
-                const assignedTokens = DesignTokenNode.getAssignedTokensForNode(current);
-                for (const token of assignedTokens)tokens.add(token);
-                current = current.parent;
-            }
-            return Array.from(tokens);
-        }
-        /**
-         * Tests if a token is assigned directly to a node
-         * @param node - The node to test
-         * @param token  - The token to test
-         * @returns
-         */ static isAssigned(node, token) {
-            return node._values.has(token);
-        }
-        /**
-         * The parent node
-         */ get parent() {
-            return this._parent;
-        }
-        get children() {
-            return Array.from(this._children);
-        }
-        /**
-         * Appends a child to the node, notifying for any tokens set for the node's context.
-         */ appendChild(child) {
-            var _a, _b;
-            let prevContext = null;
-            // If this node is already attached, get it's context so change record
-            // types can be determined
-            if (child.parent !== null) {
-                prevContext = DesignTokenNode.composeAssignedTokensForNode(child.parent);
-                child.parent._children.delete(child);
-            }
-            const context = DesignTokenNode.composeAssignedTokensForNode(this);
-            const derivedContext = DesignTokenNode.collectDerivedContext(this);
-            child._parent = this;
-            this._children.add(child);
-            for (const token of context){
-                let type = 0 /* DesignTokenMutationType.add */ ;
-                if (prevContext !== null) {
-                    const prevContextIndex = prevContext.indexOf(token);
-                    if (prevContextIndex !== -1) {
-                        type = 1 /* DesignTokenMutationType.change */ ;
-                        prevContext.splice(prevContextIndex, 1);
-                    }
-                }
-                child.dispatch(new DesignTokenChangeRecordImpl(this, type, token, (_a = derivedContext.get(token)) === null || _a === void 0 ? void 0 : _a.evaluator.value));
-            }
-            if (prevContext !== null && prevContext.length > 0) for (const token of prevContext)child.dispatch(new DesignTokenChangeRecordImpl(this, 2 /* DesignTokenMutationType.delete */ , token, (_b = derivedContext.get(token)) === null || _b === void 0 ? void 0 : _b.evaluator.value));
-            DesignTokenNode.notify();
-        }
-        /**
-         * Appends a child to the node, notifying for any tokens set for the node's context.
-         */ removeChild(child) {
-            if (child.parent === this) {
-                const context = DesignTokenNode.composeAssignedTokensForNode(this);
-                child._parent = null;
-                this._children.delete(child);
-                for (const token of context)child.dispatch(new DesignTokenChangeRecordImpl(this, 2 /* DesignTokenMutationType.delete */ , token));
-                DesignTokenNode.notify();
-            }
-        }
-        /**
-         * Dispose of the node, removing parent/child relationships and
-         * unsubscribing all observable binding subscribers. Does not emit
-         * notifications.
-         */ dispose() {
-            if (this.parent) {
-                this.parent._children.delete(this);
-                this._parent = null;
-            }
-            for (const [, derived] of this._derived)derived.dispose();
-        }
-        /**
-         * Sets a token to a value
-         */ setTokenValue(token, value) {
-            const changeType = DesignTokenNode.isAssigned(this, token) || DesignTokenNode.isDerivedFor(this, token) ? 1 /* DesignTokenMutationType.change */  : 0 /* DesignTokenMutationType.add */ ;
-            const prev = DesignTokenNode.getLocalTokenValue(this, token);
-            this._values.set(token, value);
-            if (DesignTokenNode.isDerivedFor(this, token)) this.tearDownDerivedTokenValue(token);
-            const isDerived = DesignTokenNode.isDerivedTokenValue(value);
-            const derivedContext = DesignTokenNode.collectDerivedContext(this);
-            let result;
-            if (isDerived) {
-                const evaluator = this.setupDerivedTokenValue(token, value, true);
-                result = evaluator.value;
-            } else result = value;
-            if (prev !== result) DesignTokenNode.queueNotification(new DesignTokenChangeRecordImpl(this, changeType, token, value));
-            this.dispatch(new DesignTokenChangeRecordImpl(this, changeType, token, value));
-            derivedContext.forEach((derivedValue, token)=>{
-                // Skip over any derived values already established locally, because
-                // those will get updated via this.notifyDerived and this.notifyStatic
-                if (!DesignTokenNode.isDerivedFor(this, token)) {
-                    const prev = DesignTokenNode.getLocalTokenValue(this, token);
-                    derivedValue = this.setupDerivedTokenValue(token, derivedValue.evaluator.value);
-                    const result = derivedValue.value;
-                    if (prev !== result) DesignTokenNode.queueNotification(new DesignTokenChangeRecordImpl(this, 1 /* DesignTokenMutationType.change */ , token, derivedValue.evaluator.value));
-                    this.dispatch(new DesignTokenChangeRecordImpl(this, 0 /* DesignTokenMutationType.add */ , token, derivedValue.evaluator.value));
-                }
-            });
-            DesignTokenNode.notify();
-        }
-        /**
-         * Returns the resolve value for a token
-         */ getTokenValue(token) {
-            /* eslint-disable-next-line */ let node = this;
-            let value;
-            while(node !== null){
-                if (DesignTokenNode.isDerivedFor(node, token)) {
-                    value = node._derived.get(token).value;
-                    break;
-                }
-                if (DesignTokenNode.isAssigned(node, token)) {
-                    value = node._values.get(token);
-                    break;
-                }
-                node = node._parent;
-            }
-            if (value !== undefined) return value;
-            else throw new Error(`No value set for token ${token} in node tree.`);
-        }
-        /**
-         * Deletes the token value for a node
-         */ deleteTokenValue(token) {
-            if (DesignTokenNode.isAssigned(this, token)) {
-                const prev = DesignTokenNode.getLocalTokenValue(this, token);
-                this._values.delete(token);
-                this.tearDownDerivedTokenValue(token);
-                let newValue;
-                try {
-                    newValue = this.getTokenValue(token);
-                } catch (e) {
-                    newValue = undefined;
-                }
-                DesignTokenNode.queueNotification(new DesignTokenChangeRecordImpl(this, 2 /* DesignTokenMutationType.delete */ , token));
-                if (prev !== newValue) this.dispatch(new DesignTokenChangeRecordImpl(this, 2 /* DesignTokenMutationType.delete */ , token));
-                DesignTokenNode.notify();
-            }
-        }
-        /**
-         * Notifies that a token has been mutated
-         */ dispatch(record) {
-            var _a, _b, _c;
-            if (this !== record.target) {
-                const { token } = record;
-                // If the node is assigned the token being dispatched and the assigned value does not depend on the token
-                // (circular token reference) then terminate the dispatch.
-                const isAssigned = DesignTokenNode.isAssigned(this, token);
-                const containsCircularForToken = isAssigned && ((_a = this._derived.get(token)) === null || _a === void 0 ? void 0 : _a.evaluator.dependencies.has(token));
-                if (isAssigned && !containsCircularForToken) return;
-                // Delete token evaluations if the token is not assigned explicitly but is derived for the node and
-                // the record is a delete type.
-                if (record.type === 2 /* DesignTokenMutationType.delete */  && !isAssigned && DesignTokenNode.isDerivedFor(this, token)) {
-                    this.tearDownDerivedTokenValue(token);
-                    DesignTokenNode.queueNotification(new DesignTokenChangeRecordImpl(this, 2 /* DesignTokenMutationType.delete */ , token));
-                }
-                if (containsCircularForToken) record = new DesignTokenChangeRecordImpl(this, 1 /* DesignTokenMutationType.change */ , token, (_b = this._derived.get(token)) === null || _b === void 0 ? void 0 : _b.evaluator.value);
-                const { value } = record;
-                if (value && DesignTokenNode.isDerivedTokenValue(value)) {
-                    const dependencies = DerivedValueEvaluator.getOrCreate(value).dependencies;
-                    // If this is not the originator, check to see if this node
-                    // has any dependencies of the token value. If so, we need to evaluate for this node
-                    let evaluate = false;
-                    for (const dependency of dependencies)if (DesignTokenNode.isAssigned(this, dependency)) {
-                        evaluate = true;
-                        break;
-                    }
-                    if (evaluate) {
-                        const prev = (_c = this._derived.get(token)) === null || _c === void 0 ? void 0 : _c.value;
-                        const derivedValue = this.setupDerivedTokenValue(token, value);
-                        if (prev !== derivedValue.value) {
-                            const type = prev === undefined ? 0 /* DesignTokenMutationType.add */  : 1 /* DesignTokenMutationType.change */ ;
-                            const notification = new DesignTokenChangeRecordImpl(this, type, token, derivedValue.evaluator.value);
-                            DesignTokenNode.queueNotification(notification);
-                            record = notification;
-                        }
-                    }
-                }
-            }
-            this.collectLocalChangeRecords(record).forEach((_record)=>{
-                DesignTokenNode.queueNotification(_record);
-                this.dispatch(_record);
-            });
-            this.notifyChildren(record);
-        }
-        /**
-         * Generate change-records for local dependencies of a change record
-         */ collectLocalChangeRecords(record) {
-            const collected = new Map();
-            for (const dependent of DesignTokenNode.getOrCreateDependencyGraph(this, record.token))if (dependent.value !== dependent.update().value) collected.set(dependent.token, new DesignTokenChangeRecordImpl(this, 1 /* DesignTokenMutationType.change */ , dependent.token, dependent.evaluator.value));
-            return collected;
-        }
-        /**
-         *
-         * Notify children of changes to the node
-         */ notifyChildren(...records) {
-            if (this.children.length) {
-                for(let i = 0, l = this.children.length; i < l; i++)for(let j = 0; j < records.length; j++)this.children[i].dispatch(records[j]);
-            }
-        }
-        tearDownDerivedTokenValue(token) {
-            if (DesignTokenNode.isDerivedFor(this, token)) {
-                const value = this._derived.get(token);
-                value.dispose();
-                this._derived.delete(token);
-                value.evaluator.dependencies.forEach((dependency)=>{
-                    DesignTokenNode.getOrCreateDependencyGraph(this, dependency).delete(value);
-                });
-            }
-        }
-        setupDerivedTokenValue(token, value, subscribeNode = false) {
-            const deriver = new DerivedValue(token, DerivedValueEvaluator.getOrCreate(value), this, subscribeNode ? {
-                handleChange: ()=>{
-                    if (deriver.value !== deriver.update().value) {
-                        const record = new DesignTokenChangeRecordImpl(this, 1 /* DesignTokenMutationType.change */ , deriver.token, deriver.evaluator.value);
-                        DesignTokenNode.queueNotification(record);
-                        this.dispatch(record);
-                        DesignTokenNode.notify();
-                    }
-                }
-            } : undefined);
-            this._derived.set(token, deriver);
-            deriver.evaluator.dependencies.forEach((dependency)=>{
-                if (dependency !== token) DesignTokenNode.getOrCreateDependencyGraph(this, dependency).add(deriver);
-            });
-            return deriver;
-        }
+    static withStrategy(e) {
+        this._strategy = e;
     }
-    DesignTokenNode._notifications = [];
-    class QueuedStyleSheetTarget {
-        setProperty(name, value) {
-            Updates.enqueue(()=>this.target.setProperty(name, value));
+    static findParent(e) {
+        let t = Rt.strategy.parent(e);
+        for(; null !== t;){
+            const e = Rt.cache.get(t);
+            if (e) return e;
+            t = Rt.strategy.parent(t);
         }
-        removeProperty(name) {
-            Updates.enqueue(()=>this.target.removeProperty(name));
-        }
+        return null;
     }
-    /**
-     * Handles setting properties for a FASTElement using Constructable Stylesheets
-     */ class ConstructableStyleSheetTarget extends QueuedStyleSheetTarget {
-        constructor(source){
-            super();
-            const sheet = new CSSStyleSheet();
-            this.target = sheet.cssRules[sheet.insertRule(":host{}")].style;
-            source.$fastController.addStyles(new ElementStyles([
-                sheet
-            ]));
-        }
+    lazyAttachToDefault(e) {
+        return (...t)=>(null === this.parent && Rt.defaultNode.appendChild(this), e.apply(this, t));
     }
-    class DocumentStyleSheetTarget extends QueuedStyleSheetTarget {
-        constructor(){
-            super();
-            const sheet = new CSSStyleSheet();
-            this.target = sheet.cssRules[sheet.insertRule(":root{}")].style;
-            document.adoptedStyleSheets = [
-                ...document.adoptedStyleSheets,
-                sheet
-            ];
-        }
-    }
-    class HeadStyleElementStyleSheetTarget extends QueuedStyleSheetTarget {
-        constructor(){
-            super();
-            this.style = document.createElement("style");
-            document.head.appendChild(this.style);
-            const { sheet } = this.style;
-            // Because the HTMLStyleElement has been appended,
-            // there shouldn't exist a case where `sheet` is null,
-            // but if-check it just in case.
-            if (sheet) {
-                // https://github.com/jsdom/jsdom uses https://github.com/NV/CSSOM for it's CSSOM implementation,
-                // which implements the DOM Level 2 spec for CSSStyleSheet where insertRule() requires an index argument.
-                const index = sheet.insertRule(":root{}", sheet.cssRules.length);
-                this.target = sheet.cssRules[index].style;
-            }
-        }
-    }
-    /**
-     * Handles setting properties for a FASTElement using an HTMLStyleElement
-     */ class StyleElementStyleSheetTarget {
-        constructor(target){
-            this.store = new Map();
-            this.target = null;
-            const controller = target.$fastController;
-            this.style = document.createElement("style");
-            controller.addStyles(this.style);
-            Observable.getNotifier(controller).subscribe(this, "isConnected");
-            this.handleChange(controller, "isConnected");
-        }
-        targetChanged() {
-            if (this.target !== null) for (const [key, value] of this.store.entries())this.target.setProperty(key, value);
-        }
-        setProperty(name, value) {
-            this.store.set(name, value);
-            Updates.enqueue(()=>{
-                if (this.target !== null) this.target.setProperty(name, value);
-            });
-        }
-        removeProperty(name) {
-            this.store.delete(name);
-            Updates.enqueue(()=>{
-                if (this.target !== null) this.target.removeProperty(name);
-            });
-        }
-        handleChange(source, key) {
-            // HTMLStyleElement.sheet is null if the element isn't connected to the DOM,
-            // so this method reacts to changes in DOM connection for the element hosting
-            // the HTMLStyleElement.
-            //
-            // All rules applied via the CSSOM also get cleared when the element disconnects,
-            // so we need to add a new rule each time and populate it with the stored properties
-            const { sheet } = this.style;
-            if (sheet) {
-                // Safari will throw if we try to use the return result of insertRule()
-                // to index the rule inline, so store as a const prior to indexing.
-                // https://github.com/jsdom/jsdom uses https://github.com/NV/CSSOM for it's CSSOM implementation,
-                // which implements the DOM Level 2 spec for CSSStyleSheet where insertRule() requires an index argument.
-                const index = sheet.insertRule(":host{}", sheet.cssRules.length);
-                this.target = sheet.cssRules[index].style;
-            } else this.target = null;
-        }
-    }
-    __decorate([
-        observable
-    ], StyleElementStyleSheetTarget.prototype, "target", void 0);
-    /**
-     * Controls emission for default values. This control is capable
-     * of emitting to multiple {@link PropertyTarget | PropertyTargets},
-     * and only emits if it has at least one root.
-     *
-     * @internal
-     */ class RootStyleSheetTarget {
-        setProperty(name, value) {
-            RootStyleSheetTarget.properties[name] = value;
-            for (const target of RootStyleSheetTarget.roots.values())target.setProperty(name, value);
-        }
-        removeProperty(name) {
-            delete RootStyleSheetTarget.properties[name];
-            for (const target of RootStyleSheetTarget.roots.values())target.removeProperty(name);
-        }
-        static registerRoot(root) {
-            const { roots } = RootStyleSheetTarget;
-            if (!roots.has(root)) {
-                roots.add(root);
-                for(const key in RootStyleSheetTarget.properties)root.setProperty(key, RootStyleSheetTarget.properties[key]);
-            }
-        }
-        static unregisterRoot(root) {
-            const { roots } = RootStyleSheetTarget;
-            if (roots.has(root)) {
-                roots.delete(root);
-                for(const key in RootStyleSheetTarget.properties)root.removeProperty(key);
-            }
-        }
-    }
-    RootStyleSheetTarget.roots = new Set();
-    RootStyleSheetTarget.properties = {};
-    // Caches PropertyTarget instances
-    const propertyTargetCache = new WeakMap();
-    // Use Constructable StyleSheets for FAST elements when supported, otherwise use
-    // HTMLStyleElement instances
-    const propertyTargetCtor = ElementStyles.supportsAdoptedStyleSheets ? ConstructableStyleSheetTarget : StyleElementStyleSheetTarget;
-    /**
-     * Manages creation and caching of PropertyTarget instances.
-     *
-     * @internal
-     */ const PropertyTargetManager = Object.freeze({
-        getOrCreate (source) {
-            if (propertyTargetCache.has(source)) /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */ return propertyTargetCache.get(source);
-            let target;
-            if (source instanceof Document) target = ElementStyles.supportsAdoptedStyleSheets ? new DocumentStyleSheetTarget() : new HeadStyleElementStyleSheetTarget();
-            else target = new propertyTargetCtor(source);
-            propertyTargetCache.set(source, target);
-            return target;
-        }
-    });
-    /**
-     * @public
-     */ class DesignToken {
-        constructor(configuration){
-            this.subscriberNotifier = {
-                handleChange: (source, change)=>{
-                    const record = {
-                        target: change.target === FASTDesignTokenNode.defaultNode ? "default" : change.target.target,
-                        token: this
-                    };
-                    this.subscribers.notify(record);
-                }
-            };
-            this.name = configuration.name;
-            Observable.getNotifier(this).subscribe(this.subscriberNotifier);
-        }
-        /**
-         * The default value of the token (alias of {@link DesignToken.default})
-         */ get $value() {
-            return this.default;
-        }
-        /**
-         * The default value of the token, or undefined if it has not been set.
-         */ get default() {
-            return FASTDesignTokenNode.defaultNode.getTokenValue(this);
-        }
-        get subscribers() {
-            if (this._subscribers) return this._subscribers;
-            this._subscribers = new SubscriberSet(this);
-            return this._subscribers;
-        }
-        static isCSSDesignTokenConfiguration(config) {
-            return typeof config.cssCustomPropertyName === "string";
-        }
-        static create(config) {
-            if (typeof config === "string") return new CSSDesignToken({
-                name: config,
-                cssCustomPropertyName: config
-            });
-            else return DesignToken.isCSSDesignTokenConfiguration(config) ? new CSSDesignToken(config) : new DesignToken(config);
-        }
-        /**
-         * Configures the strategy for resolving hierarchical relationships between FASTElement targets.
-         */ static withStrategy(strategy) {
-            FASTDesignTokenNode.withStrategy(strategy);
-        }
-        /**
-         * Registers a target for emitting default style values.
-         * {@link CSSDesignToken | CSSDesignTokens} with default values assigned via
-         * {@link DesignToken.withDefault} will emit CSS custom properties to all
-         * registered targets.
-         * @param target - The target to register, defaults to the document
-         */ static registerDefaultStyleTarget(target = document) {
-            if (target instanceof FASTElement || target instanceof Document) target = PropertyTargetManager.getOrCreate(target);
-            RootStyleSheetTarget.registerRoot(target);
-        }
-        /**
-         * Unregister a target for default style emission.
-         * @param target - The root to deregister, defaults to the document
-         */ static unregisterDefaultStyleTarget(target = document) {
-            if (target instanceof FASTElement || target instanceof Document) target = PropertyTargetManager.getOrCreate(target);
-            RootStyleSheetTarget.unregisterRoot(target);
-        }
-        /**
-         * Retrieves the value of the token for a target element.
-         */ getValueFor(target) {
-            return FASTDesignTokenNode.getOrCreate(target).getTokenValue(this);
-        }
-        /**
-         * Sets the value of the token for a target element.
-         */ setValueFor(target, value) {
-            FASTDesignTokenNode.getOrCreate(target).setTokenValue(this, this.normalizeValue(value));
-        }
-        /**
-         * Deletes the value of the token for a target element.
-         */ deleteValueFor(target) {
-            FASTDesignTokenNode.getOrCreate(target).deleteTokenValue(this);
-            return this;
-        }
-        /**
-         * Sets the default value of the token.
-         */ withDefault(value) {
-            FASTDesignTokenNode.defaultNode.setTokenValue(this, this.normalizeValue(value));
-            return this;
-        }
-        /**
-         * Subscribes a subscriber to notifications for the token.
-         */ subscribe(subscriber) {
-            this.subscribers.subscribe(subscriber);
-        }
-        /**
-         * Unsubscribes a subscriber to notifications for the token.
-         */ unsubscribe(subscriber) {
-            this.subscribers.unsubscribe(subscriber);
-        }
-        /**
-         * Alias the token to the provided token.
-         * @param token - the token to alias to
-         */ alias(token) {
-            return (resolve)=>resolve(token);
-        }
-        normalizeValue(value) {
-            if (value instanceof DesignToken) value = this.alias(value);
-            return value;
-        }
-    }
-    /**
-     * @public
-     */ let CSSDesignToken = class CSSDesignToken extends DesignToken {
-        constructor(configuration){
-            super(configuration);
-            this.cssReflector = {
-                handleChange: (source, record)=>{
-                    const target = record.target === FASTDesignTokenNode.defaultNode ? FASTDesignTokenNode.rootStyleSheetTarget : record.target instanceof FASTDesignTokenNode ? PropertyTargetManager.getOrCreate(record.target.target) : null;
-                    if (target) {
-                        if (record.type === 2 /* DesignTokenMutationType.delete */ ) target.removeProperty(this.cssCustomProperty);
-                        else target.setProperty(this.cssCustomProperty, this.resolveCSSValue(record.target.getTokenValue(this)));
-                    }
-                }
-            };
-            this.cssCustomProperty = `--${configuration.cssCustomPropertyName}`;
-            this.cssVar = `var(${this.cssCustomProperty})`;
-            Observable.getNotifier(this).subscribe(this.cssReflector);
-        }
-        /**
-         * The DesignToken represented as a string that can be used in CSS.
-         */ createCSS() {
-            return this.cssVar;
-        }
-        /**
-         * Creates HTML to be used within a template.
-         */ createHTML() {
-            return this.cssVar;
-        }
-        resolveCSSValue(value) {
-            return value && typeof value.createCSS === "function" ? value.createCSS() : value;
-        }
-    };
-    CSSDesignToken = __decorate([
-        cssDirective(),
-        htmlDirective()
-    ], CSSDesignToken);
-    const defaultDesignTokenResolutionStrategy = {
-        contains: composedContains,
-        parent (element) {
-            let parent = composedParent(element);
-            while(parent !== null){
-                if (parent instanceof FASTElement) return parent;
-                parent = composedParent(parent);
-            }
-            return null;
-        }
-    };
-    class FASTDesignTokenNode extends DesignTokenNode {
-        constructor(target){
-            super();
-            this.target = target;
-            // By default, nodes are not attached to the defaultNode for performance
-            // reasons. However, that behavior can throw if retrieval for a node
-            // happens before the bind() method is called. To guard against that,
-            //  lazily attach to the defaultNode when get/set/delete methods are called.
-            this.setTokenValue = this.lazyAttachToDefault(super.setTokenValue);
-            this.getTokenValue = this.lazyAttachToDefault(super.getTokenValue);
-            this.deleteTokenValue = this.lazyAttachToDefault(super.deleteTokenValue);
-        }
-        static get strategy() {
-            if (this._strategy === undefined) FASTDesignTokenNode.withStrategy(defaultDesignTokenResolutionStrategy);
-            return this._strategy;
-        }
-        connectedCallback(controller) {
-            let parent = FASTDesignTokenNode.findParent(controller.source);
-            if (parent === null) parent = FASTDesignTokenNode.defaultNode;
-            if (parent !== this.parent) {
-                const reparent = [];
-                for (const child of parent.children)if (child instanceof FASTDesignTokenNode && FASTDesignTokenNode.strategy.contains(controller.source, child.target)) reparent.push(child);
-                parent.appendChild(this);
-                for (const child of reparent)this.appendChild(child);
-            }
-        }
-        disconnectedCallback(controller) {
-            FASTDesignTokenNode.cache.delete(this.target);
-            this.dispose();
-        }
-        static getOrCreate(target) {
-            let found = FASTDesignTokenNode.cache.get(target);
-            if (found) return found;
-            found = new FASTDesignTokenNode(target);
-            FASTDesignTokenNode.cache.set(target, found);
-            target.$fastController.addBehavior(FASTDesignTokenNode.strategy);
-            target.$fastController.addBehavior(found);
-            return found;
-        }
-        static withStrategy(strategy) {
-            this._strategy = strategy;
-        }
-        static findParent(target) {
-            let current = FASTDesignTokenNode.strategy.parent(target);
-            while(current !== null){
-                const node = FASTDesignTokenNode.cache.get(current);
-                if (node) return node;
-                current = FASTDesignTokenNode.strategy.parent(current);
-            }
-            return null;
-        }
-        /**
-         * Creates a function from a function that lazily attaches the node to the default node.
-         */ lazyAttachToDefault(fn) {
-            const cb = (...args)=>{
-                if (this.parent === null) FASTDesignTokenNode.defaultNode.appendChild(this);
-                return fn.apply(this, args);
-            };
-            return cb;
-        }
-    }
-    FASTDesignTokenNode.defaultNode = new DesignTokenNode();
-    FASTDesignTokenNode.rootStyleSheetTarget = new RootStyleSheetTarget();
-    FASTDesignTokenNode.cache = new WeakMap();
-    const { create } = DesignToken;
-    create("borderRadiusNone");
-    const borderRadiusSmall = create("borderRadiusSmall");
-    const borderRadiusMedium = create("borderRadiusMedium");
-    create("borderRadiusLarge");
-    create("borderRadiusXLarge");
-    create("borderRadiusCircular");
-    create("fontSizeBase100");
-    const fontSizeBase200 = create("fontSizeBase200");
-    const fontSizeBase300 = create("fontSizeBase300");
-    const fontSizeBase400 = create("fontSizeBase400");
-    const fontSizeBase500 = create("fontSizeBase500");
-    create("fontSizeBase600");
-    create("fontSizeHero700");
-    create("fontSizeHero800");
-    create("fontSizeHero900");
-    create("fontSizeHero1000");
-    create("lineHeightBase100");
-    const lineHeightBase200 = create("lineHeightBase200");
-    const lineHeightBase300 = create("lineHeightBase300");
-    const lineHeightBase400 = create("lineHeightBase400");
-    create("lineHeightBase500");
-    create("lineHeightBase600");
-    create("lineHeightHero700");
-    create("lineHeightHero800");
-    create("lineHeightHero900");
-    create("lineHeightHero1000");
-    const fontFamilyBase = create("fontFamilyBase");
-    create("fontFamilyMonospace");
-    create("fontFamilyNumeric");
-    const fontWeightRegular = create("fontWeightRegular");
-    create("fontWeightMedium");
-    const fontWeightSemibold = create("fontWeightSemibold");
-    create("fontWeightBold");
-    create("strokeWidthThin");
-    const strokeWidthThick = create("strokeWidthThick");
-    create("strokeWidthThicker");
-    create("strokeWidthThickest");
-    create("spacingHorizontalNone");
-    create("spacingHorizontalXXS");
-    create("spacingHorizontalXS");
-    create("spacingHorizontalSNudge");
-    const spacingHorizontalS = create("spacingHorizontalS");
-    create("spacingHorizontalMNudge");
-    const spacingHorizontalM = create("spacingHorizontalM");
-    const spacingHorizontalL = create("spacingHorizontalL");
-    create("spacingHorizontalXL");
-    const spacingHorizontalXXL = create("spacingHorizontalXXL");
-    const spacingHorizontalXXXL = create("spacingHorizontalXXXL");
-    create("spacingVerticalNone");
-    const spacingVerticalXXS = create("spacingVerticalXXS");
-    const spacingVerticalXS = create("spacingVerticalXS");
-    create("spacingVerticalSNudge");
-    create("spacingVerticalS");
-    create("spacingVerticalMNudge");
-    create("spacingVerticalM");
-    const spacingVerticalL = create("spacingVerticalL");
-    create("spacingVerticalXL");
-    const spacingVerticalXXL = create("spacingVerticalXXL");
-    create("spacingVerticalXXXL");
-    create("durationUltraFast");
-    create("durationFaster");
-    create("durationFast");
-    create("durationNormal");
-    create("durationSlow");
-    create("durationSlower");
-    create("durationUltraSlow");
-    create("curveAccelerateMax");
-    create("curveAccelerateMid");
-    create("curveAccelerateMin");
-    create("curveDecelerateMax");
-    create("curveDecelerateMid");
-    create("curveDecelerateMin");
-    create("curveEasyEaseMax");
-    create("curveEasyEase");
-    create("curveLinear");
-    const colorNeutralForeground1 = create("colorNeutralForeground1");
-    create("colorNeutralForeground1Hover");
-    create("colorNeutralForeground1Pressed");
-    create("colorNeutralForeground1Selected");
-    create("colorNeutralForeground2");
-    create("colorNeutralForeground2Hover");
-    create("colorNeutralForeground2Pressed");
-    create("colorNeutralForeground2Selected");
-    create("colorNeutralForeground2BrandHover");
-    create("colorNeutralForeground2BrandPressed");
-    create("colorNeutralForeground2BrandSelected");
-    const colorNeutralForeground3 = create("colorNeutralForeground3");
-    create("colorNeutralForeground3Hover");
-    create("colorNeutralForeground3Pressed");
-    create("colorNeutralForeground3Selected");
-    create("colorNeutralForeground3BrandHover");
-    create("colorNeutralForeground3BrandPressed");
-    create("colorNeutralForeground3BrandSelected");
-    create("colorNeutralForeground4");
-    create("colorNeutralForegroundDisabled");
-    create("colorNeutralForegroundInvertedDisabled");
-    create("colorBrandForegroundLink");
-    create("colorBrandForegroundLinkHover");
-    create("colorBrandForegroundLinkPressed");
-    create("colorBrandForegroundLinkSelected");
-    create("colorNeutralForeground2Link");
-    create("colorNeutralForeground2LinkHover");
-    create("colorNeutralForeground2LinkPressed");
-    create("colorNeutralForeground2LinkSelected");
-    create("colorCompoundBrandForeground1");
-    create("colorCompoundBrandForeground1Hover");
-    create("colorCompoundBrandForeground1Pressed");
-    create("colorBrandForeground1");
-    const colorBrandForeground2 = create("colorBrandForeground2");
-    create("colorNeutralForeground1Static");
-    create("colorNeutralForegroundStaticInverted");
-    create("colorNeutralForegroundInverted");
-    create("colorNeutralForegroundInvertedHover");
-    create("colorNeutralForegroundInvertedPressed");
-    create("colorNeutralForegroundInvertedSelected");
-    create("colorNeutralForegroundInverted2");
-    const colorNeutralForegroundOnBrand = create("colorNeutralForegroundOnBrand");
-    create("colorNeutralForegroundInvertedLink");
-    create("colorNeutralForegroundInvertedLinkHover");
-    create("colorNeutralForegroundInvertedLinkPressed");
-    create("colorNeutralForegroundInvertedLinkSelected");
-    create("colorBrandForegroundInverted");
-    create("colorBrandForegroundInvertedHover");
-    create("colorBrandForegroundInvertedPressed");
-    create("colorBrandForegroundOnLight");
-    create("colorBrandForegroundOnLightHover");
-    create("colorBrandForegroundOnLightPressed");
-    create("colorBrandForegroundOnLightSelected");
-    const colorNeutralBackground1 = create("colorNeutralBackground1");
-    create("colorNeutralBackground1Hover");
-    create("colorNeutralBackground1Pressed");
-    create("colorNeutralBackground1Selected");
-    const colorNeutralBackground2 = create("colorNeutralBackground2");
-    create("colorNeutralBackground2Hover");
-    create("colorNeutralBackground2Pressed");
-    create("colorNeutralBackground2Selected");
-    const colorNeutralBackground3 = create("colorNeutralBackground3");
-    create("colorNeutralBackground3Hover");
-    create("colorNeutralBackground3Pressed");
-    create("colorNeutralBackground3Selected");
-    create("colorNeutralBackground4");
-    create("colorNeutralBackground4Hover");
-    create("colorNeutralBackground4Pressed");
-    create("colorNeutralBackground4Selected");
-    create("colorNeutralBackground5");
-    create("colorNeutralBackground5Hover");
-    create("colorNeutralBackground5Pressed");
-    create("colorNeutralBackground5Selected");
-    create("colorNeutralBackground6");
-    create("colorNeutralBackgroundInverted");
-    create("colorNeutralBackgroundStatic");
-    create("colorSubtleBackground");
-    create("colorSubtleBackgroundHover");
-    create("colorSubtleBackgroundPressed");
-    create("colorSubtleBackgroundSelected");
-    create("colorSubtleBackgroundLightAlphaHover");
-    create("colorSubtleBackgroundLightAlphaPressed");
-    create("colorSubtleBackgroundLightAlphaSelected");
-    create("colorSubtleBackgroundInverted");
-    create("colorSubtleBackgroundInvertedHover");
-    create("colorSubtleBackgroundInvertedPressed");
-    create("colorSubtleBackgroundInvertedSelected");
-    create("colorTransparentBackground");
-    create("colorTransparentBackgroundHover");
-    create("colorTransparentBackgroundPressed");
-    create("colorTransparentBackgroundSelected");
-    create("colorNeutralBackgroundDisabled");
-    create("colorNeutralBackgroundInvertedDisabled");
-    create("colorNeutralStencil1");
-    create("colorNeutralStencil2");
-    create("colorNeutralStencil1Alpha");
-    create("colorNeutralStencil2Alpha");
-    create("colorBackgroundOverlay");
-    create("colorScrollbarOverlay");
-    const colorBrandBackground = create("colorBrandBackground");
-    create("colorBrandBackgroundHover");
-    create("colorBrandBackgroundPressed");
-    create("colorBrandBackgroundSelected");
-    create("colorCompoundBrandBackground");
-    create("colorCompoundBrandBackgroundHover");
-    create("colorCompoundBrandBackgroundPressed");
-    create("colorBrandBackgroundStatic");
-    create("colorBrandBackground2");
-    create("colorBrandBackgroundInverted");
-    create("colorBrandBackgroundInvertedHover");
-    create("colorBrandBackgroundInvertedPressed");
-    create("colorBrandBackgroundInvertedSelected");
-    create("colorNeutralStrokeAccessible");
-    create("colorNeutralStrokeAccessibleHover");
-    create("colorNeutralStrokeAccessiblePressed");
-    create("colorNeutralStrokeAccessibleSelected");
-    const colorNeutralStroke1 = create("colorNeutralStroke1");
-    create("colorNeutralStroke1Hover");
-    create("colorNeutralStroke1Pressed");
-    create("colorNeutralStroke1Selected");
-    create("colorNeutralStroke2");
-    create("colorNeutralStroke3");
-    create("colorNeutralStrokeOnBrand");
-    create("colorNeutralStrokeOnBrand2");
-    create("colorNeutralStrokeOnBrand2Hover");
-    create("colorNeutralStrokeOnBrand2Pressed");
-    create("colorNeutralStrokeOnBrand2Selected");
-    create("colorBrandStroke1");
-    create("colorBrandStroke2");
-    create("colorCompoundBrandStroke");
-    create("colorCompoundBrandStrokeHover");
-    create("colorCompoundBrandStrokePressed");
-    create("colorNeutralStrokeDisabled");
-    create("colorNeutralStrokeInvertedDisabled");
-    const colorTransparentStroke = create("colorTransparentStroke");
-    const colorTransparentStrokeInteractive = create("colorTransparentStrokeInteractive");
-    create("colorTransparentStrokeDisabled");
-    create("colorStrokeFocus1");
-    const colorStrokeFocus2 = create("colorStrokeFocus2");
-    create("colorNeutralShadowAmbient");
-    create("colorNeutralShadowKey");
-    create("colorNeutralShadowAmbientLighter");
-    create("colorNeutralShadowKeyLighter");
-    create("colorNeutralShadowAmbientDarker");
-    create("colorNeutralShadowKeyDarker");
-    create("colorBrandShadowAmbient");
-    create("colorBrandShadowKey");
-    create("colorPaletteRedBackground1");
-    create("colorPaletteRedBackground2");
-    create("colorPaletteRedBackground3");
-    create("colorPaletteRedForeground1");
-    create("colorPaletteRedForeground2");
-    const colorPaletteRedForeground3 = create("colorPaletteRedForeground3");
-    create("colorPaletteRedBorderActive");
-    create("colorPaletteRedBorder1");
-    create("colorPaletteRedBorder2");
-    create("colorPaletteGreenBackground1");
-    create("colorPaletteGreenBackground2");
-    create("colorPaletteGreenBackground3");
-    create("colorPaletteGreenForeground1");
-    create("colorPaletteGreenForeground2");
-    create("colorPaletteGreenForeground3");
-    create("colorPaletteGreenBorderActive");
-    create("colorPaletteGreenBorder1");
-    create("colorPaletteGreenBorder2");
-    create("colorPaletteDarkOrangeBackground1");
-    create("colorPaletteDarkOrangeBackground2");
-    create("colorPaletteDarkOrangeBackground3");
-    create("colorPaletteDarkOrangeForeground1");
-    create("colorPaletteDarkOrangeForeground2");
-    create("colorPaletteDarkOrangeForeground3");
-    create("colorPaletteDarkOrangeBorderActive");
-    create("colorPaletteDarkOrangeBorder1");
-    create("colorPaletteDarkOrangeBorder2");
-    create("colorPaletteYellowBackground1");
-    create("colorPaletteYellowBackground2");
-    create("colorPaletteYellowBackground3");
-    create("colorPaletteYellowForeground1");
-    create("colorPaletteYellowForeground2");
-    create("colorPaletteYellowForeground3");
-    create("colorPaletteYellowBorderActive");
-    create("colorPaletteYellowBorder1");
-    create("colorPaletteYellowBorder2");
-    create("colorPaletteBerryBackground1");
-    create("colorPaletteBerryBackground2");
-    create("colorPaletteBerryBackground3");
-    create("colorPaletteBerryForeground1");
-    create("colorPaletteBerryForeground2");
-    create("colorPaletteBerryForeground3");
-    create("colorPaletteBerryBorderActive");
-    create("colorPaletteBerryBorder1");
-    create("colorPaletteBerryBorder2");
-    create("colorPaletteLightGreenBackground1");
-    create("colorPaletteLightGreenBackground2");
-    create("colorPaletteLightGreenBackground3");
-    create("colorPaletteLightGreenForeground1");
-    create("colorPaletteLightGreenForeground2");
-    create("colorPaletteLightGreenForeground3");
-    create("colorPaletteLightGreenBorderActive");
-    create("colorPaletteLightGreenBorder1");
-    create("colorPaletteLightGreenBorder2");
-    create("colorPaletteMarigoldBackground1");
-    create("colorPaletteMarigoldBackground2");
-    create("colorPaletteMarigoldBackground3");
-    create("colorPaletteMarigoldForeground1");
-    create("colorPaletteMarigoldForeground2");
-    create("colorPaletteMarigoldForeground3");
-    create("colorPaletteMarigoldBorderActive");
-    create("colorPaletteMarigoldBorder1");
-    create("colorPaletteMarigoldBorder2");
-    create("colorPaletteDarkRedBackground2");
-    create("colorPaletteDarkRedForeground2");
-    create("colorPaletteDarkRedBorderActive");
-    create("colorPaletteCranberryBackground2");
-    create("colorPaletteCranberryForeground2");
-    create("colorPaletteCranberryBorderActive");
-    create("colorPalettePumpkinBackground2");
-    create("colorPalettePumpkinForeground2");
-    create("colorPalettePumpkinBorderActive");
-    create("colorPalettePeachBackground2");
-    create("colorPalettePeachForeground2");
-    create("colorPalettePeachBorderActive");
-    create("colorPaletteGoldBackground2");
-    create("colorPaletteGoldForeground2");
-    create("colorPaletteGoldBorderActive");
-    create("colorPaletteBrassBackground2");
-    create("colorPaletteBrassForeground2");
-    create("colorPaletteBrassBorderActive");
-    create("colorPaletteBrownBackground2");
-    create("colorPaletteBrownForeground2");
-    create("colorPaletteBrownBorderActive");
-    create("colorPaletteForestBackground2");
-    create("colorPaletteForestForeground2");
-    create("colorPaletteForestBorderActive");
-    create("colorPaletteSeafoamBackground2");
-    create("colorPaletteSeafoamForeground2");
-    create("colorPaletteSeafoamBorderActive");
-    create("colorPaletteDarkGreenBackground2");
-    create("colorPaletteDarkGreenForeground2");
-    create("colorPaletteDarkGreenBorderActive");
-    create("colorPaletteLightTealBackground2");
-    create("colorPaletteLightTealForeground2");
-    create("colorPaletteLightTealBorderActive");
-    create("colorPaletteTealBackground2");
-    create("colorPaletteTealForeground2");
-    create("colorPaletteTealBorderActive");
-    create("colorPaletteSteelBackground2");
-    create("colorPaletteSteelForeground2");
-    create("colorPaletteSteelBorderActive");
-    create("colorPaletteBlueBackground2");
-    create("colorPaletteBlueForeground2");
-    create("colorPaletteBlueBorderActive");
-    create("colorPaletteRoyalBlueBackground2");
-    create("colorPaletteRoyalBlueForeground2");
-    create("colorPaletteRoyalBlueBorderActive");
-    create("colorPaletteCornflowerBackground2");
-    create("colorPaletteCornflowerForeground2");
-    create("colorPaletteCornflowerBorderActive");
-    create("colorPaletteNavyBackground2");
-    create("colorPaletteNavyForeground2");
-    create("colorPaletteNavyBorderActive");
-    create("colorPaletteLavenderBackground2");
-    create("colorPaletteLavenderForeground2");
-    create("colorPaletteLavenderBorderActive");
-    create("colorPalettePurpleBackground2");
-    create("colorPalettePurpleForeground2");
-    create("colorPalettePurpleBorderActive");
-    create("colorPaletteGrapeBackground2");
-    create("colorPaletteGrapeForeground2");
-    create("colorPaletteGrapeBorderActive");
-    create("colorPaletteLilacBackground2");
-    create("colorPaletteLilacForeground2");
-    create("colorPaletteLilacBorderActive");
-    create("colorPalettePinkBackground2");
-    create("colorPalettePinkForeground2");
-    create("colorPalettePinkBorderActive");
-    create("colorPaletteMagentaBackground2");
-    create("colorPaletteMagentaForeground2");
-    create("colorPaletteMagentaBorderActive");
-    create("colorPalettePlumBackground2");
-    create("colorPalettePlumForeground2");
-    create("colorPalettePlumBorderActive");
-    create("colorPaletteBeigeBackground2");
-    create("colorPaletteBeigeForeground2");
-    create("colorPaletteBeigeBorderActive");
-    create("colorPaletteMinkBackground2");
-    create("colorPaletteMinkForeground2");
-    create("colorPaletteMinkBorderActive");
-    create("colorPalettePlatinumBackground2");
-    create("colorPalettePlatinumForeground2");
-    create("colorPalettePlatinumBorderActive");
-    create("colorPaletteAnchorBackground2");
-    create("colorPaletteAnchorForeground2");
-    create("colorPaletteAnchorBorderActive");
-    create("colorPaletteRedForegroundInverted");
-    create("colorPaletteGreenForegroundInverted");
-    create("colorPaletteYellowForegroundInverted");
-    create("shadow2");
-    const shadow4 = create("shadow4");
-    const shadow8 = create("shadow8");
-    const shadow16 = create("shadow16");
-    create("shadow28");
-    create("shadow64");
-    create("shadow2Brand");
-    create("shadow4Brand");
-    create("shadow8Brand");
-    create("shadow16Brand");
-    create("shadow28Brand");
-    create("shadow64Brand");
-    /*!
-    * tabbable 6.2.0
-    * @license MIT, https://github.com/focus-trap/tabbable/blob/master/LICENSE
-    */ // NOTE: separate `:not()` selectors has broader browser support than the newer
-    //  `:not([inert], [inert] *)` (Feb 2023)
-    // CAREFUL: JSDom does not support `:not([inert] *)` as a selector; using it causes
-    //  the entire query to fail, resulting in no nodes found, which will break a lot
-    //  of things... so we have to rely on JS to identify nodes inside an inert container
-    var candidateSelectors = [
-        "input:not([inert])",
-        "select:not([inert])",
-        "textarea:not([inert])",
-        "a[href]:not([inert])",
-        "button:not([inert])",
-        "[tabindex]:not(slot):not([inert])",
-        "audio[controls]:not([inert])",
-        "video[controls]:not([inert])",
-        '[contenteditable]:not([contenteditable="false"]):not([inert])',
-        "details>summary:first-of-type:not([inert])",
-        "details:not([inert])"
-    ];
-    var candidateSelector = /* #__PURE__ */ candidateSelectors.join(",");
-    var NoElement = typeof Element === "undefined";
-    var matches = NoElement ? function() {} : Element.prototype.matches || Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
-    var getRootNode = !NoElement && Element.prototype.getRootNode ? function(element) {
-        var _element$getRootNode;
-        return element === null || element === void 0 ? void 0 : (_element$getRootNode = element.getRootNode) === null || _element$getRootNode === void 0 ? void 0 : _element$getRootNode.call(element);
-    } : function(element) {
-        return element === null || element === void 0 ? void 0 : element.ownerDocument;
-    };
-    /**
-     * Determines if a node is inert or in an inert ancestor.
-     * @param {Element} [node]
-     * @param {boolean} [lookUp] If true and `node` is not inert, looks up at ancestors to
-     *  see if any of them are inert. If false, only `node` itself is considered.
-     * @returns {boolean} True if inert itself or by way of being in an inert ancestor.
-     *  False if `node` is falsy.
-     */ var isInert = function isInert(node, lookUp) {
-        var _node$getAttribute;
-        if (lookUp === void 0) lookUp = true;
-        // CAREFUL: JSDom does not support inert at all, so we can't use the `HTMLElement.inert`
-        //  JS API property; we have to check the attribute, which can either be empty or 'true';
-        //  if it's `null` (not specified) or 'false', it's an active element
-        var inertAtt = node === null || node === void 0 ? void 0 : (_node$getAttribute = node.getAttribute) === null || _node$getAttribute === void 0 ? void 0 : _node$getAttribute.call(node, "inert");
-        var inert = inertAtt === "" || inertAtt === "true";
-        // NOTE: this could also be handled with `node.matches('[inert], :is([inert] *)')`
-        //  if it weren't for `matches()` not being a function on shadow roots; the following
-        //  code works for any kind of node
-        // CAREFUL: JSDom does not appear to support certain selectors like `:not([inert] *)`
-        //  so it likely would not support `:is([inert] *)` either...
-        var result = inert || lookUp && node && isInert(node.parentNode); // recursive
-        return result;
-    };
-    /**
-     * Determines if a node's content is editable.
-     * @param {Element} [node]
-     * @returns True if it's content-editable; false if it's not or `node` is falsy.
-     */ var isContentEditable = function isContentEditable(node) {
-        var _node$getAttribute2;
-        // CAREFUL: JSDom does not support the `HTMLElement.isContentEditable` API so we have
-        //  to use the attribute directly to check for this, which can either be empty or 'true';
-        //  if it's `null` (not specified) or 'false', it's a non-editable element
-        var attValue = node === null || node === void 0 ? void 0 : (_node$getAttribute2 = node.getAttribute) === null || _node$getAttribute2 === void 0 ? void 0 : _node$getAttribute2.call(node, "contenteditable");
-        return attValue === "" || attValue === "true";
-    };
-    /**
-     * @private
-     * Determines if the node has an explicitly specified `tabindex` attribute.
-     * @param {HTMLElement} node
-     * @returns {boolean} True if so; false if not.
-     */ var hasTabIndex = function hasTabIndex(node) {
-        return !isNaN(parseInt(node.getAttribute("tabindex"), 10));
-    };
-    /**
-     * Determine the tab index of a given node.
-     * @param {HTMLElement} node
-     * @returns {number} Tab order (negative, 0, or positive number).
-     * @throws {Error} If `node` is falsy.
-     */ var getTabIndex = function getTabIndex(node) {
-        if (!node) throw new Error("No node provided");
-        if (node.tabIndex < 0) {
-            // in Chrome, <details/>, <audio controls/> and <video controls/> elements get a default
-            // `tabIndex` of -1 when the 'tabindex' attribute isn't specified in the DOM,
-            // yet they are still part of the regular tab order; in FF, they get a default
-            // `tabIndex` of 0; since Chrome still puts those elements in the regular tab
-            // order, consider their tab index to be 0.
-            // Also browsers do not return `tabIndex` correctly for contentEditable nodes;
-            // so if they don't have a tabindex attribute specifically set, assume it's 0.
-            if ((/^(AUDIO|VIDEO|DETAILS)$/.test(node.tagName) || isContentEditable(node)) && !hasTabIndex(node)) return 0;
-        }
-        return node.tabIndex;
-    };
-    var isInput = function isInput(node) {
-        return node.tagName === "INPUT";
-    };
-    var isHiddenInput = function isHiddenInput(node) {
-        return isInput(node) && node.type === "hidden";
-    };
-    var isDetailsWithSummary = function isDetailsWithSummary(node) {
-        var r = node.tagName === "DETAILS" && Array.prototype.slice.apply(node.children).some(function(child) {
-            return child.tagName === "SUMMARY";
-        });
-        return r;
-    };
-    var getCheckedRadio = function getCheckedRadio(nodes, form) {
-        for(var i = 0; i < nodes.length; i++){
-            if (nodes[i].checked && nodes[i].form === form) return nodes[i];
-        }
-    };
-    var isTabbableRadio = function isTabbableRadio(node) {
-        if (!node.name) return true;
-        var radioScope = node.form || getRootNode(node);
-        var queryRadios = function queryRadios(name) {
-            return radioScope.querySelectorAll('input[type="radio"][name="' + name + '"]');
+}
+Rt.defaultNode = new Bt, Rt.rootStyleSheetTarget = new $t, Rt.cache = new WeakMap;
+const { create: Dt } = Mt;
+Dt("borderRadiusNone");
+const zt = Dt("borderRadiusSmall"), Ht = Dt("borderRadiusMedium");
+Dt("borderRadiusLarge"), Dt("borderRadiusXLarge"), Dt("borderRadiusCircular"), Dt("fontSizeBase100");
+const _t = Dt("fontSizeBase200"), jt = Dt("fontSizeBase300"), Gt = Dt("fontSizeBase400"), Wt = Dt("fontSizeBase500");
+Dt("fontSizeBase600"), Dt("fontSizeHero700"), Dt("fontSizeHero800"), Dt("fontSizeHero900"), Dt("fontSizeHero1000"), Dt("lineHeightBase100");
+const qt = Dt("lineHeightBase200"), Kt = Dt("lineHeightBase300"), Ut = Dt("lineHeightBase400");
+Dt("lineHeightBase500"), Dt("lineHeightBase600"), Dt("lineHeightHero700"), Dt("lineHeightHero800"), Dt("lineHeightHero900"), Dt("lineHeightHero1000");
+const Xt = Dt("fontFamilyBase");
+Dt("fontFamilyMonospace"), Dt("fontFamilyNumeric");
+const Yt = Dt("fontWeightRegular");
+Dt("fontWeightMedium");
+const Qt = Dt("fontWeightSemibold");
+Dt("fontWeightBold"), Dt("strokeWidthThin");
+const Zt = Dt("strokeWidthThick");
+Dt("strokeWidthThicker"), Dt("strokeWidthThickest"), Dt("spacingHorizontalNone"), Dt("spacingHorizontalXXS"), Dt("spacingHorizontalXS"), Dt("spacingHorizontalSNudge");
+const Jt = Dt("spacingHorizontalS");
+Dt("spacingHorizontalMNudge");
+const eo = Dt("spacingHorizontalM"), to = Dt("spacingHorizontalL");
+Dt("spacingHorizontalXL");
+const oo = Dt("spacingHorizontalXXL"), io = Dt("spacingHorizontalXXXL");
+Dt("spacingVerticalNone");
+const so = Dt("spacingVerticalXXS"), ro = Dt("spacingVerticalXS");
+Dt("spacingVerticalSNudge"), Dt("spacingVerticalS"), Dt("spacingVerticalMNudge"), Dt("spacingVerticalM");
+const no = Dt("spacingVerticalL");
+Dt("spacingVerticalXL");
+const ao = Dt("spacingVerticalXXL");
+Dt("spacingVerticalXXXL"), Dt("durationUltraFast"), Dt("durationFaster"), Dt("durationFast"), Dt("durationNormal"), Dt("durationSlow"), Dt("durationSlower"), Dt("durationUltraSlow"), Dt("curveAccelerateMax"), Dt("curveAccelerateMid"), Dt("curveAccelerateMin"), Dt("curveDecelerateMax"), Dt("curveDecelerateMid"), Dt("curveDecelerateMin"), Dt("curveEasyEaseMax"), Dt("curveEasyEase"), Dt("curveLinear");
+const lo = Dt("colorNeutralForeground1");
+Dt("colorNeutralForeground1Hover"), Dt("colorNeutralForeground1Pressed"), Dt("colorNeutralForeground1Selected"), Dt("colorNeutralForeground2"), Dt("colorNeutralForeground2Hover"), Dt("colorNeutralForeground2Pressed"), Dt("colorNeutralForeground2Selected"), Dt("colorNeutralForeground2BrandHover"), Dt("colorNeutralForeground2BrandPressed"), Dt("colorNeutralForeground2BrandSelected");
+const co = Dt("colorNeutralForeground3");
+Dt("colorNeutralForeground3Hover"), Dt("colorNeutralForeground3Pressed"), Dt("colorNeutralForeground3Selected"), Dt("colorNeutralForeground3BrandHover"), Dt("colorNeutralForeground3BrandPressed"), Dt("colorNeutralForeground3BrandSelected"), Dt("colorNeutralForeground4"), Dt("colorNeutralForegroundDisabled"), Dt("colorNeutralForegroundInvertedDisabled"), Dt("colorBrandForegroundLink"), Dt("colorBrandForegroundLinkHover"), Dt("colorBrandForegroundLinkPressed"), Dt("colorBrandForegroundLinkSelected"), Dt("colorNeutralForeground2Link"), Dt("colorNeutralForeground2LinkHover"), Dt("colorNeutralForeground2LinkPressed"), Dt("colorNeutralForeground2LinkSelected"), Dt("colorCompoundBrandForeground1"), Dt("colorCompoundBrandForeground1Hover"), Dt("colorCompoundBrandForeground1Pressed"), Dt("colorBrandForeground1");
+const ho = Dt("colorBrandForeground2");
+Dt("colorNeutralForeground1Static"), Dt("colorNeutralForegroundStaticInverted"), Dt("colorNeutralForegroundInverted"), Dt("colorNeutralForegroundInvertedHover"), Dt("colorNeutralForegroundInvertedPressed"), Dt("colorNeutralForegroundInvertedSelected"), Dt("colorNeutralForegroundInverted2");
+const uo = Dt("colorNeutralForegroundOnBrand");
+Dt("colorNeutralForegroundInvertedLink"), Dt("colorNeutralForegroundInvertedLinkHover"), Dt("colorNeutralForegroundInvertedLinkPressed"), Dt("colorNeutralForegroundInvertedLinkSelected"), Dt("colorBrandForegroundInverted"), Dt("colorBrandForegroundInvertedHover"), Dt("colorBrandForegroundInvertedPressed"), Dt("colorBrandForegroundOnLight"), Dt("colorBrandForegroundOnLightHover"), Dt("colorBrandForegroundOnLightPressed"), Dt("colorBrandForegroundOnLightSelected");
+const po = Dt("colorNeutralBackground1");
+Dt("colorNeutralBackground1Hover"), Dt("colorNeutralBackground1Pressed"), Dt("colorNeutralBackground1Selected");
+const fo = Dt("colorNeutralBackground2");
+Dt("colorNeutralBackground2Hover"), Dt("colorNeutralBackground2Pressed"), Dt("colorNeutralBackground2Selected");
+const go = Dt("colorNeutralBackground3");
+Dt("colorNeutralBackground3Hover"), Dt("colorNeutralBackground3Pressed"), Dt("colorNeutralBackground3Selected"), Dt("colorNeutralBackground4"), Dt("colorNeutralBackground4Hover"), Dt("colorNeutralBackground4Pressed"), Dt("colorNeutralBackground4Selected"), Dt("colorNeutralBackground5"), Dt("colorNeutralBackground5Hover"), Dt("colorNeutralBackground5Pressed"), Dt("colorNeutralBackground5Selected"), Dt("colorNeutralBackground6"), Dt("colorNeutralBackgroundInverted"), Dt("colorNeutralBackgroundStatic"), Dt("colorSubtleBackground"), Dt("colorSubtleBackgroundHover"), Dt("colorSubtleBackgroundPressed"), Dt("colorSubtleBackgroundSelected"), Dt("colorSubtleBackgroundLightAlphaHover"), Dt("colorSubtleBackgroundLightAlphaPressed"), Dt("colorSubtleBackgroundLightAlphaSelected"), Dt("colorSubtleBackgroundInverted"), Dt("colorSubtleBackgroundInvertedHover"), Dt("colorSubtleBackgroundInvertedPressed"), Dt("colorSubtleBackgroundInvertedSelected"), Dt("colorTransparentBackground"), Dt("colorTransparentBackgroundHover"), Dt("colorTransparentBackgroundPressed"), Dt("colorTransparentBackgroundSelected"), Dt("colorNeutralBackgroundDisabled"), Dt("colorNeutralBackgroundInvertedDisabled"), Dt("colorNeutralStencil1"), Dt("colorNeutralStencil2"), Dt("colorNeutralStencil1Alpha"), Dt("colorNeutralStencil2Alpha"), Dt("colorBackgroundOverlay"), Dt("colorScrollbarOverlay");
+const vo = Dt("colorBrandBackground");
+Dt("colorBrandBackgroundHover"), Dt("colorBrandBackgroundPressed"), Dt("colorBrandBackgroundSelected"), Dt("colorCompoundBrandBackground"), Dt("colorCompoundBrandBackgroundHover"), Dt("colorCompoundBrandBackgroundPressed"), Dt("colorBrandBackgroundStatic"), Dt("colorBrandBackground2"), Dt("colorBrandBackgroundInverted"), Dt("colorBrandBackgroundInvertedHover"), Dt("colorBrandBackgroundInvertedPressed"), Dt("colorBrandBackgroundInvertedSelected"), Dt("colorNeutralStrokeAccessible"), Dt("colorNeutralStrokeAccessibleHover"), Dt("colorNeutralStrokeAccessiblePressed"), Dt("colorNeutralStrokeAccessibleSelected");
+const mo = Dt("colorNeutralStroke1");
+Dt("colorNeutralStroke1Hover"), Dt("colorNeutralStroke1Pressed"), Dt("colorNeutralStroke1Selected"), Dt("colorNeutralStroke2"), Dt("colorNeutralStroke3"), Dt("colorNeutralStrokeOnBrand"), Dt("colorNeutralStrokeOnBrand2"), Dt("colorNeutralStrokeOnBrand2Hover"), Dt("colorNeutralStrokeOnBrand2Pressed"), Dt("colorNeutralStrokeOnBrand2Selected"), Dt("colorBrandStroke1"), Dt("colorBrandStroke2"), Dt("colorCompoundBrandStroke"), Dt("colorCompoundBrandStrokeHover"), Dt("colorCompoundBrandStrokePressed"), Dt("colorNeutralStrokeDisabled"), Dt("colorNeutralStrokeInvertedDisabled");
+const bo = Dt("colorTransparentStroke"), wo = Dt("colorTransparentStrokeInteractive");
+Dt("colorTransparentStrokeDisabled"), Dt("colorStrokeFocus1");
+const yo = Dt("colorStrokeFocus2");
+Dt("colorNeutralShadowAmbient"), Dt("colorNeutralShadowKey"), Dt("colorNeutralShadowAmbientLighter"), Dt("colorNeutralShadowKeyLighter"), Dt("colorNeutralShadowAmbientDarker"), Dt("colorNeutralShadowKeyDarker"), Dt("colorBrandShadowAmbient"), Dt("colorBrandShadowKey"), Dt("colorPaletteRedBackground1"), Dt("colorPaletteRedBackground2"), Dt("colorPaletteRedBackground3"), Dt("colorPaletteRedForeground1"), Dt("colorPaletteRedForeground2");
+const xo = Dt("colorPaletteRedForeground3");
+Dt("colorPaletteRedBorderActive"), Dt("colorPaletteRedBorder1"), Dt("colorPaletteRedBorder2"), Dt("colorPaletteGreenBackground1"), Dt("colorPaletteGreenBackground2"), Dt("colorPaletteGreenBackground3"), Dt("colorPaletteGreenForeground1"), Dt("colorPaletteGreenForeground2"), Dt("colorPaletteGreenForeground3"), Dt("colorPaletteGreenBorderActive"), Dt("colorPaletteGreenBorder1"), Dt("colorPaletteGreenBorder2"), Dt("colorPaletteDarkOrangeBackground1"), Dt("colorPaletteDarkOrangeBackground2"), Dt("colorPaletteDarkOrangeBackground3"), Dt("colorPaletteDarkOrangeForeground1"), Dt("colorPaletteDarkOrangeForeground2"), Dt("colorPaletteDarkOrangeForeground3"), Dt("colorPaletteDarkOrangeBorderActive"), Dt("colorPaletteDarkOrangeBorder1"), Dt("colorPaletteDarkOrangeBorder2"), Dt("colorPaletteYellowBackground1"), Dt("colorPaletteYellowBackground2"), Dt("colorPaletteYellowBackground3"), Dt("colorPaletteYellowForeground1"), Dt("colorPaletteYellowForeground2"), Dt("colorPaletteYellowForeground3"), Dt("colorPaletteYellowBorderActive"), Dt("colorPaletteYellowBorder1"), Dt("colorPaletteYellowBorder2"), Dt("colorPaletteBerryBackground1"), Dt("colorPaletteBerryBackground2"), Dt("colorPaletteBerryBackground3"), Dt("colorPaletteBerryForeground1"), Dt("colorPaletteBerryForeground2"), Dt("colorPaletteBerryForeground3"), Dt("colorPaletteBerryBorderActive"), Dt("colorPaletteBerryBorder1"), Dt("colorPaletteBerryBorder2"), Dt("colorPaletteLightGreenBackground1"), Dt("colorPaletteLightGreenBackground2"), Dt("colorPaletteLightGreenBackground3"), Dt("colorPaletteLightGreenForeground1"), Dt("colorPaletteLightGreenForeground2"), Dt("colorPaletteLightGreenForeground3"), Dt("colorPaletteLightGreenBorderActive"), Dt("colorPaletteLightGreenBorder1"), Dt("colorPaletteLightGreenBorder2"), Dt("colorPaletteMarigoldBackground1"), Dt("colorPaletteMarigoldBackground2"), Dt("colorPaletteMarigoldBackground3"), Dt("colorPaletteMarigoldForeground1"), Dt("colorPaletteMarigoldForeground2"), Dt("colorPaletteMarigoldForeground3"), Dt("colorPaletteMarigoldBorderActive"), Dt("colorPaletteMarigoldBorder1"), Dt("colorPaletteMarigoldBorder2"), Dt("colorPaletteDarkRedBackground2"), Dt("colorPaletteDarkRedForeground2"), Dt("colorPaletteDarkRedBorderActive"), Dt("colorPaletteCranberryBackground2"), Dt("colorPaletteCranberryForeground2"), Dt("colorPaletteCranberryBorderActive"), Dt("colorPalettePumpkinBackground2"), Dt("colorPalettePumpkinForeground2"), Dt("colorPalettePumpkinBorderActive"), Dt("colorPalettePeachBackground2"), Dt("colorPalettePeachForeground2"), Dt("colorPalettePeachBorderActive"), Dt("colorPaletteGoldBackground2"), Dt("colorPaletteGoldForeground2"), Dt("colorPaletteGoldBorderActive"), Dt("colorPaletteBrassBackground2"), Dt("colorPaletteBrassForeground2"), Dt("colorPaletteBrassBorderActive"), Dt("colorPaletteBrownBackground2"), Dt("colorPaletteBrownForeground2"), Dt("colorPaletteBrownBorderActive"), Dt("colorPaletteForestBackground2"), Dt("colorPaletteForestForeground2"), Dt("colorPaletteForestBorderActive"), Dt("colorPaletteSeafoamBackground2"), Dt("colorPaletteSeafoamForeground2"), Dt("colorPaletteSeafoamBorderActive"), Dt("colorPaletteDarkGreenBackground2"), Dt("colorPaletteDarkGreenForeground2"), Dt("colorPaletteDarkGreenBorderActive"), Dt("colorPaletteLightTealBackground2"), Dt("colorPaletteLightTealForeground2"), Dt("colorPaletteLightTealBorderActive"), Dt("colorPaletteTealBackground2"), Dt("colorPaletteTealForeground2"), Dt("colorPaletteTealBorderActive"), Dt("colorPaletteSteelBackground2"), Dt("colorPaletteSteelForeground2"), Dt("colorPaletteSteelBorderActive"), Dt("colorPaletteBlueBackground2"), Dt("colorPaletteBlueForeground2"), Dt("colorPaletteBlueBorderActive"), Dt("colorPaletteRoyalBlueBackground2"), Dt("colorPaletteRoyalBlueForeground2"), Dt("colorPaletteRoyalBlueBorderActive"), Dt("colorPaletteCornflowerBackground2"), Dt("colorPaletteCornflowerForeground2"), Dt("colorPaletteCornflowerBorderActive"), Dt("colorPaletteNavyBackground2"), Dt("colorPaletteNavyForeground2"), Dt("colorPaletteNavyBorderActive"), Dt("colorPaletteLavenderBackground2"), Dt("colorPaletteLavenderForeground2"), Dt("colorPaletteLavenderBorderActive"), Dt("colorPalettePurpleBackground2"), Dt("colorPalettePurpleForeground2"), Dt("colorPalettePurpleBorderActive"), Dt("colorPaletteGrapeBackground2"), Dt("colorPaletteGrapeForeground2"), Dt("colorPaletteGrapeBorderActive"), Dt("colorPaletteLilacBackground2"), Dt("colorPaletteLilacForeground2"), Dt("colorPaletteLilacBorderActive"), Dt("colorPalettePinkBackground2"), Dt("colorPalettePinkForeground2"), Dt("colorPalettePinkBorderActive"), Dt("colorPaletteMagentaBackground2"), Dt("colorPaletteMagentaForeground2"), Dt("colorPaletteMagentaBorderActive"), Dt("colorPalettePlumBackground2"), Dt("colorPalettePlumForeground2"), Dt("colorPalettePlumBorderActive"), Dt("colorPaletteBeigeBackground2"), Dt("colorPaletteBeigeForeground2"), Dt("colorPaletteBeigeBorderActive"), Dt("colorPaletteMinkBackground2"), Dt("colorPaletteMinkForeground2"), Dt("colorPaletteMinkBorderActive"), Dt("colorPalettePlatinumBackground2"), Dt("colorPalettePlatinumForeground2"), Dt("colorPalettePlatinumBorderActive"), Dt("colorPaletteAnchorBackground2"), Dt("colorPaletteAnchorForeground2"), Dt("colorPaletteAnchorBorderActive"), Dt("colorPaletteRedForegroundInverted"), Dt("colorPaletteGreenForegroundInverted"), Dt("colorPaletteYellowForegroundInverted"), Dt("shadow2");
+const ko = Dt("shadow4"), So = Dt("shadow8"), Co = Dt("shadow16");
+Dt("shadow28"), Dt("shadow64"), Dt("shadow2Brand"), Dt("shadow4Brand"), Dt("shadow8Brand"), Dt("shadow16Brand"), Dt("shadow28Brand"), Dt("shadow64Brand");
+/*!
+* tabbable 6.2.0
+* @license MIT, https://github.com/focus-trap/tabbable/blob/master/LICENSE
+*/ var Bo = [
+    "input:not([inert])",
+    "select:not([inert])",
+    "textarea:not([inert])",
+    "a[href]:not([inert])",
+    "button:not([inert])",
+    "[tabindex]:not(slot):not([inert])",
+    "audio[controls]:not([inert])",
+    "video[controls]:not([inert])",
+    '[contenteditable]:not([contenteditable="false"]):not([inert])',
+    "details>summary:first-of-type:not([inert])",
+    "details:not([inert])"
+].join(","), Po = "undefined" == typeof Element, Eo = Po ? function() {} : Element.prototype.matches || Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector, Ao = !Po && Element.prototype.getRootNode ? function(e) {
+    var t;
+    return null == e || null === (t = e.getRootNode) || void 0 === t ? void 0 : t.call(e);
+} : function(e) {
+    return null == e ? void 0 : e.ownerDocument;
+}, To = function e(t, o) {
+    var i;
+    void 0 === o && (o = !0);
+    var s = null == t || null === (i = t.getAttribute) || void 0 === i ? void 0 : i.call(t, "inert");
+    return "" === s || "true" === s || o && t && e(t.parentNode);
+}, $o = function(e) {
+    if (!e) throw new Error("No node provided");
+    return e.tabIndex < 0 && (/^(AUDIO|VIDEO|DETAILS)$/.test(e.tagName) || function(e) {
+        var t, o = null == e || null === (t = e.getAttribute) || void 0 === t ? void 0 : t.call(e, "contenteditable");
+        return "" === o || "true" === o;
+    }(e)) && !function(e) {
+        return !isNaN(parseInt(e.getAttribute("tabindex"), 10));
+    }(e) ? 0 : e.tabIndex;
+}, Io = function(e) {
+    return "INPUT" === e.tagName;
+}, Fo = function(e) {
+    return function(e) {
+        return Io(e) && "radio" === e.type;
+    }(e) && !function(e) {
+        if (!e.name) return !0;
+        var t, o = e.form || Ao(e), i = function(e) {
+            return o.querySelectorAll('input[type="radio"][name="' + e + '"]');
         };
-        var radioSet;
-        if (typeof window !== "undefined" && typeof window.CSS !== "undefined" && typeof window.CSS.escape === "function") radioSet = queryRadios(window.CSS.escape(node.name));
+        if ("undefined" != typeof window && void 0 !== window.CSS && "function" == typeof window.CSS.escape) t = i(window.CSS.escape(e.name));
         else try {
-            radioSet = queryRadios(node.name);
-        } catch (err) {
-            // eslint-disable-next-line no-console
-            console.error("Looks like you have a radio button with a name attribute containing invalid CSS selector characters and need the CSS.escape polyfill: %s", err.message);
-            return false;
+            t = i(e.name);
+        } catch (e) {
+            return console.error("Looks like you have a radio button with a name attribute containing invalid CSS selector characters and need the CSS.escape polyfill: %s", e.message), !1;
         }
-        var checked = getCheckedRadio(radioSet, node.form);
-        return !checked || checked === node;
-    };
-    var isRadio = function isRadio(node) {
-        return isInput(node) && node.type === "radio";
-    };
-    var isNonTabbableRadio = function isNonTabbableRadio(node) {
-        return isRadio(node) && !isTabbableRadio(node);
-    };
-    // determines if a node is ultimately attached to the window's document
-    var isNodeAttached = function isNodeAttached(node) {
-        var _nodeRoot;
-        // The root node is the shadow root if the node is in a shadow DOM; some document otherwise
-        //  (but NOT _the_ document; see second 'If' comment below for more).
-        // If rootNode is shadow root, it'll have a host, which is the element to which the shadow
-        //  is attached, and the one we need to check if it's in the document or not (because the
-        //  shadow, and all nodes it contains, is never considered in the document since shadows
-        //  behave like self-contained DOMs; but if the shadow's HOST, which is part of the document,
-        //  is hidden, or is not in the document itself but is detached, it will affect the shadow's
-        //  visibility, including all the nodes it contains). The host could be any normal node,
-        //  or a custom element (i.e. web component). Either way, that's the one that is considered
-        //  part of the document, not the shadow root, nor any of its children (i.e. the node being
-        //  tested).
-        // To further complicate things, we have to look all the way up until we find a shadow HOST
-        //  that is attached (or find none) because the node might be in nested shadows...
-        // If rootNode is not a shadow root, it won't have a host, and so rootNode should be the
-        //  document (per the docs) and while it's a Document-type object, that document does not
-        //  appear to be the same as the node's `ownerDocument` for some reason, so it's safer
-        //  to ignore the rootNode at this point, and use `node.ownerDocument`. Otherwise,
-        //  using `rootNode.contains(node)` will _always_ be true we'll get false-positives when
-        //  node is actually detached.
-        // NOTE: If `nodeRootHost` or `node` happens to be the `document` itself (which is possible
-        //  if a tabbable/focusable node was quickly added to the DOM, focused, and then removed
-        //  from the DOM as in https://github.com/focus-trap/focus-trap-react/issues/905), then
-        //  `ownerDocument` will be `null`, hence the optional chaining on it.
-        var nodeRoot = node && getRootNode(node);
-        var nodeRootHost = (_nodeRoot = nodeRoot) === null || _nodeRoot === void 0 ? void 0 : _nodeRoot.host;
-        // in some cases, a detached node will return itself as the root instead of a document or
-        //  shadow root object, in which case, we shouldn't try to look further up the host chain
-        var attached = false;
-        if (nodeRoot && nodeRoot !== node) {
-            var _nodeRootHost, _nodeRootHost$ownerDo, _node$ownerDocument;
-            attached = !!((_nodeRootHost = nodeRootHost) !== null && _nodeRootHost !== void 0 && (_nodeRootHost$ownerDo = _nodeRootHost.ownerDocument) !== null && _nodeRootHost$ownerDo !== void 0 && _nodeRootHost$ownerDo.contains(nodeRootHost) || node !== null && node !== void 0 && (_node$ownerDocument = node.ownerDocument) !== null && _node$ownerDocument !== void 0 && _node$ownerDocument.contains(node));
-            while(!attached && nodeRootHost){
-                var _nodeRoot2, _nodeRootHost2, _nodeRootHost2$ownerD;
-                // since it's not attached and we have a root host, the node MUST be in a nested shadow DOM,
-                //  which means we need to get the host's host and check if that parent host is contained
-                //  in (i.e. attached to) the document
-                nodeRoot = getRootNode(nodeRootHost);
-                nodeRootHost = (_nodeRoot2 = nodeRoot) === null || _nodeRoot2 === void 0 ? void 0 : _nodeRoot2.host;
-                attached = !!((_nodeRootHost2 = nodeRootHost) !== null && _nodeRootHost2 !== void 0 && (_nodeRootHost2$ownerD = _nodeRootHost2.ownerDocument) !== null && _nodeRootHost2$ownerD !== void 0 && _nodeRootHost2$ownerD.contains(nodeRootHost));
+        var s = function(e, t) {
+            for(var o = 0; o < e.length; o++)if (e[o].checked && e[o].form === t) return e[o];
+        }(t, e.form);
+        return !s || s === e;
+    }(e);
+}, Lo = function(e) {
+    var t = e.getBoundingClientRect(), o = t.width, i = t.height;
+    return 0 === o && 0 === i;
+}, Mo = function(e, t) {
+    var o = t.displayCheck, i = t.getShadowRoot;
+    if ("hidden" === getComputedStyle(e).visibility) return !0;
+    var s = Eo.call(e, "details>summary:first-of-type") ? e.parentElement : e;
+    if (Eo.call(s, "details:not([open]) *")) return !0;
+    if (o && "full" !== o && "legacy-full" !== o) {
+        if ("non-zero-area" === o) return Lo(e);
+    } else {
+        if ("function" == typeof i) {
+            for(var r = e; e;){
+                var n = e.parentElement, a = Ao(e);
+                if (n && !n.shadowRoot && !0 === i(n)) return Lo(e);
+                e = e.assignedSlot ? e.assignedSlot : n || a === e.ownerDocument ? n : a.host;
             }
+            e = r;
         }
-        return attached;
-    };
-    var isZeroArea = function isZeroArea(node) {
-        var _node$getBoundingClie = node.getBoundingClientRect(), width = _node$getBoundingClie.width, height = _node$getBoundingClie.height;
-        return width === 0 && height === 0;
-    };
-    var isHidden = function isHidden(node, _ref) {
-        var displayCheck = _ref.displayCheck, getShadowRoot = _ref.getShadowRoot;
-        // NOTE: visibility will be `undefined` if node is detached from the document
-        //  (see notes about this further down), which means we will consider it visible
-        //  (this is legacy behavior from a very long way back)
-        // NOTE: we check this regardless of `displayCheck="none"` because this is a
-        //  _visibility_ check, not a _display_ check
-        if (getComputedStyle(node).visibility === "hidden") return true;
-        var isDirectSummary = matches.call(node, "details>summary:first-of-type");
-        var nodeUnderDetails = isDirectSummary ? node.parentElement : node;
-        if (matches.call(nodeUnderDetails, "details:not([open]) *")) return true;
-        if (!displayCheck || displayCheck === "full" || displayCheck === "legacy-full") {
-            if (typeof getShadowRoot === "function") {
-                // figure out if we should consider the node to be in an undisclosed shadow and use the
-                //  'non-zero-area' fallback
-                var originalNode = node;
-                while(node){
-                    var parentElement = node.parentElement;
-                    var rootNode = getRootNode(node);
-                    if (parentElement && !parentElement.shadowRoot && getShadowRoot(parentElement) === true // check if there's an undisclosed shadow
-                    ) // node has an undisclosed shadow which means we can only treat it as a black box, so we
-                    //  fall back to a non-zero-area test
-                    return isZeroArea(node);
-                    else if (node.assignedSlot) // iterate up slot
-                    node = node.assignedSlot;
-                    else if (!parentElement && rootNode !== node.ownerDocument) // cross shadow boundary
-                    node = rootNode.host;
-                    else // iterate up normal dom
-                    node = parentElement;
-                }
-                node = originalNode;
+        if (function(e) {
+            var t, o, i, s, r = e && Ao(e), n = null === (t = r) || void 0 === t ? void 0 : t.host, a = !1;
+            if (r && r !== e) for(a = !!(null !== (o = n) && void 0 !== o && null !== (i = o.ownerDocument) && void 0 !== i && i.contains(n) || null != e && null !== (s = e.ownerDocument) && void 0 !== s && s.contains(e)); !a && n;){
+                var l, d, c;
+                a = !(null === (d = n = null === (l = r = Ao(n)) || void 0 === l ? void 0 : l.host) || void 0 === d || null === (c = d.ownerDocument) || void 0 === c || !c.contains(n));
             }
-            // else, `getShadowRoot` might be true, but all that does is enable shadow DOM support
-            //  (i.e. it does not also presume that all nodes might have undisclosed shadows); or
-            //  it might be a falsy value, which means shadow DOM support is disabled
-            // Since we didn't find it sitting in an undisclosed shadow (or shadows are disabled)
-            //  now we can just test to see if it would normally be visible or not, provided it's
-            //  attached to the main document.
-            // NOTE: We must consider case where node is inside a shadow DOM and given directly to
-            //  `isTabbable()` or `isFocusable()` -- regardless of `getShadowRoot` option setting.
-            if (isNodeAttached(node)) // this works wherever the node is: if there's at least one client rect, it's
-            //  somehow displayed; it also covers the CSS 'display: contents' case where the
-            //  node itself is hidden in place of its contents; and there's no need to search
-            //  up the hierarchy either
-            return !node.getClientRects().length;
-            // Else, the node isn't attached to the document, which means the `getClientRects()`
-            //  API will __always__ return zero rects (this can happen, for example, if React
-            //  is used to render nodes onto a detached tree, as confirmed in this thread:
-            //  https://github.com/facebook/react/issues/9117#issuecomment-284228870)
-            //
-            // It also means that even window.getComputedStyle(node).display will return `undefined`
-            //  because styles are only computed for nodes that are in the document.
-            //
-            // NOTE: THIS HAS BEEN THE CASE FOR YEARS. It is not new, nor is it caused by tabbable
-            //  somehow. Though it was never stated officially, anyone who has ever used tabbable
-            //  APIs on nodes in detached containers has actually implicitly used tabbable in what
-            //  was later (as of v5.2.0 on Apr 9, 2021) called `displayCheck="none"` mode -- essentially
-            //  considering __everything__ to be visible because of the innability to determine styles.
-            //
-            // v6.0.0: As of this major release, the default 'full' option __no longer treats detached
-            //  nodes as visible with the 'none' fallback.__
-            if (displayCheck !== "legacy-full") return true; // hidden
-        // else, fallback to 'none' mode and consider the node visible
-        } else if (displayCheck === "non-zero-area") // NOTE: Even though this tests that the node's client rect is non-zero to determine
-        //  whether it's displayed, and that a detached node will __always__ have a zero-area
-        //  client rect, we don't special-case for whether the node is attached or not. In
-        //  this mode, we do want to consider nodes that have a zero area to be hidden at all
-        //  times, and that includes attached or not.
-        return isZeroArea(node);
-        // visible, as far as we can tell, or per current `displayCheck=none` mode, we assume
-        //  it's visible
-        return false;
-    };
-    // form fields (nested) inside a disabled fieldset are not focusable/tabbable
-    //  unless they are in the _first_ <legend> element of the top-most disabled
-    //  fieldset
-    var isDisabledFromFieldset = function isDisabledFromFieldset(node) {
-        if (/^(INPUT|BUTTON|SELECT|TEXTAREA)$/.test(node.tagName)) {
-            var parentNode = node.parentElement;
-            // check if `node` is contained in a disabled <fieldset>
-            while(parentNode){
-                if (parentNode.tagName === "FIELDSET" && parentNode.disabled) {
-                    // look for the first <legend> among the children of the disabled <fieldset>
-                    for(var i = 0; i < parentNode.children.length; i++){
-                        var child = parentNode.children.item(i);
-                        // when the first <legend> (in document order) is found
-                        if (child.tagName === "LEGEND") // if its parent <fieldset> is not nested in another disabled <fieldset>,
-                        // return whether `node` is a descendant of its first <legend>
-                        return matches.call(parentNode, "fieldset[disabled] *") ? true : !child.contains(node);
-                    }
-                    // the disabled <fieldset> containing `node` has no <legend>
-                    return true;
-                }
-                parentNode = parentNode.parentElement;
-            }
-        }
-        // else, node's tabbable/focusable state should not be affected by a fieldset's
-        //  enabled/disabled state
-        return false;
-    };
-    var isNodeMatchingSelectorFocusable = function isNodeMatchingSelectorFocusable(options, node) {
-        if (node.disabled || // we must do an inert look up to filter out any elements inside an inert ancestor
-        //  because we're limited in the type of selectors we can use in JSDom (see related
-        //  note related to `candidateSelectors`)
-        isInert(node) || isHiddenInput(node) || isHidden(node, options) || // For a details element with a summary, the summary element gets the focus
-        isDetailsWithSummary(node) || isDisabledFromFieldset(node)) return false;
-        return true;
-    };
-    var isNodeMatchingSelectorTabbable = function isNodeMatchingSelectorTabbable(options, node) {
-        if (isNonTabbableRadio(node) || getTabIndex(node) < 0 || !isNodeMatchingSelectorFocusable(options, node)) return false;
-        return true;
-    };
-    var isTabbable = function isTabbable(node, options) {
-        options = options || {};
-        if (!node) throw new Error("No node provided");
-        if (matches.call(node, candidateSelector) === false) return false;
-        return isNodeMatchingSelectorTabbable(options, node);
-    };
-    /**
-     * Custom positioning reference element.
-     * @see https://floating-ui.com/docs/virtual-elements
-     */ const sides = [
-        "top",
-        "right",
-        "bottom",
-        "left"
-    ];
-    const alignments = [
-        "start",
-        "end"
-    ];
-    const placements = /*#__PURE__*/ sides.reduce((acc, side)=>acc.concat(side, side + "-" + alignments[0], side + "-" + alignments[1]), []);
-    const min = Math.min;
-    const max = Math.max;
-    const round = Math.round;
-    const floor = Math.floor;
-    const createCoords = (v)=>({
-            x: v,
-            y: v
+            return a;
+        }(e)) return !e.getClientRects().length;
+        if ("legacy-full" !== o) return !0;
+    }
+    return !1;
+}, No = function(e, t) {
+    return !(t.disabled || To(t) || function(e) {
+        return Io(e) && "hidden" === e.type;
+    }(t) || Mo(t, e) || function(e) {
+        return "DETAILS" === e.tagName && Array.prototype.slice.apply(e.children).some(function(e) {
+            return "SUMMARY" === e.tagName;
         });
-    const oppositeSideMap = {
-        left: "right",
-        right: "left",
-        bottom: "top",
-        top: "bottom"
-    };
-    const oppositeAlignmentMap = {
-        start: "end",
-        end: "start"
-    };
-    function clamp(start, value, end) {
-        return max(start, min(value, end));
-    }
-    function evaluate(value, param) {
-        return typeof value === "function" ? value(param) : value;
-    }
-    function getSide(placement) {
-        return placement.split("-")[0];
-    }
-    function getAlignment(placement) {
-        return placement.split("-")[1];
-    }
-    function getOppositeAxis(axis) {
-        return axis === "x" ? "y" : "x";
-    }
-    function getAxisLength(axis) {
-        return axis === "y" ? "height" : "width";
-    }
-    function getSideAxis(placement) {
-        return [
-            "top",
-            "bottom"
-        ].includes(getSide(placement)) ? "y" : "x";
-    }
-    function getAlignmentAxis(placement) {
-        return getOppositeAxis(getSideAxis(placement));
-    }
-    function getAlignmentSides(placement, rects, rtl) {
-        if (rtl === void 0) rtl = false;
-        const alignment = getAlignment(placement);
-        const alignmentAxis = getAlignmentAxis(placement);
-        const length = getAxisLength(alignmentAxis);
-        let mainAlignmentSide = alignmentAxis === "x" ? alignment === (rtl ? "end" : "start") ? "right" : "left" : alignment === "start" ? "bottom" : "top";
-        if (rects.reference[length] > rects.floating[length]) mainAlignmentSide = getOppositePlacement(mainAlignmentSide);
-        return [
-            mainAlignmentSide,
-            getOppositePlacement(mainAlignmentSide)
-        ];
-    }
-    function getOppositeAlignmentPlacement(placement) {
-        return placement.replace(/start|end/g, (alignment)=>oppositeAlignmentMap[alignment]);
-    }
-    function getOppositePlacement(placement) {
-        return placement.replace(/left|right|bottom|top/g, (side)=>oppositeSideMap[side]);
-    }
-    function expandPaddingObject(padding) {
+    }(t) || function(e) {
+        if (/^(INPUT|BUTTON|SELECT|TEXTAREA)$/.test(e.tagName)) for(var t = e.parentElement; t;){
+            if ("FIELDSET" === t.tagName && t.disabled) {
+                for(var o = 0; o < t.children.length; o++){
+                    var i = t.children.item(o);
+                    if ("LEGEND" === i.tagName) return !!Eo.call(t, "fieldset[disabled] *") || !i.contains(e);
+                }
+                return !0;
+            }
+            t = t.parentElement;
+        }
+        return !1;
+    }(t));
+}, Oo = function(e, t) {
+    if (t = t || {}, !e) throw new Error("No node provided");
+    return !1 !== Eo.call(e, Bo) && function(e, t) {
+        return !(Fo(t) || $o(t) < 0 || !No(e, t));
+    }(t, e);
+};
+const Vo = [
+    "start",
+    "end"
+], Ro = [
+    "top",
+    "right",
+    "bottom",
+    "left"
+].reduce((e, t)=>e.concat(t, t + "-" + Vo[0], t + "-" + Vo[1]), []), Do = Math.min, zo = Math.max, Ho = Math.round, _o = Math.floor, jo = (e)=>({
+        x: e,
+        y: e
+    }), Go = {
+    left: "right",
+    right: "left",
+    bottom: "top",
+    top: "bottom"
+}, Wo = {
+    start: "end",
+    end: "start"
+};
+function qo(e, t, o) {
+    return zo(e, Do(t, o));
+}
+function Ko(e, t) {
+    return "function" == typeof e ? e(t) : e;
+}
+function Uo(e) {
+    return e.split("-")[0];
+}
+function Xo(e) {
+    return e.split("-")[1];
+}
+function Yo(e) {
+    return "y" === e ? "height" : "width";
+}
+function Qo(e) {
+    return [
+        "top",
+        "bottom"
+    ].includes(Uo(e)) ? "y" : "x";
+}
+function Zo(e) {
+    return "x" === Qo(e) ? "y" : "x";
+}
+function Jo(e) {
+    return e.replace(/left|right|bottom|top/g, (e)=>Go[e]);
+}
+function ei(e) {
+    return "number" != typeof e ? function(e) {
         return {
             top: 0,
             right: 0,
             bottom: 0,
             left: 0,
-            ...padding
+            ...e
         };
+    }(e) : {
+        top: e,
+        right: e,
+        bottom: e,
+        left: e
+    };
+}
+function ti(e) {
+    return {
+        ...e,
+        top: e.y,
+        left: e.x,
+        right: e.x + e.width,
+        bottom: e.y + e.height
+    };
+}
+function oi(e, t, o) {
+    let { reference: i, floating: s } = e;
+    const r = Qo(t), n = Zo(t), a = Yo(n), l = Uo(t), d = "y" === r, c = i.x + i.width / 2 - s.width / 2, h = i.y + i.height / 2 - s.height / 2, u = i[a] / 2 - s[a] / 2;
+    let p;
+    switch(l){
+        case "top":
+            p = {
+                x: c,
+                y: i.y - s.height
+            };
+            break;
+        case "bottom":
+            p = {
+                x: c,
+                y: i.y + i.height
+            };
+            break;
+        case "right":
+            p = {
+                x: i.x + i.width,
+                y: h
+            };
+            break;
+        case "left":
+            p = {
+                x: i.x - s.width,
+                y: h
+            };
+            break;
+        default:
+            p = {
+                x: i.x,
+                y: i.y
+            };
     }
-    function getPaddingObject(padding) {
-        return typeof padding !== "number" ? expandPaddingObject(padding) : {
-            top: padding,
-            right: padding,
-            bottom: padding,
-            left: padding
-        };
+    switch(Xo(t)){
+        case "start":
+            p[n] -= u * (o && d ? -1 : 1);
+            break;
+        case "end":
+            p[n] += u * (o && d ? -1 : 1);
     }
-    function rectToClientRect(rect) {
-        return {
-            ...rect,
-            top: rect.y,
-            left: rect.x,
-            right: rect.x + rect.width,
-            bottom: rect.y + rect.height
-        };
-    }
-    function computeCoordsFromPlacement(_ref, placement, rtl) {
-        let { reference, floating } = _ref;
-        const sideAxis = getSideAxis(placement);
-        const alignmentAxis = getAlignmentAxis(placement);
-        const alignLength = getAxisLength(alignmentAxis);
-        const side = getSide(placement);
-        const isVertical = sideAxis === "y";
-        const commonX = reference.x + reference.width / 2 - floating.width / 2;
-        const commonY = reference.y + reference.height / 2 - floating.height / 2;
-        const commonAlign = reference[alignLength] / 2 - floating[alignLength] / 2;
-        let coords;
-        switch(side){
-            case "top":
-                coords = {
-                    x: commonX,
-                    y: reference.y - floating.height
+    return p;
+}
+function ii(e, t, o) {
+    return (e ? [
+        ...o.filter((t)=>Xo(t) === e),
+        ...o.filter((t)=>Xo(t) !== e)
+    ] : o.filter((e)=>Uo(e) === e)).filter((o)=>!e || Xo(o) === e || !!t && function(e) {
+            return e.replace(/start|end/g, (e)=>Wo[e]);
+        }(o) !== o);
+}
+const si = function(e) {
+    return void 0 === e && (e = 0), {
+        name: "offset",
+        options: e,
+        async fn (t) {
+            var o, i;
+            const { x: s, y: r, placement: n, middlewareData: a } = t, l = await async function(e, t) {
+                const { placement: o, platform: i, elements: s } = e, r = await (null == i.isRTL ? void 0 : i.isRTL(s.floating)), n = Uo(o), a = Xo(o), l = "y" === Qo(o), d = [
+                    "left",
+                    "top"
+                ].includes(n) ? -1 : 1, c = r && l ? -1 : 1, h = Ko(t, e);
+                let { mainAxis: u, crossAxis: p, alignmentAxis: f } = "number" == typeof h ? {
+                    mainAxis: h,
+                    crossAxis: 0,
+                    alignmentAxis: null
+                } : {
+                    mainAxis: 0,
+                    crossAxis: 0,
+                    alignmentAxis: null,
+                    ...h
                 };
-                break;
-            case "bottom":
-                coords = {
-                    x: commonX,
-                    y: reference.y + reference.height
+                return a && "number" == typeof f && (p = "end" === a ? -1 * f : f), l ? {
+                    x: p * c,
+                    y: u * d
+                } : {
+                    x: u * d,
+                    y: p * c
                 };
-                break;
-            case "right":
-                coords = {
-                    x: reference.x + reference.width,
-                    y: commonY
-                };
-                break;
-            case "left":
-                coords = {
-                    x: reference.x - floating.width,
-                    y: commonY
-                };
-                break;
-            default:
-                coords = {
-                    x: reference.x,
-                    y: reference.y
-                };
-        }
-        switch(getAlignment(placement)){
-            case "start":
-                coords[alignmentAxis] -= commonAlign * (rtl && isVertical ? -1 : 1);
-                break;
-            case "end":
-                coords[alignmentAxis] += commonAlign * (rtl && isVertical ? -1 : 1);
-                break;
-        }
-        return coords;
-    }
-    /**
-     * Computes the `x` and `y` coordinates that will place the floating element
-     * next to a given reference element.
-     *
-     * This export does not have any `platform` interface logic. You will need to
-     * write one for the platform you are using Floating UI with.
-     */ const computePosition$1 = async (reference, floating, config)=>{
-        const { placement = "bottom", strategy = "absolute", middleware = [], platform } = config;
-        const validMiddleware = middleware.filter(Boolean);
-        const rtl = await (platform.isRTL == null ? void 0 : platform.isRTL(floating));
-        let rects = await platform.getElementRects({
-            reference,
-            floating,
-            strategy
-        });
-        let { x, y } = computeCoordsFromPlacement(rects, placement, rtl);
-        let statefulPlacement = placement;
-        let middlewareData = {};
-        let resetCount = 0;
-        for(let i = 0; i < validMiddleware.length; i++){
-            const { name, fn } = validMiddleware[i];
-            const { x: nextX, y: nextY, data, reset } = await fn({
-                x,
-                y,
-                initialPlacement: placement,
-                placement: statefulPlacement,
-                strategy,
-                middlewareData,
-                rects,
-                platform,
-                elements: {
-                    reference,
-                    floating
-                }
-            });
-            x = nextX != null ? nextX : x;
-            y = nextY != null ? nextY : y;
-            middlewareData = {
-                ...middlewareData,
-                [name]: {
-                    ...middlewareData[name],
-                    ...data
+            }(t, e);
+            return n === (null == (o = a.offset) ? void 0 : o.placement) && null != (i = a.arrow) && i.alignmentOffset ? {} : {
+                x: s + l.x,
+                y: r + l.y,
+                data: {
+                    ...l,
+                    placement: n
                 }
             };
-            if (reset && resetCount <= 50) {
-                resetCount++;
-                if (typeof reset === "object") {
-                    if (reset.placement) statefulPlacement = reset.placement;
-                    if (reset.rects) rects = reset.rects === true ? await platform.getElementRects({
-                        reference,
-                        floating,
-                        strategy
-                    }) : reset.rects;
-                    ({ x, y } = computeCoordsFromPlacement(rects, statefulPlacement, rtl));
-                }
-                i = -1;
-                continue;
-            }
+        }
+    };
+};
+function ri(e) {
+    return li(e) ? (e.nodeName || "").toLowerCase() : "#document";
+}
+function ni(e) {
+    var t;
+    return (null == e || null == (t = e.ownerDocument) ? void 0 : t.defaultView) || window;
+}
+function ai(e) {
+    var t;
+    return null == (t = (li(e) ? e.ownerDocument : e.document) || window.document) ? void 0 : t.documentElement;
+}
+function li(e) {
+    return e instanceof Node || e instanceof ni(e).Node;
+}
+function di(e) {
+    return e instanceof Element || e instanceof ni(e).Element;
+}
+function ci(e) {
+    return e instanceof HTMLElement || e instanceof ni(e).HTMLElement;
+}
+function hi(e) {
+    return "undefined" != typeof ShadowRoot && (e instanceof ShadowRoot || e instanceof ni(e).ShadowRoot);
+}
+function ui(e) {
+    const { overflow: t, overflowX: o, overflowY: i, display: s } = mi(e);
+    return /auto|scroll|overlay|hidden|clip/.test(t + i + o) && ![
+        "inline",
+        "contents"
+    ].includes(s);
+}
+function pi(e) {
+    return [
+        "table",
+        "td",
+        "th"
+    ].includes(ri(e));
+}
+function fi(e) {
+    const t = gi(), o = mi(e);
+    return "none" !== o.transform || "none" !== o.perspective || !!o.containerType && "normal" !== o.containerType || !t && !!o.backdropFilter && "none" !== o.backdropFilter || !t && !!o.filter && "none" !== o.filter || [
+        "transform",
+        "perspective",
+        "filter"
+    ].some((e)=>(o.willChange || "").includes(e)) || [
+        "paint",
+        "layout",
+        "strict",
+        "content"
+    ].some((e)=>(o.contain || "").includes(e));
+}
+function gi() {
+    return !("undefined" == typeof CSS || !CSS.supports) && CSS.supports("-webkit-backdrop-filter", "none");
+}
+function vi(e) {
+    return [
+        "html",
+        "body",
+        "#document"
+    ].includes(ri(e));
+}
+function mi(e) {
+    return ni(e).getComputedStyle(e);
+}
+function bi(e) {
+    return di(e) ? {
+        scrollLeft: e.scrollLeft,
+        scrollTop: e.scrollTop
+    } : {
+        scrollLeft: e.pageXOffset,
+        scrollTop: e.pageYOffset
+    };
+}
+function wi(e) {
+    if ("html" === ri(e)) return e;
+    const t = e.assignedSlot || e.parentNode || hi(e) && e.host || ai(e);
+    return hi(t) ? t.host : t;
+}
+function yi(e) {
+    const t = wi(e);
+    return vi(t) ? e.ownerDocument ? e.ownerDocument.body : e.body : ci(t) && ui(t) ? t : yi(t);
+}
+function xi(e, t, o) {
+    var i;
+    void 0 === t && (t = []), void 0 === o && (o = !0);
+    const s = yi(e), r = s === (null == (i = e.ownerDocument) ? void 0 : i.body), n = ni(s);
+    return r ? t.concat(n, n.visualViewport || [], ui(s) ? s : [], n.frameElement && o ? xi(n.frameElement) : []) : t.concat(s, xi(s, [], o));
+}
+function ki(e) {
+    const t = mi(e);
+    let o = parseFloat(t.width) || 0, i = parseFloat(t.height) || 0;
+    const s = ci(e), r = s ? e.offsetWidth : o, n = s ? e.offsetHeight : i, a = Ho(o) !== r || Ho(i) !== n;
+    return a && (o = r, i = n), {
+        width: o,
+        height: i,
+        $: a
+    };
+}
+function Si(e) {
+    return di(e) ? e : e.contextElement;
+}
+function Ci(e) {
+    const t = Si(e);
+    if (!ci(t)) return jo(1);
+    const o = t.getBoundingClientRect(), { width: i, height: s, $: r } = ki(t);
+    let n = (r ? Ho(o.width) : o.width) / i, a = (r ? Ho(o.height) : o.height) / s;
+    return n && Number.isFinite(n) || (n = 1), a && Number.isFinite(a) || (a = 1), {
+        x: n,
+        y: a
+    };
+}
+const Bi = jo(0);
+function Pi(e) {
+    const t = ni(e);
+    return gi() && t.visualViewport ? {
+        x: t.visualViewport.offsetLeft,
+        y: t.visualViewport.offsetTop
+    } : Bi;
+}
+function Ei(e, t, o, i) {
+    void 0 === t && (t = !1), void 0 === o && (o = !1);
+    const s = e.getBoundingClientRect(), r = Si(e);
+    let n = jo(1);
+    t && (i ? di(i) && (n = Ci(i)) : n = Ci(e));
+    const a = function(e, t, o) {
+        return void 0 === t && (t = !1), !(!o || t && o !== ni(e)) && t;
+    }(r, o, i) ? Pi(r) : jo(0);
+    let l = (s.left + a.x) / n.x, d = (s.top + a.y) / n.y, c = s.width / n.x, h = s.height / n.y;
+    if (r) {
+        const e = ni(r), t = i && di(i) ? ni(i) : i;
+        let o = e.frameElement;
+        for(; o && i && t !== e;){
+            const e = Ci(o), t = o.getBoundingClientRect(), i = mi(o), s = t.left + (o.clientLeft + parseFloat(i.paddingLeft)) * e.x, r = t.top + (o.clientTop + parseFloat(i.paddingTop)) * e.y;
+            l *= e.x, d *= e.y, c *= e.x, h *= e.y, l += s, d += r, o = ni(o).frameElement;
+        }
+    }
+    return ti({
+        width: c,
+        height: h,
+        x: l,
+        y: d
+    });
+}
+function Ai(e) {
+    return Ei(ai(e)).left + bi(e).scrollLeft;
+}
+function Ti(e, t, o) {
+    let i;
+    if ("viewport" === t) i = function(e, t) {
+        const o = ni(e), i = ai(e), s = o.visualViewport;
+        let r = i.clientWidth, n = i.clientHeight, a = 0, l = 0;
+        if (s) {
+            r = s.width, n = s.height;
+            const e = gi();
+            (!e || e && "fixed" === t) && (a = s.offsetLeft, l = s.offsetTop);
         }
         return {
-            x,
-            y,
-            placement: statefulPlacement,
-            strategy,
-            middlewareData
+            width: r,
+            height: n,
+            x: a,
+            y: l
         };
-    };
-    /**
-     * Resolves with an object of overflow side offsets that determine how much the
-     * element is overflowing a given clipping boundary on each side.
-     * - positive = overflowing the boundary by that number of pixels
-     * - negative = how many pixels left before it will overflow
-     * - 0 = lies flush with the boundary
-     * @see https://floating-ui.com/docs/detectOverflow
-     */ async function detectOverflow(state, options) {
-        var _await$platform$isEle;
-        if (options === void 0) options = {};
-        const { x, y, platform, rects, elements, strategy } = state;
-        const { boundary = "clippingAncestors", rootBoundary = "viewport", elementContext = "floating", altBoundary = false, padding = 0 } = evaluate(options, state);
-        const paddingObject = getPaddingObject(padding);
-        const altContext = elementContext === "floating" ? "reference" : "floating";
-        const element = elements[altBoundary ? altContext : elementContext];
-        const clippingClientRect = rectToClientRect(await platform.getClippingRect({
-            element: ((_await$platform$isEle = await (platform.isElement == null ? void 0 : platform.isElement(element))) != null ? _await$platform$isEle : true) ? element : element.contextElement || await (platform.getDocumentElement == null ? void 0 : platform.getDocumentElement(elements.floating)),
-            boundary,
-            rootBoundary,
-            strategy
-        }));
-        const rect = elementContext === "floating" ? {
-            ...rects.floating,
-            x,
-            y
-        } : rects.reference;
-        const offsetParent = await (platform.getOffsetParent == null ? void 0 : platform.getOffsetParent(elements.floating));
-        const offsetScale = await (platform.isElement == null ? void 0 : platform.isElement(offsetParent)) ? await (platform.getScale == null ? void 0 : platform.getScale(offsetParent)) || {
-            x: 1,
-            y: 1
-        } : {
-            x: 1,
-            y: 1
+    }(e, o);
+    else if ("document" === t) i = function(e) {
+        const t = ai(e), o = bi(e), i = e.ownerDocument.body, s = zo(t.scrollWidth, t.clientWidth, i.scrollWidth, i.clientWidth), r = zo(t.scrollHeight, t.clientHeight, i.scrollHeight, i.clientHeight);
+        let n = -o.scrollLeft + Ai(e);
+        const a = -o.scrollTop;
+        return "rtl" === mi(i).direction && (n += zo(t.clientWidth, i.clientWidth) - s), {
+            width: s,
+            height: r,
+            x: n,
+            y: a
         };
-        const elementClientRect = rectToClientRect(platform.convertOffsetParentRelativeRectToViewportRelativeRect ? await platform.convertOffsetParentRelativeRectToViewportRelativeRect({
-            rect,
-            offsetParent,
-            strategy
-        }) : rect);
+    }(ai(e));
+    else if (di(t)) i = function(e, t) {
+        const o = Ei(e, !0, "fixed" === t), i = o.top + e.clientTop, s = o.left + e.clientLeft, r = ci(e) ? Ci(e) : jo(1);
         return {
-            top: (clippingClientRect.top - elementClientRect.top + paddingObject.top) / offsetScale.y,
-            bottom: (elementClientRect.bottom - clippingClientRect.bottom + paddingObject.bottom) / offsetScale.y,
-            left: (clippingClientRect.left - elementClientRect.left + paddingObject.left) / offsetScale.x,
-            right: (elementClientRect.right - clippingClientRect.right + paddingObject.right) / offsetScale.x
+            width: e.clientWidth * r.x,
+            height: e.clientHeight * r.y,
+            x: s * r.x,
+            y: i * r.y
+        };
+    }(t, o);
+    else {
+        const o = Pi(e);
+        i = {
+            ...t,
+            x: t.x - o.x,
+            y: t.y - o.y
         };
     }
-    /**
-     * Provides data to position an inner element of the floating element so that it
-     * appears centered to the reference element.
-     * @see https://floating-ui.com/docs/arrow
-     */ const arrow$1 = (options)=>({
-            name: "arrow",
-            options,
-            async fn (state) {
-                const { x, y, placement, rects, platform, elements, middlewareData } = state;
-                // Since `element` is required, we don't Partial<> the type.
-                const { element, padding = 0 } = evaluate(options, state) || {};
-                if (element == null) return {};
-                const paddingObject = getPaddingObject(padding);
-                const coords = {
-                    x,
-                    y
-                };
-                const axis = getAlignmentAxis(placement);
-                const length = getAxisLength(axis);
-                const arrowDimensions = await platform.getDimensions(element);
-                const isYAxis = axis === "y";
-                const minProp = isYAxis ? "top" : "left";
-                const maxProp = isYAxis ? "bottom" : "right";
-                const clientProp = isYAxis ? "clientHeight" : "clientWidth";
-                const endDiff = rects.reference[length] + rects.reference[axis] - coords[axis] - rects.floating[length];
-                const startDiff = coords[axis] - rects.reference[axis];
-                const arrowOffsetParent = await (platform.getOffsetParent == null ? void 0 : platform.getOffsetParent(element));
-                let clientSize = arrowOffsetParent ? arrowOffsetParent[clientProp] : 0;
-                // DOM platform can return `window` as the `offsetParent`.
-                if (!clientSize || !await (platform.isElement == null ? void 0 : platform.isElement(arrowOffsetParent))) clientSize = elements.floating[clientProp] || rects.floating[length];
-                const centerToReference = endDiff / 2 - startDiff / 2;
-                // If the padding is large enough that it causes the arrow to no longer be
-                // centered, modify the padding so that it is centered.
-                const largestPossiblePadding = clientSize / 2 - arrowDimensions[length] / 2 - 1;
-                const minPadding = min(paddingObject[minProp], largestPossiblePadding);
-                const maxPadding = min(paddingObject[maxProp], largestPossiblePadding);
-                // Make sure the arrow doesn't overflow the floating element if the center
-                // point is outside the floating element's bounds.
-                const min$1 = minPadding;
-                const max = clientSize - arrowDimensions[length] - maxPadding;
-                const center = clientSize / 2 - arrowDimensions[length] / 2 + centerToReference;
-                const offset = clamp(min$1, center, max);
-                // If the reference is small enough that the arrow's padding causes it to
-                // to point to nothing for an aligned placement, adjust the offset of the
-                // floating element itself. To ensure `shift()` continues to take action,
-                // a single reset is performed when this is true.
-                const shouldAddOffset = !middlewareData.arrow && getAlignment(placement) != null && center != offset && rects.reference[length] / 2 - (center < min$1 ? minPadding : maxPadding) - arrowDimensions[length] / 2 < 0;
-                const alignmentOffset = shouldAddOffset ? center < min$1 ? center - min$1 : center - max : 0;
-                return {
-                    [axis]: coords[axis] + alignmentOffset,
-                    data: {
-                        [axis]: offset,
-                        centerOffset: center - offset - alignmentOffset,
-                        ...shouldAddOffset && {
-                            alignmentOffset
-                        }
-                    },
-                    reset: shouldAddOffset
-                };
-            }
-        });
-    function getPlacementList(alignment, autoAlignment, allowedPlacements) {
-        const allowedPlacementsSortedByAlignment = alignment ? [
-            ...allowedPlacements.filter((placement)=>getAlignment(placement) === alignment),
-            ...allowedPlacements.filter((placement)=>getAlignment(placement) !== alignment)
-        ] : allowedPlacements.filter((placement)=>getSide(placement) === placement);
-        return allowedPlacementsSortedByAlignment.filter((placement)=>{
-            if (alignment) return getAlignment(placement) === alignment || (autoAlignment ? getOppositeAlignmentPlacement(placement) !== placement : false);
-            return true;
-        });
-    }
-    /**
-     * Optimizes the visibility of the floating element by choosing the placement
-     * that has the most space available automatically, without needing to specify a
-     * preferred placement. Alternative to `flip`.
-     * @see https://floating-ui.com/docs/autoPlacement
-     */ const autoPlacement$1 = function(options) {
-        if (options === void 0) options = {};
-        return {
-            name: "autoPlacement",
-            options,
-            async fn (state) {
-                var _middlewareData$autoP, _middlewareData$autoP2, _placementsThatFitOnE;
-                const { rects, middlewareData, placement, platform, elements } = state;
-                const { crossAxis = false, alignment, allowedPlacements = placements, autoAlignment = true, ...detectOverflowOptions } = evaluate(options, state);
-                const placements$1 = alignment !== undefined || allowedPlacements === placements ? getPlacementList(alignment || null, autoAlignment, allowedPlacements) : allowedPlacements;
-                const overflow = await detectOverflow(state, detectOverflowOptions);
-                const currentIndex = ((_middlewareData$autoP = middlewareData.autoPlacement) == null ? void 0 : _middlewareData$autoP.index) || 0;
-                const currentPlacement = placements$1[currentIndex];
-                if (currentPlacement == null) return {};
-                const alignmentSides = getAlignmentSides(currentPlacement, rects, await (platform.isRTL == null ? void 0 : platform.isRTL(elements.floating)));
-                // Make `computeCoords` start from the right place.
-                if (placement !== currentPlacement) return {
-                    reset: {
-                        placement: placements$1[0]
-                    }
-                };
-                const currentOverflows = [
-                    overflow[getSide(currentPlacement)],
-                    overflow[alignmentSides[0]],
-                    overflow[alignmentSides[1]]
-                ];
-                const allOverflows = [
-                    ...((_middlewareData$autoP2 = middlewareData.autoPlacement) == null ? void 0 : _middlewareData$autoP2.overflows) || [],
-                    {
-                        placement: currentPlacement,
-                        overflows: currentOverflows
-                    }
-                ];
-                const nextPlacement = placements$1[currentIndex + 1];
-                // There are more placements to check.
-                if (nextPlacement) return {
-                    data: {
-                        index: currentIndex + 1,
-                        overflows: allOverflows
-                    },
-                    reset: {
-                        placement: nextPlacement
-                    }
-                };
-                const placementsSortedByMostSpace = allOverflows.map((d)=>{
-                    const alignment = getAlignment(d.placement);
-                    return [
-                        d.placement,
-                        alignment && crossAxis ? // Check along the mainAxis and main crossAxis side.
-                        d.overflows.slice(0, 2).reduce((acc, v)=>acc + v, 0) : // Check only the mainAxis.
-                        d.overflows[0],
-                        d.overflows
-                    ];
-                }).sort((a, b)=>a[1] - b[1]);
-                const placementsThatFitOnEachSide = placementsSortedByMostSpace.filter((d)=>d[2].slice(0, // Aligned placements should not check their opposite crossAxis
-                    // side.
-                    getAlignment(d[0]) ? 2 : 3).every((v)=>v <= 0));
-                const resetPlacement = ((_placementsThatFitOnE = placementsThatFitOnEachSide[0]) == null ? void 0 : _placementsThatFitOnE[0]) || placementsSortedByMostSpace[0][0];
-                if (resetPlacement !== placement) return {
-                    data: {
-                        index: currentIndex + 1,
-                        overflows: allOverflows
-                    },
-                    reset: {
-                        placement: resetPlacement
-                    }
-                };
-                return {};
-            }
-        };
+    return ti(i);
+}
+function $i(e, t) {
+    const o = wi(e);
+    return !(o === t || !di(o) || vi(o)) && ("fixed" === mi(o).position || $i(o, t));
+}
+function Ii(e, t, o) {
+    const i = ci(t), s = ai(t), r = "fixed" === o, n = Ei(e, !0, r, t);
+    let a = {
+        scrollLeft: 0,
+        scrollTop: 0
     };
-    // For type backwards-compatibility, the `OffsetOptions` type was also
-    // Derivable.
-    async function convertValueToCoords(state, options) {
-        const { placement, platform, elements } = state;
-        const rtl = await (platform.isRTL == null ? void 0 : platform.isRTL(elements.floating));
-        const side = getSide(placement);
-        const alignment = getAlignment(placement);
-        const isVertical = getSideAxis(placement) === "y";
-        const mainAxisMulti = [
-            "left",
-            "top"
-        ].includes(side) ? -1 : 1;
-        const crossAxisMulti = rtl && isVertical ? -1 : 1;
-        const rawValue = evaluate(options, state);
-        // eslint-disable-next-line prefer-const
-        let { mainAxis, crossAxis, alignmentAxis } = typeof rawValue === "number" ? {
-            mainAxis: rawValue,
-            crossAxis: 0,
-            alignmentAxis: null
-        } : {
-            mainAxis: 0,
-            crossAxis: 0,
-            alignmentAxis: null,
-            ...rawValue
-        };
-        if (alignment && typeof alignmentAxis === "number") crossAxis = alignment === "end" ? alignmentAxis * -1 : alignmentAxis;
-        return isVertical ? {
-            x: crossAxis * crossAxisMulti,
-            y: mainAxis * mainAxisMulti
-        } : {
-            x: mainAxis * mainAxisMulti,
-            y: crossAxis * crossAxisMulti
-        };
+    const l = jo(0);
+    if (i || !i && !r) {
+        if (("body" !== ri(t) || ui(s)) && (a = bi(t)), i) {
+            const e = Ei(t, !0, r, t);
+            l.x = e.x + t.clientLeft, l.y = e.y + t.clientTop;
+        } else s && (l.x = Ai(s));
     }
-    /**
-     * Modifies the placement by translating the floating element along the
-     * specified axes.
-     * A number (shorthand for `mainAxis` or distance), or an axes configuration
-     * object may be passed.
-     * @see https://floating-ui.com/docs/offset
-     */ const offset = function(options) {
-        if (options === void 0) options = 0;
-        return {
-            name: "offset",
-            options,
-            async fn (state) {
-                var _middlewareData$offse, _middlewareData$arrow;
-                const { x, y, placement, middlewareData } = state;
-                const diffCoords = await convertValueToCoords(state, options);
-                // If the placement is the same and the arrow caused an alignment offset
-                // then we don't need to change the positioning coordinates.
-                if (placement === ((_middlewareData$offse = middlewareData.offset) == null ? void 0 : _middlewareData$offse.placement) && (_middlewareData$arrow = middlewareData.arrow) != null && _middlewareData$arrow.alignmentOffset) return {};
-                return {
-                    x: x + diffCoords.x,
-                    y: y + diffCoords.y,
-                    data: {
-                        ...diffCoords,
-                        placement
-                    }
-                };
-            }
-        };
+    return {
+        x: n.left + a.scrollLeft - l.x,
+        y: n.top + a.scrollTop - l.y,
+        width: n.width,
+        height: n.height
     };
-    function getNodeName(node) {
-        if (isNode(node)) return (node.nodeName || "").toLowerCase();
-        // Mocked nodes in testing environments may not be instances of Node. By
-        // returning `#document` an infinite loop won't occur.
-        // https://github.com/floating-ui/floating-ui/issues/2317
-        return "#document";
-    }
-    function getWindow(node) {
-        var _node$ownerDocument;
-        return (node == null || (_node$ownerDocument = node.ownerDocument) == null ? void 0 : _node$ownerDocument.defaultView) || window;
-    }
-    function getDocumentElement(node) {
-        var _ref;
-        return (_ref = (isNode(node) ? node.ownerDocument : node.document) || window.document) == null ? void 0 : _ref.documentElement;
-    }
-    function isNode(value) {
-        return value instanceof Node || value instanceof getWindow(value).Node;
-    }
-    function isElement(value) {
-        return value instanceof Element || value instanceof getWindow(value).Element;
-    }
-    function isHTMLElement(value) {
-        return value instanceof HTMLElement || value instanceof getWindow(value).HTMLElement;
-    }
-    function isShadowRoot(value) {
-        // Browsers without `ShadowRoot` support.
-        if (typeof ShadowRoot === "undefined") return false;
-        return value instanceof ShadowRoot || value instanceof getWindow(value).ShadowRoot;
-    }
-    function isOverflowElement(element) {
-        const { overflow, overflowX, overflowY, display } = getComputedStyle$1(element);
-        return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && ![
-            "inline",
-            "contents"
-        ].includes(display);
-    }
-    function isTableElement(element) {
-        return [
-            "table",
-            "td",
-            "th"
-        ].includes(getNodeName(element));
-    }
-    function isContainingBlock(element) {
-        const webkit = isWebKit();
-        const css = getComputedStyle$1(element);
-        // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
-        return css.transform !== "none" || css.perspective !== "none" || (css.containerType ? css.containerType !== "normal" : false) || !webkit && (css.backdropFilter ? css.backdropFilter !== "none" : false) || !webkit && (css.filter ? css.filter !== "none" : false) || [
-            "transform",
-            "perspective",
-            "filter"
-        ].some((value)=>(css.willChange || "").includes(value)) || [
-            "paint",
-            "layout",
-            "strict",
-            "content"
-        ].some((value)=>(css.contain || "").includes(value));
-    }
-    function getContainingBlock(element) {
-        let currentNode = getParentNode(element);
-        while(isHTMLElement(currentNode) && !isLastTraversableNode(currentNode)){
-            if (isContainingBlock(currentNode)) return currentNode;
-            else currentNode = getParentNode(currentNode);
+}
+function Fi(e, t) {
+    return ci(e) && "fixed" !== mi(e).position ? t ? t(e) : e.offsetParent : null;
+}
+function Li(e, t) {
+    const o = ni(e);
+    if (!ci(e)) return o;
+    let i = Fi(e, t);
+    for(; i && pi(i) && "static" === mi(i).position;)i = Fi(i, t);
+    return i && ("html" === ri(i) || "body" === ri(i) && "static" === mi(i).position && !fi(i)) ? o : i || function(e) {
+        let t = wi(e);
+        for(; ci(t) && !vi(t);){
+            if (fi(t)) return t;
+            t = wi(t);
         }
         return null;
-    }
-    function isWebKit() {
-        if (typeof CSS === "undefined" || !CSS.supports) return false;
-        return CSS.supports("-webkit-backdrop-filter", "none");
-    }
-    function isLastTraversableNode(node) {
-        return [
-            "html",
-            "body",
-            "#document"
-        ].includes(getNodeName(node));
-    }
-    function getComputedStyle$1(element) {
-        return getWindow(element).getComputedStyle(element);
-    }
-    function getNodeScroll(element) {
-        if (isElement(element)) return {
-            scrollLeft: element.scrollLeft,
-            scrollTop: element.scrollTop
-        };
-        return {
-            scrollLeft: element.pageXOffset,
-            scrollTop: element.pageYOffset
-        };
-    }
-    function getParentNode(node) {
-        if (getNodeName(node) === "html") return node;
-        const result = // Step into the shadow DOM of the parent of a slotted node.
-        node.assignedSlot || // DOM Element detected.
-        node.parentNode || // ShadowRoot detected.
-        isShadowRoot(node) && node.host || // Fallback.
-        getDocumentElement(node);
-        return isShadowRoot(result) ? result.host : result;
-    }
-    function getNearestOverflowAncestor(node) {
-        const parentNode = getParentNode(node);
-        if (isLastTraversableNode(parentNode)) return node.ownerDocument ? node.ownerDocument.body : node.body;
-        if (isHTMLElement(parentNode) && isOverflowElement(parentNode)) return parentNode;
-        return getNearestOverflowAncestor(parentNode);
-    }
-    function getOverflowAncestors(node, list, traverseIframes) {
-        var _node$ownerDocument2;
-        if (list === void 0) list = [];
-        if (traverseIframes === void 0) traverseIframes = true;
-        const scrollableAncestor = getNearestOverflowAncestor(node);
-        const isBody = scrollableAncestor === ((_node$ownerDocument2 = node.ownerDocument) == null ? void 0 : _node$ownerDocument2.body);
-        const win = getWindow(scrollableAncestor);
-        if (isBody) return list.concat(win, win.visualViewport || [], isOverflowElement(scrollableAncestor) ? scrollableAncestor : [], win.frameElement && traverseIframes ? getOverflowAncestors(win.frameElement) : []);
-        return list.concat(scrollableAncestor, getOverflowAncestors(scrollableAncestor, [], traverseIframes));
-    }
-    function getCssDimensions(element) {
-        const css = getComputedStyle$1(element);
-        // In testing environments, the `width` and `height` properties are empty
-        // strings for SVG elements, returning NaN. Fallback to `0` in this case.
-        let width = parseFloat(css.width) || 0;
-        let height = parseFloat(css.height) || 0;
-        const hasOffset = isHTMLElement(element);
-        const offsetWidth = hasOffset ? element.offsetWidth : width;
-        const offsetHeight = hasOffset ? element.offsetHeight : height;
-        const shouldFallback = round(width) !== offsetWidth || round(height) !== offsetHeight;
-        if (shouldFallback) {
-            width = offsetWidth;
-            height = offsetHeight;
-        }
-        return {
-            width,
-            height,
-            $: shouldFallback
-        };
-    }
-    function unwrapElement(element) {
-        return !isElement(element) ? element.contextElement : element;
-    }
-    function getScale(element) {
-        const domElement = unwrapElement(element);
-        if (!isHTMLElement(domElement)) return createCoords(1);
-        const rect = domElement.getBoundingClientRect();
-        const { width, height, $ } = getCssDimensions(domElement);
-        let x = ($ ? round(rect.width) : rect.width) / width;
-        let y = ($ ? round(rect.height) : rect.height) / height;
-        // 0, NaN, or Infinity should always fallback to 1.
-        if (!x || !Number.isFinite(x)) x = 1;
-        if (!y || !Number.isFinite(y)) y = 1;
-        return {
-            x,
-            y
-        };
-    }
-    const noOffsets = /*#__PURE__*/ createCoords(0);
-    function getVisualOffsets(element) {
-        const win = getWindow(element);
-        if (!isWebKit() || !win.visualViewport) return noOffsets;
-        return {
-            x: win.visualViewport.offsetLeft,
-            y: win.visualViewport.offsetTop
-        };
-    }
-    function shouldAddVisualOffsets(element, isFixed, floatingOffsetParent) {
-        if (isFixed === void 0) isFixed = false;
-        if (!floatingOffsetParent || isFixed && floatingOffsetParent !== getWindow(element)) return false;
-        return isFixed;
-    }
-    function getBoundingClientRect(element, includeScale, isFixedStrategy, offsetParent) {
-        if (includeScale === void 0) includeScale = false;
-        if (isFixedStrategy === void 0) isFixedStrategy = false;
-        const clientRect = element.getBoundingClientRect();
-        const domElement = unwrapElement(element);
-        let scale = createCoords(1);
-        if (includeScale) {
-            if (offsetParent) {
-                if (isElement(offsetParent)) scale = getScale(offsetParent);
-            } else scale = getScale(element);
-        }
-        const visualOffsets = shouldAddVisualOffsets(domElement, isFixedStrategy, offsetParent) ? getVisualOffsets(domElement) : createCoords(0);
-        let x = (clientRect.left + visualOffsets.x) / scale.x;
-        let y = (clientRect.top + visualOffsets.y) / scale.y;
-        let width = clientRect.width / scale.x;
-        let height = clientRect.height / scale.y;
-        if (domElement) {
-            const win = getWindow(domElement);
-            const offsetWin = offsetParent && isElement(offsetParent) ? getWindow(offsetParent) : offsetParent;
-            let currentIFrame = win.frameElement;
-            while(currentIFrame && offsetParent && offsetWin !== win){
-                const iframeScale = getScale(currentIFrame);
-                const iframeRect = currentIFrame.getBoundingClientRect();
-                const css = getComputedStyle$1(currentIFrame);
-                const left = iframeRect.left + (currentIFrame.clientLeft + parseFloat(css.paddingLeft)) * iframeScale.x;
-                const top = iframeRect.top + (currentIFrame.clientTop + parseFloat(css.paddingTop)) * iframeScale.y;
-                x *= iframeScale.x;
-                y *= iframeScale.y;
-                width *= iframeScale.x;
-                height *= iframeScale.y;
-                x += left;
-                y += top;
-                currentIFrame = getWindow(currentIFrame).frameElement;
-            }
-        }
-        return rectToClientRect({
-            width,
-            height,
-            x,
-            y
-        });
-    }
-    function convertOffsetParentRelativeRectToViewportRelativeRect(_ref) {
-        let { rect, offsetParent, strategy } = _ref;
-        const isOffsetParentAnElement = isHTMLElement(offsetParent);
-        const documentElement = getDocumentElement(offsetParent);
-        if (offsetParent === documentElement) return rect;
-        let scroll = {
+    }(e) || o;
+}
+const Mi = {
+    convertOffsetParentRelativeRectToViewportRelativeRect: function(e) {
+        let { rect: t, offsetParent: o, strategy: i } = e;
+        const s = ci(o), r = ai(o);
+        if (o === r) return t;
+        let n = {
             scrollLeft: 0,
             scrollTop: 0
-        };
-        let scale = createCoords(1);
-        const offsets = createCoords(0);
-        if (isOffsetParentAnElement || !isOffsetParentAnElement && strategy !== "fixed") {
-            if (getNodeName(offsetParent) !== "body" || isOverflowElement(documentElement)) scroll = getNodeScroll(offsetParent);
-            if (isHTMLElement(offsetParent)) {
-                const offsetRect = getBoundingClientRect(offsetParent);
-                scale = getScale(offsetParent);
-                offsets.x = offsetRect.x + offsetParent.clientLeft;
-                offsets.y = offsetRect.y + offsetParent.clientTop;
-            }
+        }, a = jo(1);
+        const l = jo(0);
+        if ((s || !s && "fixed" !== i) && (("body" !== ri(o) || ui(r)) && (n = bi(o)), ci(o))) {
+            const e = Ei(o);
+            a = Ci(o), l.x = e.x + o.clientLeft, l.y = e.y + o.clientTop;
         }
         return {
-            width: rect.width * scale.x,
-            height: rect.height * scale.y,
-            x: rect.x * scale.x - scroll.scrollLeft * scale.x + offsets.x,
-            y: rect.y * scale.y - scroll.scrollTop * scale.y + offsets.y
+            width: t.width * a.x,
+            height: t.height * a.y,
+            x: t.x * a.x - n.scrollLeft * a.x + l.x,
+            y: t.y * a.y - n.scrollTop * a.y + l.y
         };
-    }
-    function getClientRects(element) {
-        return Array.from(element.getClientRects());
-    }
-    function getWindowScrollBarX(element) {
-        // If <html> has a CSS width greater than the viewport, then this will be
-        // incorrect for RTL.
-        return getBoundingClientRect(getDocumentElement(element)).left + getNodeScroll(element).scrollLeft;
-    }
-    // Gets the entire size of the scrollable document area, even extending outside
-    // of the `<html>` and `<body>` rect bounds if horizontally scrollable.
-    function getDocumentRect(element) {
-        const html = getDocumentElement(element);
-        const scroll = getNodeScroll(element);
-        const body = element.ownerDocument.body;
-        const width = max(html.scrollWidth, html.clientWidth, body.scrollWidth, body.clientWidth);
-        const height = max(html.scrollHeight, html.clientHeight, body.scrollHeight, body.clientHeight);
-        let x = -scroll.scrollLeft + getWindowScrollBarX(element);
-        const y = -scroll.scrollTop;
-        if (getComputedStyle$1(body).direction === "rtl") x += max(html.clientWidth, body.clientWidth) - width;
+    },
+    getDocumentElement: ai,
+    getClippingRect: function(e) {
+        let { element: t, boundary: o, rootBoundary: i, strategy: s } = e;
+        const r = [
+            ..."clippingAncestors" === o ? function(e, t) {
+                const o = t.get(e);
+                if (o) return o;
+                let i = xi(e, [], !1).filter((e)=>di(e) && "body" !== ri(e)), s = null;
+                const r = "fixed" === mi(e).position;
+                let n = r ? wi(e) : e;
+                for(; di(n) && !vi(n);){
+                    const t = mi(n), o = fi(n);
+                    o || "fixed" !== t.position || (s = null), (r ? !o && !s : !o && "static" === t.position && s && [
+                        "absolute",
+                        "fixed"
+                    ].includes(s.position) || ui(n) && !o && $i(e, n)) ? i = i.filter((e)=>e !== n) : s = t, n = wi(n);
+                }
+                return t.set(e, i), i;
+            }(t, this._c) : [].concat(o),
+            i
+        ], n = r[0], a = r.reduce((e, o)=>{
+            const i = Ti(t, o, s);
+            return e.top = zo(i.top, e.top), e.right = Do(i.right, e.right), e.bottom = Do(i.bottom, e.bottom), e.left = zo(i.left, e.left), e;
+        }, Ti(t, n, s));
         return {
-            width,
-            height,
-            x,
-            y
+            width: a.right - a.left,
+            height: a.bottom - a.top,
+            x: a.left,
+            y: a.top
         };
-    }
-    function getViewportRect(element, strategy) {
-        const win = getWindow(element);
-        const html = getDocumentElement(element);
-        const visualViewport = win.visualViewport;
-        let width = html.clientWidth;
-        let height = html.clientHeight;
-        let x = 0;
-        let y = 0;
-        if (visualViewport) {
-            width = visualViewport.width;
-            height = visualViewport.height;
-            const visualViewportBased = isWebKit();
-            if (!visualViewportBased || visualViewportBased && strategy === "fixed") {
-                x = visualViewport.offsetLeft;
-                y = visualViewport.offsetTop;
-            }
-        }
+    },
+    getOffsetParent: Li,
+    getElementRects: async function(e) {
+        let { reference: t, floating: o, strategy: i } = e;
+        const s = this.getOffsetParent || Li, r = this.getDimensions;
         return {
-            width,
-            height,
-            x,
-            y
-        };
-    }
-    // Returns the inner client rect, subtracting scrollbars if present.
-    function getInnerBoundingClientRect(element, strategy) {
-        const clientRect = getBoundingClientRect(element, true, strategy === "fixed");
-        const top = clientRect.top + element.clientTop;
-        const left = clientRect.left + element.clientLeft;
-        const scale = isHTMLElement(element) ? getScale(element) : createCoords(1);
-        const width = element.clientWidth * scale.x;
-        const height = element.clientHeight * scale.y;
-        const x = left * scale.x;
-        const y = top * scale.y;
-        return {
-            width,
-            height,
-            x,
-            y
-        };
-    }
-    function getClientRectFromClippingAncestor(element, clippingAncestor, strategy) {
-        let rect;
-        if (clippingAncestor === "viewport") rect = getViewportRect(element, strategy);
-        else if (clippingAncestor === "document") rect = getDocumentRect(getDocumentElement(element));
-        else if (isElement(clippingAncestor)) rect = getInnerBoundingClientRect(clippingAncestor, strategy);
-        else {
-            const visualOffsets = getVisualOffsets(element);
-            rect = {
-                ...clippingAncestor,
-                x: clippingAncestor.x - visualOffsets.x,
-                y: clippingAncestor.y - visualOffsets.y
-            };
-        }
-        return rectToClientRect(rect);
-    }
-    function hasFixedPositionAncestor(element, stopNode) {
-        const parentNode = getParentNode(element);
-        if (parentNode === stopNode || !isElement(parentNode) || isLastTraversableNode(parentNode)) return false;
-        return getComputedStyle$1(parentNode).position === "fixed" || hasFixedPositionAncestor(parentNode, stopNode);
-    }
-    // A "clipping ancestor" is an `overflow` element with the characteristic of
-    // clipping (or hiding) child elements. This returns all clipping ancestors
-    // of the given element up the tree.
-    function getClippingElementAncestors(element, cache) {
-        const cachedResult = cache.get(element);
-        if (cachedResult) return cachedResult;
-        let result = getOverflowAncestors(element, [], false).filter((el)=>isElement(el) && getNodeName(el) !== "body");
-        let currentContainingBlockComputedStyle = null;
-        const elementIsFixed = getComputedStyle$1(element).position === "fixed";
-        let currentNode = elementIsFixed ? getParentNode(element) : element;
-        // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
-        while(isElement(currentNode) && !isLastTraversableNode(currentNode)){
-            const computedStyle = getComputedStyle$1(currentNode);
-            const currentNodeIsContaining = isContainingBlock(currentNode);
-            if (!currentNodeIsContaining && computedStyle.position === "fixed") currentContainingBlockComputedStyle = null;
-            const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === "static" && !!currentContainingBlockComputedStyle && [
-                "absolute",
-                "fixed"
-            ].includes(currentContainingBlockComputedStyle.position) || isOverflowElement(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
-            if (shouldDropCurrentNode) // Drop non-containing blocks.
-            result = result.filter((ancestor)=>ancestor !== currentNode);
-            else // Record last containing block for next iteration.
-            currentContainingBlockComputedStyle = computedStyle;
-            currentNode = getParentNode(currentNode);
-        }
-        cache.set(element, result);
-        return result;
-    }
-    // Gets the maximum area that the element is visible in due to any number of
-    // clipping ancestors.
-    function getClippingRect(_ref) {
-        let { element, boundary, rootBoundary, strategy } = _ref;
-        const elementClippingAncestors = boundary === "clippingAncestors" ? getClippingElementAncestors(element, this._c) : [].concat(boundary);
-        const clippingAncestors = [
-            ...elementClippingAncestors,
-            rootBoundary
-        ];
-        const firstClippingAncestor = clippingAncestors[0];
-        const clippingRect = clippingAncestors.reduce((accRect, clippingAncestor)=>{
-            const rect = getClientRectFromClippingAncestor(element, clippingAncestor, strategy);
-            accRect.top = max(rect.top, accRect.top);
-            accRect.right = min(rect.right, accRect.right);
-            accRect.bottom = min(rect.bottom, accRect.bottom);
-            accRect.left = max(rect.left, accRect.left);
-            return accRect;
-        }, getClientRectFromClippingAncestor(element, firstClippingAncestor, strategy));
-        return {
-            width: clippingRect.right - clippingRect.left,
-            height: clippingRect.bottom - clippingRect.top,
-            x: clippingRect.left,
-            y: clippingRect.top
-        };
-    }
-    function getDimensions(element) {
-        const { width, height } = getCssDimensions(element);
-        return {
-            width,
-            height
-        };
-    }
-    function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
-        const isOffsetParentAnElement = isHTMLElement(offsetParent);
-        const documentElement = getDocumentElement(offsetParent);
-        const isFixed = strategy === "fixed";
-        const rect = getBoundingClientRect(element, true, isFixed, offsetParent);
-        let scroll = {
-            scrollLeft: 0,
-            scrollTop: 0
-        };
-        const offsets = createCoords(0);
-        if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
-            if (getNodeName(offsetParent) !== "body" || isOverflowElement(documentElement)) scroll = getNodeScroll(offsetParent);
-            if (isOffsetParentAnElement) {
-                const offsetRect = getBoundingClientRect(offsetParent, true, isFixed, offsetParent);
-                offsets.x = offsetRect.x + offsetParent.clientLeft;
-                offsets.y = offsetRect.y + offsetParent.clientTop;
-            } else if (documentElement) offsets.x = getWindowScrollBarX(documentElement);
-        }
-        return {
-            x: rect.left + scroll.scrollLeft - offsets.x,
-            y: rect.top + scroll.scrollTop - offsets.y,
-            width: rect.width,
-            height: rect.height
-        };
-    }
-    function getTrueOffsetParent(element, polyfill) {
-        if (!isHTMLElement(element) || getComputedStyle$1(element).position === "fixed") return null;
-        if (polyfill) return polyfill(element);
-        return element.offsetParent;
-    }
-    // Gets the closest ancestor positioned element. Handles some edge cases,
-    // such as table ancestors and cross browser bugs.
-    function getOffsetParent(element, polyfill) {
-        const window1 = getWindow(element);
-        if (!isHTMLElement(element)) return window1;
-        let offsetParent = getTrueOffsetParent(element, polyfill);
-        while(offsetParent && isTableElement(offsetParent) && getComputedStyle$1(offsetParent).position === "static")offsetParent = getTrueOffsetParent(offsetParent, polyfill);
-        if (offsetParent && (getNodeName(offsetParent) === "html" || getNodeName(offsetParent) === "body" && getComputedStyle$1(offsetParent).position === "static" && !isContainingBlock(offsetParent))) return window1;
-        return offsetParent || getContainingBlock(element) || window1;
-    }
-    const getElementRects = async function(_ref) {
-        let { reference, floating, strategy } = _ref;
-        const getOffsetParentFn = this.getOffsetParent || getOffsetParent;
-        const getDimensionsFn = this.getDimensions;
-        return {
-            reference: getRectRelativeToOffsetParent(reference, await getOffsetParentFn(floating), strategy),
+            reference: Ii(t, await s(o), i),
             floating: {
                 x: 0,
                 y: 0,
-                ...await getDimensionsFn(floating)
+                ...await r(o)
             }
         };
-    };
-    function isRTL(element) {
-        return getComputedStyle$1(element).direction === "rtl";
+    },
+    getClientRects: function(e) {
+        return Array.from(e.getClientRects());
+    },
+    getDimensions: function(e) {
+        const { width: t, height: o } = ki(e);
+        return {
+            width: t,
+            height: o
+        };
+    },
+    getScale: Ci,
+    isElement: di,
+    isRTL: function(e) {
+        return "rtl" === mi(e).direction;
     }
-    const platform = {
-        convertOffsetParentRelativeRectToViewportRelativeRect,
-        getDocumentElement,
-        getClippingRect,
-        getOffsetParent,
-        getElementRects,
-        getClientRects,
-        getDimensions,
-        getScale,
-        isElement,
-        isRTL
-    };
-    // https://samthor.au/2021/observing-dom/
-    function observeMove(element, onMove) {
-        let io = null;
-        let timeoutId;
-        const root = getDocumentElement(element);
-        function cleanup() {
-            clearTimeout(timeoutId);
-            io && io.disconnect();
-            io = null;
+};
+function Ni(e, t, o, i) {
+    void 0 === i && (i = {});
+    const { ancestorScroll: s = !0, ancestorResize: r = !0, elementResize: n = "function" == typeof ResizeObserver, layoutShift: a = "function" == typeof IntersectionObserver, animationFrame: l = !1 } = i, d = Si(e), c = s || r ? [
+        ...d ? xi(d) : [],
+        ...xi(t)
+    ] : [];
+    c.forEach((e)=>{
+        s && e.addEventListener("scroll", o, {
+            passive: !0
+        }), r && e.addEventListener("resize", o);
+    });
+    const h = d && a ? function(e, t) {
+        let o, i = null;
+        const s = ai(e);
+        function r() {
+            clearTimeout(o), i && i.disconnect(), i = null;
         }
-        function refresh(skip, threshold) {
-            if (skip === void 0) skip = false;
-            if (threshold === void 0) threshold = 1;
-            cleanup();
-            const { left, top, width, height } = element.getBoundingClientRect();
-            if (!skip) onMove();
-            if (!width || !height) return;
-            const insetTop = floor(top);
-            const insetRight = floor(root.clientWidth - (left + width));
-            const insetBottom = floor(root.clientHeight - (top + height));
-            const insetLeft = floor(left);
-            const rootMargin = -insetTop + "px " + -insetRight + "px " + -insetBottom + "px " + -insetLeft + "px";
-            const options = {
-                rootMargin,
-                threshold: max(0, min(1, threshold)) || 1
+        return function n(a, l) {
+            void 0 === a && (a = !1), void 0 === l && (l = 1), r();
+            const { left: d, top: c, width: h, height: u } = e.getBoundingClientRect();
+            if (a || t(), !h || !u) return;
+            const p = {
+                rootMargin: -_o(c) + "px " + -_o(s.clientWidth - (d + h)) + "px " + -_o(s.clientHeight - (c + u)) + "px " + -_o(d) + "px",
+                threshold: zo(0, Do(1, l)) || 1
             };
-            let isFirstUpdate = true;
-            function handleObserve(entries) {
-                const ratio = entries[0].intersectionRatio;
-                if (ratio !== threshold) {
-                    if (!isFirstUpdate) return refresh();
-                    if (!ratio) timeoutId = setTimeout(()=>{
-                        refresh(false, 1e-7);
+            let f = !0;
+            function g(e) {
+                const t = e[0].intersectionRatio;
+                if (t !== l) {
+                    if (!f) return n();
+                    t ? n(!1, t) : o = setTimeout(()=>{
+                        n(!1, 1e-7);
                     }, 100);
-                    else refresh(false, ratio);
                 }
-                isFirstUpdate = false;
+                f = !1;
             }
-            // Older browsers don't support a `document` as the root and will throw an
-            // error.
             try {
-                io = new IntersectionObserver(handleObserve, {
-                    ...options,
-                    // Handle <iframe>s
-                    root: root.ownerDocument
+                i = new IntersectionObserver(g, {
+                    ...p,
+                    root: s.ownerDocument
                 });
             } catch (e) {
-                io = new IntersectionObserver(handleObserve, options);
+                i = new IntersectionObserver(g, p);
             }
-            io.observe(element);
-        }
-        refresh(true);
-        return cleanup;
-    }
-    /**
-     * Automatically updates the position of the floating element when necessary.
-     * Should only be called when the floating element is mounted on the DOM or
-     * visible on the screen.
-     * @returns cleanup function that should be invoked when the floating element is
-     * removed from the DOM or hidden from the screen.
-     * @see https://floating-ui.com/docs/autoUpdate
-     */ function autoUpdate(reference, floating, update, options) {
-        if (options === void 0) options = {};
-        const { ancestorScroll = true, ancestorResize = true, elementResize = typeof ResizeObserver === "function", layoutShift = typeof IntersectionObserver === "function", animationFrame = false } = options;
-        const referenceEl = unwrapElement(reference);
-        const ancestors = ancestorScroll || ancestorResize ? [
-            ...referenceEl ? getOverflowAncestors(referenceEl) : [],
-            ...getOverflowAncestors(floating)
-        ] : [];
-        ancestors.forEach((ancestor)=>{
-            ancestorScroll && ancestor.addEventListener("scroll", update, {
-                passive: true
-            });
-            ancestorResize && ancestor.addEventListener("resize", update);
-        });
-        const cleanupIo = referenceEl && layoutShift ? observeMove(referenceEl, update) : null;
-        let reobserveFrame = -1;
-        let resizeObserver = null;
-        if (elementResize) {
-            resizeObserver = new ResizeObserver((_ref)=>{
-                let [firstEntry] = _ref;
-                if (firstEntry && firstEntry.target === referenceEl && resizeObserver) {
-                    // Prevent update loops when using the `size` middleware.
-                    // https://github.com/floating-ui/floating-ui/issues/1740
-                    resizeObserver.unobserve(floating);
-                    cancelAnimationFrame(reobserveFrame);
-                    reobserveFrame = requestAnimationFrame(()=>{
-                        resizeObserver && resizeObserver.observe(floating);
-                    });
-                }
-                update();
-            });
-            if (referenceEl && !animationFrame) resizeObserver.observe(referenceEl);
-            resizeObserver.observe(floating);
-        }
-        let frameId;
-        let prevRefRect = animationFrame ? getBoundingClientRect(reference) : null;
-        if (animationFrame) frameLoop();
-        function frameLoop() {
-            const nextRefRect = getBoundingClientRect(reference);
-            if (prevRefRect && (nextRefRect.x !== prevRefRect.x || nextRefRect.y !== prevRefRect.y || nextRefRect.width !== prevRefRect.width || nextRefRect.height !== prevRefRect.height)) update();
-            prevRefRect = nextRefRect;
-            frameId = requestAnimationFrame(frameLoop);
-        }
-        update();
-        return ()=>{
-            ancestors.forEach((ancestor)=>{
-                ancestorScroll && ancestor.removeEventListener("scroll", update);
-                ancestorResize && ancestor.removeEventListener("resize", update);
-            });
-            cleanupIo && cleanupIo();
-            resizeObserver && resizeObserver.disconnect();
-            resizeObserver = null;
-            if (animationFrame) cancelAnimationFrame(frameId);
-        };
-    }
-    /**
-     * Optimizes the visibility of the floating element by choosing the placement
-     * that has the most space available automatically, without needing to specify a
-     * preferred placement. Alternative to `flip`.
-     * @see https://floating-ui.com/docs/autoPlacement
-     */ const autoPlacement = autoPlacement$1;
-    /**
-     * Provides data to position an inner element of the floating element so that it
-     * appears centered to the reference element.
-     * @see https://floating-ui.com/docs/arrow
-     */ const arrow = arrow$1;
-    /**
-     * Computes the `x` and `y` coordinates that will place the floating element
-     * next to a given reference element.
-     */ const computePosition = (reference, floating, options)=>{
-        // This caches the expensive `getClippingElementAncestors` function so that
-        // multiple lifecycle resets re-use the same result. It only lives for a
-        // single call. If other functions become expensive, we can add them as well.
-        const cache = new Map();
-        const mergedOptions = {
-            platform,
-            ...options
-        };
-        const platformWithCache = {
-            ...mergedOptions.platform,
-            _c: cache
-        };
-        return computePosition$1(reference, floating, {
-            ...mergedOptions,
-            platform: platformWithCache
-        });
+            i.observe(e);
+        }(!0), r;
+    }(d, o) : null;
+    let u, p = -1, f = null;
+    n && (f = new ResizeObserver((e)=>{
+        let [i] = e;
+        i && i.target === d && f && (f.unobserve(t), cancelAnimationFrame(p), p = requestAnimationFrame(()=>{
+            f && f.observe(t);
+        })), o();
+    }), d && !l && f.observe(d), f.observe(t));
+    let g = l ? Ei(e) : null;
+    return l && function t() {
+        const i = Ei(e);
+        !g || i.x === g.x && i.y === g.y && i.width === g.width && i.height === g.height || o();
+        g = i, u = requestAnimationFrame(t);
+    }(), o(), ()=>{
+        c.forEach((e)=>{
+            s && e.removeEventListener("scroll", o), r && e.removeEventListener("resize", o);
+        }), h && h(), f && f.disconnect(), f = null, l && cancelAnimationFrame(u);
     };
-    /** MultiView styles
-     * @public
-     */ const styles$9 = css`
-  ${display("block")}
+}
+const Oi = function(e) {
+    return void 0 === e && (e = {}), {
+        name: "autoPlacement",
+        options: e,
+        async fn (t) {
+            var o, i, s;
+            const { rects: r, middlewareData: n, placement: a, platform: l, elements: d } = t, { crossAxis: c = !1, alignment: h, allowedPlacements: u = Ro, autoAlignment: p = !0, ...f } = Ko(e, t), g = void 0 !== h || u === Ro ? ii(h || null, p, u) : u, v = await async function(e, t) {
+                var o;
+                void 0 === t && (t = {});
+                const { x: i, y: s, platform: r, rects: n, elements: a, strategy: l } = e, { boundary: d = "clippingAncestors", rootBoundary: c = "viewport", elementContext: h = "floating", altBoundary: u = !1, padding: p = 0 } = Ko(t, e), f = ei(p), g = a[u ? "floating" === h ? "reference" : "floating" : h], v = ti(await r.getClippingRect({
+                    element: null == (o = await (null == r.isElement ? void 0 : r.isElement(g))) || o ? g : g.contextElement || await (null == r.getDocumentElement ? void 0 : r.getDocumentElement(a.floating)),
+                    boundary: d,
+                    rootBoundary: c,
+                    strategy: l
+                })), m = "floating" === h ? {
+                    ...n.floating,
+                    x: i,
+                    y: s
+                } : n.reference, b = await (null == r.getOffsetParent ? void 0 : r.getOffsetParent(a.floating)), w = await (null == r.isElement ? void 0 : r.isElement(b)) && await (null == r.getScale ? void 0 : r.getScale(b)) || {
+                    x: 1,
+                    y: 1
+                }, y = ti(r.convertOffsetParentRelativeRectToViewportRelativeRect ? await r.convertOffsetParentRelativeRectToViewportRelativeRect({
+                    rect: m,
+                    offsetParent: b,
+                    strategy: l
+                }) : m);
+                return {
+                    top: (v.top - y.top + f.top) / w.y,
+                    bottom: (y.bottom - v.bottom + f.bottom) / w.y,
+                    left: (v.left - y.left + f.left) / w.x,
+                    right: (y.right - v.right + f.right) / w.x
+                };
+            }(t, f), m = (null == (o = n.autoPlacement) ? void 0 : o.index) || 0, b = g[m];
+            if (null == b) return {};
+            const w = function(e, t, o) {
+                void 0 === o && (o = !1);
+                const i = Xo(e), s = Zo(e), r = Yo(s);
+                let n = "x" === s ? i === (o ? "end" : "start") ? "right" : "left" : "start" === i ? "bottom" : "top";
+                return t.reference[r] > t.floating[r] && (n = Jo(n)), [
+                    n,
+                    Jo(n)
+                ];
+            }(b, r, await (null == l.isRTL ? void 0 : l.isRTL(d.floating)));
+            if (a !== b) return {
+                reset: {
+                    placement: g[0]
+                }
+            };
+            const y = [
+                v[Uo(b)],
+                v[w[0]],
+                v[w[1]]
+            ], x = [
+                ...(null == (i = n.autoPlacement) ? void 0 : i.overflows) || [],
+                {
+                    placement: b,
+                    overflows: y
+                }
+            ], k = g[m + 1];
+            if (k) return {
+                data: {
+                    index: m + 1,
+                    overflows: x
+                },
+                reset: {
+                    placement: k
+                }
+            };
+            const S = x.map((e)=>{
+                const t = Xo(e.placement);
+                return [
+                    e.placement,
+                    t && c ? e.overflows.slice(0, 2).reduce((e, t)=>e + t, 0) : e.overflows[0],
+                    e.overflows
+                ];
+            }).sort((e, t)=>e[1] - t[1]), C = (null == (s = S.filter((e)=>e[2].slice(0, Xo(e[0]) ? 2 : 3).every((e)=>e <= 0))[0]) ? void 0 : s[0]) || S[0][0];
+            return C !== a ? {
+                data: {
+                    index: m + 1,
+                    overflows: x
+                },
+                reset: {
+                    placement: C
+                }
+            } : {};
+        }
+    };
+}, Vi = (e)=>({
+        name: "arrow",
+        options: e,
+        async fn (t) {
+            const { x: o, y: i, placement: s, rects: r, platform: n, elements: a, middlewareData: l } = t, { element: d, padding: c = 0 } = Ko(e, t) || {};
+            if (null == d) return {};
+            const h = ei(c), u = {
+                x: o,
+                y: i
+            }, p = Zo(s), f = Yo(p), g = await n.getDimensions(d), v = "y" === p, m = v ? "top" : "left", b = v ? "bottom" : "right", w = v ? "clientHeight" : "clientWidth", y = r.reference[f] + r.reference[p] - u[p] - r.floating[f], x = u[p] - r.reference[p], k = await (null == n.getOffsetParent ? void 0 : n.getOffsetParent(d));
+            let S = k ? k[w] : 0;
+            S && await (null == n.isElement ? void 0 : n.isElement(k)) || (S = a.floating[w] || r.floating[f]);
+            const C = y / 2 - x / 2, B = S / 2 - g[f] / 2 - 1, P = Do(h[m], B), E = Do(h[b], B), A = P, T = S - g[f] - E, $ = S / 2 - g[f] / 2 + C, I = qo(A, $, T), F = !l.arrow && null != Xo(s) && $ != I && r.reference[f] / 2 - ($ < A ? P : E) - g[f] / 2 < 0, L = F ? $ < A ? $ - A : $ - T : 0;
+            return {
+                [p]: u[p] + L,
+                data: {
+                    [p]: I,
+                    centerOffset: $ - I - L,
+                    ...F && {
+                        alignmentOffset: L
+                    }
+                },
+                reset: F
+            };
+        }
+    }), Ri = (e, t, o)=>{
+    const i = new Map, s = {
+        platform: Mi,
+        ...o
+    }, r = {
+        ...s.platform,
+        _c: i
+    };
+    return (async (e, t, o)=>{
+        const { placement: i = "bottom", strategy: s = "absolute", middleware: r = [], platform: n } = o, a = r.filter(Boolean), l = await (null == n.isRTL ? void 0 : n.isRTL(t));
+        let d = await n.getElementRects({
+            reference: e,
+            floating: t,
+            strategy: s
+        }), { x: c, y: h } = oi(d, i, l), u = i, p = {}, f = 0;
+        for(let o = 0; o < a.length; o++){
+            const { name: r, fn: g } = a[o], { x: v, y: m, data: b, reset: w } = await g({
+                x: c,
+                y: h,
+                initialPlacement: i,
+                placement: u,
+                strategy: s,
+                middlewareData: p,
+                rects: d,
+                platform: n,
+                elements: {
+                    reference: e,
+                    floating: t
+                }
+            });
+            c = null != v ? v : c, h = null != m ? m : h, p = {
+                ...p,
+                [r]: {
+                    ...p[r],
+                    ...b
+                }
+            }, w && f <= 50 && (f++, "object" == typeof w && (w.placement && (u = w.placement), w.rects && (d = !0 === w.rects ? await n.getElementRects({
+                reference: e,
+                floating: t,
+                strategy: s
+            }) : w.rects), { x: c, y: h } = oi(d, u, l)), o = -1);
+        }
+        return {
+            x: c,
+            y: h,
+            placement: u,
+            strategy: s,
+            middlewareData: p
+        };
+    })(e, t, {
+        ...s,
+        platform: r
+    });
+}, Di = G`
+  ${yt("block")}
 
   :host {
     display: block;
@@ -15713,52 +15090,36 @@ var global = arguments[3];
     content: "";
     position: absolute;
     inset: 1px;
-    border-color: ${colorTransparentStroke};
-    outline: ${strokeWidthThick} solid ${colorTransparentStroke};
-    box-shadow: ${shadow4}, 0 0 0 2px ${colorStrokeFocus2};
+    border-color: ${bo};
+    outline: ${Zt} solid ${bo};
+    box-shadow: ${ko}, 0 0 0 2px ${yo};
   }
 `;
-    /**
-     * The template for the {@link @horizon-msft/web-components#(MultiView:class)} component.
-     * @public
-     */ function multiViewTemplate() {
-        return html`
+const zi = Se`
     <template
       slot="multi-view"
       role="tabpanel"
-      ?hidden="${(x)=>x.hidden}"
-      tabindex="${(x)=>!x.hidden ? "0" : "-1"}"
+      ?hidden="${(e)=>e.hidden}"
+      tabindex="${(e)=>e.hidden ? "-1" : "0"}"
       role="region"
     >
       <div class="multi-view" part="multi-view">
-        ${startSlotTemplate({})}
+        ${wt({})}
         <slot></slot>
-        ${endSlotTemplate({})}
+        ${bt({})}
       </div>
     </template>
-  `;
+  `, Hi = at.compose({
+    name: `${lt.prefix}-multi-view`,
+    template: zi,
+    styles: Di,
+    shadowOptions: {
+        mode: lt.shadowRootMode
     }
-    const template$a = multiViewTemplate();
-    /**
-     *
-     * @public
-     * @remarks
-     * HTML Element: <hwc-multi-view>
-     */ const definition$8 = MultiView.compose({
-        name: `${DesignSystem.prefix}-multi-view`,
-        template: template$a,
-        styles: styles$9,
-        shadowOptions: {
-            mode: DesignSystem.shadowRootMode
-        }
-    });
-    /**
-     * A MultiViewController Component to be used with MultiViewGroup.
-     * @public
-     */ class MultiViewController extends FASTElement {
-    }
-    // Need to support icon hover styles
-    const styles$8 = css`
+});
+class _i extends nt {
+}
+const ji = G`
   :host {
     position: relative;
   }
@@ -15782,578 +15143,244 @@ var global = arguments[3];
     box-shadow: inset 0 0 0 1px var(--colorStrokeFocus2);
   }
 `;
-    /**
-     * The template for the {@link @horizon-msft/web-components#(MultiViewController:class)} component.
-     * @public
-     */ function multiViewControllerTemplate() {
-        return html`
+const Gi = Se`
     <template slot="controller" tabindex="-1" role="tab">
       <fluent-button icon-only shape="square" tabindex="-1">
         <slot></slot>
       </fluent-button>
     </template>
-  `;
+  `, Wi = _i.compose({
+    name: `${lt.prefix}-multi-view-controller`,
+    template: Gi,
+    styles: ji
+});
+class qi extends nt {
+    constructor(){
+        super(...arguments), this.multiViews = [], this.controllers = [], this.openedMultiViews = [], this.previouslyOpenedMultiView = null, this.activeid = "", this.prevActiveControllerIndex = 0, this.activeControllerIndex = 0, this.controllerIds = [], this.multiViewsIds = [], this.openMultiView = (e)=>{
+            e.hidden && (this.closeAllMultiViews(), e.hidden = !1, this.manageOpenedMultiViews(e));
+        }, this.manageOpenedMultiViews = (e, t)=>{
+            this.addMultiViewToOpenedMultiViews(e), this.openedMultiViews.length >= 2 && this.limitNumberOfOpenMultiViews(), y.enqueue(()=>e.focus()), this.setComponent();
+        }, this.manageOpeningSecondMultiView = (e)=>{
+            e.setAttribute("data-flexposition", "2"), this.openedMultiViews.length >= 2 && this.limitNumberOfOpenMultiViews();
+            const t = this.multiViews[this.activeControllerIndex];
+            t.hidden && (this.addMultiViewToOpenedMultiViews(t), this.previouslyOpenedMultiView && this.previouslyOpenedMultiView.removeAttribute("data-flexposition"), t.setAttribute("data-flexposition", "2"));
+        }, this.openSecondMultiView = (e)=>{
+            e.hidden && (this.manageOpeningSecondMultiView(e), e.hidden = !1, y.enqueue(()=>e.focus()), this.previouslyOpenedMultiView = e);
+        }, this.closeMultiView = (e)=>{
+            e.hidden || (this.manageClosedMultiViews(e), e.hidden = !0);
+        }, this.manageClosedMultiViews = (e)=>{
+            e.hasAttribute("data-flexposition") && e.removeAttribute("data-flexposition"), this.openedMultiViews = this.openedMultiViews.filter((t)=>t !== e);
+            const t = this.multiViews.indexOf(e);
+            this.controllers[t].focus(), this.activeController = this.controllers[t], this.removeMultiViewFromOpenedMultiViews(e);
+        }, this.closeAllMultiViews = ()=>{
+            this.openedMultiViews.forEach((e)=>{
+                const t = e;
+                this.closeMultiView(t);
+            });
+        }, this.toggleMultiView = (e)=>{
+            e.hidden ? this.openMultiView(e) : this.closeMultiView(e);
+        }, this.removeMultiViewFromOpenedMultiViews = (e)=>{
+            const t = this.openedMultiViews.indexOf(e);
+            t > -1 && this.openedMultiViews.splice(t, 1);
+        }, this.addMultiViewToOpenedMultiViews = (e)=>{
+            this.openedMultiViews.includes(e) || (this.openedMultiViews = [
+                ...this.openedMultiViews,
+                e
+            ]);
+        }, this.change = ()=>{
+            this.$emit("change", this.openedMultiViews);
+        }, this.isDisabledElement = (e)=>"true" === e.getAttribute("aria-disabled"), this.isHiddenElement = (e)=>"true" === e.getAttribute("aria-hidden"), this.isFocusableElement = (e)=>!this.isDisabledElement(e) && !this.isHiddenElement(e) && null !== e.offsetParent, this.setMultiViews = ()=>{
+            this.multiViews.forEach((e, t)=>{
+                if (e instanceof at) {
+                    const o = this.controllerIds[t], i = this.multiViewsIds[t];
+                    this.setAttributes(e, {
+                        id: i,
+                        "aria-labelledby": o
+                    }), e.hidden ? this.removeMultiViewFromOpenedMultiViews(e) : this.addMultiViewToOpenedMultiViews(e);
+                }
+            });
+        }, this.unsetActiveToggleButton = ()=>{
+            this.activeControllerIndex = 0, this.activeController = void 0, this.setControllers;
+        }, this.handleControllerClick = (e)=>{
+            const t = e.currentTarget;
+            if (1 !== t.nodeType || !this.isFocusableElement(t)) return;
+            this.prevActiveControllerIndex = this.activeControllerIndex, this.activeControllerIndex = this.controllers.indexOf(t);
+            const o = this.multiViews[this.activeControllerIndex];
+            e.ctrlKey ? this.openSecondMultiView(o) : this.toggleMultiView(o);
+        }, this.handleControllerKeyDown = (e)=>{
+            const t = this.multiViews[this.activeControllerIndex], o = e.currentTarget;
+            switch(e.key){
+                case ct:
+                    e.preventDefault(), this.adjustBackward(e);
+                    break;
+                case ft:
+                    if (e.shiftKey) e.preventDefault(), this.controllersContainer.focus();
+                    else this.controllers[0].focus();
+                    break;
+                case dt:
+                    e.preventDefault(), this.adjustForward(e);
+                    break;
+                case pt:
+                    e.preventDefault(), this.adjust(-this.activeControllerIndex);
+                    break;
+                case "End":
+                    e.preventDefault(), this.adjust(this.controllers.length - this.activeControllerIndex - 1);
+                    break;
+                case ht:
+                case " ":
+                    e.ctrlKey ? (e.preventDefault(), this.openSecondMultiView(t)) : (e.preventDefault(), this.toggleMultiView(t));
+                    break;
+                case ut:
+                    e.preventDefault(), o.blur();
+            }
+        }, this.handleMultiViewKeyDown = (e)=>{
+            const t = e.currentTarget;
+            if (e.key === ut) e.preventDefault(), this.closeMultiView(t);
+        }, this.handleToggleButtonContainerKeyDown = (e)=>{
+            const t = this.controllers[0];
+            if (e.key === ft) this.unsetActiveToggleButton(), t.tabIndex = 0;
+        }, this.adjustForward = (e)=>{
+            const t = this.controllers;
+            let o = 0;
+            for(o = this.activeController ? t.indexOf(this.activeController) + 1 : 1, o === t.length && (o = 0); o < t.length && t.length > 1;){
+                if (this.isFocusableElement(t[o])) {
+                    this.moveToToggleButtonByIndex(t, o);
+                    break;
+                }
+                if (this.activeController && o === t.indexOf(this.activeController)) break;
+                o + 1 >= t.length ? o = 0 : o += 1;
+            }
+        }, this.adjustBackward = (e)=>{
+            const t = this.controllers;
+            let o = 0;
+            for(o = this.activeController ? t.indexOf(this.activeController) - 1 : 0, o = o < 0 ? t.length - 1 : o; o >= 0 && t.length > 1;){
+                if (this.isFocusableElement(t[o])) {
+                    this.moveToToggleButtonByIndex(t, o);
+                    break;
+                }
+                o - 1 < 0 ? o = t.length - 1 : o -= 1;
+            }
+        }, this.moveToToggleButtonByIndex = (e, t)=>{
+            const o = e[t];
+            this.activeController = o, this.activeController.tabIndex = 0, this.prevActiveControllerIndex = this.activeControllerIndex, this.controllers[this.prevActiveControllerIndex].tabIndex = -1, this.activeControllerIndex = t, o.focus(), this.setComponent();
+        };
     }
-    const template$9 = multiViewControllerTemplate();
-    /**
-     *
-     * @public
-     * @remarks
-     * HTML Element: <fluent-multi-view-controller>
-     */ const definition$7 = MultiViewController.compose({
-        name: `${DesignSystem.prefix}-multi-view-controller`,
-        template: template$9,
-        styles: styles$8
-    });
-    /**
-     * A MultiViewGroup Custom HTML Element.
-     * Implements the {@link https://www.w3.org/TR/wai-aria-1.1/#tablist | ARIA tablist }.
-     *
-     * @slot start - Content which can be provided before the multi-view-controllers element
-     * @slot end - Content which can be provided after the multi-view-controllers element
-     * @slot controllers - The slot for controllers
-     * @slot multiViews - The slot for multiViews
-     * @fires change - Fires a custom 'change' event when a multiView controller is clicked or during keyboard navigation
-     * @extends FASTElement
-     *
-     * @public
-     */ class MultiViewGroup extends FASTElement {
-        constructor(){
-            super(...arguments);
-            /**
-             * An observable array of HTML elements that represent multiViews.
-             */ this.multiViews = [];
-            /**
-             * An observable array of HTML elements that represent controllers.
-             */ this.controllers = [];
-            /**
-             * An observable array of HTML elements that represent opened multiViews.
-             */ this.openedMultiViews = [];
-            /**
-             * The previously opened MultiView
-             */ this.previouslyOpenedMultiView = null;
-            /**
-             * A string representing the active ID.
-             */ this.activeid = "";
-            /**
-             * A number representing the index of the previously active controller.
-             */ this.prevActiveControllerIndex = 0;
-            /**
-             * A number representing the index of the active controller.
-             */ this.activeControllerIndex = 0;
-            /**
-             * An array of strings that represent the IDs of the controllers.
-             */ this.controllerIds = [];
-            /**
-             * An array of strings that represent the IDs of the multiViews.
-             */ this.multiViewsIds = [];
-            /**
-             * Method to open a multiView.
-             * @param {MultiView} multiView - The multiView to open.
-             */ this.openMultiView = (multiView)=>{
-                if (multiView.hidden) {
-                    this.closeAllMultiViews();
-                    multiView.hidden = false;
-                    this.manageOpenedMultiViews(multiView);
-                }
-            };
-            /**
-             * Manages opened MultiViews by limiting the number of opened views
-             * and setting focus on the newly opened MultiView.
-             *
-             * @param {MultiView} multiView - The MultiView to manage.
-             * @param {CustomEvent} [event] - The event that triggered the managing of the MultiView.
-             * @public
-             */ this.manageOpenedMultiViews = (multiView, event)=>{
-                this.addMultiViewToOpenedMultiViews(multiView);
-                if (this.openedMultiViews.length >= 2) this.limitNumberOfOpenMultiViews();
-                Updates.enqueue(()=>multiView.focus());
-                this.setComponent();
-            };
-            /**
-             * Manages the opening of a second MultiView. It will set the "data-flexposition" attribute of the second MultiView,
-             * limit the number of opened MultiViews if necessary, and add the second MultiView to the list of opened MultiViews.
-             *
-             * @param {MultiView} multiView - The MultiView to open.
-             * @public
-             */ this.manageOpeningSecondMultiView = (multiView)=>{
-                multiView.setAttribute("data-flexposition", "2");
-                if (this.openedMultiViews.length >= 2) this.limitNumberOfOpenMultiViews();
-                const multiViewToOpen = this.multiViews[this.activeControllerIndex];
-                if (multiViewToOpen.hidden) {
-                    this.addMultiViewToOpenedMultiViews(multiViewToOpen);
-                    if (this.previouslyOpenedMultiView) this.previouslyOpenedMultiView.removeAttribute("data-flexposition");
-                    multiViewToOpen.setAttribute("data-flexposition", "2");
-                }
-            };
-            /**
-             * Method to open the second multiView.
-             */ this.openSecondMultiView = (multiView)=>{
-                if (multiView.hidden) {
-                    this.manageOpeningSecondMultiView(multiView);
-                    multiView.hidden = false;
-                    Updates.enqueue(()=>multiView.focus());
-                    this.previouslyOpenedMultiView = multiView;
-                }
-            };
-            /**
-             * Method to close a multiView.
-             * @param {MultiView} multiView - The multiView to close.
-             */ this.closeMultiView = (multiView)=>{
-                if (!multiView.hidden) {
-                    this.manageClosedMultiViews(multiView);
-                    multiView.hidden = true;
-                }
-            };
-            this.manageClosedMultiViews = (multiView)=>{
-                if (multiView.hasAttribute("data-flexposition")) multiView.removeAttribute("data-flexposition");
-                this.openedMultiViews = this.openedMultiViews.filter((openedMultiView)=>openedMultiView !== multiView);
-                const closedMultiViewIndex = this.multiViews.indexOf(multiView);
-                this.controllers[closedMultiViewIndex].focus();
-                this.activeController = this.controllers[closedMultiViewIndex];
-                this.removeMultiViewFromOpenedMultiViews(multiView);
-            };
-            /**
-             * Method to close all opened multiViews.
-             */ this.closeAllMultiViews = ()=>{
-                this.openedMultiViews.forEach((multiView)=>{
-                    const multiViewToClose = multiView;
-                    this.closeMultiView(multiViewToClose);
-                });
-            };
-            /**
-             * Method to toggle a multiView.
-             * @param {MultiView} multiView - The multiView to toggle.
-             */ this.toggleMultiView = (multiView)=>{
-                if (multiView.hidden) this.openMultiView(multiView);
-                else this.closeMultiView(multiView);
-            };
-            /**
-             * Removes a given multiView from the collection of opened multiViews.
-             * @private
-             * @param {MultiView} multiViewToRemove - The multiView to remove.
-             */ this.removeMultiViewFromOpenedMultiViews = (multiViewToRemove)=>{
-                const index = this.openedMultiViews.indexOf(multiViewToRemove);
-                if (index > -1) this.openedMultiViews.splice(index, 1);
-            };
-            /**
-             * Adds a given multiView to the collection of opened multiViews, unless it's already present.
-             * @private
-             * @param {MultiView} multiViewToAdd - The multiView to add.
-             */ this.addMultiViewToOpenedMultiViews = (multiViewToAdd)=>{
-                if (!this.openedMultiViews.includes(multiViewToAdd)) this.openedMultiViews = [
-                    ...this.openedMultiViews,
-                    multiViewToAdd
-                ];
-            };
-            /**
-             * Triggers a change event with the currently opened multiViews.
-             * @private
-             */ this.change = ()=>{
-                this.$emit("change", this.openedMultiViews);
-            };
-            this.isDisabledElement = (el)=>{
-                return el.getAttribute("aria-disabled") === "true";
-            };
-            this.isHiddenElement = (el)=>{
-                return el.getAttribute("aria-hidden") === "true";
-            };
-            this.isFocusableElement = (el)=>{
-                return !this.isDisabledElement(el) && !this.isHiddenElement(el) && el.offsetParent !== null;
-            };
-            /**
-             * Sets attributes for multiViews and determines which multiViews are hidden.
-             * @private
-             */ this.setMultiViews = ()=>{
-                this.multiViews.forEach((multiView, index)=>{
-                    if (multiView instanceof MultiView) {
-                        const controllerId = this.controllerIds[index];
-                        const multiViewId = this.multiViewsIds[index];
-                        this.setAttributes(multiView, {
-                            id: multiViewId,
-                            "aria-labelledby": controllerId
-                        });
-                        if (!multiView.hidden) this.addMultiViewToOpenedMultiViews(multiView);
-                        else this.removeMultiViewFromOpenedMultiViews(multiView);
-                    }
-                });
-            };
-            /**
-             * Unsets active controller for focus handling
-             * @private
-             */ this.unsetActiveToggleButton = ()=>{
-                this.activeControllerIndex = 0;
-                this.activeController = undefined;
-                this.setControllers;
-            };
-            /**
-             * Handles click events on the controllers.
-             * @private
-             * @param {MouseEvent} event - The click event.
-             */ this.handleControllerClick = (event)=>{
-                const selectedToggleButton = event.currentTarget;
-                if (selectedToggleButton.nodeType !== 1 || !this.isFocusableElement(selectedToggleButton)) return;
-                this.prevActiveControllerIndex = this.activeControllerIndex;
-                this.activeControllerIndex = this.controllers.indexOf(selectedToggleButton);
-                const associatedMultiView = this.multiViews[this.activeControllerIndex];
-                if (event.ctrlKey) this.openSecondMultiView(associatedMultiView);
-                else this.toggleMultiView(associatedMultiView);
-            };
-            /**
-             * Handles keydown events on the controller.
-             * @param {KeyboardEvent} event The event object.
-             * @private
-             */ this.handleControllerKeyDown = (event)=>{
-                const associatedMultiView = this.multiViews[this.activeControllerIndex];
-                const controller = event.currentTarget;
-                switch(event.key){
-                    case keyArrowUp:
-                        event.preventDefault();
-                        this.adjustBackward(event);
-                        break;
-                    case keyTab:
-                        if (event.shiftKey) {
-                            event.preventDefault();
-                            this.controllersContainer.focus();
-                        } else {
-                            const firstToggleButton = this.controllers[0];
-                            firstToggleButton.focus();
-                        }
-                        break;
-                    case keyArrowDown:
-                        event.preventDefault();
-                        this.adjustForward(event);
-                        break;
-                    case keyHome:
-                        event.preventDefault();
-                        this.adjust(-this.activeControllerIndex);
-                        break;
-                    case keyEnd:
-                        event.preventDefault();
-                        this.adjust(this.controllers.length - this.activeControllerIndex - 1);
-                        break;
-                    case keyEnter:
-                    case keySpace:
-                        if (event.ctrlKey) {
-                            event.preventDefault();
-                            this.openSecondMultiView(associatedMultiView);
-                        } else {
-                            event.preventDefault();
-                            this.toggleMultiView(associatedMultiView);
-                        }
-                        break;
-                    case keyEscape:
-                        event.preventDefault();
-                        controller.blur();
-                        break;
-                }
-            };
-            /**
-             * Handles keydown events on the controller.
-             * @param {KeyboardEvent} event The event object.
-             * @private
-             */ this.handleMultiViewKeyDown = (event)=>{
-                const associatedMultiView = event.currentTarget;
-                switch(event.key){
-                    case keyEscape:
-                        event.preventDefault();
-                        this.closeMultiView(associatedMultiView);
-                        break;
-                }
-            };
-            /**
-             * Handles keydown events on the controller.
-             * @param {KeyboardEvent} event The event object.
-             * @private
-             */ this.handleToggleButtonContainerKeyDown = (event)=>{
-                const firstToggleButton = this.controllers[0];
-                switch(event.key){
-                    case keyTab:
-                        this.unsetActiveToggleButton();
-                        firstToggleButton.tabIndex = 0;
-                        break;
-                }
-            };
-            /**
-             * Adjusts the active controller forward.
-             * @param {KeyboardEvent} e The event object.
-             * @private
-             */ this.adjustForward = (e)=>{
-                const group = this.controllers;
-                let index = 0;
-                index = this.activeController ? group.indexOf(this.activeController) + 1 : 1;
-                if (index === group.length) index = 0;
-                while(index < group.length && group.length > 1){
-                    if (this.isFocusableElement(group[index])) {
-                        this.moveToToggleButtonByIndex(group, index);
-                        break;
-                    } else if (this.activeController && index === group.indexOf(this.activeController)) break;
-                    else if (index + 1 >= group.length) index = 0;
-                    else index += 1;
-                }
-            };
-            /**
-             * Adjusts the active controller backward.
-             * @param {KeyboardEvent} e The event object.
-             * @private
-             */ this.adjustBackward = (e)=>{
-                const group = this.controllers;
-                let index = 0;
-                index = this.activeController ? group.indexOf(this.activeController) - 1 : 0;
-                index = index < 0 ? group.length - 1 : index;
-                while(index >= 0 && group.length > 1){
-                    if (this.isFocusableElement(group[index])) {
-                        this.moveToToggleButtonByIndex(group, index);
-                        break;
-                    } else if (index - 1 < 0) index = group.length - 1;
-                    else index -= 1;
-                }
-            };
-            /**
-             * Moves the focus to the controller at the specified index.
-             * @param {HTMLElement[]} group The array of controllers.
-             * @param {number} index The index of the controller to focus.
-             * @private
-             */ this.moveToToggleButtonByIndex = (group, index)=>{
-                const controller = group[index];
-                this.activeController = controller;
-                this.activeController.tabIndex = 0;
-                this.prevActiveControllerIndex = this.activeControllerIndex;
-                this.controllers[this.prevActiveControllerIndex].tabIndex = -1;
-                this.activeControllerIndex = index;
-                controller.focus();
-                this.setComponent();
-            };
-        }
-        /**
-         * Method to be called when the component is inserted into the document.
-         */ connectedCallback() {
-            super.connectedCallback();
-            this.initialize();
-        }
-        /**
-         * Method to be called when the component is removed from the document.
-         */ disconnectedCallback() {
-            super.disconnectedCallback();
-            this.removeEventListeners();
-        }
-        initialize() {
-            this.controllerIds = this.getControllerIds();
-            this.multiViewsIds = this.getMultiViewIds();
-            this.activeControllerIndex = this.getActiveIndex();
-            Updates.enqueue(()=>this.setControllers());
-            Updates.enqueue(()=>this.setMultiViews());
-            Updates.enqueue(()=>this.addEventListeners());
-        }
-        /**
-         * Limits the number of opened MultiViews. If there are more than one MultiViews opened,
-         * it will remove the attribute "data-flexposition" from the first opened MultiView and hide it.
-         * @public
-         */ limitNumberOfOpenMultiViews() {
-            const multiView = this.openedMultiViews.shift();
-            if (multiView) {
-                multiView.removeAttribute("data-flexposition");
-                multiView.hidden = true;
+    connectedCallback() {
+        super.connectedCallback(), this.initialize();
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback(), this.removeEventListeners();
+    }
+    initialize() {
+        this.controllerIds = this.getControllerIds(), this.multiViewsIds = this.getMultiViewIds(), this.activeControllerIndex = this.getActiveIndex(), y.enqueue(()=>this.setControllers()), y.enqueue(()=>this.setMultiViews()), y.enqueue(()=>this.addEventListeners());
+    }
+    limitNumberOfOpenMultiViews() {
+        const e = this.openedMultiViews.shift();
+        e && (e.removeAttribute("data-flexposition"), e.hidden = !0);
+    }
+    activeidChanged(e, t) {
+        this.$fastController.isConnected && this.controllers.length <= this.multiViews.length && (this.prevActiveControllerIndex = this.controllers.findIndex((t)=>t.id === e), this.activeControllerIndex = this.controllers.findIndex((e)=>e.id === t), this.controllers[this.activeControllerIndex].tabIndex = 0, this.controllers[this.prevActiveControllerIndex].tabIndex = -1, this.setControllers(), this.setMultiViews());
+    }
+    controllersChanged() {
+        this.isValidMultiViewState() && (this.controllerIds = this.getControllerIds(), this.multiViewsIds = this.getMultiViewIds(), this.setControllers(), this.setMultiViews());
+    }
+    multiViewsChanged() {
+        this.isValidMultiViewState() && (this.controllerIds = this.getControllerIds(), this.multiViewsIds = this.getMultiViewIds(), this.setControllers(), this.setMultiViews());
+    }
+    openedMultiViewsChanged() {
+        this.controllers.forEach((e, t)=>{
+            const o = this.multiViews[t];
+            this.openedMultiViews.includes(o) ? e.setAttribute("aria-expanded", "true") : e.setAttribute("aria-expanded", "false");
+        });
+    }
+    isValidMultiViewState() {
+        return this.$fastController.isConnected && this.controllers.length <= this.multiViews.length;
+    }
+    getActiveIndex() {
+        if (void 0 !== this.activeid) {
+            let e = this.controllerIds.indexOf(this.activeid);
+            for(; -1 !== e;){
+                const t = document.getElementById(this.controllerIds[e]);
+                if (t && "true" !== t.getAttribute("aria-hidden")) return e;
+                e = this.controllerIds.indexOf(this.activeid, e + 1);
             }
         }
-        /**
-         * Method to be called when the active ID changes.
-         * @param {string} oldValue - The previous value of the active ID.
-         * @param {string} newValue - The new value of the active ID.
-         */ activeidChanged(oldValue, newValue) {
-            if (this.$fastController.isConnected && this.controllers.length <= this.multiViews.length) {
-                this.prevActiveControllerIndex = this.controllers.findIndex((item)=>item.id === oldValue);
-                this.activeControllerIndex = this.controllers.findIndex((item)=>item.id === newValue);
-                this.controllers[this.activeControllerIndex].tabIndex = 0;
-                this.controllers[this.prevActiveControllerIndex].tabIndex = -1;
-                this.setControllers();
-                this.setMultiViews();
-            }
+        for(let e = 0; e < this.controllerIds.length; e++){
+            const t = document.getElementById(this.controllerIds[e]);
+            if (t && "true" !== t.getAttribute("aria-hidden")) return e;
         }
-        /**
-         * Method to be called when controllers changes.
-         */ controllersChanged() {
-            if (this.isValidMultiViewState()) {
-                this.controllerIds = this.getControllerIds();
-                this.multiViewsIds = this.getMultiViewIds();
-                this.setControllers();
-                this.setMultiViews();
-            }
-        }
-        /**
-         * Method to be called when multiViews changes.
-         */ multiViewsChanged() {
-            if (this.isValidMultiViewState()) {
-                this.controllerIds = this.getControllerIds();
-                this.multiViewsIds = this.getMultiViewIds();
-                this.setControllers();
-                this.setMultiViews();
-            }
-        }
-        /**
-         * Method to be called when opendedMultiViews changes.
-         */ openedMultiViewsChanged() {
-            this.controllers.forEach((controller, index)=>{
-                const multiView = this.multiViews[index];
-                if (this.openedMultiViews.includes(multiView)) controller.setAttribute("aria-expanded", "true");
-                else controller.setAttribute("aria-expanded", "false");
-            });
-        }
-        isValidMultiViewState() {
-            return this.$fastController.isConnected && this.controllers.length <= this.multiViews.length;
-        }
-        /**
-         * Returns the active index based on the activeid property, falls back to 0 if all elements are hidden.
-         * @private
-         * @returns {number} - The active index.
-         */ getActiveIndex() {
-            const id = this.activeid;
-            if (id !== undefined) {
-                let index = this.controllerIds.indexOf(this.activeid);
-                while(index !== -1){
-                    const element = document.getElementById(this.controllerIds[index]);
-                    if (element && element.getAttribute("aria-hidden") !== "true") return index;
-                    index = this.controllerIds.indexOf(this.activeid, index + 1);
-                }
-            }
-            for(let i = 0; i < this.controllerIds.length; i++){
-                const element = document.getElementById(this.controllerIds[i]);
-                if (element && element.getAttribute("aria-hidden") !== "true") return i;
-            }
-            return 0;
-        }
-        /**
-         * Sets attributes for controllers and determines the active controller.
-         * @private
-         */ setControllers() {
-            this.activeController = this.controllers[this.activeControllerIndex];
-            this.activeController.tabIndex = 0;
-            this.multiViews.forEach((multiView, index)=>{
-                if (!multiView.hidden) this.controllers[index].ariaSelected = "true";
-                else this.controllers[index].ariaSelected = "false";
-            });
-            this.controllers.forEach((controller, index)=>{
-                if (!(controller instanceof HTMLElement)) return;
-                const isActiveToggleButton = this.activeControllerIndex === index && this.isFocusableElement(controller);
-                const controllerId = this.controllerIds[index];
-                const multiViewId = this.multiViewsIds[index];
-                this.setAttributes(controller, {
-                    id: controllerId,
-                    "aria-controls": multiViewId
-                });
-                if (isActiveToggleButton) {
-                    this.activeController = controller;
-                    this.activeid = controllerId;
-                }
-            });
-        }
-        /**
-         * Returns an array of IDs for the controllers.
-         * @private
-         * @returns {Array<string>} - The IDs of the controllers.
-         */ getControllerIds() {
-            return this.controllers.map((controller)=>{
-                var _a;
-                return (_a = controller.getAttribute("id")) !== null && _a !== void 0 ? _a : `controller-${uniqueId()}`;
-            });
-        }
-        /**
-         * Returns an array of IDs for the multiViews.
-         * @private
-         * @returns {Array<string>} - The IDs of the multiViews.
-         */ getMultiViewIds() {
-            return this.multiViews.map((multiView)=>{
-                var _a;
-                return (_a = multiView.getAttribute("id")) !== null && _a !== void 0 ? _a : `multiView-${uniqueId()}`;
-            });
-        }
-        /**
-         * Triggers a change if the active controller index has changed.
-         * @private
-         */ setComponent() {
-            if (this.activeControllerIndex !== this.prevActiveControllerIndex) {
-                this.activeid = this.controllerIds[this.activeControllerIndex];
-                this.change();
-            }
-        }
-        /**
-         * Handles blur events on the controller.
-         * @param {FocusEvent} event The event object.
-         * @public
-         */ handleControllerBlur(event) {
-            const controller = event.currentTarget;
-            controller.tabIndex = -1;
-        }
-        /**
-         * The adjust method for FASTTabs
-         * @public
-         * @remarks
-         * This method allows the active index to be adjusted by numerical increments
-         */ adjust(adjustment) {
-            const focusableToggleButtons = this.controllers.filter((t)=>!this.isDisabledElement(t));
-            if (this.activeController) {
-                const currentActiveToggleButtonIndex = focusableToggleButtons.indexOf(this.activeController);
-                const nextToggleButtonIndex = limit(0, focusableToggleButtons.length - 1, currentActiveToggleButtonIndex + adjustment);
-                const nextIndex = this.controllers.indexOf(focusableToggleButtons[nextToggleButtonIndex]);
-                if (nextIndex > -1) this.moveToToggleButtonByIndex(this.controllers, nextIndex);
-            }
-        }
-        /**
-         * Sets the specified attributes on the given HTML element.
-         * @param {HTMLElement} element The HTML element on which to set attributes.
-         * @param {{[key: string]: string}} attributes An object mapping attribute names to values.
-         * @private
-         */ setAttributes(element, attributes) {
-            Object.entries(attributes).forEach(([key, value])=>{
-                element.setAttribute(key, value);
-            });
-        }
-        /**
-         * Adds event listeners to the controllers and multiViews.
-         *
-         * @returns {void}
-         */ addEventListeners() {
-            if (this.controllersContainer) this.controllersContainer.addEventListener("keydown", this.handleToggleButtonContainerKeyDown);
-            this.controllers.forEach((controller)=>{
-                controller.addEventListener("click", this.handleControllerClick);
-                controller.addEventListener("keydown", this.handleControllerKeyDown);
-                controller.addEventListener("blur", this.handleControllerBlur);
-            });
-            this.multiViews.forEach((multiView)=>{
-                multiView.addEventListener("keydown", (event)=>this.handleMultiViewKeyDown(event));
-            });
-        }
-        /**
-         * Removes event listeners from the controllers.
-         *
-         * @returns {void}
-         */ removeEventListeners() {
-            this.controllers.forEach((controller)=>{
-                controller.removeEventListener("click", this.handleControllerClick);
-                controller.removeEventListener("keydown", this.handleControllerKeyDown);
-                controller.removeEventListener("blur", this.handleControllerBlur);
-            });
-            this.multiViews.forEach((multiView)=>{
-                multiView.removeEventListener("keydown", (event)=>this.handleMultiViewKeyDown(event));
-            });
+        return 0;
+    }
+    setControllers() {
+        this.activeController = this.controllers[this.activeControllerIndex], this.activeController.tabIndex = 0, this.multiViews.forEach((e, t)=>{
+            e.hidden ? this.controllers[t].ariaSelected = "false" : this.controllers[t].ariaSelected = "true";
+        }), this.controllers.forEach((e, t)=>{
+            if (!(e instanceof HTMLElement)) return;
+            const o = this.activeControllerIndex === t && this.isFocusableElement(e), i = this.controllerIds[t], s = this.multiViewsIds[t];
+            this.setAttributes(e, {
+                id: i,
+                "aria-controls": s
+            }), o && (this.activeController = e, this.activeid = i);
+        });
+    }
+    getControllerIds() {
+        return this.controllers.map((e)=>{
+            var t;
+            return null !== (t = e.getAttribute("id")) && void 0 !== t ? t : `controller-${vt()}`;
+        });
+    }
+    getMultiViewIds() {
+        return this.multiViews.map((e)=>{
+            var t;
+            return null !== (t = e.getAttribute("id")) && void 0 !== t ? t : `multiView-${vt()}`;
+        });
+    }
+    setComponent() {
+        this.activeControllerIndex !== this.prevActiveControllerIndex && (this.activeid = this.controllerIds[this.activeControllerIndex], this.change());
+    }
+    handleControllerBlur(e) {
+        e.currentTarget.tabIndex = -1;
+    }
+    adjust(e) {
+        const t = this.controllers.filter((e)=>!this.isDisabledElement(e));
+        if (this.activeController) {
+            const o = t.indexOf(this.activeController), i = function(e, t, o) {
+                return Math.min(Math.max(o, e), t);
+            }(0, t.length - 1, o + e), s = this.controllers.indexOf(t[i]);
+            s > -1 && this.moveToToggleButtonByIndex(this.controllers, s);
         }
     }
-    __decorate([
-        observable
-    ], MultiViewGroup.prototype, "multiViews", void 0);
-    __decorate([
-        observable
-    ], MultiViewGroup.prototype, "controllers", void 0);
-    __decorate([
-        observable
-    ], MultiViewGroup.prototype, "controllersContainer", void 0);
-    __decorate([
-        observable
-    ], MultiViewGroup.prototype, "openedMultiViews", void 0);
-    /** PaneSwitcher styles
-     * @public
-     */ const styles$7 = css`
-  ${display("flex")}
+    setAttributes(e, t) {
+        Object.entries(t).forEach(([t, o])=>{
+            e.setAttribute(t, o);
+        });
+    }
+    addEventListeners() {
+        this.controllersContainer && this.controllersContainer.addEventListener("keydown", this.handleToggleButtonContainerKeyDown), this.controllers.forEach((e)=>{
+            e.addEventListener("click", this.handleControllerClick), e.addEventListener("keydown", this.handleControllerKeyDown), e.addEventListener("blur", this.handleControllerBlur);
+        }), this.multiViews.forEach((e)=>{
+            e.addEventListener("keydown", (e)=>this.handleMultiViewKeyDown(e));
+        });
+    }
+    removeEventListeners() {
+        this.controllers.forEach((e)=>{
+            e.removeEventListener("click", this.handleControllerClick), e.removeEventListener("keydown", this.handleControllerKeyDown), e.removeEventListener("blur", this.handleControllerBlur);
+        }), this.multiViews.forEach((e)=>{
+            e.removeEventListener("keydown", (e)=>this.handleMultiViewKeyDown(e));
+        });
+    }
+}
+e([
+    B
+], qi.prototype, "multiViews", void 0), e([
+    B
+], qi.prototype, "controllers", void 0), e([
+    B
+], qi.prototype, "controllersContainer", void 0), e([
+    B
+], qi.prototype, "openedMultiViews", void 0);
+const Ki = G`
+  ${yt("flex")}
   :host {
     flex-direction: column;
     position: absolute;
@@ -16381,688 +15408,399 @@ var global = arguments[3];
     content: "";
     position: absolute;
     inset: 1px;
-    border-color: ${colorTransparentStroke};
-    outline: ${strokeWidthThick} solid ${colorTransparentStroke};
-    box-shadow: ${shadow4}, 0 0 0 2px ${colorStrokeFocus2};
+    border-color: ${bo};
+    outline: ${Zt} solid ${bo};
+    box-shadow: ${ko}, 0 0 0 2px ${yo};
   }
 `;
-    /**
-     * The template for the {@link @horizon-msft/web-components#(MultiViewGroup:class)} component.
-     * @public
-     */ function multiViewGroupTemplate() {
-        return html`
+const Ui = Se`
     <template>
       <div class="root">
         <div class="views" part="views">
-          <slot name="multi-view" ${slotted("multiViews")}></slot>
+          <slot name="multi-view" ${Fe("multiViews")}></slot>
         </div>
-        ${startSlotTemplate({})}
+        ${wt({})}
         <div
           class="controllers"
           part="controllers"
           role="tablist"
-          aria-label="${(x)=>x.ariaLabel}"
-          tabindex="${(x)=>x.hidden ? "-1" : "0"}"
-          ${ref("controllersContainer")}
+          aria-label="${(e)=>e.ariaLabel}"
+          tabindex="${(e)=>e.hidden ? "-1" : "0"}"
+          ${Be("controllersContainer")}
         >
-          <slot name="controller" ${slotted("controllers")}></slot>
+          <slot name="controller" ${Fe("controllers")}></slot>
         </div>
-        ${endSlotTemplate({})}
+        ${bt({})}
       </div>
     </template>
-  `;
+  `, Xi = qi.compose({
+    name: `${lt.prefix}-multi-view-group`,
+    template: Ui,
+    styles: Ki,
+    shadowOptions: {
+        mode: lt.shadowRootMode
     }
-    const template$8 = multiViewGroupTemplate();
-    /**
-     *
-     * @public
-     * @remarks
-     * HTML Element: <fluent-multi-view-group>
-     */ const definition$6 = MultiViewGroup.compose({
-        name: `${DesignSystem.prefix}-multi-view-group`,
-        template: template$8,
-        styles: styles$7,
-        shadowOptions: {
-            mode: DesignSystem.shadowRootMode
-        }
-    });
-    /**
-     * debounce function
-     * @param func - function to be debounced
-     * @param delay - delay in milliseconds
-     */ function debounce(func, delay) {
-        let debounceTimer;
-        return function(...args) {
-            const context = this;
-            clearTimeout(debounceTimer);
-            debounceTimer = window.setTimeout(()=>func.apply(context, args), delay);
+});
+const Yi = {
+    top: "top",
+    right: "right",
+    bottom: "bottom",
+    left: "left"
+}, Qi = {
+    aboveEnd: "above-end",
+    aboveCenter: "above-center",
+    aboveStart: "above-start",
+    endBottom: "end-bottom",
+    endMiddle: "end-middle",
+    endTop: "end-top",
+    belowEnd: "below-end",
+    belowCenter: "below-center",
+    belowStart: "below-start",
+    startBottom: "start-bottom",
+    startTop: "start-top",
+    startMiddle: "start-middle"
+}, Zi = Object.values(Qi), Ji = {
+    auto: "auto",
+    flip: "flip",
+    none: "none"
+}, es = {
+    hide: "hidePopover",
+    show: "showPopover",
+    toggle: "togglePopover",
+    mouseEnter: "mouseEnterPopover",
+    mouseLeave: "mouseLeavePopover"
+};
+class ts {
+    constructor(e){
+        this.rootMargin = 15, this.overflowBoundaryReference = null, this._position = Qi.aboveEnd, this._openPositions = [], this.checkPosition = (e)=>{
+            var t, o, i;
+            const s = null === (t = this.popoverReference) || void 0 === t ? void 0 : t.getBoundingClientRect(), r = null === (o = this.anchorReference) || void 0 === o ? void 0 : o.getBoundingClientRect();
+            if (s && r) {
+                let t = r.top, o = window.innerHeight - r.bottom, n = r.left, a = window.innerWidth - r.right;
+                const l = null === (i = this.overflowBoundaryReference) || void 0 === i ? void 0 : i.getBoundingClientRect();
+                l && (t = r.top - l.top, o = l.bottom - r.bottom, n = r.left - l.left, a = l.right - r.right);
+                const d = s.height + this.rootMargin < t, c = s.height + this.rootMargin < o, h = s.width + this.rootMargin < n, u = s.width + this.rootMargin < a, p = (s.width - r.width) / 2 + this.rootMargin < n && (s.width - r.width) / 2 + this.rootMargin < a, f = s.width + this.rootMargin < n + r.width, g = s.width + r.width + this.rootMargin < a && a > 0, v = (s.height - r.height + this.rootMargin) / 2 < t && (s.height - r.height + this.rootMargin) / 2 < o, m = s.height - r.height + this.rootMargin < t, b = t > 0;
+                switch(e){
+                    case Qi.aboveEnd:
+                        if (d && f) return !0;
+                        break;
+                    case Qi.aboveCenter:
+                        if (d && p) return !0;
+                        break;
+                    case Qi.aboveStart:
+                        if (d && g) return !0;
+                        break;
+                    case Qi.belowCenter:
+                        if (c && p) return !0;
+                        break;
+                    case Qi.belowStart:
+                        if (c && g) return !0;
+                        break;
+                    case Qi.belowEnd:
+                        if (c && f) return !0;
+                        break;
+                    case Qi.startMiddle:
+                        if (v && h) return !0;
+                        break;
+                    case Qi.startBottom:
+                        if (h && m) return !0;
+                        break;
+                    case Qi.startTop:
+                        if (b && h) return !0;
+                        break;
+                    case Qi.endMiddle:
+                        if (v && u) return !0;
+                        break;
+                    case Qi.endBottom:
+                        if (u && m) return !0;
+                        break;
+                    case Qi.endTop:
+                        if (b && u) return !0;
+                }
+            }
+            return !1;
+        }, this.getOpenPositions = ()=>(this._openPositions = [], this._openPositions = Zi.filter((e)=>this.checkPosition(e)), this._openPositions), this.oppositePosition = (e)=>{
+            switch(e){
+                case Yi.top:
+                    if (this.position === Qi.aboveStart) return [
+                        Qi.belowStart
+                    ];
+                    if (this.position === Qi.aboveCenter) return [
+                        Qi.belowCenter
+                    ];
+                    if (this.position === Qi.aboveEnd) return [
+                        Qi.belowEnd
+                    ];
+                case Yi.right:
+                    if (this.position === Qi.endBottom) return [
+                        Qi.startBottom
+                    ];
+                    if (this.position === Qi.endMiddle) return [
+                        Qi.startMiddle
+                    ];
+                    if (this.position === Qi.endTop) return [
+                        Qi.startTop
+                    ];
+                case Yi.bottom:
+                    if (this.position === Qi.belowStart) return [
+                        Qi.aboveStart
+                    ];
+                    if (this.position === Qi.belowCenter) return [
+                        Qi.aboveCenter
+                    ];
+                    if (this.position === Qi.belowEnd) return [
+                        Qi.aboveEnd
+                    ];
+                case Yi.left:
+                    if (this.position === Qi.startTop) return [
+                        Qi.endTop
+                    ];
+                    if (this.position === Qi.startMiddle) return [
+                        Qi.endMiddle
+                    ];
+                    if (this.position === Qi.startBottom) return [
+                        Qi.endBottom
+                    ];
+            }
+            return [
+                this.position
+            ];
+        }, this.getOpenPositionsFromEdge = (e)=>"auto" === this.repositionMode ? Zi.filter((e)=>this.checkPosition(e)) : e ? this.oppositePosition(e) : [
+                this.position
+            ], this.findOpenPositionsFromCollision = (e)=>{
+            const t = e.boundingClientRect, o = e.rootBounds;
+            let i;
+            return o && (t.bottom > o.bottom && (i = Yi.bottom), t.top < o.top && (i = Yi.top), t.left < o.left && (i = Yi.left), t.right > o.right && (i = Yi.right)), this.getOpenPositionsFromEdge(i);
         };
+        const { repositionMode: t, popoverReference: o, anchorReference: i, overflowBoundaryReference: s } = e;
+        this._repositionMode = t, this.popoverReference = o, this.anchorReference = i, s && (this.overflowBoundaryReference = s);
     }
-    const CollisionEdge = {
-        top: "top",
-        right: "right",
-        bottom: "bottom",
-        left: "left"
-    };
-    const PositioningShorthand = {
-        aboveEnd: "above-end",
-        aboveCenter: "above-center",
-        aboveStart: "above-start",
-        endBottom: "end-bottom",
-        endMiddle: "end-middle",
-        endTop: "end-top",
-        belowEnd: "below-end",
-        belowCenter: "below-center",
-        belowStart: "below-start",
-        startBottom: "start-bottom",
-        startTop: "start-top",
-        startMiddle: "start-middle"
-    };
-    const PopoverPositions = Object.values(PositioningShorthand);
-    const PopoverRepositionModes = {
-        auto: "auto",
-        flip: "flip",
-        none: "none"
-    };
-    const PopoverEventNames = {
-        hide: "hidePopover",
-        show: "showPopover",
-        toggle: "togglePopover",
-        mouseEnter: "mouseEnterPopover",
-        mouseLeave: "mouseLeavePopover"
-    };
-    class Positioning {
-        constructor(args){
-            this.rootMargin = 15;
-            this.overflowBoundaryReference = null;
-            this._position = PositioningShorthand.aboveEnd;
-            this._openPositions = [];
-            /**
-             *
-             * checkPosition
-             *
-             * This method runs when the popover has been repositioned and checks if the new position has space available for the popover (since we don't want to move to a position where there isn't enough space).
-             *
-             * Returns true if the position has space available for the popover, otherwise returns false.
-             */ this.checkPosition = (openPosition)=>{
-                var _a, _b, _c;
-                const popoverReferenceRect = (_a = this.popoverReference) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect();
-                const anchorRect = (_b = this.anchorReference) === null || _b === void 0 ? void 0 : _b.getBoundingClientRect();
-                if (popoverReferenceRect && anchorRect) {
-                    let windowAbove = anchorRect.top;
-                    let windowBelow = window.innerHeight - anchorRect.bottom;
-                    // anchorLeft is the distance from the left edge of the anchor to the left edge of the window
-                    let anchorLeft = anchorRect.left;
-                    // anchorRight is the distance from the right edge of the anchor to the right edge of the window
-                    let anchorRight = window.innerWidth - anchorRect.right;
-                    const overflowBoundaryRect = (_c = this.overflowBoundaryReference) === null || _c === void 0 ? void 0 : _c.getBoundingClientRect();
-                    if (overflowBoundaryRect) {
-                        windowAbove = anchorRect.top - overflowBoundaryRect.top;
-                        windowBelow = overflowBoundaryRect.bottom - anchorRect.bottom;
-                        anchorLeft = anchorRect.left - overflowBoundaryRect.left;
-                        anchorRight = overflowBoundaryRect.right - anchorRect.right;
-                    }
-                    const above = popoverReferenceRect.height + this.rootMargin < windowAbove;
-                    const below = popoverReferenceRect.height + this.rootMargin < windowBelow;
-                    const start = popoverReferenceRect.width + this.rootMargin < anchorLeft;
-                    const end = popoverReferenceRect.width + this.rootMargin < anchorRight;
-                    const center = (popoverReferenceRect.width - anchorRect.width) / 2 + this.rootMargin < anchorLeft && (popoverReferenceRect.width - anchorRect.width) / 2 + this.rootMargin < anchorRight;
-                    const aboveBelowEnd = popoverReferenceRect.width + this.rootMargin < anchorLeft + anchorRect.width;
-                    const aboveBelowStart = popoverReferenceRect.width + anchorRect.width + this.rootMargin < anchorRight && anchorRight > 0;
-                    const startEndMiddle = (popoverReferenceRect.height - anchorRect.height + this.rootMargin) / 2 < windowAbove && (popoverReferenceRect.height - anchorRect.height + this.rootMargin) / 2 < windowBelow;
-                    const startEndBottom = popoverReferenceRect.height - anchorRect.height + this.rootMargin < windowAbove;
-                    const startEndTop = windowAbove > 0;
-                    switch(openPosition){
-                        case PositioningShorthand.aboveEnd:
-                            if (above && aboveBelowEnd) return true;
-                            break;
-                        case PositioningShorthand.aboveCenter:
-                            if (above && center) return true;
-                            break;
-                        case PositioningShorthand.aboveStart:
-                            if (above && aboveBelowStart) return true;
-                            break;
-                        case PositioningShorthand.belowCenter:
-                            if (below && center) return true;
-                            break;
-                        case PositioningShorthand.belowStart:
-                            if (below && aboveBelowStart) return true;
-                            break;
-                        case PositioningShorthand.belowEnd:
-                            if (below && aboveBelowEnd) return true;
-                            break;
-                        case PositioningShorthand.startMiddle:
-                            if (startEndMiddle && start) return true;
-                            break;
-                        case PositioningShorthand.startBottom:
-                            if (start && startEndBottom) return true;
-                            break;
-                        case PositioningShorthand.startTop:
-                            if (startEndTop && start) return true;
-                            break;
-                        case PositioningShorthand.endMiddle:
-                            if (startEndMiddle && end) return true;
-                            break;
-                        case PositioningShorthand.endBottom:
-                            if (end && startEndBottom) return true;
-                            break;
-                        case PositioningShorthand.endTop:
-                            if (startEndTop && end) return true;
-                            break;
-                    }
-                }
-                return false;
-            };
-            this.getOpenPositions = ()=>{
-                this._openPositions = [];
-                this._openPositions = PopoverPositions.filter((position)=>this.checkPosition(position));
-                return this._openPositions;
-            };
-            /**
-             * ## oppositePosition
-             * Returns the opposite position of the collisionEdge
-             */ this.oppositePosition = (collisionEdge)=>{
-                switch(collisionEdge){
-                    case CollisionEdge.top:
-                        if (this.position === PositioningShorthand.aboveStart) return [
-                            PositioningShorthand.belowStart
-                        ];
-                        if (this.position === PositioningShorthand.aboveCenter) return [
-                            PositioningShorthand.belowCenter
-                        ];
-                        if (this.position === PositioningShorthand.aboveEnd) return [
-                            PositioningShorthand.belowEnd
-                        ];
-                    case CollisionEdge.right:
-                        if (this.position === PositioningShorthand.endBottom) return [
-                            PositioningShorthand.startBottom
-                        ];
-                        if (this.position === PositioningShorthand.endMiddle) return [
-                            PositioningShorthand.startMiddle
-                        ];
-                        if (this.position === PositioningShorthand.endTop) return [
-                            PositioningShorthand.startTop
-                        ];
-                    case CollisionEdge.bottom:
-                        if (this.position === PositioningShorthand.belowStart) return [
-                            PositioningShorthand.aboveStart
-                        ];
-                        if (this.position === PositioningShorthand.belowCenter) return [
-                            PositioningShorthand.aboveCenter
-                        ];
-                        if (this.position === PositioningShorthand.belowEnd) return [
-                            PositioningShorthand.aboveEnd
-                        ];
-                    case CollisionEdge.left:
-                        if (this.position === PositioningShorthand.startTop) return [
-                            PositioningShorthand.endTop
-                        ];
-                        if (this.position === PositioningShorthand.startMiddle) return [
-                            PositioningShorthand.endMiddle
-                        ];
-                        if (this.position === PositioningShorthand.startBottom) return [
-                            PositioningShorthand.endBottom
-                        ];
-                }
-                // if no opposite position is found, return the current position
-                return [
-                    this.position
-                ];
-            };
-            /*
-             * ## getOpenPositionsFromEdge
-             *
-             * Returns an array of open positions based on the collisionEdge
-             */ this.getOpenPositionsFromEdge = (collisionEdge)=>{
-                if (this.repositionMode === "auto") return PopoverPositions.filter((position)=>this.checkPosition(position));
-                else if (collisionEdge) return this.oppositePosition(collisionEdge);
-                else return [
-                    this.position
-                ];
-            };
-            /**
-             * ## findOpenPositionsFromCollision
-             *
-             * Returns an array of open positions based on the collisionEdge
-             */ this.findOpenPositionsFromCollision = (entry)=>{
-                const targetRect = entry.boundingClientRect;
-                const rootRect = entry.rootBounds;
-                let intersectingEdge = undefined;
-                if (rootRect) {
-                    if (targetRect.bottom > rootRect.bottom) intersectingEdge = CollisionEdge.bottom;
-                    if (targetRect.top < rootRect.top) intersectingEdge = CollisionEdge.top;
-                    if (targetRect.left < rootRect.left) intersectingEdge = CollisionEdge.left;
-                    if (targetRect.right > rootRect.right) intersectingEdge = CollisionEdge.right;
-                }
-                return this.getOpenPositionsFromEdge(intersectingEdge);
-            };
-            const { repositionMode, popoverReference, anchorReference, overflowBoundaryReference } = args;
-            this._repositionMode = repositionMode;
-            this.popoverReference = popoverReference;
-            this.anchorReference = anchorReference;
-            if (overflowBoundaryReference) this.overflowBoundaryReference = overflowBoundaryReference;
-        }
-        set repositionMode(value) {
-            this._repositionMode = value;
-        }
-        get repositionMode() {
-            return this._repositionMode;
-        }
-        set position(value) {
-            this._position = value;
-        }
-        get position() {
-            return this._position;
-        }
-        get openPositions() {
-            return this.getOpenPositions();
-        }
+    set repositionMode(e) {
+        this._repositionMode = e;
     }
-    class Popover extends FASTElement {
-        constructor(){
-            super(...arguments);
-            /** #@ ariaLabel */ this.ariaLabel = null;
-            /**
-             * beak
-             *
-             * renders the beak of the popover
-             */ this.beak = false;
-            /**
-             * clickable
-             *
-             * Defaults to True. Set to false if the popover anchor is not meant to be clickable
-             */ this.clickable = true;
-            /**
-             * size
-             */ this.size = "medium";
-            /**
-             * mode
-             * Sets the popover mode. In auto mode the popover closes when the user clicks outside of the popover. In manual mode, the popover will not close when the user clicks outside of the popover.
-             */ this.mode = "manual";
-            /**
-             * position
-             */ this.position = PositioningShorthand.belowCenter;
-            /**
-             * repositionMode
-             *
-             * Flip causes the popover to move to the opposite side. Auto causes the popover to move to the next available position.
-             */ this.repositionMode = PopoverRepositionModes.flip;
-            /**
-             * ## openPositions
-             *
-             * An array of open positions based on the collisionEdge
-             */ this.openPositions = [];
-            /**
-             * open
-             */ this.open = false;
-            /**
-             * registerOverflowBoundary
-             *
-             * Saves a reference to the containing element of the popover if the overflowBoundarySelector is set
-             */ this.registerOverflowBoundary = ()=>{
-                if (this.overflowBoundarySelector) this.overflowBoundaryRef = document.querySelector(this.overflowBoundarySelector);
-            };
-            /**
-             * hidePopover
-             */ this.hidePopover = ()=>{
-                this.open = false;
-                this.emitHideEvent();
-            };
-            /**
-             * showPopover
-             */ this.showPopover = ()=>{
-                this.open = true;
-                this.emitShowEvent();
-            };
-            /**
-             * togglePopover
-             */ this.togglePopover = ()=>{
-                this.open = !this.open;
-                this.emitToggleEvent();
-            };
-            /**
-             * ## emitHideEvent
-             *
-             */ this.emitHideEvent = ()=>{
-                var _a;
-                (_a = this.popoverReference) === null || _a === void 0 || _a.dispatchEvent(new CustomEvent(PopoverEventNames.hide, {
-                    detail: {
-                        target: this,
-                        open: this.open,
-                        newState: "closed"
-                    }
-                }));
-            };
-            /**
-             * ## emitOpenEvent
-             */ this.emitShowEvent = ()=>{
-                var _a;
-                (_a = this.popoverReference) === null || _a === void 0 || _a.dispatchEvent(new CustomEvent(PopoverEventNames.show, {
-                    detail: {
-                        target: this,
-                        open: this.open,
-                        newState: "open"
-                    }
-                }));
-            };
-            /**
-             * emitMouseOverEvent
-             */ this.emitMouseEnterEvent = ()=>{
-                this.dispatchEvent(new CustomEvent(PopoverEventNames.mouseEnter, {
-                    bubbles: true,
-                    detail: {
-                        target: this,
-                        open: this.open,
-                        newState: "open"
-                    }
-                }));
-            };
-            /**
-             * emitMouseOutEvent
-             */ this.emitMouseLeaveEvent = ()=>{
-                this.dispatchEvent(new CustomEvent(PopoverEventNames.mouseLeave, {
-                    bubbles: true,
-                    detail: {
-                        target: this,
-                        open: this.open,
-                        newState: "closed"
-                    }
-                }));
-            };
-            /**
-             * addMouseOverEventListeners
-             */ this.addMouseOverEventListeners = ()=>{
-                var _a, _b;
-                (_a = this.popoverReference) === null || _a === void 0 || _a.addEventListener("mouseenter", this.emitMouseEnterEvent);
-                (_b = this.popoverReference) === null || _b === void 0 || _b.addEventListener("mouseleave", this.emitMouseLeaveEvent);
-            };
-            /**
-             * removeMouseOverEventListeners
-             */ this.removeMouseOverEventListeners = ()=>{
-                var _a, _b;
-                (_a = this.popoverReference) === null || _a === void 0 || _a.removeEventListener("mouseenter", this.emitMouseEnterEvent);
-                (_b = this.popoverReference) === null || _b === void 0 || _b.removeEventListener("mouseleave", this.emitMouseLeaveEvent);
-            };
-            /**
-             * ## updatePopoverPosition
-             */ this.updatePopoverPosition = ()=>{
-                this.observePopoverOverflow();
-            };
-            /**
-             * handleWindowChanges
-             */ this.handleWindowChanges = debounce(()=>this.updatePopoverPosition(), 50);
-            this.handleWindowClick = (event)=>{
-                var _a;
-                if (this.anchorReferences && ((_a = this.anchorReferences[0]) === null || _a === void 0 ? void 0 : _a.contains(event.target))) return;
-                else if (this.open) this.hidePopover();
-            };
-            /**
-             * createOverflowHandler
-             *
-             * handles the overflow of the popover based on the overflowBoundarySelector
-             */ this.createOverflowHandler = ()=>{
-                // defaulting root to document. In the case where the overflowBoundary is not set, and the component is nested in an iframe the document will refer to the iframe document.
-                const options = {
-                    root: document
-                };
-                if (this.overflowBoundaryRef) options.root = this.overflowBoundaryRef;
-                this.intersectionObserver = new IntersectionObserver(this.handleOverflow, options);
-            };
-            /**
-             * handleOverflow
-             *
-             * Repositions the popover when it collides with its container or user defined overflowed boundary.
-             *
-             * Called by the intersectionObserver in createOverflowHandler.
-             */ this.handleOverflow = (entries)=>{
-                entries.forEach((entry)=>{
-                    var _a, _b;
-                    if (entry.intersectionRatio < 1 && this.positioning) {
-                        this.openPositions = this.positioning.findOpenPositionsFromCollision(entry);
-                        if (((_a = this.openPositions) === null || _a === void 0 ? void 0 : _a.length) > 0) this.repositionPopover(this.openPositions);
-                    } else if (((_b = this.openPositions) === null || _b === void 0 ? void 0 : _b.length) > 0) this.releasePositions();
-                });
-            };
-            /**
-             * repositionPopover
-             *
-             * Updates the position of the popover based on popover collisions
-             */ this.repositionPopover = (openPositions)=>{
-                // TODO: add better logic to reposition the popover to the next open position
-                // if collision is right index left
-                // if collision is left index right
-                this.position = openPositions[0];
-                if (this.positioning) this.positioning.position = this.position;
-            };
-        }
-        /**
-         * anchorReferencesChanged
-         *
-         * Adds anchor attributes and event listeners when the anchor is added to the DOM.
-         */ anchorReferencesChanged() {
-            this.initializeTargetId();
-            this.addAnchorEventListeners();
-        }
-        /**
-         * repositionModeChanged
-         */ repositionModeChanged() {
-            if (this.positioning) this.positioning.repositionMode = this.repositionMode;
-        }
-        /**
-         * openChanged
-         *
-         * Opens and closes the popover. It's used to control the popover from the outside. However, it's not recommended to use this property to control the popover before load. To control the popover correctly, wait until the window has fully loaded before opening the popover.
-         *
-         * Adds and removes many of the event listeners.
-         */ openChanged() {
-            var _a, _b, _c, _d;
-            if (this.popoverReference) {
-                if (!this.originalPopoverPosition) this.originalPopoverPosition = this.position;
-                if (this.open) {
-                    (_a = this.popoverReference) === null || _a === void 0 || _a.classList.add("popover-open");
-                    this.addActiveHandlers();
-                    // if popover opens but the position is not allowed, reset the position to the first open position
-                    if (this.positioning && !((_b = this.positioning) === null || _b === void 0 ? void 0 : _b.checkPosition(this.position))) {
-                        const positions = (_c = this.positioning) === null || _c === void 0 ? void 0 : _c.getOpenPositions();
-                        this.position = positions[0];
-                    }
-                } else {
-                    (_d = this.popoverReference) === null || _d === void 0 || _d.classList.remove("popover-open");
-                    this.position = this.originalPopoverPosition;
-                    this.removeEventListeners();
-                }
-            }
-        }
-        addActiveHandlers() {
-            this.addRepositioningHandlers();
-            this.addOverlayEventListeners();
-            this.addMouseOverEventListeners();
-            this.createPositioningManager();
-        }
-        /**
-         * initializeTargetId
-         *
-         * initializes the targetId with a random id if it's not set by the user
-         */ initializeTargetId() {
-            if (!this.targetId) {
-                const popoverId = uniqueId("popover-target-");
-                this.targetId = popoverId;
-            }
-        }
-        /**
-         * overflowBoundaryRefChanged
-         */ overflowBoundaryRefChanged() {
-            this.addOverflowBoundaryEventListeners();
-        }
-        /**
-         * ## emitToggleEvent
-         */ emitToggleEvent() {
-            var _a;
-            (_a = this.popoverReference) === null || _a === void 0 || _a.dispatchEvent(new CustomEvent(PopoverEventNames.toggle, {
+    get repositionMode() {
+        return this._repositionMode;
+    }
+    set position(e) {
+        this._position = e;
+    }
+    get position() {
+        return this._position;
+    }
+    get openPositions() {
+        return this.getOpenPositions();
+    }
+}
+class os extends nt {
+    constructor(){
+        super(...arguments), this.ariaLabel = null, this.beak = !1, this.clickable = !0, this.size = "medium", this.mode = "manual", this.position = Qi.belowCenter, this.repositionMode = Ji.flip, this.openPositions = [], this.open = !1, this.registerOverflowBoundary = ()=>{
+            this.overflowBoundarySelector && (this.overflowBoundaryRef = document.querySelector(this.overflowBoundarySelector));
+        }, this.hidePopover = ()=>{
+            this.open = !1, this.emitHideEvent();
+        }, this.showPopover = ()=>{
+            this.open = !0, this.emitShowEvent();
+        }, this.togglePopover = ()=>{
+            this.open = !this.open, this.emitToggleEvent();
+        }, this.emitHideEvent = ()=>{
+            var e;
+            null === (e = this.popoverReference) || void 0 === e || e.dispatchEvent(new CustomEvent(es.hide, {
                 detail: {
                     target: this,
                     open: this.open,
-                    newState: this.open ? "open" : "closed"
+                    newState: "closed"
                 }
             }));
-        }
-        /**
-         * addAnchorEventListeners
-         */ addAnchorEventListeners() {
-            if (this.anchorReferences && this.anchorReferences.length && this.clickable) this.anchorReferences[0].addEventListener("click", this.togglePopover);
-        }
-        /**
-         * addOverflowBoundaryEventListeners
-         *
-         * adds event listeners to the overflowBoundary if it exists. This is used to reposition the popover when the overflowBoundary is scrolled, like in the case of an overflowed scrollable container that has a popover as a child.
-         */ addOverflowBoundaryEventListeners() {
-            if (this.overflowBoundaryRef) this.overflowBoundaryRef.addEventListener("scroll", this.handleWindowChanges);
-        }
-        /**
-         * addWindowEventListeners
-         */ addWindowEventListeners() {
-            window.addEventListener("resize", this.handleWindowChanges);
-            window.addEventListener("scroll", this.handleWindowChanges);
-        }
-        /**
-         * removeWindowEventListeners
-         */ removeWindowEventListeners() {
-            window.removeEventListener("resize", this.handleWindowChanges);
-            window.removeEventListener("scroll", this.handleWindowChanges);
-        }
-        /**
-         * addOverlayEventListeners
-         */ addOverlayEventListeners() {
-            // check if mode is auto and if the popover is open so that the popover does not close when the user clicks the popover trigger
-            if (this.overflowBoundaryRef && this.mode === "auto") this.overflowBoundaryRef.addEventListener("click", this.handleWindowClick);
-            else if (this.mode === "auto") document.addEventListener("click", this.handleWindowClick);
-        }
-        /**
-         * removeOverlayEventListeners
-         */ removeOverlayEventListeners() {
-            // check if mode is auto and if the popover is open so that the popover does not close when the user clicks the popover trigger
-            if (this.overflowBoundaryRef && this.mode === "auto") this.overflowBoundaryRef.removeEventListener("click", this.handleWindowClick);
-            else if (this.mode === "auto") document.removeEventListener("click", this.handleWindowClick);
-        }
-        /**
-         * ## addRepositioningHandlers
-         */ addRepositioningHandlers() {
-            if (this.repositionMode !== "none") {
-                this.registerOverflowBoundary();
-                this.createOverflowHandler();
-                this.addWindowEventListeners();
-            }
-        }
-        /**
-         * ## addPositioningManager
-         */ createPositioningManager() {
-            var _a;
-            if (this.popoverReference && this.repositionMode !== "none") this.positioning = new Positioning({
-                repositionMode: this.repositionMode,
-                popoverReference: this.popoverReference,
-                anchorReference: (_a = this.anchorReferences) === null || _a === void 0 ? void 0 : _a[0],
-                overflowBoundaryReference: this.overflowBoundaryRef
-            });
-        }
-        /**
-         * ## removeEventListeners
-         */ removeEventListeners() {
-            var _a;
-            if (this.popoverReference) {
-                this.removeWindowEventListeners();
-                this.removeOverlayEventListeners();
-                this.removeMouseOverEventListeners();
-                (_a = this.intersectionObserver) === null || _a === void 0 || _a.unobserve(this.popoverReference);
-            }
-        }
-        /**
-         * ## releasePositions
-         *
-         * cleans the positions that are not allowed
-         */ releasePositions() {
-            this.openPositions = [];
-            if (this.positioning) for(const key in PopoverPositions){
-                const position = PopoverPositions[key];
-                const positionOpen = this.positioning.checkPosition(position);
-                if (positionOpen) {
-                    this.openPositions.push(position);
-                    if (position === this.originalPopoverPosition) this.position = this.originalPopoverPosition;
+        }, this.emitShowEvent = ()=>{
+            var e;
+            null === (e = this.popoverReference) || void 0 === e || e.dispatchEvent(new CustomEvent(es.show, {
+                detail: {
+                    target: this,
+                    open: this.open,
+                    newState: "open"
                 }
-            }
-        }
-        /**
-         * observePopoverOverflow
-         *
-         * Disconnects and re-observes the popoverReference for overflow. This is used to reposition the popover in the event that it collides with its container or user defined overflowed boundary. Disconnecting is required to reset the baseline for the intersection observer. This method will be called repeatedly on ui changes like resizing the window or scrolling the overflowBoundary.
-         */ observePopoverOverflow() {
-            var _a, _b;
-            (_a = this.intersectionObserver) === null || _a === void 0 || _a.disconnect();
-            if (this.popoverReference) (_b = this.intersectionObserver) === null || _b === void 0 || _b.observe(this.popoverReference);
-        }
-        connectedCallback() {
-            var _a;
-            super.connectedCallback();
-            if (this.open) (_a = this.popoverReference) === null || _a === void 0 || _a.classList.add("popover-open");
+            }));
+        }, this.emitMouseEnterEvent = ()=>{
+            this.dispatchEvent(new CustomEvent(es.mouseEnter, {
+                bubbles: !0,
+                detail: {
+                    target: this,
+                    open: this.open,
+                    newState: "open"
+                }
+            }));
+        }, this.emitMouseLeaveEvent = ()=>{
+            this.dispatchEvent(new CustomEvent(es.mouseLeave, {
+                bubbles: !0,
+                detail: {
+                    target: this,
+                    open: this.open,
+                    newState: "closed"
+                }
+            }));
+        }, this.addMouseOverEventListeners = ()=>{
+            var e, t;
+            null === (e = this.popoverReference) || void 0 === e || e.addEventListener("mouseenter", this.emitMouseEnterEvent), null === (t = this.popoverReference) || void 0 === t || t.addEventListener("mouseleave", this.emitMouseLeaveEvent);
+        }, this.removeMouseOverEventListeners = ()=>{
+            var e, t;
+            null === (e = this.popoverReference) || void 0 === e || e.removeEventListener("mouseenter", this.emitMouseEnterEvent), null === (t = this.popoverReference) || void 0 === t || t.removeEventListener("mouseleave", this.emitMouseLeaveEvent);
+        }, this.updatePopoverPosition = ()=>{
+            this.observePopoverOverflow();
+        }, this.handleWindowChanges = function(e, t) {
+            let o;
+            return function(...i) {
+                const s = this;
+                clearTimeout(o), o = window.setTimeout(()=>e.apply(s, i), t);
+            };
+        }(()=>this.updatePopoverPosition(), 50), this.handleWindowClick = (e)=>{
+            var t;
+            this.anchorReferences && (null === (t = this.anchorReferences[0]) || void 0 === t ? void 0 : t.contains(e.target)) || this.open && this.hidePopover();
+        }, this.createOverflowHandler = ()=>{
+            const e = {
+                root: document
+            };
+            this.overflowBoundaryRef && (e.root = this.overflowBoundaryRef), this.intersectionObserver = new IntersectionObserver(this.handleOverflow, e);
+        }, this.handleOverflow = (e)=>{
+            e.forEach((e)=>{
+                var t, o;
+                e.intersectionRatio < 1 && this.positioning ? (this.openPositions = this.positioning.findOpenPositionsFromCollision(e), (null === (t = this.openPositions) || void 0 === t ? void 0 : t.length) > 0 && this.repositionPopover(this.openPositions)) : (null === (o = this.openPositions) || void 0 === o ? void 0 : o.length) > 0 && this.releasePositions();
+            });
+        }, this.repositionPopover = (e)=>{
+            this.position = e[0], this.positioning && (this.positioning.position = this.position);
+        };
+    }
+    anchorReferencesChanged() {
+        this.initializeTargetId(), this.addAnchorEventListeners();
+    }
+    repositionModeChanged() {
+        this.positioning && (this.positioning.repositionMode = this.repositionMode);
+    }
+    openChanged() {
+        var e, t, o, i;
+        if (this.popoverReference) {
+            if (this.originalPopoverPosition || (this.originalPopoverPosition = this.position), this.open) {
+                if (null === (e = this.popoverReference) || void 0 === e || e.classList.add("popover-open"), this.addActiveHandlers(), this.positioning && !(null === (t = this.positioning) || void 0 === t ? void 0 : t.checkPosition(this.position))) {
+                    const e = null === (o = this.positioning) || void 0 === o ? void 0 : o.getOpenPositions();
+                    this.position = e[0];
+                }
+            } else null === (i = this.popoverReference) || void 0 === i || i.classList.remove("popover-open"), this.position = this.originalPopoverPosition, this.removeEventListeners();
         }
     }
-    __decorate([
-        attr({
-            attribute: "aria-label"
-        })
-    ], Popover.prototype, "ariaLabel", void 0);
-    __decorate([
-        attr({
-            mode: "boolean"
-        })
-    ], Popover.prototype, "beak", void 0);
-    __decorate([
-        attr({
-            mode: "boolean",
-            attribute: "clickable"
-        })
-    ], Popover.prototype, "clickable", void 0);
-    __decorate([
-        attr
-    ], Popover.prototype, "size", void 0);
-    __decorate([
-        attr
-    ], Popover.prototype, "mode", void 0);
-    __decorate([
-        attr
-    ], Popover.prototype, "position", void 0);
-    __decorate([
-        attr({
-            attribute: "target-id"
-        })
-    ], Popover.prototype, "targetId", void 0);
-    __decorate([
-        observable
-    ], Popover.prototype, "anchorReferences", void 0);
-    __decorate([
-        attr({
-            attribute: "reposition-mode"
-        })
-    ], Popover.prototype, "repositionMode", void 0);
-    __decorate([
-        observable
-    ], Popover.prototype, "openPositions", void 0);
-    __decorate([
-        attr({
-            mode: "boolean"
-        })
-    ], Popover.prototype, "open", void 0);
-    __decorate([
-        observable
-    ], Popover.prototype, "popoverReference", void 0);
-    __decorate([
-        observable
-    ], Popover.prototype, "overflowBoundaryRef", void 0);
-    __decorate([
-        attr({
-            attribute: "overflow-boundary-selector"
-        })
-    ], Popover.prototype, "overflowBoundarySelector", void 0);
-    const popoverStyles = css`
+    addActiveHandlers() {
+        this.addRepositioningHandlers(), this.addOverlayEventListeners(), this.addMouseOverEventListeners(), this.createPositioningManager();
+    }
+    initializeTargetId() {
+        if (!this.targetId) {
+            const e = vt("popover-target-");
+            this.targetId = e;
+        }
+    }
+    overflowBoundaryRefChanged() {
+        this.addOverflowBoundaryEventListeners();
+    }
+    emitToggleEvent() {
+        var e;
+        null === (e = this.popoverReference) || void 0 === e || e.dispatchEvent(new CustomEvent(es.toggle, {
+            detail: {
+                target: this,
+                open: this.open,
+                newState: this.open ? "open" : "closed"
+            }
+        }));
+    }
+    addAnchorEventListeners() {
+        this.anchorReferences && this.anchorReferences.length && this.clickable && this.anchorReferences[0].addEventListener("click", this.togglePopover);
+    }
+    addOverflowBoundaryEventListeners() {
+        this.overflowBoundaryRef && this.overflowBoundaryRef.addEventListener("scroll", this.handleWindowChanges);
+    }
+    addWindowEventListeners() {
+        window.addEventListener("resize", this.handleWindowChanges), window.addEventListener("scroll", this.handleWindowChanges);
+    }
+    removeWindowEventListeners() {
+        window.removeEventListener("resize", this.handleWindowChanges), window.removeEventListener("scroll", this.handleWindowChanges);
+    }
+    addOverlayEventListeners() {
+        this.overflowBoundaryRef && "auto" === this.mode ? this.overflowBoundaryRef.addEventListener("click", this.handleWindowClick) : "auto" === this.mode && document.addEventListener("click", this.handleWindowClick);
+    }
+    removeOverlayEventListeners() {
+        this.overflowBoundaryRef && "auto" === this.mode ? this.overflowBoundaryRef.removeEventListener("click", this.handleWindowClick) : "auto" === this.mode && document.removeEventListener("click", this.handleWindowClick);
+    }
+    addRepositioningHandlers() {
+        "none" !== this.repositionMode && (this.registerOverflowBoundary(), this.createOverflowHandler(), this.addWindowEventListeners());
+    }
+    createPositioningManager() {
+        var e;
+        this.popoverReference && "none" !== this.repositionMode && (this.positioning = new ts({
+            repositionMode: this.repositionMode,
+            popoverReference: this.popoverReference,
+            anchorReference: null === (e = this.anchorReferences) || void 0 === e ? void 0 : e[0],
+            overflowBoundaryReference: this.overflowBoundaryRef
+        }));
+    }
+    removeEventListeners() {
+        var e;
+        this.popoverReference && (this.removeWindowEventListeners(), this.removeOverlayEventListeners(), this.removeMouseOverEventListeners(), null === (e = this.intersectionObserver) || void 0 === e || e.unobserve(this.popoverReference));
+    }
+    releasePositions() {
+        if (this.openPositions = [], this.positioning) for(const e in Zi){
+            const t = Zi[e];
+            this.positioning.checkPosition(t) && (this.openPositions.push(t), t === this.originalPopoverPosition && (this.position = this.originalPopoverPosition));
+        }
+    }
+    observePopoverOverflow() {
+        var e, t;
+        null === (e = this.intersectionObserver) || void 0 === e || e.disconnect(), this.popoverReference && (null === (t = this.intersectionObserver) || void 0 === t || t.observe(this.popoverReference));
+    }
+    connectedCallback() {
+        var e;
+        super.connectedCallback(), this.open && (null === (e = this.popoverReference) || void 0 === e || e.classList.add("popover-open"));
+    }
+}
+e([
+    ze({
+        attribute: "aria-label"
+    })
+], os.prototype, "ariaLabel", void 0), e([
+    ze({
+        mode: "boolean"
+    })
+], os.prototype, "beak", void 0), e([
+    ze({
+        mode: "boolean",
+        attribute: "clickable"
+    })
+], os.prototype, "clickable", void 0), e([
+    ze
+], os.prototype, "size", void 0), e([
+    ze
+], os.prototype, "mode", void 0), e([
+    ze
+], os.prototype, "position", void 0), e([
+    ze({
+        attribute: "target-id"
+    })
+], os.prototype, "targetId", void 0), e([
+    B
+], os.prototype, "anchorReferences", void 0), e([
+    ze({
+        attribute: "reposition-mode"
+    })
+], os.prototype, "repositionMode", void 0), e([
+    B
+], os.prototype, "openPositions", void 0), e([
+    ze({
+        mode: "boolean"
+    })
+], os.prototype, "open", void 0), e([
+    B
+], os.prototype, "popoverReference", void 0), e([
+    B
+], os.prototype, "overflowBoundaryRef", void 0), e([
+    ze({
+        attribute: "overflow-boundary-selector"
+    })
+], os.prototype, "overflowBoundarySelector", void 0);
+const is = G`
   :host([mode="auto"]) .popover-overlay {
     position: fixed;
     inset: 0;
@@ -17083,11 +15821,11 @@ var global = arguments[3];
   }
 
   .popover {
-    font-family: ${fontFamilyBase};
-    background-color: ${colorNeutralBackground1};
-    border-radius: ${borderRadiusMedium};
-    border: 1px solid ${colorTransparentStrokeInteractive};
-    box-shadow: ${shadow8};
+    font-family: ${Xt};
+    background-color: ${po};
+    border-radius: ${Ht};
+    border: 1px solid ${wo};
+    box-shadow: ${So};
 
     visibility: hidden;
     opacity: 0;
@@ -17129,7 +15867,7 @@ var global = arguments[3];
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-bottom: 8px solid ${colorNeutralBackground1};
+    border-bottom: 8px solid ${po};
     z-index: 1;
   }
 
@@ -17482,219 +16220,118 @@ var global = arguments[3];
     }
   }
 `;
-    /**
-     * The template for the Popover component.
-     * @public
-     */ function PopoverTemplate(options = {}) {
-        return html`
-    ${startSlotTemplate(options)}
+const ss = function(e = {}) {
+    return Se`
+    ${wt(e)}
     <div class="popover-container" role="dialog">
-      <slot name="popover-trigger" ${slotted("anchorReferences")}></slot>
+      <slot name="popover-trigger" ${Fe("anchorReferences")}></slot>
       <div
-        aria-label="${(x)=>x.ariaLabel}"
+        aria-label="${(e)=>e.ariaLabel}"
         class="popover"
         part="popover"
-        id="${(x)=>x.targetId}"
-        ${ref("popoverReference")}
+        id="${(e)=>e.targetId}"
+        ${Be("popoverReference")}
       >
         <slot name="popover-content"></slot>
-        ${when((x)=>x.beak && x.open, html`
+        ${Ae((e)=>e.beak && e.open, Se`
             <div part="beak" class="beak"></div>
           `)}
       </div>
-      ${when((x)=>x.beak && x.open, html`
+      ${Ae((e)=>e.beak && e.open, Se`
           <div part="beak-shadow" class="beak-shadow"></div>
         `)}
     </div>
-    ${endSlotTemplate(options)}
+    ${bt(e)}
   `;
+}(), rs = os.compose({
+    name: `${lt.prefix}-popover`,
+    template: ss,
+    styles: is,
+    shadowOptions: {
+        mode: lt.shadowRootMode
     }
-    const template$7 = PopoverTemplate();
-    const PopoverDefinition = Popover.compose({
-        name: `${DesignSystem.prefix}-popover`,
-        template: template$7,
-        styles: popoverStyles,
-        shadowOptions: {
-            mode: DesignSystem.shadowRootMode
-        }
-    });
-    /**
-     * The state variations for the Step component
-     * @public
-     */ const StepState = {
-        incomplete: "incomplete",
-        complete: "complete",
-        error: "error"
-    };
-    /**
-     * A Step Custom HTML Element.
-     * Acts as the base class for the {@link @horizon-msft/web-components#(WizardStep:class)} component.
-     *
-     * @public
-     * @class
-     * @extends FASTElement
-     *
-     * @remarks
-     * HTML Element: \<hwc-step\>
-     *
-     * @slot start - The content to display at the start of the step.
-     * @slot end - The content to display at the end of the step.
-     * @slot incomplete - The content to display when the step is incomplete.
-     * @slot complete - The content to display when the step is complete.
-     * @slot error - The content to display when the step has an error.
-     * @slot title - The content to display as the title of the step.
-     * @slot details - The content to display as the details of the step.
-     *
-     * @attr {string} ariaDescribedby - The ID of the element that describes the step.
-     * @attr {string} ariaLabelledby - The ID of the element that labels the step.
-     * @attr {boolean} ariaCompleted - Indicates whether the step is completed for accessibility purposes.
-     * @attr {boolean} active - Indicates whether the step is active.
-     * @attr {StepState} state - The state of the step.
-     * @attr {boolean} hideConnector - Indicates whether the connector should be hidden.
-     * @attr {boolean} ordered - Indicates whether the step is ordered.
-     * @attr {boolean} disabled - Indicates whether the step is disabled.
-     *
-     * @csspart state-indicator - The state indicator.
-     * @csspart icon - The icon.
-     * @csspart summary - The summary.
-     * @csspart title - The title.
-     * @csspart details - The details.
-     * @csspart connector - The connector.
-     *
-     * @fires stepchange - Dispatched when the step state changes.
-     */ class Step extends FASTElement {
-        constructor(){
-            super(...arguments);
-            /**
-             * Indicates whether the step is active.
-             * @public
-             */ this.active = false;
-            /**
-             * Indicates whether the step is disabled.
-             * @public
-             */ this.disabled = false;
-            /**
-             * The state of the step.
-             * @public
-             */ this.state = StepState.incomplete;
-            /**
-             * The index of the step within the parent Stepper component.
-             * @public
-             */ this.index = 0;
-            /**
-             * The details of the step.
-             * @public
-             */ this.details = "";
-            /**
-             * The title of the step.
-             * @public
-             */ this.title = "";
-        }
-        /**
-         * Handles the change in the state of the step.
-         * @public
-         */ stateChanged(oldValue, newValue) {
-            if (oldValue !== newValue) this.emitChange();
-        }
-        /**
-         * Handles change to the active property.
-         * @public
-         */ activeChanged(oldValue, newValue) {
-            if (oldValue !== newValue) this.emitChange();
-        }
-        /**
-         * Toggle the ative state of the step.
-         * @public
-         */ toggleActive() {
-            this.active = !this.active;
-        }
-        /**
-         * Sets the state of the step to 'complete'.
-         * @public
-         */ setComplete() {
-            this.state = StepState.complete;
-        }
-        /**
-         * Sets the state of the step to 'incomplete'.
-         * @public
-         */ setIncomplete() {
-            this.state = StepState.incomplete;
-        }
-        /**
-         * Sets the state of the step to 'error'.
-         * @public
-         */ setError() {
-            this.state = StepState.error;
-        }
-        /**
-         * Emits a stepchange event with the current step's details.
-         * @public
-         */ emitChange() {
-            this.$emit("stepchange", {
-                id: this.id,
-                state: this.state,
-                active: this.active,
-                index: this.index
-            });
-        }
+}), ns = {
+    incomplete: "incomplete",
+    complete: "complete",
+    error: "error"
+};
+class as extends nt {
+    constructor(){
+        super(...arguments), this.active = !1, this.disabled = !1, this.state = ns.incomplete, this.index = 0, this.details = "", this.title = "";
     }
-    __decorate([
-        attr({
-            mode: "boolean"
-        })
-    ], Step.prototype, "ordered", void 0);
-    __decorate([
-        attr({
-            mode: "boolean",
-            attribute: "hide-connector"
-        })
-    ], Step.prototype, "hideConnector", void 0);
-    __decorate([
-        attr({
-            mode: "boolean"
-        })
-    ], Step.prototype, "active", void 0);
-    __decorate([
-        attr({
-            mode: "boolean"
-        })
-    ], Step.prototype, "disabled", void 0);
-    __decorate([
-        attr({
-            attribute: "aria-describedby"
-        })
-    ], Step.prototype, "ariaDescribedby", void 0);
-    __decorate([
-        attr({
-            attribute: "aria-labelledby"
-        })
-    ], Step.prototype, "ariaLabelledby", void 0);
-    __decorate([
-        attr
-    ], Step.prototype, "state", void 0);
-    __decorate([
-        observable
-    ], Step.prototype, "index", void 0);
-    __decorate([
-        observable
-    ], Step.prototype, "details", void 0);
-    __decorate([
-        observable
-    ], Step.prototype, "title", void 0);
-    /** Step styles
-     * @public
-     */ const styles$6 = css`
-  ${display("block")}
+    stateChanged(e, t) {
+        e !== t && this.emitChange();
+    }
+    activeChanged(e, t) {
+        e !== t && this.emitChange();
+    }
+    toggleActive() {
+        this.active = !this.active;
+    }
+    setComplete() {
+        this.state = ns.complete;
+    }
+    setIncomplete() {
+        this.state = ns.incomplete;
+    }
+    setError() {
+        this.state = ns.error;
+    }
+    emitChange() {
+        this.$emit("stepchange", {
+            id: this.id,
+            state: this.state,
+            active: this.active,
+            index: this.index
+        });
+    }
+}
+e([
+    ze({
+        mode: "boolean"
+    })
+], as.prototype, "ordered", void 0), e([
+    ze({
+        mode: "boolean",
+        attribute: "hide-connector"
+    })
+], as.prototype, "hideConnector", void 0), e([
+    ze({
+        mode: "boolean"
+    })
+], as.prototype, "active", void 0), e([
+    ze({
+        mode: "boolean"
+    })
+], as.prototype, "disabled", void 0), e([
+    ze({
+        attribute: "aria-describedby"
+    })
+], as.prototype, "ariaDescribedby", void 0), e([
+    ze({
+        attribute: "aria-labelledby"
+    })
+], as.prototype, "ariaLabelledby", void 0), e([
+    ze
+], as.prototype, "state", void 0), e([
+    B
+], as.prototype, "index", void 0), e([
+    B
+], as.prototype, "details", void 0), e([
+    B
+], as.prototype, "title", void 0);
+const ls = G`
+  ${yt("block")}
 
   :host {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-family: ${fontFamilyBase};
+    font-family: ${Xt};
     position: relative;
     align-items: flex-start;
-    column-gap: ${spacingHorizontalM};
+    column-gap: ${eo};
     flex-shrink: 0;
     flex-grow: 1;
   }
@@ -17713,7 +16350,7 @@ var global = arguments[3];
   }
 
   :host(.first) {
-    padding-left: ${spacingHorizontalXXL};
+    padding-left: ${oo};
   }
 
   :host(.first) .state-connector {
@@ -17721,7 +16358,7 @@ var global = arguments[3];
   }
 
   :host(.last) {
-    padding-right: ${spacingHorizontalXXL};
+    padding-right: ${oo};
   }
 
   .state-indicator {
@@ -17769,20 +16406,20 @@ var global = arguments[3];
   }
 
   .title {
-    font-weight: ${fontWeightRegular};
-    font-size: ${fontSizeBase300};
-    line-height: ${lineHeightBase300};
+    font-weight: ${Yt};
+    font-size: ${jt};
+    line-height: ${Kt};
   }
 
   .details {
-    font-weight: ${fontWeightRegular};
-    font-size: ${fontSizeBase200};
-    line-height: ${lineHeightBase200};
+    font-weight: ${Yt};
+    font-size: ${_t};
+    line-height: ${qt};
   }
 
   .icon svg {
-    color: ${colorNeutralForegroundOnBrand};
-    fill: ${colorNeutralForegroundOnBrand};
+    color: ${uo};
+    fill: ${uo};
     width: 12px;
     height: 12px;
     box-sizing: border-box;
@@ -17796,16 +16433,16 @@ var global = arguments[3];
   }
 
   :host([aria-current="step"]) .title {
-    font-weight: ${fontWeightSemibold};
+    font-weight: ${Qt};
   }
 
   :host([state="complete"]) .icon,
   :host([state="complete"]) .state-connector,
   :host([state="complete"].first) .state-connector,
   :host([active]) .icon {
-    background: ${colorBrandForeground2};
-    border-color: ${colorBrandForeground2};
-    color: ${colorNeutralForegroundOnBrand};
+    background: ${ho};
+    border-color: ${ho};
+    color: ${uo};
   }
 
   :host([state="complete"]) .icon svg {
@@ -17813,8 +16450,8 @@ var global = arguments[3];
   }
 
   :host([state="error"]) .icon {
-    background: ${colorPaletteRedForeground3};
-    border-color: ${colorPaletteRedForeground3};
+    background: ${xo};
+    border-color: ${xo};
   }
 
   @media (min-width: 480px) {
@@ -17826,8 +16463,8 @@ var global = arguments[3];
       width: fit-content;
       height: fit-content;
       max-width: 268px;
-      padding: 0 0 ${spacingVerticalL} 0;
-      column-gap: ${spacingHorizontalM};
+      padding: 0 0 ${no} 0;
+      column-gap: ${eo};
       flex-grow: 0;
     }
     :host(.first) .state-connector,
@@ -17860,11 +16497,10 @@ var global = arguments[3];
       flex-direction: column;
       width: fit-content;
       min-width: 174px;
-      gap: ${spacingVerticalXXS};
+      gap: ${so};
     }
   }
-`;
-    const Checkmark16Regular = html`
+`, ds = Se`
   <svg
     fill="currentColor"
     aria-hidden="true"
@@ -17878,8 +16514,7 @@ var global = arguments[3];
       fill="currentColor"
     ></path>
   </svg>
-`;
-    const Dismiss16Regular = html`
+`, cs = Se`
   <svg
     fill="currentColor"
     aria-hidden="true"
@@ -17894,48 +16529,45 @@ var global = arguments[3];
     ></path>
   </svg>
 `;
-    /**
-     * The template for the {@link @horizon-msft/web-components#(Step:class)} component.
-     * @public
-     */ function baseStepTemplate() {
-        return html`
+function hs() {
+    return Se`
     <template
       class="step"
-      state="${(x)=>x.state}"
-      ?hide-connector="${(x)=>x.hideConnector}"
-      ?active="${(x)=>x.active}"
-      ?disabled="${(x)=>x.disabled}"
-      ?ordered="${(x)=>x.ordered}"
-      aria-label="${(x)=>x.ariaLabel}"
-      aria-describedby="${(x)=>x.ariaDescribedby}"
-      aria-labelledby="${(x)=>x.ariaLabelledby}"
-      aria-current="${(x)=>x.active ? "step" : null}"
-      aria-completed="${(x)=>x.state == "complete" ? "true" : "false"}"
+      state="${(e)=>e.state}"
+      ?hide-connector="${(e)=>e.hideConnector}"
+      ?active="${(e)=>e.active}"
+      ?disabled="${(e)=>e.disabled}"
+      ?ordered="${(e)=>e.ordered}"
+      aria-label="${(e)=>e.ariaLabel}"
+      aria-describedby="${(e)=>e.ariaDescribedby}"
+      aria-labelledby="${(e)=>e.ariaLabelledby}"
+      aria-current="${(e)=>e.active ? "step" : null}"
+      aria-completed="${(e)=>"complete" == e.state ? "true" : "false"}"
     >
       <slot name="start"></slot>
       <div class="state-indicator">
         <div class="icon" part="icon">
-          ${(x)=>x.state === "incomplete" ? html`
+          ${(e)=>"incomplete" === e.state ? Se`
                   <slot name="incomplete">
                     <span class="order" part="order">
-                      ${(x)=>x.ordered ? x.index + 1 : ""}
+                      ${(e)=>e.ordered ? e.index + 1 : ""}
                     </span>
                   </slot>
                 ` : ""}
-          ${(x)=>x.state === "complete" ? html`
-                  <slot name="complete">${Checkmark16Regular}</slot>
+          ${(e)=>"complete" === e.state ? Se`
+                  <slot name="complete">${ds}</slot>
                 ` : ""}
-          ${(x)=>x.state === "error" ? html`
-                  <slot name="error">${Dismiss16Regular}</slot>
+          ${(e)=>"error" === e.state ? Se`
+                  <slot name="error">${cs}</slot>
                 ` : ""}
         </div>
       </div>
       <div class="summary" part="summary">
         <div class="title" part="title">
-          <slot name="title">${(x)=>x.title}</slot>
+          <slot name="title">${(e)=>e.title}</slot>
         </div>
         <div class="details" part="details">
-          <slot name="details">${(x)=>x.details}</slot>
+          <slot name="details">${(e)=>e.details}</slot>
         </div>
       </div>
 
@@ -17943,302 +16575,128 @@ var global = arguments[3];
       <slot name="end"></slot>
     </template>
   `;
+}
+const us = hs(), ps = as.compose({
+    name: `${lt.prefix}-step`,
+    template: us,
+    styles: ls,
+    shadowOptions: {
+        mode: lt.shadowRootMode
     }
-    const template$6 = baseStepTemplate();
-    /**
-     *
-     * @public
-     * @remarks
-     * HTML Element: <hwc-step>
-     */ const definition$5 = Step.compose({
-        name: `${DesignSystem.prefix}-step`,
-        template: template$6,
-        styles: styles$6,
-        shadowOptions: {
-            mode: DesignSystem.shadowRootMode
-        }
-    });
-    /**
-     * A Stepper Custom HTML Element.
-     * Implements the {@link https://www.w3.org/TR/wai-aria-1.1/#list | ARIA list }.
-     * Composition: Stepper, Step
-     *
-     * @slot start - Content which can be provided before the list element
-     * @slot end - Content which can be provided after the list element
-     * @slot step - The slot for steps
-     *
-     * @attr {string} aria-labelledby - The ID of the element that describes the step.
-     * @attr {string} aria-describedby - The ID of the element that labels the step.
-     * @attr {number} current-index - The index of the current step.
-     * @attr {boolean} ordered - Indicates whether the step is ordered.
-     *
-     * @csspart list - The element wrapper for the steps
-     *
-     * @fires steppercomplete - Fires a custom 'steppercomplete' event when all steps state are set to complete
-     * @fires stepperchange - Fires a custom 'stepperchange' event when steps change
-     *
-     * @public
-     */ class Stepper extends FASTElement {
-        constructor(){
-            super(...arguments);
-            /**
-             * Determines whether the step state indicator should be labeled with the order of the steps.
-             * @public
-             * @remarks
-             * HTML Attribute: ordered
-             */ this.ordered = false;
-            /**
-             * The current index
-             * @public
-             * @remarks
-             * HTML Attribute: current-index
-             */ this.currentIndex = 0;
-            /**
-             * An observable array of steps
-             * Each step is an object with optional properties: title, state, details, index
-             * @public
-             */ this.steps = [];
-            /**
-             * An array to hold the slotted Step components.
-             * @type {Step[]}
-             */ this.slottedsteps = [];
-            /**
-             * An array to hold the IDs of the Step components.
-             * @type {string[]}
-             */ this.stepIds = [];
-            /**
-             * Sets the steps for the stepper.
-             * @protected
-             */ this.setSteps = ()=>{
-                this.slottedsteps.forEach((el, index)=>{
-                    var _a, _b, _c, _d, _e, _f;
-                    if (el.slot === "step") {
-                        const step = el;
-                        const isActiveStep = this.currentIndex === index && this.isFocusableElement(step);
-                        const stepId = this.stepIds[index];
-                        step.setAttribute("id", stepId);
-                        step.setAttribute("role", "listitem");
-                        step.active = isActiveStep;
-                        step.index = index;
-                        if (this.steps.length > 0) {
-                            step.title = (_b = (_a = this.steps[index]) === null || _a === void 0 ? void 0 : _a.title) !== null && _b !== void 0 ? _b : undefined;
-                            step.details = (_d = (_c = this.steps[index]) === null || _c === void 0 ? void 0 : _c.details) !== null && _d !== void 0 ? _d : undefined;
-                            step.state = (_f = (_e = this.steps[index]) === null || _e === void 0 ? void 0 : _e.state) !== null && _f !== void 0 ? _f : StepState.incomplete;
-                            if (this.ordered) step.ordered = true;
-                        }
-                        if (isActiveStep) {
-                            this.activestep = step;
-                            this.activeid = stepId;
-                            this.currentIndex = index;
-                        }
-                        if (index === this.slottedsteps.length - 1) step.hideConnector = true;
-                        if (this.slottedsteps.length >= 7) {
-                            step.classList.add("overflow");
-                            if (index === this.slottedsteps.length - 1) step.classList.add("last");
-                            if (index === 0) step.classList.add("first");
-                        }
-                    }
-                });
-                if (this.slottedsteps.every((step)=>step.state === "complete")) this.emitComplete();
-                if (this.slottedsteps.length >= 7) this.setAttribute("class", "overflow");
-                this.emitChange();
-            };
-            /**
-             * Checks if the given element is disabled.
-             * @private
-             */ this.isDisabledElement = (el)=>{
-                return el.getAttribute("aria-disabled") === "true";
-            };
-            /**
-             * Checks if the given element is hidden.
-             * @private
-             */ this.isHiddenElement = (el)=>{
-                return el.hasAttribute("hidden");
-            };
-            /**
-             * Checks if the given element is focusable.
-             * @private
-             */ this.isFocusableElement = (el)=>{
-                return !this.isDisabledElement(el) && !this.isHiddenElement(el);
-            };
-            /**
-             * Emits a custom event "stepperchange" whenever there is a change in the stepper.
-             * The detail of the event includes the current steps, current index, and the previous active step index.
-             * @private
-             */ this.emitChange = ()=>{
-                this.$emit("stepperchange", {
-                    steps: this.steps,
-                    currentIndex: this.currentIndex,
-                    prevActiveStepIndex: this.prevActiveStepIndex
-                });
-            };
-            /**
-             * Checks if all steps are complete. If they are, it dispatches a "steppercomplete" event.
-             * @private
-             */ this.emitComplete = ()=>{
-                this.dispatchEvent(new CustomEvent("steppercomplete", {
-                    bubbles: true,
-                    detail: {
-                        steps: this.steps
-                    }
-                }));
-            };
-        }
-        /**
-         * Shows the stepper component
-         * @public
-         */ show() {
-            this.hidden = false;
-        }
-        /**
-         * Hides the stepper component
-         * @public
-         */ hide() {
-            this.hidden = true;
-        }
-        /**
-         * Handles changes to the `activeid` property.
-         * @public
-         */ activeidChanged(oldValue, newValue) {
-            if (this.$fastController.isConnected) this.setSteps();
-        }
-        /**
-         * Handles changes to the `slottedsteps` property.
-         * @public
-         */ slottedstepsChanged() {
-            if (this.$fastController.isConnected) {
-                this.stepIds = this.getStepIds();
-                this.setSteps();
-            }
-        }
-        /**
-         * Handles changes to the `steps` property.
-         * @public
-         */ stepsChanged(oldValue, newValue) {
-            if (this.$fastController.isConnected && oldValue !== newValue && newValue.length > 0) {
-                this.stepIds = this.getStepIds();
-                this.setSteps();
-            }
-        }
-        /**
-         * Handles changes to the `currentIndex` property.
-         * @public
-         */ currentIndexChanged(oldValue, newValue) {
-            if (oldValue !== newValue) Updates.enqueue(()=>{
-                this.prevActiveStepIndex = oldValue;
-                this.setComponent();
+});
+class fs extends nt {
+    constructor(){
+        super(...arguments), this.ordered = !1, this.currentIndex = 0, this.steps = [], this.slottedsteps = [], this.stepIds = [], this.setSteps = ()=>{
+            this.slottedsteps.forEach((e, t)=>{
+                var o, i, s, r, n, a;
+                if ("step" === e.slot) {
+                    const l = e, d = this.currentIndex === t && this.isFocusableElement(l), c = this.stepIds[t];
+                    l.setAttribute("id", c), l.setAttribute("role", "listitem"), l.active = d, l.index = t, this.steps.length > 0 && (l.title = null !== (i = null === (o = this.steps[t]) || void 0 === o ? void 0 : o.title) && void 0 !== i ? i : void 0, l.details = null !== (r = null === (s = this.steps[t]) || void 0 === s ? void 0 : s.details) && void 0 !== r ? r : void 0, l.state = null !== (a = null === (n = this.steps[t]) || void 0 === n ? void 0 : n.state) && void 0 !== a ? a : ns.incomplete, this.ordered && (l.ordered = !0)), d && (this.activestep = l, this.activeid = c, this.currentIndex = t), t === this.slottedsteps.length - 1 && (l.hideConnector = !0), this.slottedsteps.length >= 7 && (l.classList.add("overflow"), t === this.slottedsteps.length - 1 && l.classList.add("last"), 0 === t && l.classList.add("first"));
+                }
+            }), this.slottedsteps.every((e)=>"complete" === e.state) && this.emitComplete(), this.slottedsteps.length >= 7 && this.setAttribute("class", "overflow"), this.emitChange();
+        }, this.isDisabledElement = (e)=>"true" === e.getAttribute("aria-disabled"), this.isHiddenElement = (e)=>e.hasAttribute("hidden"), this.isFocusableElement = (e)=>!this.isDisabledElement(e) && !this.isHiddenElement(e), this.emitChange = ()=>{
+            this.$emit("stepperchange", {
+                steps: this.steps,
+                currentIndex: this.currentIndex,
+                prevActiveStepIndex: this.prevActiveStepIndex
             });
-        }
-        /**
-         * Sets the component's active step based on the current index.
-         * @private
-         */ setComponent() {
-            Updates.enqueue(()=>{
-                this.stepIds = this.getStepIds();
-                this.setSteps();
-            });
-        }
-        /**
-         * Gets the IDs of all steps in the stepper.
-         * @private
-         */ getStepIds() {
-            return this.slottedsteps.map((step)=>{
-                var _a;
-                return (_a = step.getAttribute("id")) !== null && _a !== void 0 ? _a : `hwc-step-${parseInt(uniqueId())}`;
-            });
-        }
-        /**
-         * Handles the state change of a step.
-         * @param e - The custom event that contains the index and state of the step.
-         *
-         * @private
-         */ handleStepStateChange(e) {
-            const index = e.detail.index;
-            const state = e.detail.state;
-            const active = e.detail.active;
-            if (active) this.currentIndex = index;
-            this.steps = this.steps.map((step, i)=>{
-                if (i === index) return {
-                    ...step,
-                    state
-                };
-                return step;
-            });
-        }
-        /**
-         * Adds event listeners to each step in the stepper.
-         * @public
-         */ addListeners() {
-            this.slottedsteps.forEach((step)=>{
-                step.addEventListener("stepchange", (e)=>this.handleStepStateChange(e));
-            });
-        }
-        /**
-         * Removes event listeners to each step in the stepper.
-         * @public
-         */ removeListeners() {
-            this.slottedsteps.forEach((step)=>{
-                step.removeEventListener("stepchange", (e)=>this.handleStepStateChange(e));
-            });
-        }
-        /**
-         * Called when the component is connected to the DOM.
-         * @public
-         */ connectedCallback() {
-            super.connectedCallback();
-            this.stepIds = this.getStepIds();
-            Updates.enqueue(()=>{
-                this.setComponent();
-                this.addListeners();
-            });
-        }
-        /**
-         * Called when the component is disconnected from the DOM.
-         * @public
-         */ disconnectedCallback() {
-            super.connectedCallback();
-            this.removeListeners();
-        }
+        }, this.emitComplete = ()=>{
+            this.dispatchEvent(new CustomEvent("steppercomplete", {
+                bubbles: !0,
+                detail: {
+                    steps: this.steps
+                }
+            }));
+        };
     }
-    __decorate([
-        attr({
-            mode: "boolean"
-        })
-    ], Stepper.prototype, "ordered", void 0);
-    __decorate([
-        attr({
-            attribute: "current-index",
-            converter: nullableNumberConverter
-        })
-    ], Stepper.prototype, "currentIndex", void 0);
-    __decorate([
-        attr({
-            attribute: "aria-labelledby"
-        })
-    ], Stepper.prototype, "ariaLabelledby", void 0);
-    __decorate([
-        attr({
-            attribute: "aria-describedby"
-        })
-    ], Stepper.prototype, "ariaDescribedby", void 0);
-    __decorate([
-        observable
-    ], Stepper.prototype, "activeid", void 0);
-    __decorate([
-        observable
-    ], Stepper.prototype, "steps", void 0);
-    __decorate([
-        observable
-    ], Stepper.prototype, "slottedsteps", void 0);
-    /** Step styles
-     * @public
-     */ const styles$5 = css`
-  ${display("block")}
+    show() {
+        this.hidden = !1;
+    }
+    hide() {
+        this.hidden = !0;
+    }
+    activeidChanged(e, t) {
+        this.$fastController.isConnected && this.setSteps();
+    }
+    slottedstepsChanged() {
+        this.$fastController.isConnected && (this.stepIds = this.getStepIds(), this.setSteps());
+    }
+    stepsChanged(e, t) {
+        this.$fastController.isConnected && e !== t && t.length > 0 && (this.stepIds = this.getStepIds(), this.setSteps());
+    }
+    currentIndexChanged(e, t) {
+        e !== t && y.enqueue(()=>{
+            this.prevActiveStepIndex = e, this.setComponent();
+        });
+    }
+    setComponent() {
+        y.enqueue(()=>{
+            this.stepIds = this.getStepIds(), this.setSteps();
+        });
+    }
+    getStepIds() {
+        return this.slottedsteps.map((e)=>{
+            var t;
+            return null !== (t = e.getAttribute("id")) && void 0 !== t ? t : `fabric-step-${parseInt(vt())}`;
+        });
+    }
+    handleStepStateChange(e) {
+        const t = e.detail.index, o = e.detail.state;
+        e.detail.active && (this.currentIndex = t), this.steps = this.steps.map((e, i)=>i === t ? {
+                ...e,
+                state: o
+            } : e);
+    }
+    addListeners() {
+        this.slottedsteps.forEach((e)=>{
+            e.addEventListener("stepchange", (e)=>this.handleStepStateChange(e));
+        });
+    }
+    removeListeners() {
+        this.slottedsteps.forEach((e)=>{
+            e.removeEventListener("stepchange", (e)=>this.handleStepStateChange(e));
+        });
+    }
+    connectedCallback() {
+        super.connectedCallback(), this.stepIds = this.getStepIds(), y.enqueue(()=>{
+            this.setComponent(), this.addListeners();
+        });
+    }
+    disconnectedCallback() {
+        super.connectedCallback(), this.removeListeners();
+    }
+}
+e([
+    ze({
+        mode: "boolean"
+    })
+], fs.prototype, "ordered", void 0), e([
+    ze({
+        attribute: "current-index",
+        converter: Re
+    })
+], fs.prototype, "currentIndex", void 0), e([
+    ze({
+        attribute: "aria-labelledby"
+    })
+], fs.prototype, "ariaLabelledby", void 0), e([
+    ze({
+        attribute: "aria-describedby"
+    })
+], fs.prototype, "ariaDescribedby", void 0), e([
+    B
+], fs.prototype, "activeid", void 0), e([
+    B
+], fs.prototype, "steps", void 0), e([
+    B
+], fs.prototype, "slottedsteps", void 0);
+const gs = G`
+  ${yt("block")}
 
   :host {
-    background-color: ${colorNeutralBackground3};
+    background-color: ${go};
     box-sizing: border-box;
-    padding: ${spacingVerticalXXL} ${spacingHorizontalXXL};
+    padding: ${ao} ${oo};
     position: fixed;
     top: 0;
     left: 0;
@@ -18257,13 +16715,13 @@ var global = arguments[3];
     align-items: unset;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: ${spacingVerticalXXL} 0;
+    padding: ${ao} 0;
   }
 
   @media (min-width: 480px) {
     :host(.overflow),
     :host {
-      padding: ${spacingVerticalXXL} ${spacingHorizontalXXL};
+      padding: ${ao} ${oo};
       position: relative;
       height: 100%;
       max-width: 70px;
@@ -18288,467 +16746,226 @@ var global = arguments[3];
     :host {
       max-width: 268px;
       width: 268px;
-      padding: ${spacingVerticalXXL} ${spacingHorizontalXXXL}
-        ${spacingVerticalXXL} ${spacingHorizontalXXL};
+      padding: ${ao} ${io}
+        ${ao} ${oo};
     }
     :host(.overflow) .list {
       width: fit-content;
     }
   }
 `;
-    /**
-     * The template for the {@link @horizon-msft/web-components#(Stepper:class)} component.
-     * @public
-     */ function stepperTemplate() {
-        return html`
+const vs = Se`
     <template
-      ?hidden="${(x)=>x.hidden}"
-      ?ordered="${(x)=>x.ordered}"
-      current-index="${(x)=>x.currentIndex}"
-      aria-labelledby="${(x)=>x.ariaLabelledby}"
-      aria-describedby="${(x)=>x.ariaDescribedby}"
-      aria-label="${(x)=>x.ariaLabel}"
+      ?hidden="${(e)=>e.hidden}"
+      ?ordered="${(e)=>e.ordered}"
+      current-index="${(e)=>e.currentIndex}"
+      aria-labelledby="${(e)=>e.ariaLabelledby}"
+      aria-describedby="${(e)=>e.ariaDescribedby}"
+      aria-label="${(e)=>e.ariaLabel}"
     >
       <slot name="start"></slot>
       <div class="list" part="list" role="list">
-        <slot name="step" ${slotted("slottedsteps")}></slot>
+        <slot name="step" ${Fe("slottedsteps")}></slot>
       </div>
       <slot name="end"></slot>
     </template>
-  `;
+  `, ms = fs.compose({
+    name: `${lt.prefix}-stepper`,
+    template: vs,
+    styles: gs,
+    shadowOptions: {
+        mode: lt.shadowRootMode
     }
-    const template$5 = stepperTemplate();
-    /**
-     *
-     * @public
-     * @remarks
-     * HTML Element: <hwc-step>
-     */ const definition$4 = Stepper.compose({
-        name: `${DesignSystem.prefix}-stepper`,
-        template: template$5,
-        styles: styles$5,
-        shadowOptions: {
-            mode: DesignSystem.shadowRootMode
-        }
-    });
-    /**
-     * SVG Sanitizer Script
-     *
-     * This script provides a function, `sanitizeSVG`, designed to sanitize SVG content strings by removing
-     * potentially harmful or malicious tags and attributes. It takes an SVG content string as input and returns
-     * a sanitized SVG content string.
-     *
-     * It strictly disallows a predefined list of tags and attributes that can be exploited for malicious purposes
-     * such as Cross-Site Scripting (XSS) attacks. Any occurrence of blocked tags and attributes within the provided
-     * SVG content is removed during the sanitization process.
-     *
-     * Example Usage:
-     * const sanitizedSVG = sanitizeSVG('<svg><script>alert("XSS")</script></svg>');
-     *
-     * Upon finding and removing any blocked tags or attributes, the sanitizer logs a warning message
-     * to the console for visibility.
-     */ const BLOCKED_TAGS = [
-        "base",
-        "embed",
-        "form",
-        "frame",
-        "iframe",
-        "link",
-        "meta",
-        "object",
-        "script",
-        "style"
-    ];
-    const BLOCKED_ATTRS = [
-        "data",
-        "formaction",
-        "onclick",
-        "onerror",
-        "onload",
-        "onmouseover",
-        "src"
-    ];
-    /**
-     * sanitizeSVG
-     *
-     * @param {string} svgString - The original SVG content string.
-     * @returns {string} - Sanitized SVG content string.
-     *
-     */ function sanitizeSVG(svgString) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(svgString, "image/svg+xml");
-        // Handle parsing error
-        if (!doc.documentElement || doc.documentElement.nodeName === "parsererror") {
-            const errorText = doc.documentElement ? doc.documentElement.textContent : "";
-            console.error("SVG parsing error", errorText);
-            return "";
-        }
-        removeBlockedElementsAndAttributes(doc, BLOCKED_TAGS, BLOCKED_ATTRS);
-        // Serialize the sanitized SVG content back to string
-        return new XMLSerializer().serializeToString(doc.documentElement);
+}), bs = [
+    "base",
+    "embed",
+    "form",
+    "frame",
+    "iframe",
+    "link",
+    "meta",
+    "object",
+    "script",
+    "style"
+], ws = [
+    "data",
+    "formaction",
+    "onclick",
+    "onerror",
+    "onload",
+    "onmouseover",
+    "src"
+];
+function ys(e) {
+    const t = (new DOMParser).parseFromString(e, "image/svg+xml");
+    if (!t.documentElement || "parsererror" === t.documentElement.nodeName) {
+        const e = t.documentElement ? t.documentElement.textContent : "";
+        return console.error("SVG parsing error", e), "";
     }
-    /**
-     * removeBlockedElementsAndAttributes
-     *
-     * @param {Document} doc - The SVG DOM document.
-     * @param {string[]} blockedTags - Array of blocked tags.
-     * @param {string[]} blockedAttrs - Array of blocked attributes.
-     *
-     */ function removeBlockedElementsAndAttributes(doc, blockedTags, blockedAttrs) {
-        var _a;
-        // Remove blocked tags and attributes and log them
-        const allElements = Array.from(doc.querySelectorAll("*"));
-        for (const element of allElements){
-            const tagName = element.tagName.toLowerCase();
-            if (blockedTags.includes(tagName)) {
-                console.warn(`Custom SVG Sanitizer: Found and removed blocked tag: <${tagName}>`);
-                (_a = element.parentNode) === null || _a === void 0 || _a.removeChild(element);
-            } else {
-                for (const attr of element.getAttributeNames())if (blockedAttrs.includes(attr.toLowerCase()) || /^on[a-z]+/.test(attr.toLowerCase())) {
-                    console.warn(`Custom SVG Sanitizer: Found and removed blocked attribute: ${attr} from <${element.tagName.toLowerCase()}>`);
-                    element.removeAttribute(attr);
-                }
-            }
+    return function(e, t, o) {
+        var i;
+        const s = Array.from(e.querySelectorAll("*"));
+        for (const e of s){
+            const s = e.tagName.toLowerCase();
+            if (t.includes(s)) console.warn(`Custom SVG Sanitizer: Found and removed blocked tag: <${s}>`), null === (i = e.parentNode) || void 0 === i || i.removeChild(e);
+            else for (const t of e.getAttributeNames())(o.includes(t.toLowerCase()) || /^on[a-z]+/.test(t.toLowerCase())) && (console.warn(`Custom SVG Sanitizer: Found and removed blocked attribute: ${t} from <${e.tagName.toLowerCase()}>`), e.removeAttribute(t));
+        }
+    }(t, bs, ws), (new XMLSerializer).serializeToString(t.documentElement);
+}
+class xs {
+    static async loadIconOrSprite(e, t) {
+        try {
+            let o = await this.fetchAndCacheSVG(e);
+            return o.includes("<symbol") ? this.getIconFromSprite(o, t) : o;
+        } catch (t) {
+            throw console.error(`Failed to load SVG from path ${e}:`, t), t;
         }
     }
-    /**
-     * SvgService is responsible for fetching, caching, and manipulating SVG content.
-     * This includes loading SVG icons or sprites from given paths and preparing SVG
-     * content for display. Cached SVGs ensure that repeated fetches are avoided.
-     *
-     * Typical usage:
-     *
-     * const svgContent = await SvgService.loadIconOrSprite('/path/to/sprite.svg', 'icon-name');
-     *
-     */ class SvgService {
-        /**
-         * Loads an SVG icon or sprite from a given path.
-         *
-         * @param path {string} - The path to the SVG file.
-         * @param name {string} - The name (ID) of the icon if fetching from a sprite.
-         * @returns {Promise<string>} - A promise that resolves to the SVG content or rejects with an error.
-         */ static async loadIconOrSprite(path, name) {
-            try {
-                let svgContent = await this.fetchAndCacheSVG(path);
-                if (svgContent.includes("<symbol")) return this.getIconFromSprite(svgContent, name);
-                else return svgContent;
-            } catch (error) {
-                console.error(`Failed to load SVG from path ${path}:`, error);
-                throw error;
-            }
-        }
-        /**
-         * Fetches and caches an SVG from a given path.
-         *
-         * @param path {string} - The path to the SVG file.
-         * @returns {Promise<string>} - A promise that resolves to the SVG content.
-         */ static async fetchAndCacheSVG(path) {
-            if (!this.cache.has(path)) try {
-                const svgPromise = fetch(path).then((resp)=>{
-                    if (!resp.ok) throw new Error(`Network error: ${resp.status} ${resp.statusText}`);
-                    return resp.text();
-                }).then((svg)=>{
-                    // Basic check for SVG format
-                    if (!/<svg[\s\S]+<\/svg>/.test(svg)) throw new Error("Invalid SVG format");
-                    return sanitizeSVG(svg);
-                });
-                this.cache.set(path, svgPromise);
-                return await svgPromise;
-            } catch (error) {
-                console.error(`Failed to fetch and cache SVG from path ${path}:`, error);
-                throw error; // Propagate the error so it can be handled by the calling code if needed
-            }
-            return await this.cache.get(path);
-        }
-        /**
-         * Extracts an icon from an SVG sprite.
-         *
-         * @param spriteContent {string} - The SVG sprite content.
-         * @param iconName {string} - The name (ID) of the icon to extract.
-         * @returns {string} - The SVG content for the icon.
-         */ static getIconFromSprite(spriteContent, iconName) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(spriteContent, "image/svg+xml");
-            const symbol = doc.querySelector(`symbol[id="${iconName}"]`);
-            if (!symbol) {
-                console.error(`Icon with ID ${iconName} not found in sprite.`);
-                return "";
-            }
-            // Convert the symbol content into SVG.
-            const svgNamespace = "http://www.w3.org/2000/svg";
-            const svgElem = document.createElementNS(svgNamespace, "svg");
-            svgElem.setAttribute("xmlns", svgNamespace);
-            svgElem.setAttributeNS(null, "viewBox", symbol.getAttribute("viewBox") || "");
-            svgElem.innerHTML = symbol.innerHTML;
-            return svgElem.outerHTML;
-        }
-        /**
-         * Prepares SVG content, either as a standalone SVG or extracting it from a sprite.
-         *
-         * @param path {string} - The path to the SVG file.
-         * @param name {string} - The name (ID) of the icon if fetching from a sprite.
-         * @returns {Promise<{content: string, width?: string, height?: string}>} - A promise that resolves to the prepared SVG content and dimensions.
-         */ static async getPreparedSVG(path, name) {
-            try {
-                const content = await this.loadIconOrSprite(path, name);
-                const doc = this.parseSVG(content);
-                const symbol = doc.querySelector("symbol");
-                if (symbol) return this.getSVGDetailsFromSymbol(symbol);
-                else return this.getSVGDetailsFromSVGElement(doc);
-            } catch (error) {
-                console.error(`Failed to prepare SVG from path ${path}:`, error);
-                throw error;
-            }
-        }
-        /**
-         * Parse the input SVG string and return an SVG Document.
-         *
-         * @param svgString {string} - The input SVG content in string format.
-         * @returns {Document} - The parsed SVG as a Document.
-         */ static parseSVG(svgString) {
-            const parser = new DOMParser();
-            return parser.parseFromString(svgString, "image/svg+xml");
-        }
-        /**
-         * Converts an SVG symbol to an SVG element, extracting and returning its content and dimensions.
-         *
-         * @param symbol {Element} - The SVG symbol element to be converted.
-         * @returns {{ content: string, width?: string, height?: string }} - An object containing the SVG content and optional width and height.
-         */ static getSVGDetailsFromSymbol(symbol) {
-            const viewBox = symbol.getAttribute("viewBox");
-            const svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svgElement.setAttribute("viewBox", viewBox || "");
-            svgElement.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            while(symbol.firstChild)svgElement.appendChild(symbol.firstChild);
-            const width = symbol.getAttribute("width") || undefined;
-            const height = symbol.getAttribute("height") || undefined;
-            return {
-                content: svgElement.outerHTML,
-                width,
-                height
-            };
-        }
-        /**
-         * Extracts content and dimensions from the first SVG element within a Document.
-         *
-         * @param doc {Document} - The Document containing SVG data.
-         * @returns {{ content: string, width?: string, height?: string }} - An object with the SVG content and optional width and height.
-         */ static getSVGDetailsFromSVGElement(doc) {
-            const svgElem = doc.querySelector("svg");
-            let width;
-            let height;
-            if (svgElem) {
-                width = svgElem.getAttribute("width") || undefined;
-                height = svgElem.getAttribute("height") || undefined;
-            }
-            return {
-                content: (svgElem === null || svgElem === void 0 ? void 0 : svgElem.outerHTML) || "",
-                width,
-                height
-            };
-        }
-    }
-    SvgService.cache = new Map();
-    /**
-     * SvgIcon constants
-     * @public
-     */ const SvgIconRole = {
-        img: "img",
-        null: null
-    };
-    class SvgIcon extends FASTElement {
-        constructor(){
-            super(...arguments);
-            this.isLoading = true;
-            this.isError = false;
-            /**
-             * The name of the SVG to use from the SVG sprite.
-             * @public
-             * @remarks
-             * HTML Attribute: name
-             * @type {string}
-             */ this.name = "";
-            /**
-             * The size of the icon. Value must match icon size as indicated in its name.
-             * @public
-             * @remarks
-             * HTML Attribute: size
-             * @type {string}
-             */ this.size = "";
-            /**
-             * Path to SVG. Can be standalone SVG or SVG sprite.
-             * @public
-             * @remarks
-             * HTML Attribute: path
-             * @type {string}
-             */ this.path = "";
-            /**
-             * Whether the icon is hidden from screen readers. Defaults to true.
-             * @public
-             * @remarks
-             * HTML Attribute: aria-hidden
-             * @type {string}
-             */ this.ariaHidden = "true";
-            /**
-             * Optional label for the icon. Emitted via aria-label.
-             * @public
-             * @remarks
-             * HTML Attribute: label
-             * @type {string}
-             */ this.ariaLabel = "";
-            /**
-             * Whether the icon is focusable. Defaults to false.
-             * @public
-             * @remarks
-             * HTML Attribute: focusable
-             * @type {string}
-             */ this.focusable = "false";
-            /**
-             * The role of the icon. Defaults to null.
-             * @public
-             * @remarks
-             * HTML Attribute: role
-             * @type {string}
-             */ this.role = SvgIconRole.null;
-            this.renderResolver = null;
-            this.renderPromise = new Promise((resolve)=>{
-                this.renderResolver = resolve;
+    static async fetchAndCacheSVG(e) {
+        if (!this.cache.has(e)) try {
+            const t = fetch(e).then((e)=>{
+                if (!e.ok) throw new Error(`Network error: ${e.status} ${e.statusText}`);
+                return e.text();
+            }).then((e)=>{
+                if (!/<svg[\s\S]+<\/svg>/.test(e)) throw new Error("Invalid SVG format");
+                return ys(e);
             });
+            return this.cache.set(e, t), await t;
+        } catch (t) {
+            throw console.error(`Failed to fetch and cache SVG from path ${e}:`, t), t;
         }
-        nameChanged() {
-            this.checkAndResolveRenderPromise();
+        return await this.cache.get(e);
+    }
+    static getIconFromSprite(e, t) {
+        const o = (new DOMParser).parseFromString(e, "image/svg+xml").querySelector(`symbol[id="${t}"]`);
+        if (!o) return console.error(`Icon with ID ${t} not found in sprite.`), "";
+        const i = "http://www.w3.org/2000/svg", s = document.createElementNS(i, "svg");
+        return s.setAttribute("xmlns", i), s.setAttributeNS(null, "viewBox", o.getAttribute("viewBox") || ""), s.innerHTML = o.innerHTML, s.outerHTML;
+    }
+    static async getPreparedSVG(e, t) {
+        try {
+            const o = await this.loadIconOrSprite(e, t), i = this.parseSVG(o), s = i.querySelector("symbol");
+            return s ? this.getSVGDetailsFromSymbol(s) : this.getSVGDetailsFromSVGElement(i);
+        } catch (t) {
+            throw console.error(`Failed to prepare SVG from path ${e}:`, t), t;
         }
-        sizeChanged() {
-            this.checkAndResolveRenderPromise();
-        }
-        pathChanged() {
-            this.checkAndResolveRenderPromise();
-        }
-        connectedCallback() {
-            super.connectedCallback();
-            this.renderPromise.then(()=>this.renderIcon());
-        }
-        checkAndResolveRenderPromise() {
-            if (this.renderResolver) {
-                if (this.path) {
-                    if (!this.name || this.name && this.name !== "") {
-                        this.renderResolver();
-                        this.renderResolver = null;
-                    }
-                }
-            }
-        }
-        renderIcon() {
-            this.isLoading = true;
-            SvgService.getPreparedSVG(this.path, this.name).then(({ content, width, height })=>{
-                this.isLoading = false;
-                this.shadowRoot.innerHTML = content;
-                this.updateComputedStylesheet(width, height);
-                const svgElementInShadow = this.shadowRoot.querySelector("svg");
-                if (svgElementInShadow) this.updateSvgAttributes(svgElementInShadow);
-            }).catch((error)=>{
-                this.isLoading = false;
-                this.isError = true;
-                console.error(`Failed to load icon: ${this.path}`, error);
-                this.renderErrorIcon();
-            });
-        }
-        renderErrorIcon() {
-            // Creating SVG element for red "X"
-            const errorSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            errorSvg.setAttribute("width", "20");
-            errorSvg.setAttribute("height", "20");
-            errorSvg.setAttribute("viewBox", "0 0 20 20");
-            // Line from top-left to bottom-right
-            const line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            line1.setAttribute("x1", "0");
-            line1.setAttribute("y1", "0");
-            line1.setAttribute("x2", "20");
-            line1.setAttribute("y2", "20");
-            line1.setAttribute("stroke", "red");
-            line1.setAttribute("stroke-width", "2");
-            // Line from top-right to bottom-left
-            const line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            line2.setAttribute("x1", "20");
-            line2.setAttribute("y1", "0");
-            line2.setAttribute("x2", "0");
-            line2.setAttribute("y2", "20");
-            line2.setAttribute("stroke", "red");
-            line2.setAttribute("stroke-width", "2");
-            errorSvg.appendChild(line1);
-            errorSvg.appendChild(line2);
-            // Adding SVG to shadowRoot
-            this.shadowRoot.innerHTML = "";
-            this.shadowRoot.appendChild(errorSvg);
-        }
-        updateComputedStylesheet(width, height) {
-            if (this.size) {
-                const sizeValue = [
-                    "12",
-                    "16",
-                    "20",
-                    "24",
-                    "28",
-                    "32",
-                    "48"
-                ].includes(this.size) ? this.size : "20";
-                this.computedStylesheet = css`
+    }
+    static parseSVG(e) {
+        return (new DOMParser).parseFromString(e, "image/svg+xml");
+    }
+    static getSVGDetailsFromSymbol(e) {
+        const t = e.getAttribute("viewBox"), o = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        for(o.setAttribute("viewBox", t || ""), o.setAttribute("xmlns", "http://www.w3.org/2000/svg"); e.firstChild;)o.appendChild(e.firstChild);
+        const i = e.getAttribute("width") || void 0, s = e.getAttribute("height") || void 0;
+        return {
+            content: o.outerHTML,
+            width: i,
+            height: s
+        };
+    }
+    static getSVGDetailsFromSVGElement(e) {
+        const t = e.querySelector("svg");
+        let o, i;
+        return t && (o = t.getAttribute("width") || void 0, i = t.getAttribute("height") || void 0), {
+            content: (null == t ? void 0 : t.outerHTML) || "",
+            width: o,
+            height: i
+        };
+    }
+}
+xs.cache = new Map;
+const ks = null;
+class Ss extends nt {
+    constructor(){
+        super(...arguments), this.isLoading = !0, this.isError = !1, this.name = "", this.size = "", this.path = "", this.ariaHidden = "true", this.ariaLabel = "", this.focusable = "false", this.role = ks, this.renderResolver = null, this.renderPromise = new Promise((e)=>{
+            this.renderResolver = e;
+        });
+    }
+    nameChanged() {
+        this.checkAndResolveRenderPromise();
+    }
+    sizeChanged() {
+        this.checkAndResolveRenderPromise();
+    }
+    pathChanged() {
+        this.checkAndResolveRenderPromise();
+    }
+    connectedCallback() {
+        super.connectedCallback(), this.renderPromise.then(()=>this.renderIcon());
+    }
+    checkAndResolveRenderPromise() {
+        this.renderResolver && this.path && (!this.name || this.name && "" !== this.name) && (this.renderResolver(), this.renderResolver = null);
+    }
+    renderIcon() {
+        this.isLoading = !0, xs.getPreparedSVG(this.path, this.name).then(({ content: e, width: t, height: o })=>{
+            this.isLoading = !1, this.shadowRoot.innerHTML = e, this.updateComputedStylesheet(t, o);
+            const i = this.shadowRoot.querySelector("svg");
+            i && this.updateSvgAttributes(i);
+        }).catch((e)=>{
+            this.isLoading = !1, this.isError = !0, console.error(`Failed to load icon: ${this.path}`, e), this.renderErrorIcon();
+        });
+    }
+    renderErrorIcon() {
+        const e = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        e.setAttribute("width", "20"), e.setAttribute("height", "20"), e.setAttribute("viewBox", "0 0 20 20");
+        const t = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        t.setAttribute("x1", "0"), t.setAttribute("y1", "0"), t.setAttribute("x2", "20"), t.setAttribute("y2", "20"), t.setAttribute("stroke", "red"), t.setAttribute("stroke-width", "2");
+        const o = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        o.setAttribute("x1", "20"), o.setAttribute("y1", "0"), o.setAttribute("x2", "0"), o.setAttribute("y2", "20"), o.setAttribute("stroke", "red"), o.setAttribute("stroke-width", "2"), e.appendChild(t), e.appendChild(o), this.shadowRoot.innerHTML = "", this.shadowRoot.appendChild(e);
+    }
+    updateComputedStylesheet(e, t) {
+        if (this.size) {
+            const e = [
+                "12",
+                "16",
+                "20",
+                "24",
+                "28",
+                "32",
+                "48"
+            ].includes(this.size) ? this.size : "20";
+            this.computedStylesheet = G`
         :host {
-          --icon-height: ${sizeValue}px;
-          --icon-width: ${sizeValue}px;
+          --icon-height: ${e}px;
+          --icon-width: ${e}px;
         }
       `;
-            } else if (width && height) this.computedStylesheet = css`
+        } else e && t && (this.computedStylesheet = G`
         :host {
-          --icon-height: ${height}px;
-          --icon-width: ${width}px;
+          --icon-height: ${t}px;
+          --icon-width: ${e}px;
         }
-      `;
-            if (this.computedStylesheet) this.$fastController.addStyles(this.computedStylesheet);
-        }
-        updateSvgAttributes(svgElement) {
-            if (this.name !== undefined) svgElement.setAttribute("name", this.name);
-            else svgElement.removeAttribute("name");
-            if (this.size !== undefined) svgElement.setAttribute("size", this.size);
-            else svgElement.removeAttribute("size");
-            if (this.ariaLabel) svgElement.setAttribute("aria-label", this.ariaLabel);
-            else svgElement.removeAttribute("aria-label");
-            svgElement.setAttribute("aria-hidden", this.ariaHidden);
-            svgElement.setAttribute("focusable", this.focusable || "false");
-            if (this.role) svgElement.setAttribute("role", this.role);
-            else svgElement.removeAttribute("role");
-        }
+      `);
+        this.computedStylesheet && this.$fastController.addStyles(this.computedStylesheet);
     }
-    __decorate([
-        observable,
-        attr
-    ], SvgIcon.prototype, "name", void 0);
-    __decorate([
-        observable,
-        attr
-    ], SvgIcon.prototype, "size", void 0);
-    __decorate([
-        observable,
-        attr
-    ], SvgIcon.prototype, "path", void 0);
-    __decorate([
-        attr({
-            attribute: "aria-hidden"
-        })
-    ], SvgIcon.prototype, "ariaHidden", void 0);
-    __decorate([
-        attr({
-            attribute: "aria-label"
-        })
-    ], SvgIcon.prototype, "ariaLabel", void 0);
-    __decorate([
-        attr
-    ], SvgIcon.prototype, "focusable", void 0);
-    __decorate([
-        attr
-    ], SvgIcon.prototype, "role", void 0);
-    const styles$4 = css`
-  ${display("inline-flex")}
+    updateSvgAttributes(e) {
+        void 0 !== this.name ? e.setAttribute("name", this.name) : e.removeAttribute("name"), void 0 !== this.size ? e.setAttribute("size", this.size) : e.removeAttribute("size"), this.ariaLabel ? e.setAttribute("aria-label", this.ariaLabel) : e.removeAttribute("aria-label"), e.setAttribute("aria-hidden", this.ariaHidden), e.setAttribute("focusable", this.focusable || "false"), this.role ? e.setAttribute("role", this.role) : e.removeAttribute("role");
+    }
+}
+e([
+    B,
+    ze
+], Ss.prototype, "name", void 0), e([
+    B,
+    ze
+], Ss.prototype, "size", void 0), e([
+    B,
+    ze
+], Ss.prototype, "path", void 0), e([
+    ze({
+        attribute: "aria-hidden"
+    })
+], Ss.prototype, "ariaHidden", void 0), e([
+    ze({
+        attribute: "aria-label"
+    })
+], Ss.prototype, "ariaLabel", void 0), e([
+    ze
+], Ss.prototype, "focusable", void 0), e([
+    ze
+], Ss.prototype, "role", void 0);
+const Cs = G`
+  ${yt("inline-flex")}
 
   :host,
   :host svg {
@@ -18759,417 +16976,187 @@ var global = arguments[3];
   :host svg:not([role="img"]) {
     fill: currentcolor;
   }
-`;
-    const template$4 = html`
+`, Bs = Se`
   <template></template>
-`;
-    const SvgIconDefinition = SvgIcon.compose({
-        name: `${DesignSystem.prefix}-svg-icon`,
-        template: template$4,
-        styles: styles$4,
-        shadowOptions: {
-            mode: DesignSystem.shadowRootMode
-        }
-    });
-    /**
-     * A TeachingBubble Custom HTML Element.
-     * @public
-     * @class
-     * @extends FASTElement
-     *
-     * @remarks
-     * HTML Element: \<hwc-teaching-bubble\>
-     * Roles: Implements {@link https://www.w3.org/TR/wai-aria-1.1/#tooltip | ARIA tooltip } on internal container.
-     * Composition: TeachingBubble
-     *
-     * @slot default - The slot for bubble content
-     * @slot footer - The slot for bubble footer
-     * @slot close - The slot for close button
-     * @slot image - The slot for image
-     * @slot heading - The slot for heading
-     *
-     * @attr {string} target - The ID of the element that the teaching bubble is attached to.
-     * @attr {TeachingBubblePlacement} placement - The placement of the teaching bubble relative to the target.
-     * @attr {boolean} open - Determines whether the teaching bubble is open.
-     * @attr {boolean} disable-trap-focus - Determines whether focus trapping is disabled.
-     * @attr {TeachingBubbleSize} size - The size of the teaching bubble.
-     *
-     * @csspart content - The content container for the teaching bubble
-     * @csspart footer - The footer container for the teaching bubble
-     * @csspart heading - The heading container for the teaching bubble
-     * @csspart close - The close button container for the teaching bubble
-     * @csspart image - The image container for the teaching bubble
-     * @csspart arrow - The arrow container for the teaching bubble
-     *
-     * @fires openchange - Fires a custom 'openchange' event when the open state changes
-     * @fires dismiss - Fires a custom 'dismiss' event when the teaching bubble is dismissed
-     *
-     * @public
-     */ class TeachingBubble extends FASTElement {
-        constructor(){
-            super(...arguments);
-            /**
-             * The target element that the teaching bubble is attached to.
-             * @type {string}
-             * @default ""
-             */ this.target = "";
-            /**
-             * Determines whether focus trapping is disabled or not.
-             * @type {boolean}
-             */ this.disableTrapFocus = false;
-            /**
-             * Determines whether the teaching bubble is currently trapping focus or not.
-             * @type {boolean}
-             */ this.isTrappingFocus = false;
-            /**
-             * Determines whether the teaching bubble should trap focus or not.
-             * @type {boolean}
-             */ this.trapFocus = false;
-            /**
-             * Useful for cleanup task of floating UI auto update from dom.
-             * @type {boolean}
-             */ this.cleanAutoUpdate = null;
-            /**
-             * @public
-             * Method to show bubble.
-             */ this.show = ()=>{
-                this.updatePosition();
-                // Auto updates the position of anchored Teaching Bubble to its reference element on resize.
-                this.cleanAutoUpdate = autoUpdate(this.targetEl, this.currentEl, this.updatePosition);
-                this.open = true;
-                this.trapFocus = true;
-                this.updateTrapFocus(true);
-            };
-            /**
-             * @public
-             * Method to hide bubble.
-             * @param dismiss - Determines whether the teaching bubble should be dismissed or not.
-             */ this.hide = (dismiss = false)=>{
-                var _a;
-                this.open = false;
-                (_a = this.currentEl) === null || _a === void 0 || _a.setAttribute("hidden", "");
-                if (dismiss) this.$emit("dismiss");
-            };
-            this.renderResolver = null;
-            this.renderPromise = new Promise((resolve)=>{
-                this.renderResolver = resolve;
-            });
-            /**
-             * @private
-             * Method to set the target, current and arrow elements.
-             */ this.setElements = ()=>{
-                var _a;
-                this.targetEl = document.getElementById(this.target);
-                this.currentEl = this;
-                this.arrowEl = (_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.getElementById("arrow");
-            };
-            /**
-             * @private
-             * Method to update position when element is rendered in the dom.
-             */ this.updatePosition = ()=>{
-                this.setElements();
-                // Initial position of the Teaching Bubble popup.
-                const computeObj = this.placement ? {
-                    placement: this.placement,
-                    middleware: [
-                        offset(10),
-                        arrow({
-                            element: this.arrowEl,
-                            padding: 4
-                        })
-                    ]
-                } : {
-                    middleware: [
-                        autoPlacement({
-                            autoAlignment: true
-                        }),
-                        offset(10),
-                        arrow({
-                            element: this.arrowEl,
-                            padding: 4
-                        })
-                    ]
-                };
-                if (this.targetEl && this.currentEl) computePosition(this.targetEl, this.currentEl, computeObj).then(({ x, y, placement, middlewareData })=>{
-                    var _a;
-                    if (!(this.currentEl instanceof HTMLElement)) return;
-                    Object.assign(this.currentEl.style, {
-                        left: `${x}px`,
-                        top: `${y}px`
-                    });
-                    // Accessing the arrow x and y position.
-                    const { x: arrowX, y: arrowY } = (_a = middlewareData.arrow) !== null && _a !== void 0 ? _a : {};
-                    const staticSide = {
-                        top: "bottom",
-                        right: "left",
-                        bottom: "top",
-                        left: "right"
-                    }[placement.split("-")[0]];
-                    Object.assign(this.arrowEl.style, {
-                        left: arrowX != null ? `${arrowX}px` : "",
-                        top: arrowY != null ? `${arrowY}px` : "",
-                        right: "",
-                        bottom: "",
-                        [staticSide]: "-8px"
-                    });
-                });
-            };
-            /**
-             * @private
-             * Handles keydown events on the document
-             * @param e - The keydown event
-             */ this.handleDocumentKeydown = (e)=>{
-                if (!e.defaultPrevented && this.open) switch(e.key){
-                    case keyTab:
-                        this.handleTabKeyDown(e);
-                        break;
-                    case keyEscape:
-                        this.hide(true);
-                        break;
-                    default:
-                        return true;
-                }
-            };
-            /**
-             * @private
-             * Handles tab keydown events
-             * @param e - The keydown event
-             */ this.handleTabKeyDown = (e)=>{
-                if (!this.trapFocus || !this.open) return;
-                const bounds = this.getTabQueueBounds();
-                if (bounds.length === 1) {
-                    bounds[0].focus();
-                    e.preventDefault();
-                    return;
-                }
-                if (e.shiftKey && e.target === bounds[0]) {
-                    bounds[bounds.length - 1].focus();
-                    e.preventDefault();
-                } else if (!e.shiftKey && e.target === bounds[bounds.length - 1]) {
-                    bounds[0].focus();
-                    e.preventDefault();
-                }
-                return;
-            };
-            /**
-             * @private
-             * Gets the bounds of the tab queue
-             * @returns (HTMLElement | SVGElement)[]
-             */ this.getTabQueueBounds = ()=>{
-                const bounds = [];
-                return TeachingBubble.reduceTabbableItems(bounds, this);
-            };
-            /**
-             * @private
-             * Updates the state of focus trapping
-             * @param shouldTrapFocusOverride - Optional override for whether focus should be trapped
-             */ this.updateTrapFocus = (shouldTrapFocusOverride)=>{
-                const shouldTrapFocus = shouldTrapFocusOverride === undefined ? this.shouldTrapFocus() : shouldTrapFocusOverride;
-                if (shouldTrapFocus && !this.isTrappingFocus) {
-                    this.isTrappingFocus = true;
-                    // Add an event listener for focusin events if we are trapping focus
-                    document.addEventListener("focusin", this.handleDocumentFocus);
-                    Updates.enqueue(()=>{
-                        if (this.shouldForceFocus(document.activeElement)) this.focusFirstElement();
-                    });
-                } else if (!shouldTrapFocus && this.isTrappingFocus) {
-                    this.isTrappingFocus = false;
-                    // remove event listener if we are not trapping focus
-                    document.removeEventListener("focusin", this.handleDocumentFocus);
-                }
-            };
-            /**
-             * @private
-             * Handles focus events on the document
-             * @param e - The focus event
-             */ this.handleDocumentFocus = (e)=>{
-                if (!e.defaultPrevented && this.shouldForceFocus(e.target)) {
-                    this.focusFirstElement();
-                    e.preventDefault();
-                }
-            };
-            /**
-             * @private
-             * Focuses the first element in the tab queue
-             */ this.focusFirstElement = ()=>{
-                const bounds = this.getTabQueueBounds();
-                const teachingBubbleAllEls = document.getElementsByTagName("hwc-teaching-bubble");
-                let disableFocus = 0;
-                Array.from(teachingBubbleAllEls).forEach((el)=>{
-                    if (true === el.hasAttribute("open")) disableFocus++;
-                });
-                // If more than one hwc-tabbable element present, then disable first focus.
-                if (disableFocus > 1) return;
-                if (bounds.length > 0) bounds[0].focus();
-                else if (this.currentEl instanceof HTMLElement) this.currentEl.focus();
-            };
-            /**
-             * @private
-             * Determines if focus should be forced
-             * @param currentFocusElement - The currently focused element
-             * @returns boolean
-             */ this.shouldForceFocus = (currentFocusElement)=>{
-                return this.isTrappingFocus && !this.contains(currentFocusElement);
-            };
-            /**
-             * @private
-             * Determines if focus should be trapped
-             * @returns boolean
-             */ this.shouldTrapFocus = ()=>{
-                return this.trapFocus && this.open;
-            };
-        }
-        /**
-         * @public
-         * Method gets called when the component is inserted into the document.
-         */ connectedCallback() {
-            super.connectedCallback();
-            this.renderPromise.then(()=>{
-                this.setElements();
-                this.initializePosition();
-                document.addEventListener("keydown", this.handleDocumentKeydown);
-                Updates.enqueue(()=>{
-                    this.updateTrapFocus();
-                    this.disableTrapFocusHandler();
-                });
-            });
-            this.renderResolver();
-        }
-        /**
-         * @public
-         * Method to perform cleanup tasks.
-         */ disconnectedCallback() {
-            super.disconnectedCallback();
-            // Remove the keydown event listener.
-            document.removeEventListener("keydown", this.handleDocumentKeydown);
-            document.removeEventListener("focusin", this.handleDocumentFocus);
-            this.updateTrapFocus(false);
-            if (this.cleanAutoUpdate) this.cleanAutoUpdate();
-            this.targetEl = null;
-            this.currentEl = null;
-            this.arrowEl = null;
-        }
-        /**
-         * @public
-         * Method called when the 'open' attribute changes.
-         */ openChanged() {
-            this.initializePosition();
-            Updates.enqueue(()=>{
-                this.updateTrapFocus();
-                this.disableTrapFocusHandler();
-            });
-            this.$emit("openchange", this.open);
-        }
-        /**
-         * @private
-         * Reduces the list of tabbable items
-         * @param elements - The current list of elements
-         * @param element - The element to consider adding to the list
-         * @returns HTMLElement[]
-         */ static reduceTabbableItems(elements, element) {
-            if (element.getAttribute("tabindex") === "-1") return elements;
-            if (isTabbable(element) || TeachingBubble.isFocusableFastElement(element) && TeachingBubble.hasTabbableShadow(element)) {
-                elements.push(element);
-                return elements;
-            }
-            return Array.from(element.children).reduce((elements, currentElement)=>TeachingBubble.reduceTabbableItems(elements, currentElement), elements);
-        }
-        /**
-         * @private
-         * Determines if an element is a focusable FASTElement
-         * @param element - The element to check
-         * @returns boolean
-         */ static isFocusableFastElement(element) {
-            var _a, _b;
-            return !!((_b = (_a = element.$fastController) === null || _a === void 0 ? void 0 : _a.definition.shadowOptions) === null || _b === void 0 ? void 0 : _b.delegatesFocus);
-        }
-        /**
-         * @private
-         * Determines if an element has a tabbable shadow
-         * @param element - The element to check
-         * @returns boolean
-         */ static hasTabbableShadow(element) {
-            var _a, _b;
-            return Array.from((_b = (_a = element.shadowRoot) === null || _a === void 0 ? void 0 : _a.querySelectorAll("*")) !== null && _b !== void 0 ? _b : []).some((x)=>{
-                return isTabbable(x);
-            });
-        }
-        /**
-         * @private
-         * Method to check if attribute 'disable-trap-focus' is present or not.
-         */ disableTrapFocusHandler() {
-            if (this.disableTrapFocus) this.trapFocus = false;
-            else this.trapFocus = true;
-        }
-        /**
-         * @private
-         * Method to initialize the position of bubble.
-         */ initializePosition() {
-            this.open && this.targetEl && this.currentEl && this.arrowEl && this.show();
-            this.open || this.hide();
-        }
+`, Ps = Ss.compose({
+    name: `${lt.prefix}-svg-icon`,
+    template: Bs,
+    styles: Cs,
+    shadowOptions: {
+        mode: lt.shadowRootMode
     }
-    __decorate([
-        attr({
-            mode: "fromView"
-        })
-    ], TeachingBubble.prototype, "target", void 0);
-    __decorate([
-        attr({
-            mode: "fromView"
-        })
-    ], TeachingBubble.prototype, "placement", void 0);
-    __decorate([
-        attr({
-            mode: "boolean"
-        })
-    ], TeachingBubble.prototype, "open", void 0);
-    __decorate([
-        attr({
-            mode: "boolean",
-            attribute: "disable-trap-focus"
-        })
-    ], TeachingBubble.prototype, "disableTrapFocus", void 0);
-    __decorate([
-        attr({
-            mode: "fromView"
-        })
-    ], TeachingBubble.prototype, "size", void 0);
-    __decorate([
-        observable
-    ], TeachingBubble.prototype, "targetEl", void 0);
-    __decorate([
-        observable
-    ], TeachingBubble.prototype, "currentEl", void 0);
-    __decorate([
-        observable
-    ], TeachingBubble.prototype, "arrowEl", void 0);
-    __decorate([
-        observable
-    ], TeachingBubble.prototype, "isTrappingFocus", void 0);
-    __decorate([
-        observable
-    ], TeachingBubble.prototype, "trapFocus", void 0);
-    __decorate([
-        observable
-    ], TeachingBubble.prototype, "cleanAutoUpdate", void 0);
-    const styles$3 = css`
+});
+class Es extends nt {
+    constructor(){
+        super(...arguments), this.target = "", this.disableTrapFocus = !1, this.isTrappingFocus = !1, this.trapFocus = !1, this.cleanAutoUpdate = null, this.show = ()=>{
+            this.updatePosition(), this.cleanAutoUpdate = Ni(this.targetEl, this.currentEl, this.updatePosition), this.open = !0, this.trapFocus = !0, this.updateTrapFocus(!0);
+        }, this.hide = (e = !1)=>{
+            var t;
+            this.open = !1, null === (t = this.currentEl) || void 0 === t || t.setAttribute("hidden", ""), e && this.$emit("dismiss");
+        }, this.renderResolver = null, this.renderPromise = new Promise((e)=>{
+            this.renderResolver = e;
+        }), this.setElements = ()=>{
+            var e;
+            this.targetEl = document.getElementById(this.target), this.currentEl = this, this.arrowEl = null === (e = this.shadowRoot) || void 0 === e ? void 0 : e.getElementById("arrow");
+        }, this.updatePosition = ()=>{
+            this.setElements();
+            const e = this.placement ? {
+                placement: this.placement,
+                middleware: [
+                    si(10),
+                    Vi({
+                        element: this.arrowEl,
+                        padding: 4
+                    })
+                ]
+            } : {
+                middleware: [
+                    Oi({
+                        autoAlignment: !0
+                    }),
+                    si(10),
+                    Vi({
+                        element: this.arrowEl,
+                        padding: 4
+                    })
+                ]
+            };
+            this.targetEl && this.currentEl && Ri(this.targetEl, this.currentEl, e).then(({ x: e, y: t, placement: o, middlewareData: i })=>{
+                var s;
+                if (!(this.currentEl instanceof HTMLElement)) return;
+                Object.assign(this.currentEl.style, {
+                    left: `${e}px`,
+                    top: `${t}px`
+                });
+                const { x: r, y: n } = null !== (s = i.arrow) && void 0 !== s ? s : {}, a = {
+                    top: "bottom",
+                    right: "left",
+                    bottom: "top",
+                    left: "right"
+                }[o.split("-")[0]];
+                Object.assign(this.arrowEl.style, {
+                    left: null != r ? `${r}px` : "",
+                    top: null != n ? `${n}px` : "",
+                    right: "",
+                    bottom: "",
+                    [a]: "-8px"
+                });
+            });
+        }, this.handleDocumentKeydown = (e)=>{
+            if (!e.defaultPrevented && this.open) switch(e.key){
+                case ft:
+                    this.handleTabKeyDown(e);
+                    break;
+                case ut:
+                    this.hide(!0);
+                    break;
+                default:
+                    return !0;
+            }
+        }, this.handleTabKeyDown = (e)=>{
+            if (!this.trapFocus || !this.open) return;
+            const t = this.getTabQueueBounds();
+            if (1 === t.length) return t[0].focus(), void e.preventDefault();
+            e.shiftKey && e.target === t[0] ? (t[t.length - 1].focus(), e.preventDefault()) : e.shiftKey || e.target !== t[t.length - 1] || (t[0].focus(), e.preventDefault());
+        }, this.getTabQueueBounds = ()=>Es.reduceTabbableItems([], this), this.updateTrapFocus = (e)=>{
+            const t = void 0 === e ? this.shouldTrapFocus() : e;
+            t && !this.isTrappingFocus ? (this.isTrappingFocus = !0, document.addEventListener("focusin", this.handleDocumentFocus), y.enqueue(()=>{
+                this.shouldForceFocus(document.activeElement) && this.focusFirstElement();
+            })) : !t && this.isTrappingFocus && (this.isTrappingFocus = !1, document.removeEventListener("focusin", this.handleDocumentFocus));
+        }, this.handleDocumentFocus = (e)=>{
+            !e.defaultPrevented && this.shouldForceFocus(e.target) && (this.focusFirstElement(), e.preventDefault());
+        }, this.focusFirstElement = ()=>{
+            const e = this.getTabQueueBounds(), t = document.getElementsByTagName("fabric-teaching-bubble");
+            let o = 0;
+            Array.from(t).forEach((e)=>{
+                !0 === e.hasAttribute("open") && o++;
+            }), o > 1 || (e.length > 0 ? e[0].focus() : this.currentEl instanceof HTMLElement && this.currentEl.focus());
+        }, this.shouldForceFocus = (e)=>this.isTrappingFocus && !this.contains(e), this.shouldTrapFocus = ()=>this.trapFocus && this.open;
+    }
+    connectedCallback() {
+        super.connectedCallback(), this.renderPromise.then(()=>{
+            this.setElements(), this.initializePosition(), document.addEventListener("keydown", this.handleDocumentKeydown), y.enqueue(()=>{
+                this.updateTrapFocus(), this.disableTrapFocusHandler();
+            });
+        }), this.renderResolver();
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback(), document.removeEventListener("keydown", this.handleDocumentKeydown), document.removeEventListener("focusin", this.handleDocumentFocus), this.updateTrapFocus(!1), this.cleanAutoUpdate && this.cleanAutoUpdate(), this.targetEl = null, this.currentEl = null, this.arrowEl = null;
+    }
+    openChanged() {
+        this.initializePosition(), y.enqueue(()=>{
+            this.updateTrapFocus(), this.disableTrapFocusHandler();
+        }), this.$emit("openchange", this.open);
+    }
+    static reduceTabbableItems(e, t) {
+        return "-1" === t.getAttribute("tabindex") ? e : Oo(t) || Es.isFocusableFastElement(t) && Es.hasTabbableShadow(t) ? (e.push(t), e) : Array.from(t.children).reduce((e, t)=>Es.reduceTabbableItems(e, t), e);
+    }
+    static isFocusableFastElement(e) {
+        var t, o;
+        return !!(null === (o = null === (t = e.$fastController) || void 0 === t ? void 0 : t.definition.shadowOptions) || void 0 === o ? void 0 : o.delegatesFocus);
+    }
+    static hasTabbableShadow(e) {
+        var t, o;
+        return Array.from(null !== (o = null === (t = e.shadowRoot) || void 0 === t ? void 0 : t.querySelectorAll("*")) && void 0 !== o ? o : []).some((e)=>Oo(e));
+    }
+    disableTrapFocusHandler() {
+        this.disableTrapFocus ? this.trapFocus = !1 : this.trapFocus = !0;
+    }
+    initializePosition() {
+        this.open && this.targetEl && this.currentEl && this.arrowEl && this.show(), this.open || this.hide();
+    }
+}
+e([
+    ze({
+        mode: "fromView"
+    })
+], Es.prototype, "target", void 0), e([
+    ze({
+        mode: "fromView"
+    })
+], Es.prototype, "placement", void 0), e([
+    ze({
+        mode: "boolean"
+    })
+], Es.prototype, "open", void 0), e([
+    ze({
+        mode: "boolean",
+        attribute: "disable-trap-focus"
+    })
+], Es.prototype, "disableTrapFocus", void 0), e([
+    ze({
+        mode: "fromView"
+    })
+], Es.prototype, "size", void 0), e([
+    B
+], Es.prototype, "targetEl", void 0), e([
+    B
+], Es.prototype, "currentEl", void 0), e([
+    B
+], Es.prototype, "arrowEl", void 0), e([
+    B
+], Es.prototype, "isTrappingFocus", void 0), e([
+    B
+], Es.prototype, "trapFocus", void 0), e([
+    B
+], Es.prototype, "cleanAutoUpdate", void 0);
+const As = G`
   :host {
     position: absolute;
-    border: 1px solid ${colorBrandBackground};
-    border-radius: ${borderRadiusMedium};
-    background-color: ${colorBrandBackground};
-    color: ${colorNeutralBackground1};
-    padding: ${spacingHorizontalL};
-    box-shadow: ${shadow16};
+    border: 1px solid ${vo};
+    border-radius: ${Ht};
+    background-color: ${vo};
+    color: ${po};
+    padding: ${to};
+    box-shadow: ${Co};
     max-width: 288px;
   }
 
   ::slotted(*) {
-    font-family: ${fontFamilyBase};
+    font-family: ${Xt};
     font-size: unset;
-    font-weight: ${fontWeightRegular};
-    line-height: ${lineHeightBase300};
+    font-weight: ${Yt};
+    line-height: ${Kt};
     margin: 0;
     margin-block-start: 0;
     margin-block-end: 0;
@@ -19178,19 +17165,19 @@ var global = arguments[3];
   }
 
   :host([size="small"]) ::slotted(*) {
-    font-size: ${fontSizeBase200};
+    font-size: ${_t};
   }
 
   :host([size="medium"]) ::slotted(*) {
-    font-size: ${fontSizeBase300};
+    font-size: ${jt};
   }
 
   :host([size="large"]) ::slotted(*) {
-    font-size: ${fontSizeBase400};
+    font-size: ${Gt};
   }
 
   :host[hidden] {
-    ${display("none")}
+    ${yt("none")}
   }
 
   slot[name="close"]::slotted(*) {
@@ -19204,7 +17191,7 @@ var global = arguments[3];
   }
 
   .heading {
-    margin-bottom: ${spacingHorizontalS};
+    margin-bottom: ${Jt};
   }
 
   .footer {
@@ -19212,52 +17199,51 @@ var global = arguments[3];
 
   .arrow {
     position: absolute;
-    background: ${colorBrandBackground};
+    background: ${vo};
     width: 16px;
     height: 16px;
     transform: rotate(45deg);
-    border-radius: ${borderRadiusSmall};
+    border-radius: ${zt};
   }
 
   slot[name="image"]::slotted(*) {
     display: block;
-    margin-bottom: ${spacingHorizontalM};
+    margin-bottom: ${eo};
     width: 100%;
     height: 100%;
   }
 
   slot[name="heading"]::slotted(*) {
-    font-weight: ${fontWeightSemibold};
-    line-height: ${lineHeightBase400};
+    font-weight: ${Qt};
+    line-height: ${Ut};
   }
 
   :host([size="small"]) slot[name="heading"]::slotted(*) {
-    font-size: ${fontSizeBase300};
+    font-size: ${jt};
   }
 
   :host([size="medium"]) slot[name="heading"]::slotted(*) {
-    font-size: ${fontSizeBase400};
+    font-size: ${Gt};
   }
 
   :host([size="large"]) slot[name="heading"]::slotted(*) {
-    font-size: ${fontSizeBase500};
+    font-size: ${Wt};
   }
 
   slot[name="footer"]::slotted(*) {
-    line-height: ${lineHeightBase200};
-    margin-top: ${spacingHorizontalM};
-    padding-top: ${spacingHorizontalM};
+    line-height: ${qt};
+    margin-top: ${eo};
+    padding-top: ${eo};
   }
 `;
-    function teachingBubbleTemplate() {
-        return html`
+const Ts = Se`
     <template
-      size="${(x)=>x.size}"
-      target="${(x)=>x.target}"
-      ?hidden="${(x)=>!x.open}"
-      placement="${(x)=>x.placement}"
+      size="${(e)=>e.size}"
+      target="${(e)=>e.target}"
+      ?hidden="${(e)=>!e.open}"
+      placement="${(e)=>e.placement}"
       role="dialog"
-      ?disable-trap-focus="${(x)=>x.disableTrapFocus}"
+      ?disable-trap-focus="${(e)=>e.disableTrapFocus}"
     >
       <div class="image" part="image">
         <slot name="image"></slot>
@@ -19274,761 +17260,307 @@ var global = arguments[3];
       </div>
       <div id="arrow" class="arrow" part="arrow"></div>
     </template>
-  `;
+  `, $s = Es.compose({
+    name: `${lt.prefix}-teaching-bubble`,
+    template: Ts,
+    styles: As,
+    shadowOptions: {
+        mode: lt.shadowRootMode
     }
-    const template$3 = teachingBubbleTemplate();
-    /**
-     *
-     * @public
-     * @remarks
-     * HTML Element: <hwc-teaching-bubble>
-     */ const definition$3 = TeachingBubble.compose({
-        name: `${DesignSystem.prefix}-teaching-bubble`,
-        template: template$3,
-        styles: styles$3,
-        shadowOptions: {
-            mode: DesignSystem.shadowRootMode
-        }
-    });
-    /**
-     * @public
-     * The size variations for the teaching bubble component.
-     */ const TeachingBubbleSize = {
-        small: "small",
-        medium: "medium",
-        large: "large"
-    };
-    const TeachingBubblePlacement = {
-        top: "top",
-        bottom: "bottom",
-        left: "left",
-        right: "right",
-        topStart: "top-start",
-        topEnd: "top-end",
-        bottomStart: "bottom-start",
-        bottomEnd: "bottom-end",
-        leftStart: "left-start",
-        leftEnd: "left-end",
-        rightStart: "right-start",
-        rightEnd: "right-end"
-    };
-    /**
-     * An interactive WizardStep Custom HTML Element composed with the wizard and wizard panel.
-     *
-     * @public
-     * @class
-     * @extends FASTElement
-     *
-     * @remarks
-     * HTML Element: \<wizard-step\>
-     * Role: {@link https://www.w3.org/TR/wai-aria-1.1/#tab | ARIA tab }
-     * Composition: Wizard, WizardStep, WizardPanel
-     *
-     * @slot start - The content to display at the start of the step.
-     * @slot end - The content to display at the end of the step.
-     * @slot incomplete - The content to display when the step is incomplete.
-     * @slot complete - The content to display when the step is complete.
-     * @slot error - The content to display when the step has an error.
-     * @slot title - The content to display as the title of the step.
-     * @slot details - The content to display as the details of the step.
-     *
-     * @attr {string} ariaDescribedby - The ID of the element that describes the step.
-     * @attr {string} ariaLabelledby - The ID of the element that labels the step.
-     * @attr {boolean} ariaCompleted - Indicates whether the step is completed for accessibility purposes.
-     * @attr {boolean} active - Indicates whether the step is active.
-     * @attr {StepState} state - The state of the step.
-     * @attr {boolean} hideConnector - Indicates whether the connector should be hidden.
-     * @attr {boolean} ordered - Indicates whether the step is ordered.
-     * @attr {boolean} disabled - Indicates whether the step is disabled.
-     *
-     * @csspart state-indicator - The state indicator.
-     * @csspart icon - The icon.
-     * @csspart summary - The summary.
-     * @csspart title - The title.
-     * @csspart details - The details.
-     * @csspart connector - The connector.
-     *
-     * @fires stepchange - Dispatched when the step state changes.
-     */ class WizardStep extends Step {
-        /**
-         * Handles the keydown event for the wizard step.
-         * @param {KeyboardEvent} event - The keyboard event object.
-         * @returns {void}
-         */ keydownHandler(event) {
-            switch(event.key){
-                case keyEnter:
-                    if (this.disabled) {
-                        event.preventDefault();
-                        event.stopImmediatePropagation();
-                    } else this.active, this.active;
-            }
-        }
+}), Is = {
+    small: "small",
+    medium: "medium",
+    large: "large"
+}, Fs = {
+    top: "top",
+    bottom: "bottom",
+    left: "left",
+    right: "right",
+    topStart: "top-start",
+    topEnd: "top-end",
+    bottomStart: "bottom-start",
+    bottomEnd: "bottom-end",
+    leftStart: "left-start",
+    leftEnd: "left-end",
+    rightStart: "right-start",
+    rightEnd: "right-end"
+};
+class Ls extends as {
+    keydownHandler(e) {
+        if (e.key === ht) this.disabled ? (e.preventDefault(), e.stopImmediatePropagation()) : (this.active, this.active);
     }
-    /** Wizard Step styles
-     * @public
-     */ const styles$2 = css`
-  ${styles$6}
+}
+const Ms = G`
+  ${ls}
   :host(:hover) {
     cursor: pointer;
   }
   :host([disabled]) {
     cursor: not-allowed;
   }
-`;
-    /**
-     * The template for the {@link @horizon-msft/web-components#(WizardStep:class)} component.
-     * @public
-     */ const template$2 = baseStepTemplate();
-    /**
-     *
-     * @public
-     * @remarks
-     * HTML Element: <hwc-wizard-step>
-     */ const definition$2 = WizardStep.compose({
-        name: `${DesignSystem.prefix}-wizard-step`,
-        template: template$2,
-        styles: styles$2,
-        shadowOptions: {
-            mode: DesignSystem.shadowRootMode
-        }
-    });
-    /**
-     * A Wizard Custom HTML Element.
-     * @public
-     * @class
-     * @extends FASTElement
-     *
-     * @remarks
-     * HTML Element: \<hwc-wizard\>
-     * Roles: Implements {@link https://www.w3.org/TR/wai-aria-1.1/#tablist | ARIA tablist } on internal step container.
-     * Composition: Wizard, WizardStep, WizardPanel
-     *
-     * @slot start - Content which can be provided before the list element
-     * @slot end - Content which can be provided after the list element
-     * @slot step - The slot for steps
-     * @slot panel - The slot for panels
-     * @slot button - The slot for panel's elements buttons
-     * @slot title - The slot for title
-     *
-     * @attr {boolean} ordered - Determines whether the step state indicator should be labeled with the order of the steps.
-     * @attr {boolean} disable-on-complete - Determines whether the step state indicator should be labeled with the order of the steps.
-     * @attr {number} current-index - The current index
-     * @attr {string} aria-labelledby - The ID of the element that labels the wizard.
-     * @attr {string} aria-describedby - The ID of the element that describes the wizard.
-     * @attr {string} aria-label - The ID of the element that describes the wizard.
-     * @attr {boolean} hidden - Determines whether the wizard is hidden.
-     *
-     * @csspart wizard - The wizard element
-     * @csspart steps - The element container for the steps
-     * @csspart panels-container - The container for wizard panel section
-     * @csspart panel - The container element for the panels
-     * @csspart title - The container element for the title
-     *
-     * @fires wizardcomplete - Fires a custom 'wizardcomplete' event when all steps state are set to complete
-     * @fires wizardchange - Fires a custom 'wizardchange' event when steps change
-     *
-     * @public
-     */ class Wizard extends FASTElement {
-        constructor(){
-            super(...arguments);
-            /**
-             * Determines whether the step state indicator should be labeled with the order of the steps.
-             * @public
-             * @remarks
-             * HTML Attribute: ordered
-             */ this.ordered = false;
-            /**
-             * Determines whether the step state indicator should be labeled with the order of the steps.
-             * @public
-             * @remarks
-             * HTML Attribute: disable-on-complete
-             */ this.disableOnComplete = false;
-            /**
-             * The current index
-             * @public
-             * @remarks
-             * HTML Attribute: current-index
-             */ this.currentIndex = 0;
-            /**
-             * An array to hold the slotted WizardStep components.
-             * @type {WizardStep[]}
-             *
-             * @public
-             */ this.slottedsteps = [];
-            /**
-             * Array of HTMLButtonElement representing the slotted buttons in the wizard component.
-             * @type {HTMLButtonElement[]}
-             *
-             * @public
-             */ this.slottedbuttons = [];
-            /**
-             * An array to hold the slotted Wizard Panel components.
-             * @type {WizardPanel[]}
-             *
-             * @public
-             */ this.slottedpanels = [];
-            /**
-             * An array to hold the IDs of the WizardStep components.
-             * @type {string[]}
-             *
-             * @private
-             */ this.stepIds = [];
-            /**
-             * An array to hold the IDs of the WizardPanel components.
-             * @type {string[]}
-             *
-             * @private
-             */ this.panelIds = [];
-            /**
-             * Moves to the next step in the wizard.
-             * @public
-             */ this.next = ()=>{
-                this.currentIndex = this.slottedsteps.indexOf(this.activestep);
-                this.focusNextStep(true);
-            };
-            /**
-             * Moves to the previous step in the wizard.
-             * @public
-             */ this.previous = ()=>{
-                this.currentIndex = this.slottedsteps.indexOf(this.activestep);
-                this.focusPreviousStep(true);
-            };
-            /**
-             * Moves the focus to the next step in the wizard.
-             *
-             * @param setActive - Whether to set the next step as the active step.
-             *
-             * @public
-             */ this.focusNextStep = (setActive = false)=>{
-                const group = this.slottedsteps;
-                let index = 0;
-                index = this.currentIndex + 1;
-                while(index < group.length && group.length > 1){
-                    if (group[index].disabled) index += 1;
-                    else break;
-                }
-                if (index === group.length) index = 0;
-                while(index < group.length && group.length > 1){
-                    if (this.isFocusableElement(group[index]) && !this.isDisabledElement(group[index])) {
-                        this.moveToStepByIndex(index);
-                        break;
-                    } else if (this.activestep && index === group.indexOf(this.activestep)) break;
-                    else if (index + 1 >= group.length) index = 0;
-                    else index += 1;
-                }
-                if (setActive && !this.isDisabledElement(group[index])) this.setActiveStep(this.slottedsteps[index]);
-            };
-            /**
-             * Moves the focus to the previous step in the wizard.
-             * @param setActive - Whether to set the previous step as the active step.
-             *
-             * @public
-             */ this.focusPreviousStep = (setActive = false)=>{
-                const group = this.slottedsteps;
-                let index = 0;
-                index = this.currentIndex - 1;
-                index = index < 0 ? group.length - 1 : index;
-                while(index < group.length && group.length > 1){
-                    if (group[index].disabled) index -= 1;
-                    else break;
-                }
-                while(index >= 0 && group.length > 1){
-                    if (this.isFocusableElement(group[index]) && !this.isDisabledElement(group[index])) {
-                        this.moveToStepByIndex(index);
-                        break;
-                    } else if (index - 1 < 0) index = group.length - 1;
-                    else index -= 1;
-                }
-                if (setActive && !this.isDisabledElement(group[index])) this.setActiveStep(this.slottedsteps[index]);
-            };
-            /**
-             * Moves to a specific step in the Wizard by its index.
-             * @param index - The index of the step to move to.
-             * @public
-             */ this.moveToStepByIndex = (index)=>{
-                const step = this.slottedsteps[index];
-                this.currentIndex = index;
-                step.focus();
-                this.setComponent();
-            };
-            /**
-             * Handles the keydown event on the step container.
-             *
-             * @param event - The keydown event.
-             *
-             * @public
-             */ this.handleStepContainerKeydown = (event)=>{
-                var _a;
-                const activeIndex = (_a = this.slottedsteps.findIndex((step)=>step.active)) !== null && _a !== void 0 ? _a : 0;
-                switch(event.key){
-                    case keyEnter:
-                        event.preventDefault();
-                        if (document.activeElement === this) {
-                            if (activeIndex !== -1) {
-                                this.currentIndex = activeIndex;
-                                this.slottedsteps[activeIndex].focus();
-                            }
-                        }
-                        break;
-                    case keyTab:
-                        event.stopPropagation();
-                        event.preventDefault();
-                        this.slottedbuttons[0].focus();
-                        this.slottedsteps[activeIndex].tabIndex = -1;
-                        break;
-                }
-            };
-            /**
-             * Handles the keydown event on a step.
-             *
-             * @param event - The keydown event.
-             *
-             * @public
-             */ this.handleStepKeyDown = (event)=>{
-                switch(event.key){
-                    case keyTab:
-                        event.stopPropagation();
-                        event.preventDefault();
-                        if (event.shiftKey) this.stepcontainer.focus();
-                        else {
-                            const activeIndex = this.slottedsteps.findIndex((step)=>step.active);
-                            this.slottedsteps[activeIndex].tabIndex = -1;
-                            this.slottedbuttons[0].focus();
-                        }
-                        break;
-                    case keyEscape:
-                        event.preventDefault();
-                        this.stepcontainer.focus();
-                        break;
-                    case keyEnter:
-                        event.preventDefault();
-                        this.handleStepSelect(event);
-                        break;
-                    case keyArrowUp:
-                        event.preventDefault();
-                        this.focusPreviousStep();
-                        break;
-                    case keyArrowDown:
-                        event.preventDefault();
-                        this.focusNextStep();
-                        break;
-                    case keyHome:
-                        event.preventDefault();
-                        this.moveToStepByIndex(-this.currentIndex);
-                        break;
-                    case keyEnd:
-                        event.preventDefault();
-                        this.moveToStepByIndex(this.slottedsteps.length - this.currentIndex - 1);
-                        break;
-                }
-            };
-            /**
-             * Sets the steps for the wizard.
-             * @protected
-             */ this.setSteps = ()=>{
-                this.currentIndex === -1 ? this.getActiveIndex() : this.currentIndex;
-                this.slottedsteps.forEach((el, index)=>{
-                    if (el.slot === "step") {
-                        const step = el;
-                        const isActiveStep = this.currentIndex === index && this.isFocusableElement(step);
-                        const stepId = this.stepIds[index];
-                        step.setAttribute("id", stepId);
-                        step.setAttribute("tabindex", isActiveStep ? "0" : "-1");
-                        step.setAttribute("role", "tab");
-                        step.active = isActiveStep;
-                        step.index = index;
-                        if (this.ordered) step.ordered = true;
-                        if (isActiveStep) {
-                            this.activestep = step;
-                            this.activeid = stepId;
-                            this.currentIndex = index;
-                        }
-                        if (index === this.slottedsteps.length - 1) step.hideConnector = true;
-                        if (this.slottedsteps.length >= 7) step.classList.add("overflow");
-                    }
-                });
-                if (this.slottedsteps.every((step)=>step.state === "complete")) this.emitComplete();
-                if (this.slottedsteps.length >= 7) this.setAttribute("class", "overflow");
-                this.setPanels();
-            };
-            /**
-             * Sets the panels of the wizard component.
-             * @protected
-             */ this.setPanels = ()=>{
-                this.slottedpanels.forEach((el, index)=>{
-                    if (el.slot === "panel") {
-                        const panel = el;
-                        const stepId = this.stepIds[index];
-                        const panelId = this.panelIds[index];
-                        panel.setAttribute("id", panelId);
-                        panel.setAttribute("aria-labelledby", stepId);
-                        panel.setAttribute("role", "tabpanel");
-                        panel.index = index;
-                        const isActivePanel = this.currentIndex === index && this.isFocusableElement(panel);
-                        panel.active = isActivePanel;
-                        this.currentIndex !== index ? panel.hide() : panel.show();
-                    }
-                });
-                this.emitChange();
-            };
-            /**
-             * Checks if the given element is disabled.
-             * @private
-             */ this.isDisabledElement = (el)=>{
-                return el.getAttribute("aria-disabled") === "true";
-            };
-            /**
-             * Checks if the given element is hidden.
-             * @private
-             */ this.isHiddenElement = (el)=>{
-                return el.hasAttribute("hidden");
-            };
-            /**
-             * Checks if the given element is focusable.
-             * @private
-             */ this.isFocusableElement = (el)=>{
-                return !this.isDisabledElement(el) && !this.isHiddenElement(el);
-            };
-            /**
-             * Handles the selection of a step in the wizard.
-             *
-             * @param event - The event object representing the step selection.
-             *
-             * @private
-             */ this.handleStepSelect = (event)=>{
-                const selectedStep = event.currentTarget;
-                if (selectedStep.disabled) return;
-                else this.setActiveStep(selectedStep);
-            };
-            /**
-             * Emits a custom event "wizardchange" whenever there is a change in the wizard.
-             * @private
-             */ this.emitChange = ()=>{
-                this.$emit("wizardchange", {
-                    currentIndex: this.currentIndex,
-                    activeid: this.activeid
-                });
-            };
-            /**
-             * Checks if all steps are complete. If they are, it dispatches a "wizardcomplete" event.
-             * @private
-             */ this.emitComplete = ()=>{
-                this.dispatchEvent(new CustomEvent("wizardcomplete", {
-                    bubbles: true
-                }));
-            };
-        }
-        /**
-         * Called when the component is connected to the DOM.
-         * @public
-         */ connectedCallback() {
-            super.connectedCallback();
-            Updates.enqueue(()=>{
-                this.stepIds = this.getStepIds();
-                this.panelIds = this.getPanelIds();
-                this.currentIndex = this.getActiveIndex();
-                this.addListeners();
-            });
-        }
-        /**
-         * Called when the component is disconnected from the DOM.
-         * @public
-         */ disconnectedCallback() {
-            super.connectedCallback();
-            this.removeListeners();
-        }
-        /**
-         * Handles changes to the `activeid` property.
-         * @public
-         */ activeidChanged(oldValue, newValue) {
-            if (this.$fastController.isConnected) {
-                this.prevActiveStepIndex = this.slottedsteps.findIndex((item)=>item.id === oldValue);
-                this.setSteps();
-            }
-        }
-        /**
-         * Handles changes to the `slottedpanels` property.
-         * @public
-         */ slottedpanelsChanged() {
-            if (this.$fastController.isConnected) {
-                this.panelIds = this.getPanelIds();
-                this.setSteps();
-            }
-        }
-        /**
-         * Handles changes to the `slottedsteps` property.
-         * @public
-         */ slottedstepsChanged() {
-            if (this.$fastController.isConnected) {
-                this.stepIds = this.getStepIds();
-                this.setSteps();
-            }
-        }
-        /**
-         * Handles changes to the `currentIndex` property.
-         * @public
-         */ currentIndexChanged(oldValue, newValue) {
-            if (oldValue !== newValue) Updates.enqueue(()=>{
-                this.prevActiveStepIndex = oldValue;
-                this.stepIds = this.getStepIds();
-                this.panelIds = this.getPanelIds();
-                this.setComponent();
-            });
-        }
-        /**
-         * Shows the wizard component
-         * @public
-         */ show() {
-            this.hidden = false;
-        }
-        /**
-         * Hides the wizard component
-         * @public
-         */ hide() {
-            this.hidden = true;
-        }
-        /**
-         * Enables a specific step in the wizard.
-         * If no index is provided, the current step will be enabled.
-         * @param index - The index of the step to enable.
-         *
-         * @public
-         */ enableStep(index) {
-            if (this.currentIndex >= 0 && this.slottedsteps.length > 0) this.slottedsteps[index !== null && index !== void 0 ? index : this.currentIndex].disabled = false;
-        }
-        /**
-         * Disables a step in the wizard.
-         * @param index - The index of the step to disable. If not provided, the current step will be disabled.
-         *
-         * @public
-         */ disableStep(index) {
-            if (this.currentIndex >= 0 && this.slottedsteps.length > 0) this.slottedsteps[index !== null && index !== void 0 ? index : this.currentIndex].disabled = true;
-        }
-        /**
-         * Sets the state of the step to error.
-         * @param index - The index of the step.
-         *
-         * @public
-         */ errorStep(index) {
-            if (this.currentIndex >= 0 && this.slottedsteps.length > 0) this.slottedsteps[index !== null && index !== void 0 ? index : this.currentIndex].state = StepState.error;
-        }
-        /**
-         * Sets the state of the step to complete.
-         * @param index - The index of the step.
-         *
-         * @public
-         */ completeStep(index) {
-            if (this.currentIndex >= 0 && this.slottedsteps.length > 0) {
-                this.slottedsteps[index !== null && index !== void 0 ? index : this.currentIndex].state = StepState.complete;
-                if (this.disableOnComplete) this.disableStep(index);
-            }
-        }
-        /**
-         * Sets the state of the step to incomplete.
-         * @param index - The index of the step.
-         *
-         * @public
-         */ incompleteStep(index) {
-            if (this.currentIndex >= 0 && this.slottedsteps.length > 0) this.slottedsteps[index !== null && index !== void 0 ? index : this.currentIndex].state = StepState.incomplete;
-        }
-        /**
-         * Retrieves the status of each step in the wizard.
-         * @returns An array of step status objects, each containing the step ID, state, and index.
-         *
-         * @public
-         */ getStepStatus() {
-            const stepStatus = [];
-            if (this.slottedsteps.length > 0) this.slottedsteps.forEach((step, index)=>{
-                stepStatus.push({
-                    id: step.id,
-                    state: step.state,
-                    index: index,
-                    active: step.active
-                });
-            });
-            return stepStatus;
-        }
-        /**
-         * Resets the Wizard to its initial state.
-         * @public
-         */ reset() {
-            if (this.slottedsteps.length > 0) {
-                this.slottedsteps.forEach((el, index)=>{
-                    const step = el;
-                    step.state = StepState.incomplete;
-                });
-                this.stepIds = this.getStepIds();
-                this.panelIds = this.getPanelIds();
-                this.currentIndex = 0;
-                this.activeid = undefined;
-                this.prevActiveStepIndex = -1;
-            }
-        }
-        /**
-         * Sets the active step of the wizard.
-         *
-         * @param step - The step to set as active.
-         * @param event - Optional custom event that triggered the step change.
-         *
-         * @public
-         */ setActiveStep(step) {
-            var _a;
-            const index = step.index;
-            const disabled = (_a = step.disabled) !== null && _a !== void 0 ? _a : false;
-            if (disabled) return;
-            step.active = true;
-            this.activestep = step;
-            this.activeid = this.stepIds[index];
-            this.currentIndex = index;
-            this.setComponent();
-        }
-        /**
-         * Adds event listeners to each step in the wizard.
-         * @protected
-         */ addListeners() {
-            this.slottedsteps.forEach((step)=>{
-                step.addEventListener("stepchange", (e)=>this.handleWizardStepStateChange(e));
-            });
-            this.slottedsteps.forEach((step)=>{
-                step.addEventListener("click", (e)=>this.handleStepSelect(e));
-            });
-            this.slottedsteps.forEach((step)=>{
-                step.addEventListener("keydown", (e)=>this.handleStepKeyDown(e));
-            });
-            this.slottedpanels.forEach((panel)=>{
-                panel.addEventListener("panelchange", (e)=>this.handlePanelStateChange(e));
-            });
-        }
-        /**
-         * Removes event listeners to each step in the wizard.
-         * @protected
-         */ removeListeners() {
-            this.slottedsteps.forEach((step)=>{
-                step.removeEventListener("stepchange", (e)=>this.handleWizardStepStateChange(e));
-            });
-            this.slottedsteps.forEach((step)=>{
-                step.removeEventListener("click", (e)=>this.handleStepSelect(e));
-            });
-            this.slottedsteps.forEach((step)=>{
-                step.removeEventListener("keydown", (e)=>this.handleStepKeyDown(e));
-            });
-            this.slottedpanels.forEach((panel)=>{
-                panel.removeEventListener("panelchange", (e)=>this.handlePanelStateChange(e));
-            });
-        }
-        /**
-         * Sets the component's active step based on the current index.
-         * @private
-         */ setComponent() {
-            if (this.currentIndex && this.currentIndex !== this.prevActiveStepIndex) Updates.enqueue(()=>{
-                this.stepIds = this.getStepIds();
-                this.panelIds = this.getPanelIds();
-            });
-        }
-        /**
-         * Gets the index of the active step.
-         * @returns The index of the active step, or -1 if no step is active.
-         *
-         * @private
-         */ getActiveIndex() {
-            var _a;
-            const id = (_a = this.activeid) !== null && _a !== void 0 ? _a : "";
-            if (id !== undefined) return this.stepIds.indexOf(id) === -1 ? 0 : this.stepIds.indexOf(id);
-            else return 0;
-        }
-        /**
-         * Gets the IDs of all steps in the wizard.
-         *
-         * @private
-         */ getStepIds() {
-            return this.slottedsteps.map((step)=>{
-                var _a;
-                return (_a = step.getAttribute("id")) !== null && _a !== void 0 ? _a : `hwc-wizard-step-${parseInt(uniqueId())}`;
-            });
-        }
-        /**
-         * Gets the IDs of all steps in the wizard.
-         * @private
-         */ getPanelIds() {
-            return this.slottedpanels.map((panel)=>{
-                var _a;
-                return (_a = panel.getAttribute("id")) !== null && _a !== void 0 ? _a : `hwc-wizard-panel-${parseInt(uniqueId())}`;
-            });
-        }
-        /**
-         * Handles the state change of a step.
-         * @param e - The custom event that contains the index and state of the step.
-         *
-         * @private
-         */ handleWizardStepStateChange(e) {
-            const index = e.detail.index;
-            const active = e.detail.active;
-            if (active) this.currentIndex = index;
-            this.slottedpanels[index].state = e.detail.state;
-            this.setSteps();
-        }
-        /**
-         * Handles the state change of a panel.
-         * @param e - The custom event that contains the index and state of the panel.
-         *
-         * @private
-         */ handlePanelStateChange(e) {
-            const index = e.detail.index;
-            const active = e.detail.active;
-            if (active) this.currentIndex = index;
-            this.slottedsteps[index].state = e.detail.state;
-            this.setSteps();
-        }
+`, Ns = hs(), Os = Ls.compose({
+    name: `${lt.prefix}-wizard-step`,
+    template: Ns,
+    styles: Ms,
+    shadowOptions: {
+        mode: lt.shadowRootMode
     }
-    __decorate([
-        attr({
-            mode: "boolean"
-        })
-    ], Wizard.prototype, "ordered", void 0);
-    __decorate([
-        attr({
-            mode: "boolean",
-            attribute: "disable-on-complete"
-        })
-    ], Wizard.prototype, "disableOnComplete", void 0);
-    __decorate([
-        attr({
-            attribute: "current-index",
-            converter: nullableNumberConverter
-        })
-    ], Wizard.prototype, "currentIndex", void 0);
-    __decorate([
-        attr({
-            attribute: "aria-labelledby"
-        })
-    ], Wizard.prototype, "ariaLabelledby", void 0);
-    __decorate([
-        attr({
-            attribute: "aria-describedby"
-        })
-    ], Wizard.prototype, "ariaDescribedby", void 0);
-    __decorate([
-        observable
-    ], Wizard.prototype, "stepcontainer", void 0);
-    __decorate([
-        observable
-    ], Wizard.prototype, "panelcontainer", void 0);
-    __decorate([
-        observable
-    ], Wizard.prototype, "slottedsteps", void 0);
-    __decorate([
-        observable
-    ], Wizard.prototype, "slottedbuttons", void 0);
-    __decorate([
-        observable
-    ], Wizard.prototype, "slottedpanels", void 0);
-    __decorate([
-        observable
-    ], Wizard.prototype, "activeid", void 0);
-    /** Wizard styles
-     * @public
-     */ const styles$1 = css`
-  ${display("block")}
+});
+class Vs extends nt {
+    constructor(){
+        super(...arguments), this.ordered = !1, this.disableOnComplete = !1, this.currentIndex = 0, this.slottedsteps = [], this.slottedbuttons = [], this.slottedpanels = [], this.stepIds = [], this.panelIds = [], this.next = ()=>{
+            this.currentIndex = this.slottedsteps.indexOf(this.activestep), this.focusNextStep(!0);
+        }, this.previous = ()=>{
+            this.currentIndex = this.slottedsteps.indexOf(this.activestep), this.focusPreviousStep(!0);
+        }, this.focusNextStep = (e = !1)=>{
+            const t = this.slottedsteps;
+            let o = 0;
+            for(o = this.currentIndex + 1; o < t.length && t.length > 1 && t[o].disabled;)o += 1;
+            for(o === t.length && (o = 0); o < t.length && t.length > 1;){
+                if (this.isFocusableElement(t[o]) && !this.isDisabledElement(t[o])) {
+                    this.moveToStepByIndex(o);
+                    break;
+                }
+                if (this.activestep && o === t.indexOf(this.activestep)) break;
+                o + 1 >= t.length ? o = 0 : o += 1;
+            }
+            e && !this.isDisabledElement(t[o]) && this.setActiveStep(this.slottedsteps[o]);
+        }, this.focusPreviousStep = (e = !1)=>{
+            const t = this.slottedsteps;
+            let o = 0;
+            for(o = this.currentIndex - 1, o = o < 0 ? t.length - 1 : o; o < t.length && t.length > 1 && t[o].disabled;)o -= 1;
+            for(; o >= 0 && t.length > 1;){
+                if (this.isFocusableElement(t[o]) && !this.isDisabledElement(t[o])) {
+                    this.moveToStepByIndex(o);
+                    break;
+                }
+                o - 1 < 0 ? o = t.length - 1 : o -= 1;
+            }
+            e && !this.isDisabledElement(t[o]) && this.setActiveStep(this.slottedsteps[o]);
+        }, this.moveToStepByIndex = (e)=>{
+            const t = this.slottedsteps[e];
+            this.currentIndex = e, t.focus(), this.setComponent();
+        }, this.handleStepContainerKeydown = (e)=>{
+            var t;
+            const o = null !== (t = this.slottedsteps.findIndex((e)=>e.active)) && void 0 !== t ? t : 0;
+            switch(e.key){
+                case ht:
+                    e.preventDefault(), document.activeElement === this && -1 !== o && (this.currentIndex = o, this.slottedsteps[o].focus());
+                    break;
+                case ft:
+                    e.stopPropagation(), e.preventDefault(), this.slottedbuttons[0].focus(), this.slottedsteps[o].tabIndex = -1;
+            }
+        }, this.handleStepKeyDown = (e)=>{
+            switch(e.key){
+                case ft:
+                    if (e.stopPropagation(), e.preventDefault(), e.shiftKey) this.stepcontainer.focus();
+                    else {
+                        const e = this.slottedsteps.findIndex((e)=>e.active);
+                        this.slottedsteps[e].tabIndex = -1, this.slottedbuttons[0].focus();
+                    }
+                    break;
+                case ut:
+                    e.preventDefault(), this.stepcontainer.focus();
+                    break;
+                case ht:
+                    e.preventDefault(), this.handleStepSelect(e);
+                    break;
+                case ct:
+                    e.preventDefault(), this.focusPreviousStep();
+                    break;
+                case dt:
+                    e.preventDefault(), this.focusNextStep();
+                    break;
+                case pt:
+                    e.preventDefault(), this.moveToStepByIndex(-this.currentIndex);
+                    break;
+                case "End":
+                    e.preventDefault(), this.moveToStepByIndex(this.slottedsteps.length - this.currentIndex - 1);
+            }
+        }, this.setSteps = ()=>{
+            -1 === this.currentIndex ? this.getActiveIndex() : this.currentIndex, this.slottedsteps.forEach((e, t)=>{
+                if ("step" === e.slot) {
+                    const o = e, i = this.currentIndex === t && this.isFocusableElement(o), s = this.stepIds[t];
+                    o.setAttribute("id", s), o.setAttribute("tabindex", i ? "0" : "-1"), o.setAttribute("role", "tab"), o.active = i, o.index = t, this.ordered && (o.ordered = !0), i && (this.activestep = o, this.activeid = s, this.currentIndex = t), t === this.slottedsteps.length - 1 && (o.hideConnector = !0), this.slottedsteps.length >= 7 && o.classList.add("overflow");
+                }
+            }), this.slottedsteps.every((e)=>"complete" === e.state) && this.emitComplete(), this.slottedsteps.length >= 7 && this.setAttribute("class", "overflow"), this.setPanels();
+        }, this.setPanels = ()=>{
+            this.slottedpanels.forEach((e, t)=>{
+                if ("panel" === e.slot) {
+                    const o = e, i = this.stepIds[t], s = this.panelIds[t];
+                    o.setAttribute("id", s), o.setAttribute("aria-labelledby", i), o.setAttribute("role", "tabpanel"), o.index = t;
+                    const r = this.currentIndex === t && this.isFocusableElement(o);
+                    o.active = r, this.currentIndex !== t ? o.hide() : o.show();
+                }
+            }), this.emitChange();
+        }, this.isDisabledElement = (e)=>"true" === e.getAttribute("aria-disabled"), this.isHiddenElement = (e)=>e.hasAttribute("hidden"), this.isFocusableElement = (e)=>!this.isDisabledElement(e) && !this.isHiddenElement(e), this.handleStepSelect = (e)=>{
+            const t = e.currentTarget;
+            t.disabled || this.setActiveStep(t);
+        }, this.emitChange = ()=>{
+            this.$emit("wizardchange", {
+                currentIndex: this.currentIndex,
+                activeid: this.activeid
+            });
+        }, this.emitComplete = ()=>{
+            this.dispatchEvent(new CustomEvent("wizardcomplete", {
+                bubbles: !0
+            }));
+        };
+    }
+    connectedCallback() {
+        super.connectedCallback(), y.enqueue(()=>{
+            this.stepIds = this.getStepIds(), this.panelIds = this.getPanelIds(), this.currentIndex = this.getActiveIndex(), this.addListeners();
+        });
+    }
+    disconnectedCallback() {
+        super.connectedCallback(), this.removeListeners();
+    }
+    activeidChanged(e, t) {
+        this.$fastController.isConnected && (this.prevActiveStepIndex = this.slottedsteps.findIndex((t)=>t.id === e), this.setSteps());
+    }
+    slottedpanelsChanged() {
+        this.$fastController.isConnected && (this.panelIds = this.getPanelIds(), this.setSteps());
+    }
+    slottedstepsChanged() {
+        this.$fastController.isConnected && (this.stepIds = this.getStepIds(), this.setSteps());
+    }
+    currentIndexChanged(e, t) {
+        e !== t && y.enqueue(()=>{
+            this.prevActiveStepIndex = e, this.stepIds = this.getStepIds(), this.panelIds = this.getPanelIds(), this.setComponent();
+        });
+    }
+    show() {
+        this.hidden = !1;
+    }
+    hide() {
+        this.hidden = !0;
+    }
+    enableStep(e) {
+        this.currentIndex >= 0 && this.slottedsteps.length > 0 && (this.slottedsteps[null != e ? e : this.currentIndex].disabled = !1);
+    }
+    disableStep(e) {
+        this.currentIndex >= 0 && this.slottedsteps.length > 0 && (this.slottedsteps[null != e ? e : this.currentIndex].disabled = !0);
+    }
+    errorStep(e) {
+        this.currentIndex >= 0 && this.slottedsteps.length > 0 && (this.slottedsteps[null != e ? e : this.currentIndex].state = ns.error);
+    }
+    completeStep(e) {
+        this.currentIndex >= 0 && this.slottedsteps.length > 0 && (this.slottedsteps[null != e ? e : this.currentIndex].state = ns.complete, this.disableOnComplete && this.disableStep(e));
+    }
+    incompleteStep(e) {
+        this.currentIndex >= 0 && this.slottedsteps.length > 0 && (this.slottedsteps[null != e ? e : this.currentIndex].state = ns.incomplete);
+    }
+    getStepStatus() {
+        const e = [];
+        return this.slottedsteps.length > 0 && this.slottedsteps.forEach((t, o)=>{
+            e.push({
+                id: t.id,
+                state: t.state,
+                index: o,
+                active: t.active
+            });
+        }), e;
+    }
+    reset() {
+        this.slottedsteps.length > 0 && (this.slottedsteps.forEach((e, t)=>{
+            e.state = ns.incomplete;
+        }), this.stepIds = this.getStepIds(), this.panelIds = this.getPanelIds(), this.currentIndex = 0, this.activeid = void 0, this.prevActiveStepIndex = -1);
+    }
+    setActiveStep(e) {
+        var t;
+        const o = e.index;
+        null !== (t = e.disabled) && void 0 !== t && t || (e.active = !0, this.activestep = e, this.activeid = this.stepIds[o], this.currentIndex = o, this.setComponent());
+    }
+    addListeners() {
+        this.slottedsteps.forEach((e)=>{
+            e.addEventListener("stepchange", (e)=>this.handleWizardStepStateChange(e));
+        }), this.slottedsteps.forEach((e)=>{
+            e.addEventListener("click", (e)=>this.handleStepSelect(e));
+        }), this.slottedsteps.forEach((e)=>{
+            e.addEventListener("keydown", (e)=>this.handleStepKeyDown(e));
+        }), this.slottedpanels.forEach((e)=>{
+            e.addEventListener("panelchange", (e)=>this.handlePanelStateChange(e));
+        });
+    }
+    removeListeners() {
+        this.slottedsteps.forEach((e)=>{
+            e.removeEventListener("stepchange", (e)=>this.handleWizardStepStateChange(e));
+        }), this.slottedsteps.forEach((e)=>{
+            e.removeEventListener("click", (e)=>this.handleStepSelect(e));
+        }), this.slottedsteps.forEach((e)=>{
+            e.removeEventListener("keydown", (e)=>this.handleStepKeyDown(e));
+        }), this.slottedpanels.forEach((e)=>{
+            e.removeEventListener("panelchange", (e)=>this.handlePanelStateChange(e));
+        });
+    }
+    setComponent() {
+        this.currentIndex && this.currentIndex !== this.prevActiveStepIndex && y.enqueue(()=>{
+            this.stepIds = this.getStepIds(), this.panelIds = this.getPanelIds();
+        });
+    }
+    getActiveIndex() {
+        var e;
+        const t = null !== (e = this.activeid) && void 0 !== e ? e : "";
+        return void 0 !== t ? -1 === this.stepIds.indexOf(t) ? 0 : this.stepIds.indexOf(t) : 0;
+    }
+    getStepIds() {
+        return this.slottedsteps.map((e)=>{
+            var t;
+            return null !== (t = e.getAttribute("id")) && void 0 !== t ? t : `fabric-wizard-step-${parseInt(vt())}`;
+        });
+    }
+    getPanelIds() {
+        return this.slottedpanels.map((e)=>{
+            var t;
+            return null !== (t = e.getAttribute("id")) && void 0 !== t ? t : `fabric-wizard-panel-${parseInt(vt())}`;
+        });
+    }
+    handleWizardStepStateChange(e) {
+        const t = e.detail.index;
+        e.detail.active && (this.currentIndex = t), this.slottedpanels[t].state = e.detail.state, this.setSteps();
+    }
+    handlePanelStateChange(e) {
+        const t = e.detail.index;
+        e.detail.active && (this.currentIndex = t), this.slottedsteps[t].state = e.detail.state, this.setSteps();
+    }
+}
+e([
+    ze({
+        mode: "boolean"
+    })
+], Vs.prototype, "ordered", void 0), e([
+    ze({
+        mode: "boolean",
+        attribute: "disable-on-complete"
+    })
+], Vs.prototype, "disableOnComplete", void 0), e([
+    ze({
+        attribute: "current-index",
+        converter: Re
+    })
+], Vs.prototype, "currentIndex", void 0), e([
+    ze({
+        attribute: "aria-labelledby"
+    })
+], Vs.prototype, "ariaLabelledby", void 0), e([
+    ze({
+        attribute: "aria-describedby"
+    })
+], Vs.prototype, "ariaDescribedby", void 0), e([
+    B
+], Vs.prototype, "stepcontainer", void 0), e([
+    B
+], Vs.prototype, "panelcontainer", void 0), e([
+    B
+], Vs.prototype, "slottedsteps", void 0), e([
+    B
+], Vs.prototype, "slottedbuttons", void 0), e([
+    B
+], Vs.prototype, "slottedpanels", void 0), e([
+    B
+], Vs.prototype, "activeid", void 0);
+const Rs = G`
+  ${yt("block")}
 
   :host {
     height: 100%;
@@ -20040,13 +17572,13 @@ var global = arguments[3];
     justify-content: flex-start;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: ${spacingVerticalXXL} ${spacingHorizontalXXL};
+    padding: ${ao} ${oo};
   }
 
   .steps {
-    background-color: ${colorNeutralBackground3};
+    background-color: ${go};
     box-sizing: border-box;
-    padding: ${spacingVerticalXXL} ${spacingHorizontalXXL};
+    padding: ${ao} ${oo};
     position: fixed;
     top: 0;
     left: 0;
@@ -20064,22 +17596,22 @@ var global = arguments[3];
   }
 
   .title {
-    color: ${colorNeutralForeground3};
+    color: ${co};
   }
 
   .panels-container {
-    background: ${colorNeutralBackground2};
+    background: ${fo};
   }
 
   .button-container {
     display: flex;
-    gap: ${spacingHorizontalM};
+    gap: ${eo};
   }
 
   .toolbar {
     display: flex;
     justify-content: space-between;
-    padding: ${spacingVerticalXXL} ${spacingHorizontalXXL} 0;
+    padding: ${ao} ${oo} 0;
   }
 
   @media (min-width: 480px) {
@@ -20094,7 +17626,7 @@ var global = arguments[3];
     }
     :host(.overflow) .steps,
     .steps {
-      padding: ${spacingVerticalXXL} ${spacingHorizontalXXL};
+      padding: ${ao} ${oo};
       position: relative;
       max-width: 70px;
     }
@@ -20116,186 +17648,105 @@ var global = arguments[3];
     .steps {
       max-width: 268px;
       width: 268px;
-      padding: ${spacingVerticalXXL} ${spacingHorizontalXXXL}
-        ${spacingVerticalXXL} ${spacingHorizontalXXL};
+      padding: ${ao} ${io}
+        ${ao} ${oo};
     }
     :host(.overflow) .steps {
       width: fit-content;
     }
   }
 `;
-    /**
-     * The template for the {@link @horizon-msft/web-components#(Stepper:class)} component.
-     * @public
-     */ function wizardTemplate() {
-        return html`
+const Ds = Se`
     <template
-      ?hidden="${(x)=>x.hidden}"
-      ?ordered="${(x)=>x.ordered}"
-      current-index="${(x)=>x.currentIndex}"
-      aria-hidden="${(x)=>x.hidden ? "true" : "false"}"
+      ?hidden="${(e)=>e.hidden}"
+      ?ordered="${(e)=>e.ordered}"
+      current-index="${(e)=>e.currentIndex}"
+      aria-hidden="${(e)=>e.hidden ? "true" : "false"}"
     >
       <div class="wizard" part="wizard">
-        ${startSlotTemplate({})}
+        ${wt({})}
         <div
           role="tablist"
           class="steps"
           part="steps"
           tabindex="0"
-          @keydown="${(x, c)=>x.handleStepContainerKeydown(c.event)}"
-          ${ref("stepcontainer")}
+          @keydown="${(e, t)=>e.handleStepContainerKeydown(t.event)}"
+          ${Be("stepcontainer")}
         >
-          <slot name="step" ${slotted("slottedsteps")}></slot>
+          <slot name="step" ${Fe("slottedsteps")}></slot>
         </div>
         <div
           class="panels-container"
           part="panels-container"
-          ${ref("panelcontainer")}
+          ${Be("panelcontainer")}
         >
           <div class="toolbar" part="toolbar">
             <div class="title" part="title"><slot name="title"></slot></div>
             <div class="button-container" part="button-container">
-              <slot name="button" ${slotted("slottedbuttons")}></slot>
+              <slot name="button" ${Fe("slottedbuttons")}></slot>
             </div>
           </div>
           <div class="panels" part="panels">
-            <slot name="panel" ${slotted("slottedpanels")}></slot>
+            <slot name="panel" ${Fe("slottedpanels")}></slot>
           </div>
-          ${endSlotTemplate({})}
+          ${bt({})}
         </div>
       </div>
     </template>
-  `;
+  `, zs = Vs.compose({
+    name: `${lt.prefix}-wizard`,
+    template: Ds,
+    styles: Rs,
+    shadowOptions: {
+        mode: lt.shadowRootMode
     }
-    const template$1 = wizardTemplate();
-    /**
-     *
-     * @public
-     * @remarks
-     * HTML Element: <hwc-wizard>
-     */ const definition$1 = Wizard.compose({
-        name: `${DesignSystem.prefix}-wizard`,
-        template: template$1,
-        styles: styles$1,
-        shadowOptions: {
-            mode: DesignSystem.shadowRootMode
-        }
-    });
-    /**
-     * A WizardPanel Custom HTML Element.
-     * @public
-     * @class
-     * @extends FASTElement
-     *
-     * @remarks
-     * HTML Element: \<wizard-panel\>
-     * Role: {@link https://www.w3.org/TR/wai-aria-1.1/#tabpanel | ARIA tabpanel }.
-     *
-     * @slot start - The content to display at the start of the step.
-     * @slot end - The content to display at the end of the step.
-     * @slot title - The content to display as the title of the step.
-     * @slot - The default content of the step.
-     * @slot footer - The content to display as the footer of the step.
-     *
-     * @attr {boolean} active - Indicates whether the step is active.
-     * @attr {StepState} state - The state of the step.
-     * @attr {boolean} hidden - Indicates whether the step is hidden.
-     * @attr {string} id - The ID of the step.
-     * @attr {string} slot - The slot of the step.
-     * @attr {string} ariaLabel - The aria-label of the step.
-     * @attr {string} ariaDescribedby - The aria-describedby of the step.
-     * @attr {string} ariaLabelledby - The aria-labelledby of the step.
-     *
-     * @csspart title - The title.
-     * @csspart content - The content.
-     * @csspart footer - The footer.
-     *
-     * @fires panelchange - Dispatched when the panel state changes.
-     */ class WizardPanel extends FASTElement {
-        constructor(){
-            super(...arguments);
-            /**
-             * Indicates whether the panel is hidden.
-             * @public
-             */ this.hidden = true;
-            /**
-             * The state of the step.
-             * @public
-             */ this.state = StepState.incomplete;
-            /**
-             * Indicates whether the step is active.
-             * @public
-             */ this.active = false;
-        }
-        /**
-         * Handles the change in the state of the step.
-         * @public
-         */ stateChanged(oldValue, newValue) {
-            if (oldValue !== newValue) this.emitChange();
-        }
-        /**
-         * Called when the `active` property changes.
-         * @public
-         */ activeChanged(oldValue, newValue) {
-            if (oldValue !== newValue) {
-                if (newValue) this.show();
-                else this.hide();
-                this.emitChange();
-            }
-        }
-        /**
-         * Called when the `hidden` property changes.
-         * @public
-         */ hiddenChanged(oldValue, newValue) {
-            if (oldValue !== newValue) this.emitChange();
-        }
-        /**
-         * Shows the wizard panel.
-         * @public
-         */ show() {
-            this.hidden = false;
-        }
-        /**
-         * Hides the wizard panel.
-         * @public
-         */ hide() {
-            this.hidden = true;
-        }
-        /**
-         * Emits a panelChange event with the current panel's details.
-         * @public
-         */ emitChange() {
-            this.$emit("panelchange", {
-                id: this.id,
-                state: this.state,
-                active: this.active,
-                index: this.index
-            });
-        }
+});
+class Hs extends nt {
+    constructor(){
+        super(...arguments), this.hidden = !0, this.state = ns.incomplete, this.active = !1;
     }
-    __decorate([
-        observable
-    ], WizardPanel.prototype, "index", void 0);
-    __decorate([
-        attr({
-            mode: "boolean"
-        })
-    ], WizardPanel.prototype, "hidden", void 0);
-    __decorate([
-        attr
-    ], WizardPanel.prototype, "state", void 0);
-    __decorate([
-        attr({
-            mode: "boolean"
-        })
-    ], WizardPanel.prototype, "active", void 0);
-    /** Wizard Panel styles
-     * @public
-     */ const styles = css`
-  ${display("block")}
+    stateChanged(e, t) {
+        e !== t && this.emitChange();
+    }
+    activeChanged(e, t) {
+        e !== t && (t ? this.show() : this.hide(), this.emitChange());
+    }
+    hiddenChanged(e, t) {
+        e !== t && this.emitChange();
+    }
+    show() {
+        this.hidden = !1;
+    }
+    hide() {
+        this.hidden = !0;
+    }
+    emitChange() {
+        this.$emit("panelchange", {
+            id: this.id,
+            state: this.state,
+            active: this.active,
+            index: this.index
+        });
+    }
+}
+e([
+    B
+], Hs.prototype, "index", void 0), e([
+    ze({
+        mode: "boolean"
+    })
+], Hs.prototype, "hidden", void 0), e([
+    ze
+], Hs.prototype, "state", void 0), e([
+    ze({
+        mode: "boolean"
+    })
+], Hs.prototype, "active", void 0);
+const _s = G`
+  ${yt("block")}
   :host {
     height: 100%;
-    background: ${colorNeutralBackground2};
+    background: ${fo};
   }
 
   :host([active]) {
@@ -20303,27 +17754,23 @@ var global = arguments[3];
   }
 
   .content {
-    padding: ${spacingVerticalXXL} ${spacingHorizontalXXL} 0;
+    padding: ${ao} ${oo} 0;
   }
 
   .title {
-    padding: 0 ${spacingHorizontalXXL} ${spacingVerticalXS};
-    color: ${colorNeutralForeground1};
+    padding: 0 ${oo} ${ro};
+    color: ${lo};
   }
   .footer {
-    padding: ${spacingVerticalL} ${spacingHorizontalXXL};
-    border-top: 1px solid ${colorNeutralStroke1};
+    padding: ${no} ${oo};
+    border-top: 1px solid ${mo};
   }
 `;
-    /**
-     * The template for the {@link @horizon-msft/web-components#(WizardPanel:class)} component.
-     * @public
-     */ function wizardPanelTemplate() {
-        return html`
+const js = Se`
     <template
-      aria-hidden="${(x)=>x.hidden}"
-      state="${(x)=>x.state}"
-      ?active="${(x)=>x.active}"
+      aria-hidden="${(e)=>e.hidden}"
+      state="${(e)=>e.state}"
+      ?active="${(e)=>e.active}"
     >
       <slot name="start"></slot>
       <div class="title" part="title">
@@ -20333,1894 +17780,15 @@ var global = arguments[3];
       <div class="footer" part="footer"><slot name="footer"></slot></div>
       <slot name="end"></slot>
     </template>
-  `;
+  `, Gs = Hs.compose({
+    name: `${lt.prefix}-wizard-panel`,
+    template: js,
+    styles: _s,
+    shadowOptions: {
+        mode: lt.shadowRootMode
     }
-    const template = wizardPanelTemplate();
-    /**
-     *
-     * @public
-     * @remarks
-     * HTML Element: <hwc-wizard-panel>
-     */ const definition = WizardPanel.compose({
-        name: `${DesignSystem.prefix}-wizard-panel`,
-        template,
-        styles,
-        shadowOptions: {
-            mode: DesignSystem.shadowRootMode
-        }
-    });
-    exports1.CollisionEdge = CollisionEdge;
-    exports1.MultiView = MultiView;
-    exports1.MultiViewController = MultiViewController;
-    exports1.MultiViewControllerDefinition = definition$7;
-    exports1.MultiViewDefinition = definition$8;
-    exports1.MultiViewGroup = MultiViewGroup;
-    exports1.MultiViewGroupDefinition = definition$6;
-    exports1.Popover = Popover;
-    exports1.PopoverDefinition = PopoverDefinition;
-    exports1.PopoverEventNames = PopoverEventNames;
-    exports1.PopoverPositions = PopoverPositions;
-    exports1.PopoverRepositionModes = PopoverRepositionModes;
-    exports1.PopoverStyles = popoverStyles;
-    exports1.PopoverTemplate = template$7;
-    exports1.PositioningShorthand = PositioningShorthand;
-    exports1.Step = Step;
-    exports1.StepDefinition = definition$5;
-    exports1.StepState = StepState;
-    exports1.Stepper = Stepper;
-    exports1.StepperDefinition = definition$4;
-    exports1.SvgIcon = SvgIcon;
-    exports1.SvgIconDefinition = SvgIconDefinition;
-    exports1.TeachingBubble = TeachingBubble;
-    exports1.TeachingBubbleDefinition = definition$3;
-    exports1.TeachingBubblePlacement = TeachingBubblePlacement;
-    exports1.TeachingBubbleSize = TeachingBubbleSize;
-    exports1.Wizard = Wizard;
-    exports1.WizardDefinition = definition$1;
-    exports1.WizardPanel = WizardPanel;
-    exports1.WizardPanelDefinition = definition;
-    exports1.WizardStep = WizardStep;
-    exports1.WizardStepDefinition = definition$2;
-    exports1.WizardStepState = StepState;
-    exports1.multiViewControllerStyles = styles$8;
-    exports1.multiViewControllerTemplate = template$9;
-    exports1.multiViewGroupStyles = styles$7;
-    exports1.multiViewGroupTemplate = template$8;
-    exports1.multiViewStyles = styles$9;
-    exports1.multiViewTemplate = template$a;
-    exports1.stepStyles = styles$6;
-    exports1.stepTemplate = template$6;
-    exports1.stepperStyles = styles$5;
-    exports1.stepperTemplate = template$5;
-    exports1.styles = styles$2;
-    exports1.svgIconStyles = styles$4;
-    exports1.svgIconTemplate = template$4;
-    exports1.teachingBubbleStyles = styles$3;
-    exports1.teachingBubbleTemplate = template$3;
-    exports1.template = template$2;
-    exports1.wizardPanelStyles = styles;
-    exports1.wizardPanelTemplate = template;
-    exports1.wizardStyles = styles$1;
-    exports1.wizardTemplate = template$1;
 });
 
-},{}],"cpccV":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _theme = require("./theme");
-parcelHelpers.exportAll(_theme, exports);
-
-},{"./theme":"ewXaA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ewXaA":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "fabricDarkTheme", ()=>fabricDarkTheme);
-parcelHelpers.export(exports, "fabricLightTheme", ()=>fabricLightTheme);
-parcelHelpers.export(exports, "setTheme", ()=>setTheme);
-parcelHelpers.export(exports, "webDarkTheme", ()=>(0, _tokens.webDarkTheme));
-parcelHelpers.export(exports, "webLightTheme", ()=>(0, _tokens.webLightTheme));
-var _tokens = require("@fluentui/tokens");
-const brandFabric = {
-    10: `#001919`,
-    20: `#012826`,
-    30: `#01322E`,
-    40: `#033F38`,
-    50: `#054D43`,
-    60: `#0A5C50`,
-    70: `#0C695A`,
-    80: `#117865`,
-    90: `#1F937E`,
-    100: `#2AAC94`,
-    110: `#3ABB9F`,
-    120: `#52C7AA`,
-    130: `#78D3B9`,
-    140: `#9EE0CB`,
-    150: `#C0ECDD`,
-    160: `#E3F7Ef`
-};
-const fabricLightTheme = (0, _tokens.createLightTheme)(brandFabric);
-const fabricDarkTheme = (0, _tokens.createDarkTheme)(brandFabric);
-/**
- * setTheme
-
- * Set the theme to the root or a specific element. Defaults to setting the theme to the document element.
- * @param theme: FluentUI theme object
- * @param target: The target element to set the theme to. Defaults to the document element.
- * @param callback: A callback function to run after the theme is set. Usefule for running an injector to inject components after theme is loaded.
- */ function setTheme(theme, target, callback) {
-    let targetElement = null;
-    if (target) {
-        if (target === "root") {
-            const cssVariables = Object.entries(theme).map(([key, value])=>`--${key}: ${value};`).join(" ");
-            const styleElement = document.createElement("style");
-            styleElement.innerHTML = `:root { ${cssVariables} }`;
-            document.head.appendChild(styleElement);
-        } else targetElement = document.querySelector(target);
-    } else targetElement = document.documentElement;
-    if (targetElement) Object.entries(theme).forEach(([key, value])=>{
-        targetElement.style.setProperty(`--${key}`, value);
-    });
-    callback && callback();
-    document.dispatchEvent(new CustomEvent("themeLoaded", {
-        detail: {
-            target: target || document.documentElement
-        },
-        bubbles: true
-    }));
-}
-
-},{"@fluentui/tokens":"jELFr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jELFr":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "teamsDarkTheme", ()=>(0, _index.teamsDarkTheme));
-parcelHelpers.export(exports, "teamsHighContrastTheme", ()=>(0, _index.teamsHighContrastTheme));
-parcelHelpers.export(exports, "teamsLightTheme", ()=>(0, _index.teamsLightTheme));
-parcelHelpers.export(exports, "webDarkTheme", ()=>(0, _index.webDarkTheme));
-parcelHelpers.export(exports, "webLightTheme", ()=>(0, _index.webLightTheme));
-parcelHelpers.export(exports, "createDarkTheme", ()=>(0, _index1.createDarkTheme));
-parcelHelpers.export(exports, "createHighContrastTheme", ()=>(0, _index1.createHighContrastTheme));
-parcelHelpers.export(exports, "createLightTheme", ()=>(0, _index1.createLightTheme));
-parcelHelpers.export(exports, "createTeamsDarkTheme", ()=>(0, _index1.createTeamsDarkTheme));
-parcelHelpers.export(exports, "themeToTokensObject", ()=>(0, _themeToTokensObject.themeToTokensObject));
-parcelHelpers.export(exports, "tokens", ()=>(0, _tokens.tokens));
-parcelHelpers.export(exports, "typographyStyles", ()=>(0, _index2.typographyStyles));
-var _index = require("./themes/index");
-var _index1 = require("./utils/index");
-var _themeToTokensObject = require("./themeToTokensObject");
-var _tokens = require("./tokens");
-var _index2 = require("./global/index");
-
-},{"./themes/index":false,"./utils/index":"lu6Ci","./themeToTokensObject":false,"./tokens":false,"./global/index":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lu6Ci":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _createLightTheme = require("./createLightTheme");
-parcelHelpers.exportAll(_createLightTheme, exports);
-var _createDarkTheme = require("./createDarkTheme");
-parcelHelpers.exportAll(_createDarkTheme, exports);
-var _createTeamsDarkTheme = require("./createTeamsDarkTheme");
-parcelHelpers.exportAll(_createTeamsDarkTheme, exports);
-var _createHighContrastTheme = require("./createHighContrastTheme");
-parcelHelpers.exportAll(_createHighContrastTheme, exports);
-
-},{"./createLightTheme":"e1ubi","./createDarkTheme":"lDEZ7","./createTeamsDarkTheme":false,"./createHighContrastTheme":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e1ubi":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createLightTheme", ()=>createLightTheme);
-var _lightColorPalette = require("../alias/lightColorPalette");
-var _lightColor = require("../alias/lightColor");
-var _index = require("../global/index");
-var _shadows = require("./shadows");
-var _durations = require("../global/durations");
-var _curves = require("../global/curves");
-var _spacings = require("../global/spacings");
-const createLightTheme = (brand)=>{
-    const colorTokens = (0, _lightColor.generateColorTokens)(brand);
-    return {
-        ...(0, _index.borderRadius),
-        ...(0, _index.fontSizes),
-        ...(0, _index.lineHeights),
-        ...(0, _index.fontFamilies),
-        ...(0, _index.fontWeights),
-        ...(0, _index.strokeWidths),
-        ...(0, _spacings.horizontalSpacings),
-        ...(0, _spacings.verticalSpacings),
-        ...(0, _durations.durations),
-        ...(0, _curves.curves),
-        ...colorTokens,
-        ...(0, _lightColorPalette.colorPaletteTokens),
-        ...(0, _lightColorPalette.colorStatusTokens),
-        ...(0, _shadows.createShadowTokens)(colorTokens.colorNeutralShadowAmbient, colorTokens.colorNeutralShadowKey),
-        ...(0, _shadows.createShadowTokens)(colorTokens.colorBrandShadowAmbient, colorTokens.colorBrandShadowKey, "Brand")
-    };
-};
-
-},{"../alias/lightColorPalette":"iU6ZT","../alias/lightColor":"7Vh0j","../global/index":"dc8ul","./shadows":"kLoJO","../global/durations":"haaZB","../global/curves":"9yQtW","../global/spacings":"geTNu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iU6ZT":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "colorPaletteTokens", ()=>colorPaletteTokens);
-parcelHelpers.export(exports, "colorStatusTokens", ()=>colorStatusTokens);
-var _colorPalette = require("../global/colorPalette");
-var _sharedColorNames = require("../sharedColorNames");
-var _statusColorMapping = require("../statusColorMapping");
-const statusColorPaletteTokens = (0, _sharedColorNames.statusSharedColorNames).reduce((acc, sharedColor)=>{
-    const color = sharedColor.slice(0, 1).toUpperCase() + sharedColor.slice(1);
-    const sharedColorTokens = {
-        [`colorPalette${color}Background1`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint60,
-        [`colorPalette${color}Background2`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint40,
-        [`colorPalette${color}Background3`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary,
-        [`colorPalette${color}Foreground1`]: (0, _colorPalette.statusSharedColors)[sharedColor].shade10,
-        [`colorPalette${color}Foreground2`]: (0, _colorPalette.statusSharedColors)[sharedColor].shade30,
-        [`colorPalette${color}Foreground3`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary,
-        [`colorPalette${color}BorderActive`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary,
-        [`colorPalette${color}Border1`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint40,
-        [`colorPalette${color}Border2`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary
-    };
-    return Object.assign(acc, sharedColorTokens);
-}, {});
-// one-off patch for yellow
-statusColorPaletteTokens.colorPaletteYellowForeground1 = (0, _colorPalette.statusSharedColors).yellow.shade30;
-statusColorPaletteTokens.colorPaletteRedForegroundInverted = (0, _colorPalette.statusSharedColors).red.tint20;
-statusColorPaletteTokens.colorPaletteGreenForegroundInverted = (0, _colorPalette.statusSharedColors).green.tint20;
-statusColorPaletteTokens.colorPaletteYellowForegroundInverted = (0, _colorPalette.statusSharedColors).yellow.tint40;
-const personaColorPaletteTokens = (0, _sharedColorNames.personaSharedColorNames).reduce((acc, sharedColor)=>{
-    const color = sharedColor.slice(0, 1).toUpperCase() + sharedColor.slice(1);
-    const sharedColorTokens = {
-        [`colorPalette${color}Background2`]: (0, _colorPalette.personaSharedColors)[sharedColor].tint40,
-        [`colorPalette${color}Foreground2`]: (0, _colorPalette.personaSharedColors)[sharedColor].shade30,
-        [`colorPalette${color}BorderActive`]: (0, _colorPalette.personaSharedColors)[sharedColor].primary
-    };
-    return Object.assign(acc, sharedColorTokens);
-}, {});
-const colorPaletteTokens = {
-    ...statusColorPaletteTokens,
-    ...personaColorPaletteTokens
-};
-const colorStatusTokens = Object.entries((0, _statusColorMapping.statusColorMapping)).reduce((acc, [statusColor, sharedColor])=>{
-    const color = statusColor.slice(0, 1).toUpperCase() + statusColor.slice(1);
-    // TODO: double check the mapping with design
-    const statusColorTokens = {
-        [`colorStatus${color}Background1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint60,
-        [`colorStatus${color}Background2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint40,
-        [`colorStatus${color}Background3`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary,
-        [`colorStatus${color}Foreground1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].shade10,
-        [`colorStatus${color}Foreground2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].shade30,
-        [`colorStatus${color}Foreground3`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary,
-        [`colorStatus${color}ForegroundInverted`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint30,
-        [`colorStatus${color}BorderActive`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary,
-        [`colorStatus${color}Border1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint40,
-        [`colorStatus${color}Border2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary
-    };
-    return Object.assign(acc, statusColorTokens);
-}, {});
-// one-off overrides for colorStatus tokens
-colorStatusTokens.colorStatusWarningForeground1 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).warning].shade20;
-colorStatusTokens.colorStatusWarningForeground3 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).warning].shade20;
-colorStatusTokens.colorStatusWarningBorder2 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).warning].shade20;
-
-},{"../global/colorPalette":"4YIFe","../sharedColorNames":"koxOM","../statusColorMapping":"c4B9M","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4YIFe":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "statusSharedColors", ()=>statusSharedColors);
-parcelHelpers.export(exports, "personaSharedColors", ()=>personaSharedColors);
-parcelHelpers.export(exports, "mappedStatusColors", ()=>mappedStatusColors);
-var _colors = require("./colors");
-const statusSharedColors = {
-    red: (0, _colors.red),
-    green: (0, _colors.green),
-    darkOrange: (0, _colors.darkOrange),
-    yellow: (0, _colors.yellow),
-    berry: (0, _colors.berry),
-    lightGreen: (0, _colors.lightGreen),
-    marigold: (0, _colors.marigold)
-};
-const personaSharedColors = {
-    darkRed: (0, _colors.darkRed),
-    cranberry: (0, _colors.cranberry),
-    pumpkin: (0, _colors.pumpkin),
-    peach: (0, _colors.peach),
-    gold: (0, _colors.gold),
-    brass: (0, _colors.brass),
-    brown: (0, _colors.brown),
-    forest: (0, _colors.forest),
-    seafoam: (0, _colors.seafoam),
-    darkGreen: (0, _colors.darkGreen),
-    lightTeal: (0, _colors.lightTeal),
-    teal: (0, _colors.teal),
-    steel: (0, _colors.steel),
-    blue: (0, _colors.blue),
-    royalBlue: (0, _colors.royalBlue),
-    cornflower: (0, _colors.cornflower),
-    navy: (0, _colors.navy),
-    lavender: (0, _colors.lavender),
-    purple: (0, _colors.purple),
-    grape: (0, _colors.grape),
-    lilac: (0, _colors.lilac),
-    pink: (0, _colors.pink),
-    magenta: (0, _colors.magenta),
-    plum: (0, _colors.plum),
-    beige: (0, _colors.beige),
-    mink: (0, _colors.mink),
-    platinum: (0, _colors.platinum),
-    anchor: (0, _colors.anchor)
-};
-const mappedStatusColors = {
-    cranberry: (0, _colors.cranberry),
-    green: (0, _colors.green),
-    orange: (0, _colors.orange)
-};
-
-},{"./colors":"lVTZS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lVTZS":[function(require,module,exports) {
-/* !!! DO NOT EDIT !!! */ /* This file has been generated by the token pipeline */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "grey", ()=>grey);
-parcelHelpers.export(exports, "whiteAlpha", ()=>whiteAlpha);
-parcelHelpers.export(exports, "blackAlpha", ()=>blackAlpha);
-parcelHelpers.export(exports, "grey10Alpha", ()=>grey10Alpha);
-parcelHelpers.export(exports, "grey12Alpha", ()=>grey12Alpha);
-parcelHelpers.export(exports, "grey14Alpha", ()=>grey14Alpha);
-parcelHelpers.export(exports, "white", ()=>white);
-parcelHelpers.export(exports, "black", ()=>black);
-parcelHelpers.export(exports, "hcHyperlink", ()=>hcHyperlink);
-parcelHelpers.export(exports, "hcHighlight", ()=>hcHighlight);
-parcelHelpers.export(exports, "hcDisabled", ()=>hcDisabled);
-parcelHelpers.export(exports, "hcCanvas", ()=>hcCanvas);
-parcelHelpers.export(exports, "hcCanvasText", ()=>hcCanvasText);
-parcelHelpers.export(exports, "hcHighlightText", ()=>hcHighlightText);
-parcelHelpers.export(exports, "hcButtonText", ()=>hcButtonText);
-parcelHelpers.export(exports, "hcButtonFace", ()=>hcButtonFace);
-parcelHelpers.export(exports, "darkRed", ()=>darkRed);
-parcelHelpers.export(exports, "burgundy", ()=>burgundy);
-parcelHelpers.export(exports, "cranberry", ()=>cranberry);
-parcelHelpers.export(exports, "red", ()=>red);
-parcelHelpers.export(exports, "darkOrange", ()=>darkOrange);
-parcelHelpers.export(exports, "bronze", ()=>bronze);
-parcelHelpers.export(exports, "pumpkin", ()=>pumpkin);
-parcelHelpers.export(exports, "orange", ()=>orange);
-parcelHelpers.export(exports, "peach", ()=>peach);
-parcelHelpers.export(exports, "marigold", ()=>marigold);
-parcelHelpers.export(exports, "yellow", ()=>yellow);
-parcelHelpers.export(exports, "gold", ()=>gold);
-parcelHelpers.export(exports, "brass", ()=>brass);
-parcelHelpers.export(exports, "brown", ()=>brown);
-parcelHelpers.export(exports, "darkBrown", ()=>darkBrown);
-parcelHelpers.export(exports, "lime", ()=>lime);
-parcelHelpers.export(exports, "forest", ()=>forest);
-parcelHelpers.export(exports, "seafoam", ()=>seafoam);
-parcelHelpers.export(exports, "lightGreen", ()=>lightGreen);
-parcelHelpers.export(exports, "green", ()=>green);
-parcelHelpers.export(exports, "darkGreen", ()=>darkGreen);
-parcelHelpers.export(exports, "lightTeal", ()=>lightTeal);
-parcelHelpers.export(exports, "teal", ()=>teal);
-parcelHelpers.export(exports, "darkTeal", ()=>darkTeal);
-parcelHelpers.export(exports, "cyan", ()=>cyan);
-parcelHelpers.export(exports, "steel", ()=>steel);
-parcelHelpers.export(exports, "lightBlue", ()=>lightBlue);
-parcelHelpers.export(exports, "blue", ()=>blue);
-parcelHelpers.export(exports, "royalBlue", ()=>royalBlue);
-parcelHelpers.export(exports, "darkBlue", ()=>darkBlue);
-parcelHelpers.export(exports, "cornflower", ()=>cornflower);
-parcelHelpers.export(exports, "navy", ()=>navy);
-parcelHelpers.export(exports, "lavender", ()=>lavender);
-parcelHelpers.export(exports, "purple", ()=>purple);
-parcelHelpers.export(exports, "darkPurple", ()=>darkPurple);
-parcelHelpers.export(exports, "orchid", ()=>orchid);
-parcelHelpers.export(exports, "grape", ()=>grape);
-parcelHelpers.export(exports, "berry", ()=>berry);
-parcelHelpers.export(exports, "lilac", ()=>lilac);
-parcelHelpers.export(exports, "pink", ()=>pink);
-parcelHelpers.export(exports, "hotPink", ()=>hotPink);
-parcelHelpers.export(exports, "magenta", ()=>magenta);
-parcelHelpers.export(exports, "plum", ()=>plum);
-parcelHelpers.export(exports, "beige", ()=>beige);
-parcelHelpers.export(exports, "mink", ()=>mink);
-parcelHelpers.export(exports, "silver", ()=>silver);
-parcelHelpers.export(exports, "platinum", ()=>platinum);
-parcelHelpers.export(exports, "anchor", ()=>anchor);
-parcelHelpers.export(exports, "charcoal", ()=>charcoal);
-const grey = {
-    "2": "#050505",
-    "4": "#0a0a0a",
-    "6": "#0f0f0f",
-    "8": "#141414",
-    "10": "#1a1a1a",
-    "12": "#1f1f1f",
-    "14": "#242424",
-    "16": "#292929",
-    "18": "#2e2e2e",
-    "20": "#333333",
-    "22": "#383838",
-    "24": "#3d3d3d",
-    "26": "#424242",
-    "28": "#474747",
-    "30": "#4d4d4d",
-    "32": "#525252",
-    "34": "#575757",
-    "36": "#5c5c5c",
-    "38": "#616161",
-    "40": "#666666",
-    "42": "#6b6b6b",
-    "44": "#707070",
-    "46": "#757575",
-    "48": "#7a7a7a",
-    "50": "#808080",
-    "52": "#858585",
-    "54": "#8a8a8a",
-    "56": "#8f8f8f",
-    "58": "#949494",
-    "60": "#999999",
-    "62": "#9e9e9e",
-    "64": "#a3a3a3",
-    "66": "#a8a8a8",
-    "68": "#adadad",
-    "70": "#b3b3b3",
-    "72": "#b8b8b8",
-    "74": "#bdbdbd",
-    "76": "#c2c2c2",
-    "78": "#c7c7c7",
-    "80": "#cccccc",
-    "82": "#d1d1d1",
-    "84": "#d6d6d6",
-    "86": "#dbdbdb",
-    "88": "#e0e0e0",
-    "90": "#e6e6e6",
-    "92": "#ebebeb",
-    "94": "#f0f0f0",
-    "96": "#f5f5f5",
-    "98": "#fafafa"
-};
-const whiteAlpha = {
-    "5": "rgba(255, 255, 255, 0.05)",
-    "10": "rgba(255, 255, 255, 0.1)",
-    "20": "rgba(255, 255, 255, 0.2)",
-    "30": "rgba(255, 255, 255, 0.3)",
-    "40": "rgba(255, 255, 255, 0.4)",
-    "50": "rgba(255, 255, 255, 0.5)",
-    "60": "rgba(255, 255, 255, 0.6)",
-    "70": "rgba(255, 255, 255, 0.7)",
-    "80": "rgba(255, 255, 255, 0.8)",
-    "90": "rgba(255, 255, 255, 0.9)"
-};
-const blackAlpha = {
-    "5": "rgba(0, 0, 0, 0.05)",
-    "10": "rgba(0, 0, 0, 0.1)",
-    "20": "rgba(0, 0, 0, 0.2)",
-    "30": "rgba(0, 0, 0, 0.3)",
-    "40": "rgba(0, 0, 0, 0.4)",
-    "50": "rgba(0, 0, 0, 0.5)",
-    "60": "rgba(0, 0, 0, 0.6)",
-    "70": "rgba(0, 0, 0, 0.7)",
-    "80": "rgba(0, 0, 0, 0.8)",
-    "90": "rgba(0, 0, 0, 0.9)"
-};
-const grey10Alpha = {
-    "5": "rgba(26, 26, 26, 0.05)",
-    "10": "rgba(26, 26, 26, 0.1)",
-    "20": "rgba(26, 26, 26, 0.2)",
-    "30": "rgba(26, 26, 26, 0.3)",
-    "40": "rgba(26, 26, 26, 0.4)",
-    "50": "rgba(26, 26, 26, 0.5)",
-    "60": "rgba(26, 26, 26, 0.6)",
-    "70": "rgba(26, 26, 26, 0.7)",
-    "80": "rgba(26, 26, 26, 0.8)",
-    "90": "rgba(26, 26, 26, 0.9)"
-};
-const grey12Alpha = {
-    "5": "rgba(31, 31, 31, 0.05)",
-    "10": "rgba(31, 31, 31, 0.1)",
-    "20": "rgba(31, 31, 31, 0.2)",
-    "30": "rgba(31, 31, 31, 0.3)",
-    "40": "rgba(31, 31, 31, 0.4)",
-    "50": "rgba(31, 31, 31, 0.5)",
-    "60": "rgba(31, 31, 31, 0.6)",
-    "70": "rgba(31, 31, 31, 0.7)",
-    "80": "rgba(31, 31, 31, 0.8)",
-    "90": "rgba(31, 31, 31, 0.9)"
-};
-const grey14Alpha = {
-    "5": "rgba(36, 36, 36, 0.05)",
-    "10": "rgba(36, 36, 36, 0.1)",
-    "20": "rgba(36, 36, 36, 0.2)",
-    "30": "rgba(36, 36, 36, 0.3)",
-    "40": "rgba(36, 36, 36, 0.4)",
-    "50": "rgba(36, 36, 36, 0.5)",
-    "60": "rgba(36, 36, 36, 0.6)",
-    "70": "rgba(36, 36, 36, 0.7)",
-    "80": "rgba(36, 36, 36, 0.8)",
-    "90": "rgba(36, 36, 36, 0.9)"
-};
-const white = "#ffffff";
-const black = "#000000";
-const hcHyperlink = "#ffff00";
-const hcHighlight = "#1aebff";
-const hcDisabled = "#3ff23f";
-const hcCanvas = "#000000";
-const hcCanvasText = "#ffffff";
-const hcHighlightText = "#000000";
-const hcButtonText = "#000000";
-const hcButtonFace = "#ffffff";
-const darkRed = {
-    shade50: "#130204",
-    shade40: "#230308",
-    shade30: "#420610",
-    shade20: "#590815",
-    shade10: "#690a19",
-    primary: "#750b1c",
-    tint10: "#861b2c",
-    tint20: "#962f3f",
-    tint30: "#ac4f5e",
-    tint40: "#d69ca5",
-    tint50: "#e9c7cd",
-    tint60: "#f9f0f2"
-};
-const burgundy = {
-    shade50: "#1a0607",
-    shade40: "#310b0d",
-    shade30: "#5c1519",
-    shade20: "#7d1d21",
-    shade10: "#942228",
-    primary: "#a4262c",
-    tint10: "#af393e",
-    tint20: "#ba4d52",
-    tint30: "#c86c70",
-    tint40: "#e4afb2",
-    tint50: "#f0d3d4",
-    tint60: "#fbf4f4"
-};
-const cranberry = {
-    shade50: "#200205",
-    shade40: "#3b0509",
-    shade30: "#6e0811",
-    shade20: "#960b18",
-    shade10: "#b10e1c",
-    primary: "#c50f1f",
-    tint10: "#cc2635",
-    tint20: "#d33f4c",
-    tint30: "#dc626d",
-    tint40: "#eeacb2",
-    tint50: "#f6d1d5",
-    tint60: "#fdf3f4"
-};
-const red = {
-    shade50: "#210809",
-    shade40: "#3f1011",
-    shade30: "#751d1f",
-    shade20: "#9f282b",
-    shade10: "#bc2f32",
-    primary: "#d13438",
-    tint10: "#d7494c",
-    tint20: "#dc5e62",
-    tint30: "#e37d80",
-    tint40: "#f1bbbc",
-    tint50: "#f8dadb",
-    tint60: "#fdf6f6"
-};
-const darkOrange = {
-    shade50: "#230900",
-    shade40: "#411200",
-    shade30: "#7a2101",
-    shade20: "#a62d01",
-    shade10: "#c43501",
-    primary: "#da3b01",
-    tint10: "#de501c",
-    tint20: "#e36537",
-    tint30: "#e9835e",
-    tint40: "#f4bfab",
-    tint50: "#f9dcd1",
-    tint60: "#fdf6f3"
-};
-const bronze = {
-    shade50: "#1b0a01",
-    shade40: "#321303",
-    shade30: "#5e2405",
-    shade20: "#7f3107",
-    shade10: "#963a08",
-    primary: "#a74109",
-    tint10: "#b2521e",
-    tint20: "#bc6535",
-    tint30: "#ca8057",
-    tint40: "#e5bba4",
-    tint50: "#f1d9cc",
-    tint60: "#fbf5f2"
-};
-const pumpkin = {
-    shade50: "#200d03",
-    shade40: "#3d1805",
-    shade30: "#712d09",
-    shade20: "#9a3d0c",
-    shade10: "#b6480e",
-    primary: "#ca5010",
-    tint10: "#d06228",
-    tint20: "#d77440",
-    tint30: "#df8e64",
-    tint40: "#efc4ad",
-    tint50: "#f7dfd2",
-    tint60: "#fdf7f4"
-};
-const orange = {
-    shade50: "#271002",
-    shade40: "#4a1e04",
-    shade30: "#8a3707",
-    shade20: "#bc4b09",
-    shade10: "#de590b",
-    primary: "#f7630c",
-    tint10: "#f87528",
-    tint20: "#f98845",
-    tint30: "#faa06b",
-    tint40: "#fdcfb4",
-    tint50: "#fee5d7",
-    tint60: "#fff9f5"
-};
-const peach = {
-    shade50: "#291600",
-    shade40: "#4d2a00",
-    shade30: "#8f4e00",
-    shade20: "#c26a00",
-    shade10: "#e67e00",
-    primary: "#ff8c00",
-    tint10: "#ff9a1f",
-    tint20: "#ffa83d",
-    tint30: "#ffba66",
-    tint40: "#ffddb3",
-    tint50: "#ffedd6",
-    tint60: "#fffaf5"
-};
-const marigold = {
-    shade50: "#251a00",
-    shade40: "#463100",
-    shade30: "#835b00",
-    shade20: "#b27c00",
-    shade10: "#d39300",
-    primary: "#eaa300",
-    tint10: "#edad1c",
-    tint20: "#efb839",
-    tint30: "#f2c661",
-    tint40: "#f9e2ae",
-    tint50: "#fcefd3",
-    tint60: "#fefbf4"
-};
-const yellow = {
-    primary: "#fde300",
-    shade10: "#e4cc00",
-    shade20: "#c0ad00",
-    shade30: "#817400",
-    shade40: "#4c4400",
-    shade50: "#282400",
-    tint10: "#fde61e",
-    tint20: "#fdea3d",
-    tint30: "#feee66",
-    tint40: "#fef7b2",
-    tint50: "#fffad6",
-    tint60: "#fffef5"
-};
-const gold = {
-    shade50: "#1f1900",
-    shade40: "#3a2f00",
-    shade30: "#6c5700",
-    shade20: "#937700",
-    shade10: "#ae8c00",
-    primary: "#c19c00",
-    tint10: "#c8a718",
-    tint20: "#d0b232",
-    tint30: "#dac157",
-    tint40: "#ecdfa5",
-    tint50: "#f5eece",
-    tint60: "#fdfbf2"
-};
-const brass = {
-    shade50: "#181202",
-    shade40: "#2e2103",
-    shade30: "#553e06",
-    shade20: "#745408",
-    shade10: "#89640a",
-    primary: "#986f0b",
-    tint10: "#a47d1e",
-    tint20: "#b18c34",
-    tint30: "#c1a256",
-    tint40: "#e0cea2",
-    tint50: "#efe4cb",
-    tint60: "#fbf8f2"
-};
-const brown = {
-    shade50: "#170e07",
-    shade40: "#2b1a0e",
-    shade30: "#50301a",
-    shade20: "#6c4123",
-    shade10: "#804d29",
-    primary: "#8e562e",
-    tint10: "#9c663f",
-    tint20: "#a97652",
-    tint30: "#bb8f6f",
-    tint40: "#ddc3b0",
-    tint50: "#edded3",
-    tint60: "#faf7f4"
-};
-const darkBrown = {
-    shade50: "#0c0704",
-    shade40: "#170c08",
-    shade30: "#2b1710",
-    shade20: "#3a1f15",
-    shade10: "#452519",
-    primary: "#4d291c",
-    tint10: "#623a2b",
-    tint20: "#784d3e",
-    tint30: "#946b5c",
-    tint40: "#caada3",
-    tint50: "#e3d2cb",
-    tint60: "#f8f3f2"
-};
-const lime = {
-    shade50: "#121b06",
-    shade40: "#23330b",
-    shade30: "#405f14",
-    shade20: "#57811b",
-    shade10: "#689920",
-    primary: "#73aa24",
-    tint10: "#81b437",
-    tint20: "#90be4c",
-    tint30: "#a4cc6c",
-    tint40: "#cfe5af",
-    tint50: "#e5f1d3",
-    tint60: "#f8fcf4"
-};
-const forest = {
-    shade50: "#0c1501",
-    shade40: "#162702",
-    shade30: "#294903",
-    shade20: "#376304",
-    shade10: "#427505",
-    primary: "#498205",
-    tint10: "#599116",
-    tint20: "#6ba02b",
-    tint30: "#85b44c",
-    tint40: "#bdd99b",
-    tint50: "#dbebc7",
-    tint60: "#f6faf0"
-};
-const seafoam = {
-    shade50: "#002111",
-    shade40: "#003d20",
-    shade30: "#00723b",
-    shade20: "#009b51",
-    shade10: "#00b85f",
-    primary: "#00cc6a",
-    tint10: "#19d279",
-    tint20: "#34d889",
-    tint30: "#5ae0a0",
-    tint40: "#a8f0cd",
-    tint50: "#cff7e4",
-    tint60: "#f3fdf8"
-};
-const lightGreen = {
-    shade50: "#031a02",
-    shade40: "#063004",
-    shade30: "#0b5a08",
-    shade20: "#0e7a0b",
-    shade10: "#11910d",
-    primary: "#13a10e",
-    tint10: "#27ac22",
-    tint20: "#3db838",
-    tint30: "#5ec75a",
-    tint40: "#a7e3a5",
-    tint50: "#cef0cd",
-    tint60: "#f2fbf2"
-};
-const green = {
-    shade50: "#031403",
-    shade40: "#052505",
-    shade30: "#094509",
-    shade20: "#0c5e0c",
-    shade10: "#0e700e",
-    primary: "#107c10",
-    tint10: "#218c21",
-    tint20: "#359b35",
-    tint30: "#54b054",
-    tint40: "#9fd89f",
-    tint50: "#c9eac9",
-    tint60: "#f1faf1"
-};
-const darkGreen = {
-    shade50: "#021102",
-    shade40: "#032003",
-    shade30: "#063b06",
-    shade20: "#085108",
-    shade10: "#0a5f0a",
-    primary: "#0b6a0b",
-    tint10: "#1a7c1a",
-    tint20: "#2d8e2d",
-    tint30: "#4da64d",
-    tint40: "#9ad29a",
-    tint50: "#c6e7c6",
-    tint60: "#f0f9f0"
-};
-const lightTeal = {
-    shade50: "#001d1f",
-    shade40: "#00373a",
-    shade30: "#00666d",
-    shade20: "#008b94",
-    shade10: "#00a5af",
-    primary: "#00b7c3",
-    tint10: "#18bfca",
-    tint20: "#32c8d1",
-    tint30: "#58d3db",
-    tint40: "#a6e9ed",
-    tint50: "#cef3f5",
-    tint60: "#f2fcfd"
-};
-const teal = {
-    shade50: "#001516",
-    shade40: "#012728",
-    shade30: "#02494c",
-    shade20: "#026467",
-    shade10: "#037679",
-    primary: "#038387",
-    tint10: "#159195",
-    tint20: "#2aa0a4",
-    tint30: "#4cb4b7",
-    tint40: "#9bd9db",
-    tint50: "#c7ebec",
-    tint60: "#f0fafa"
-};
-const darkTeal = {
-    shade50: "#001010",
-    shade40: "#001f1f",
-    shade30: "#003939",
-    shade20: "#004e4e",
-    shade10: "#005c5c",
-    primary: "#006666",
-    tint10: "#0e7878",
-    tint20: "#218b8b",
-    tint30: "#41a3a3",
-    tint40: "#92d1d1",
-    tint50: "#c2e7e7",
-    tint60: "#eff9f9"
-};
-const cyan = {
-    shade50: "#00181e",
-    shade40: "#002e38",
-    shade30: "#005669",
-    shade20: "#00748f",
-    shade10: "#008aa9",
-    primary: "#0099bc",
-    tint10: "#18a4c4",
-    tint20: "#31afcc",
-    tint30: "#56bfd7",
-    tint40: "#a4deeb",
-    tint50: "#cdedf4",
-    tint60: "#f2fafc"
-};
-const steel = {
-    shade50: "#000f12",
-    shade40: "#001b22",
-    shade30: "#00333f",
-    shade20: "#004555",
-    shade10: "#005265",
-    primary: "#005b70",
-    tint10: "#0f6c81",
-    tint20: "#237d92",
-    tint30: "#4496a9",
-    tint40: "#94c8d4",
-    tint50: "#c3e1e8",
-    tint60: "#eff7f9"
-};
-const lightBlue = {
-    shade50: "#091823",
-    shade40: "#112d42",
-    shade30: "#20547c",
-    shade20: "#2c72a8",
-    shade10: "#3487c7",
-    primary: "#3a96dd",
-    tint10: "#4fa1e1",
-    tint20: "#65ade5",
-    tint30: "#83bdeb",
-    tint40: "#bfddf5",
-    tint50: "#dcedfa",
-    tint60: "#f6fafe"
-};
-const blue = {
-    shade50: "#001322",
-    shade40: "#002440",
-    shade30: "#004377",
-    shade20: "#005ba1",
-    shade10: "#006cbf",
-    primary: "#0078d4",
-    tint10: "#1a86d9",
-    tint20: "#3595de",
-    tint30: "#5caae5",
-    tint40: "#a9d3f2",
-    tint50: "#d0e7f8",
-    tint60: "#f3f9fd"
-};
-const royalBlue = {
-    shade50: "#000c16",
-    shade40: "#00172a",
-    shade30: "#002c4e",
-    shade20: "#003b6a",
-    shade10: "#00467e",
-    primary: "#004e8c",
-    tint10: "#125e9a",
-    tint20: "#286fa8",
-    tint30: "#4a89ba",
-    tint40: "#9abfdc",
-    tint50: "#c7dced",
-    tint60: "#f0f6fa"
-};
-const darkBlue = {
-    shade50: "#000910",
-    shade40: "#00111f",
-    shade30: "#002039",
-    shade20: "#002b4e",
-    shade10: "#00335c",
-    primary: "#003966",
-    tint10: "#0e4a78",
-    tint20: "#215c8b",
-    tint30: "#4178a3",
-    tint40: "#92b5d1",
-    tint50: "#c2d6e7",
-    tint60: "#eff4f9"
-};
-const cornflower = {
-    shade50: "#0d1126",
-    shade40: "#182047",
-    shade30: "#2c3c85",
-    shade20: "#3c51b4",
-    shade10: "#4760d5",
-    primary: "#4f6bed",
-    tint10: "#637cef",
-    tint20: "#778df1",
-    tint30: "#93a4f4",
-    tint40: "#c8d1fa",
-    tint50: "#e1e6fc",
-    tint60: "#f7f9fe"
-};
-const navy = {
-    shade50: "#00061d",
-    shade40: "#000c36",
-    shade30: "#001665",
-    shade20: "#001e89",
-    shade10: "#0023a2",
-    primary: "#0027b4",
-    tint10: "#173bbd",
-    tint20: "#3050c6",
-    tint30: "#546fd2",
-    tint40: "#a3b2e8",
-    tint50: "#ccd5f3",
-    tint60: "#f2f4fc"
-};
-const lavender = {
-    shade50: "#120f25",
-    shade40: "#221d46",
-    shade30: "#3f3682",
-    shade20: "#5649b0",
-    shade10: "#6656d1",
-    primary: "#7160e8",
-    tint10: "#8172eb",
-    tint20: "#9184ee",
-    tint30: "#a79cf1",
-    tint40: "#d2ccf8",
-    tint50: "#e7e4fb",
-    tint60: "#f9f8fe"
-};
-const purple = {
-    shade50: "#0f0717",
-    shade40: "#1c0e2b",
-    shade30: "#341a51",
-    shade20: "#46236e",
-    shade10: "#532982",
-    primary: "#5c2e91",
-    tint10: "#6b3f9e",
-    tint20: "#7c52ab",
-    tint30: "#9470bd",
-    tint40: "#c6b1de",
-    tint50: "#e0d3ed",
-    tint60: "#f7f4fb"
-};
-const darkPurple = {
-    shade50: "#0a0411",
-    shade40: "#130820",
-    shade30: "#240f3c",
-    shade20: "#311552",
-    shade10: "#3a1861",
-    primary: "#401b6c",
-    tint10: "#512b7e",
-    tint20: "#633e8f",
-    tint30: "#7e5ca7",
-    tint40: "#b9a3d3",
-    tint50: "#d8cce7",
-    tint60: "#f5f2f9"
-};
-const orchid = {
-    shade50: "#16101d",
-    shade40: "#281e37",
-    shade30: "#4c3867",
-    shade20: "#674c8c",
-    shade10: "#795aa6",
-    primary: "#8764b8",
-    tint10: "#9373c0",
-    tint20: "#a083c9",
-    tint30: "#b29ad4",
-    tint40: "#d7caea",
-    tint50: "#e9e2f4",
-    tint60: "#f9f8fc"
-};
-const grape = {
-    shade50: "#160418",
-    shade40: "#29072e",
-    shade30: "#4c0d55",
-    shade20: "#671174",
-    shade10: "#7a1589",
-    primary: "#881798",
-    tint10: "#952aa4",
-    tint20: "#a33fb1",
-    tint30: "#b55fc1",
-    tint40: "#d9a7e0",
-    tint50: "#eaceef",
-    tint60: "#faf2fb"
-};
-const berry = {
-    shade50: "#1f091d",
-    shade40: "#3a1136",
-    shade30: "#6d2064",
-    shade20: "#932b88",
-    shade10: "#af33a1",
-    primary: "#c239b3",
-    tint10: "#c94cbc",
-    tint20: "#d161c4",
-    tint30: "#da7ed0",
-    tint40: "#edbbe7",
-    tint50: "#f5daf2",
-    tint60: "#fdf5fc"
-};
-const lilac = {
-    shade50: "#1c0b1f",
-    shade40: "#35153a",
-    shade30: "#63276d",
-    shade20: "#863593",
-    shade10: "#9f3faf",
-    primary: "#b146c2",
-    tint10: "#ba58c9",
-    tint20: "#c36bd1",
-    tint30: "#cf87da",
-    tint40: "#e6bfed",
-    tint50: "#f2dcf5",
-    tint60: "#fcf6fd"
-};
-const pink = {
-    shade50: "#24091b",
-    shade40: "#441232",
-    shade30: "#80215d",
-    shade20: "#ad2d7e",
-    shade10: "#cd3595",
-    primary: "#e43ba6",
-    tint10: "#e750b0",
-    tint20: "#ea66ba",
-    tint30: "#ef85c8",
-    tint40: "#f7c0e3",
-    tint50: "#fbddf0",
-    tint60: "#fef6fb"
-};
-const hotPink = {
-    shade50: "#240016",
-    shade40: "#44002a",
-    shade30: "#7f004e",
-    shade20: "#ad006a",
-    shade10: "#cc007e",
-    primary: "#e3008c",
-    tint10: "#e61c99",
-    tint20: "#ea38a6",
-    tint30: "#ee5fb7",
-    tint40: "#f7adda",
-    tint50: "#fbd2eb",
-    tint60: "#fef4fa"
-};
-const magenta = {
-    shade50: "#1f0013",
-    shade40: "#390024",
-    shade30: "#6b0043",
-    shade20: "#91005a",
-    shade10: "#ac006b",
-    primary: "#bf0077",
-    tint10: "#c71885",
-    tint20: "#ce3293",
-    tint30: "#d957a8",
-    tint40: "#eca5d1",
-    tint50: "#f5cee6",
-    tint60: "#fcf2f9"
-};
-const plum = {
-    shade50: "#13000c",
-    shade40: "#240017",
-    shade30: "#43002b",
-    shade20: "#5a003b",
-    shade10: "#6b0045",
-    primary: "#77004d",
-    tint10: "#87105d",
-    tint20: "#98246f",
-    tint30: "#ad4589",
-    tint40: "#d696c0",
-    tint50: "#e9c4dc",
-    tint60: "#faf0f6"
-};
-const beige = {
-    shade50: "#141313",
-    shade40: "#252323",
-    shade30: "#444241",
-    shade20: "#5d5958",
-    shade10: "#6e6968",
-    primary: "#7a7574",
-    tint10: "#8a8584",
-    tint20: "#9a9594",
-    tint30: "#afabaa",
-    tint40: "#d7d4d4",
-    tint50: "#eae8e8",
-    tint60: "#faf9f9"
-};
-const mink = {
-    shade50: "#0f0e0e",
-    shade40: "#1c1b1a",
-    shade30: "#343231",
-    shade20: "#474443",
-    shade10: "#54514f",
-    primary: "#5d5a58",
-    tint10: "#706d6b",
-    tint20: "#84817e",
-    tint30: "#9e9b99",
-    tint40: "#cecccb",
-    tint50: "#e5e4e3",
-    tint60: "#f8f8f8"
-};
-const silver = {
-    shade50: "#151818",
-    shade40: "#282d2e",
-    shade30: "#4a5356",
-    shade20: "#657174",
-    shade10: "#78868a",
-    primary: "#859599",
-    tint10: "#92a1a5",
-    tint20: "#a0aeb1",
-    tint30: "#b3bfc2",
-    tint40: "#d8dfe0",
-    tint50: "#eaeeef",
-    tint60: "#fafbfb"
-};
-const platinum = {
-    shade50: "#111314",
-    shade40: "#1f2426",
-    shade30: "#3b4447",
-    shade20: "#505c60",
-    shade10: "#5f6d71",
-    primary: "#69797e",
-    tint10: "#79898d",
-    tint20: "#89989d",
-    tint30: "#a0adb2",
-    tint40: "#cdd6d8",
-    tint50: "#e4e9ea",
-    tint60: "#f8f9fa"
-};
-const anchor = {
-    shade50: "#090a0b",
-    shade40: "#111315",
-    shade30: "#202427",
-    shade20: "#2b3135",
-    shade10: "#333a3f",
-    primary: "#394146",
-    tint10: "#4d565c",
-    tint20: "#626c72",
-    tint30: "#808a90",
-    tint40: "#bcc3c7",
-    tint50: "#dbdfe1",
-    tint60: "#f6f7f8"
-};
-const charcoal = {
-    shade50: "#090909",
-    shade40: "#111111",
-    shade30: "#202020",
-    shade20: "#2b2b2b",
-    shade10: "#333333",
-    primary: "#393939",
-    tint10: "#515151",
-    tint20: "#686868",
-    tint30: "#888888",
-    tint40: "#c4c4c4",
-    tint50: "#dfdfdf",
-    tint60: "#f7f7f7"
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"koxOM":[function(require,module,exports) {
-/* Names of colors used in shared color palette alias tokens for status. */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "statusSharedColorNames", ()=>statusSharedColorNames);
-parcelHelpers.export(exports, "personaSharedColorNames", ()=>personaSharedColorNames);
-parcelHelpers.export(exports, "mappedStatusColorNames", ()=>mappedStatusColorNames);
-parcelHelpers.export(exports, "unusedSharedColorNames", ()=>unusedSharedColorNames);
-const statusSharedColorNames = [
-    "red",
-    "green",
-    "darkOrange",
-    "yellow",
-    "berry",
-    "lightGreen",
-    "marigold"
-];
-const personaSharedColorNames = [
-    "darkRed",
-    "cranberry",
-    "pumpkin",
-    "peach",
-    "gold",
-    "brass",
-    "brown",
-    "forest",
-    "seafoam",
-    "darkGreen",
-    "lightTeal",
-    "teal",
-    "steel",
-    "blue",
-    "royalBlue",
-    "cornflower",
-    "navy",
-    "lavender",
-    "purple",
-    "grape",
-    "lilac",
-    "pink",
-    "magenta",
-    "plum",
-    "beige",
-    "mink",
-    "platinum",
-    "anchor"
-];
-const mappedStatusColorNames = [
-    "cranberry",
-    "green",
-    "orange"
-];
-const unusedSharedColorNames = [
-    "burgundy",
-    "bronze",
-    "orange",
-    "darkBrown",
-    "lime",
-    "darkTeal",
-    "cyan",
-    "lightBlue",
-    "darkBlue",
-    "darkPurple",
-    "orchid",
-    "hotPink",
-    "silver",
-    "charcoal"
-];
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c4B9M":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "statusColorMapping", ()=>statusColorMapping);
-const statusColorMapping = {
-    success: "green",
-    warning: "orange",
-    danger: "cranberry"
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7Vh0j":[function(require,module,exports) {
-/* !!! DO NOT EDIT !!! */ /* This file has been generated by the token pipeline */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "generateColorTokens", ()=>generateColorTokens);
-var _colors = require("../global/colors");
-const generateColorTokens = (brand)=>({
-        colorNeutralForeground1: (0, _colors.grey)[14],
-        colorNeutralForeground1Hover: (0, _colors.grey)[14],
-        colorNeutralForeground1Pressed: (0, _colors.grey)[14],
-        colorNeutralForeground1Selected: (0, _colors.grey)[14],
-        colorNeutralForeground2: (0, _colors.grey)[26],
-        colorNeutralForeground2Hover: (0, _colors.grey)[14],
-        colorNeutralForeground2Pressed: (0, _colors.grey)[14],
-        colorNeutralForeground2Selected: (0, _colors.grey)[14],
-        colorNeutralForeground2BrandHover: brand[80],
-        colorNeutralForeground2BrandPressed: brand[70],
-        colorNeutralForeground2BrandSelected: brand[80],
-        colorNeutralForeground3: (0, _colors.grey)[38],
-        colorNeutralForeground3Hover: (0, _colors.grey)[26],
-        colorNeutralForeground3Pressed: (0, _colors.grey)[26],
-        colorNeutralForeground3Selected: (0, _colors.grey)[26],
-        colorNeutralForeground3BrandHover: brand[80],
-        colorNeutralForeground3BrandPressed: brand[70],
-        colorNeutralForeground3BrandSelected: brand[80],
-        colorNeutralForeground4: (0, _colors.grey)[44],
-        colorNeutralForegroundDisabled: (0, _colors.grey)[74],
-        colorNeutralForegroundInvertedDisabled: (0, _colors.whiteAlpha)[40],
-        colorBrandForegroundLink: brand[70],
-        colorBrandForegroundLinkHover: brand[60],
-        colorBrandForegroundLinkPressed: brand[40],
-        colorBrandForegroundLinkSelected: brand[70],
-        colorNeutralForeground2Link: (0, _colors.grey)[26],
-        colorNeutralForeground2LinkHover: (0, _colors.grey)[14],
-        colorNeutralForeground2LinkPressed: (0, _colors.grey)[14],
-        colorNeutralForeground2LinkSelected: (0, _colors.grey)[14],
-        colorCompoundBrandForeground1: brand[80],
-        colorCompoundBrandForeground1Hover: brand[70],
-        colorCompoundBrandForeground1Pressed: brand[60],
-        colorBrandForeground1: brand[80],
-        colorBrandForeground2: brand[70],
-        colorBrandForeground2Hover: brand[60],
-        colorBrandForeground2Pressed: brand[30],
-        colorNeutralForeground1Static: (0, _colors.grey)[14],
-        colorNeutralForegroundStaticInverted: (0, _colors.white),
-        colorNeutralForegroundInverted: (0, _colors.white),
-        colorNeutralForegroundInvertedHover: (0, _colors.white),
-        colorNeutralForegroundInvertedPressed: (0, _colors.white),
-        colorNeutralForegroundInvertedSelected: (0, _colors.white),
-        colorNeutralForegroundInverted2: (0, _colors.white),
-        colorNeutralForegroundOnBrand: (0, _colors.white),
-        colorNeutralForegroundInvertedLink: (0, _colors.white),
-        colorNeutralForegroundInvertedLinkHover: (0, _colors.white),
-        colorNeutralForegroundInvertedLinkPressed: (0, _colors.white),
-        colorNeutralForegroundInvertedLinkSelected: (0, _colors.white),
-        colorBrandForegroundInverted: brand[100],
-        colorBrandForegroundInvertedHover: brand[110],
-        colorBrandForegroundInvertedPressed: brand[100],
-        colorBrandForegroundOnLight: brand[80],
-        colorBrandForegroundOnLightHover: brand[70],
-        colorBrandForegroundOnLightPressed: brand[50],
-        colorBrandForegroundOnLightSelected: brand[60],
-        colorNeutralBackground1: (0, _colors.white),
-        colorNeutralBackground1Hover: (0, _colors.grey)[96],
-        colorNeutralBackground1Pressed: (0, _colors.grey)[88],
-        colorNeutralBackground1Selected: (0, _colors.grey)[92],
-        colorNeutralBackground2: (0, _colors.grey)[98],
-        colorNeutralBackground2Hover: (0, _colors.grey)[94],
-        colorNeutralBackground2Pressed: (0, _colors.grey)[86],
-        colorNeutralBackground2Selected: (0, _colors.grey)[90],
-        colorNeutralBackground3: (0, _colors.grey)[96],
-        colorNeutralBackground3Hover: (0, _colors.grey)[92],
-        colorNeutralBackground3Pressed: (0, _colors.grey)[84],
-        colorNeutralBackground3Selected: (0, _colors.grey)[88],
-        colorNeutralBackground4: (0, _colors.grey)[94],
-        colorNeutralBackground4Hover: (0, _colors.grey)[98],
-        colorNeutralBackground4Pressed: (0, _colors.grey)[96],
-        colorNeutralBackground4Selected: (0, _colors.white),
-        colorNeutralBackground5: (0, _colors.grey)[92],
-        colorNeutralBackground5Hover: (0, _colors.grey)[96],
-        colorNeutralBackground5Pressed: (0, _colors.grey)[94],
-        colorNeutralBackground5Selected: (0, _colors.grey)[98],
-        colorNeutralBackground6: (0, _colors.grey)[90],
-        colorNeutralBackgroundInverted: (0, _colors.grey)[16],
-        colorNeutralBackgroundStatic: (0, _colors.grey)[20],
-        colorNeutralBackgroundAlpha: (0, _colors.whiteAlpha)[50],
-        colorNeutralBackgroundAlpha2: (0, _colors.whiteAlpha)[80],
-        colorSubtleBackground: "transparent",
-        colorSubtleBackgroundHover: (0, _colors.grey)[96],
-        colorSubtleBackgroundPressed: (0, _colors.grey)[88],
-        colorSubtleBackgroundSelected: (0, _colors.grey)[92],
-        colorSubtleBackgroundLightAlphaHover: (0, _colors.whiteAlpha)[70],
-        colorSubtleBackgroundLightAlphaPressed: (0, _colors.whiteAlpha)[50],
-        colorSubtleBackgroundLightAlphaSelected: "transparent",
-        colorSubtleBackgroundInverted: "transparent",
-        colorSubtleBackgroundInvertedHover: (0, _colors.blackAlpha)[10],
-        colorSubtleBackgroundInvertedPressed: (0, _colors.blackAlpha)[30],
-        colorSubtleBackgroundInvertedSelected: (0, _colors.blackAlpha)[20],
-        colorTransparentBackground: "transparent",
-        colorTransparentBackgroundHover: "transparent",
-        colorTransparentBackgroundPressed: "transparent",
-        colorTransparentBackgroundSelected: "transparent",
-        colorNeutralBackgroundDisabled: (0, _colors.grey)[94],
-        colorNeutralBackgroundInvertedDisabled: (0, _colors.whiteAlpha)[10],
-        colorNeutralStencil1: (0, _colors.grey)[90],
-        colorNeutralStencil2: (0, _colors.grey)[98],
-        colorNeutralStencil1Alpha: (0, _colors.blackAlpha)[10],
-        colorNeutralStencil2Alpha: (0, _colors.blackAlpha)[5],
-        colorBackgroundOverlay: (0, _colors.blackAlpha)[40],
-        colorScrollbarOverlay: (0, _colors.blackAlpha)[50],
-        colorBrandBackground: brand[80],
-        colorBrandBackgroundHover: brand[70],
-        colorBrandBackgroundPressed: brand[40],
-        colorBrandBackgroundSelected: brand[60],
-        colorCompoundBrandBackground: brand[80],
-        colorCompoundBrandBackgroundHover: brand[70],
-        colorCompoundBrandBackgroundPressed: brand[60],
-        colorBrandBackgroundStatic: brand[80],
-        colorBrandBackground2: brand[160],
-        colorBrandBackground2Hover: brand[150],
-        colorBrandBackground2Pressed: brand[130],
-        colorBrandBackgroundInverted: (0, _colors.white),
-        colorBrandBackgroundInvertedHover: brand[160],
-        colorBrandBackgroundInvertedPressed: brand[140],
-        colorBrandBackgroundInvertedSelected: brand[150],
-        colorNeutralStrokeAccessible: (0, _colors.grey)[38],
-        colorNeutralStrokeAccessibleHover: (0, _colors.grey)[34],
-        colorNeutralStrokeAccessiblePressed: (0, _colors.grey)[30],
-        colorNeutralStrokeAccessibleSelected: brand[80],
-        colorNeutralStroke1: (0, _colors.grey)[82],
-        colorNeutralStroke1Hover: (0, _colors.grey)[78],
-        colorNeutralStroke1Pressed: (0, _colors.grey)[70],
-        colorNeutralStroke1Selected: (0, _colors.grey)[74],
-        colorNeutralStroke2: (0, _colors.grey)[88],
-        colorNeutralStroke3: (0, _colors.grey)[94],
-        colorNeutralStrokeSubtle: (0, _colors.grey)[88],
-        colorNeutralStrokeOnBrand: (0, _colors.white),
-        colorNeutralStrokeOnBrand2: (0, _colors.white),
-        colorNeutralStrokeOnBrand2Hover: (0, _colors.white),
-        colorNeutralStrokeOnBrand2Pressed: (0, _colors.white),
-        colorNeutralStrokeOnBrand2Selected: (0, _colors.white),
-        colorBrandStroke1: brand[80],
-        colorBrandStroke2: brand[140],
-        colorBrandStroke2Hover: brand[120],
-        colorBrandStroke2Pressed: brand[80],
-        colorBrandStroke2Contrast: brand[140],
-        colorCompoundBrandStroke: brand[80],
-        colorCompoundBrandStrokeHover: brand[70],
-        colorCompoundBrandStrokePressed: brand[60],
-        colorNeutralStrokeDisabled: (0, _colors.grey)[88],
-        colorNeutralStrokeInvertedDisabled: (0, _colors.whiteAlpha)[40],
-        colorTransparentStroke: "transparent",
-        colorTransparentStrokeInteractive: "transparent",
-        colorTransparentStrokeDisabled: "transparent",
-        colorNeutralStrokeAlpha: (0, _colors.blackAlpha)[5],
-        colorNeutralStrokeAlpha2: (0, _colors.whiteAlpha)[20],
-        colorStrokeFocus1: (0, _colors.white),
-        colorStrokeFocus2: (0, _colors.black),
-        colorNeutralShadowAmbient: "rgba(0,0,0,0.12)",
-        colorNeutralShadowKey: "rgba(0,0,0,0.14)",
-        colorNeutralShadowAmbientLighter: "rgba(0,0,0,0.06)",
-        colorNeutralShadowKeyLighter: "rgba(0,0,0,0.07)",
-        colorNeutralShadowAmbientDarker: "rgba(0,0,0,0.20)",
-        colorNeutralShadowKeyDarker: "rgba(0,0,0,0.24)",
-        colorBrandShadowAmbient: "rgba(0,0,0,0.30)",
-        colorBrandShadowKey: "rgba(0,0,0,0.25)"
-    });
-
-},{"../global/colors":"lVTZS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dc8ul":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _borderRadius = require("./borderRadius");
-parcelHelpers.exportAll(_borderRadius, exports);
-var _colors = require("./colors");
-parcelHelpers.exportAll(_colors, exports);
-var _curves = require("./curves");
-parcelHelpers.exportAll(_curves, exports);
-var _durations = require("./durations");
-parcelHelpers.exportAll(_durations, exports);
-var _fonts = require("./fonts");
-parcelHelpers.exportAll(_fonts, exports);
-var _spacings = require("./spacings");
-parcelHelpers.exportAll(_spacings, exports);
-var _strokeWidths = require("./strokeWidths");
-parcelHelpers.exportAll(_strokeWidths, exports);
-parcelHelpers.exportAll(_borderRadius, exports);
-var _typographyStyles = require("./typographyStyles");
-parcelHelpers.exportAll(_typographyStyles, exports);
-
-},{"./borderRadius":"iED6W","./colors":false,"./curves":false,"./durations":false,"./fonts":"4kqeU","./spacings":false,"./strokeWidths":"8gk9M","./typographyStyles":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iED6W":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "borderRadius", ()=>borderRadius);
-const borderRadius = {
-    borderRadiusNone: "0",
-    borderRadiusSmall: "2px",
-    borderRadiusMedium: "4px",
-    borderRadiusLarge: "6px",
-    borderRadiusXLarge: "8px",
-    borderRadiusCircular: "10000px"
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9yQtW":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "curves", ()=>curves);
-const curves = {
-    curveAccelerateMax: "cubic-bezier(0.9,0.1,1,0.2)",
-    curveAccelerateMid: "cubic-bezier(1,0,1,1)",
-    curveAccelerateMin: "cubic-bezier(0.8,0,0.78,1)",
-    curveDecelerateMax: "cubic-bezier(0.1,0.9,0.2,1)",
-    curveDecelerateMid: "cubic-bezier(0,0,0,1)",
-    curveDecelerateMin: "cubic-bezier(0.33,0,0.1,1)",
-    curveEasyEaseMax: "cubic-bezier(0.8,0,0.2,1)",
-    curveEasyEase: "cubic-bezier(0.33,0,0.67,1)",
-    curveLinear: "cubic-bezier(0,0,1,1)"
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"haaZB":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "durations", ()=>durations);
-const durations = {
-    durationUltraFast: "50ms",
-    durationFaster: "100ms",
-    durationFast: "150ms",
-    durationNormal: "200ms",
-    durationGentle: "250ms",
-    durationSlow: "300ms",
-    durationSlower: "400ms",
-    durationUltraSlow: "500ms"
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4kqeU":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "fontSizes", ()=>fontSizes);
-parcelHelpers.export(exports, "lineHeights", ()=>lineHeights);
-parcelHelpers.export(exports, "fontWeights", ()=>fontWeights);
-parcelHelpers.export(exports, "fontFamilies", ()=>fontFamilies);
-const fontSizes = {
-    fontSizeBase100: "10px",
-    fontSizeBase200: "12px",
-    fontSizeBase300: "14px",
-    fontSizeBase400: "16px",
-    fontSizeBase500: "20px",
-    fontSizeBase600: "24px",
-    fontSizeHero700: "28px",
-    fontSizeHero800: "32px",
-    fontSizeHero900: "40px",
-    fontSizeHero1000: "68px"
-};
-const lineHeights = {
-    lineHeightBase100: "14px",
-    lineHeightBase200: "16px",
-    lineHeightBase300: "20px",
-    lineHeightBase400: "22px",
-    lineHeightBase500: "28px",
-    lineHeightBase600: "32px",
-    lineHeightHero700: "36px",
-    lineHeightHero800: "40px",
-    lineHeightHero900: "52px",
-    lineHeightHero1000: "92px"
-};
-const fontWeights = {
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    fontWeightSemibold: 600,
-    fontWeightBold: 700
-};
-const fontFamilies = {
-    fontFamilyBase: "'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif",
-    fontFamilyMonospace: "Consolas, 'Courier New', Courier, monospace",
-    fontFamilyNumeric: "Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif"
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"geTNu":[function(require,module,exports) {
-// Intentionally not exported! Use horizontalSpacings and verticalSpacings instead.
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "horizontalSpacings", ()=>horizontalSpacings);
-parcelHelpers.export(exports, "verticalSpacings", ()=>verticalSpacings);
-const spacings = {
-    none: "0",
-    xxs: "2px",
-    xs: "4px",
-    sNudge: "6px",
-    s: "8px",
-    mNudge: "10px",
-    m: "12px",
-    l: "16px",
-    xl: "20px",
-    xxl: "24px",
-    xxxl: "32px"
-};
-const horizontalSpacings = {
-    spacingHorizontalNone: spacings.none,
-    spacingHorizontalXXS: spacings.xxs,
-    spacingHorizontalXS: spacings.xs,
-    spacingHorizontalSNudge: spacings.sNudge,
-    spacingHorizontalS: spacings.s,
-    spacingHorizontalMNudge: spacings.mNudge,
-    spacingHorizontalM: spacings.m,
-    spacingHorizontalL: spacings.l,
-    spacingHorizontalXL: spacings.xl,
-    spacingHorizontalXXL: spacings.xxl,
-    spacingHorizontalXXXL: spacings.xxxl
-};
-const verticalSpacings = {
-    spacingVerticalNone: spacings.none,
-    spacingVerticalXXS: spacings.xxs,
-    spacingVerticalXS: spacings.xs,
-    spacingVerticalSNudge: spacings.sNudge,
-    spacingVerticalS: spacings.s,
-    spacingVerticalMNudge: spacings.mNudge,
-    spacingVerticalM: spacings.m,
-    spacingVerticalL: spacings.l,
-    spacingVerticalXL: spacings.xl,
-    spacingVerticalXXL: spacings.xxl,
-    spacingVerticalXXXL: spacings.xxxl
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8gk9M":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "strokeWidths", ()=>strokeWidths);
-const strokeWidths = {
-    strokeWidthThin: "1px",
-    strokeWidthThick: "2px",
-    strokeWidthThicker: "3px",
-    strokeWidthThickest: "4px"
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kLoJO":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createShadowTokens", ()=>createShadowTokens);
-function createShadowTokens(ambientColor, keyColor, tokenSuffix = "") {
-    return {
-        [`shadow2${tokenSuffix}`]: `0 0 2px ${ambientColor}, 0 1px 2px ${keyColor}`,
-        [`shadow4${tokenSuffix}`]: `0 0 2px ${ambientColor}, 0 2px 4px ${keyColor}`,
-        [`shadow8${tokenSuffix}`]: `0 0 2px ${ambientColor}, 0 4px 8px ${keyColor}`,
-        [`shadow16${tokenSuffix}`]: `0 0 2px ${ambientColor}, 0 8px 16px ${keyColor}`,
-        [`shadow28${tokenSuffix}`]: `0 0 8px ${ambientColor}, 0 14px 28px ${keyColor}`,
-        [`shadow64${tokenSuffix}`]: `0 0 8px ${ambientColor}, 0 32px 64px ${keyColor}`
-    };
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lDEZ7":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createDarkTheme", ()=>createDarkTheme);
-var _darkColorPalette = require("../alias/darkColorPalette");
-var _darkColor = require("../alias/darkColor");
-var _index = require("../global/index");
-var _shadows = require("./shadows");
-var _durations = require("../global/durations");
-var _curves = require("../global/curves");
-var _spacings = require("../global/spacings");
-const createDarkTheme = (brand)=>{
-    const colorTokens = (0, _darkColor.generateColorTokens)(brand);
-    return {
-        ...(0, _index.borderRadius),
-        ...(0, _index.fontSizes),
-        ...(0, _index.lineHeights),
-        ...(0, _index.fontFamilies),
-        ...(0, _index.fontWeights),
-        ...(0, _index.strokeWidths),
-        ...(0, _spacings.horizontalSpacings),
-        ...(0, _spacings.verticalSpacings),
-        ...(0, _durations.durations),
-        ...(0, _curves.curves),
-        ...colorTokens,
-        ...(0, _darkColorPalette.colorPaletteTokens),
-        ...(0, _darkColorPalette.colorStatusTokens),
-        ...(0, _shadows.createShadowTokens)(colorTokens.colorNeutralShadowAmbient, colorTokens.colorNeutralShadowKey),
-        ...(0, _shadows.createShadowTokens)(colorTokens.colorBrandShadowAmbient, colorTokens.colorBrandShadowKey, "Brand")
-    };
-};
-
-},{"../alias/darkColorPalette":"eNKuQ","../alias/darkColor":"7JwI6","../global/index":"dc8ul","./shadows":"kLoJO","../global/durations":"haaZB","../global/curves":"9yQtW","../global/spacings":"geTNu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eNKuQ":[function(require,module,exports) {
-/* color palette used in both darkTheme and teamsDarkTheme */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "colorPaletteTokens", ()=>colorPaletteTokens);
-parcelHelpers.export(exports, "colorStatusTokens", ()=>colorStatusTokens);
-var _colorPalette = require("../global/colorPalette");
-var _sharedColorNames = require("../sharedColorNames");
-var _statusColorMapping = require("../statusColorMapping");
-const statusColorPaletteTokens = (0, _sharedColorNames.statusSharedColorNames).reduce((acc, sharedColor)=>{
-    const color = sharedColor.slice(0, 1).toUpperCase() + sharedColor.slice(1);
-    const sharedColorTokens = {
-        [`colorPalette${color}Background1`]: (0, _colorPalette.statusSharedColors)[sharedColor].shade40,
-        [`colorPalette${color}Background2`]: (0, _colorPalette.statusSharedColors)[sharedColor].shade30,
-        [`colorPalette${color}Background3`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary,
-        [`colorPalette${color}Foreground1`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint30,
-        [`colorPalette${color}Foreground2`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint40,
-        [`colorPalette${color}Foreground3`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint20,
-        [`colorPalette${color}BorderActive`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint30,
-        [`colorPalette${color}Border1`]: (0, _colorPalette.statusSharedColors)[sharedColor].primary,
-        [`colorPalette${color}Border2`]: (0, _colorPalette.statusSharedColors)[sharedColor].tint20
-    };
-    return Object.assign(acc, sharedColorTokens);
-}, {});
-// one-off patches
-statusColorPaletteTokens.colorPaletteRedForeground3 = (0, _colorPalette.statusSharedColors).red.tint30;
-statusColorPaletteTokens.colorPaletteRedBorder2 = (0, _colorPalette.statusSharedColors).red.tint30;
-statusColorPaletteTokens.colorPaletteGreenForeground3 = (0, _colorPalette.statusSharedColors).green.tint40;
-statusColorPaletteTokens.colorPaletteGreenBorder2 = (0, _colorPalette.statusSharedColors).green.tint40;
-statusColorPaletteTokens.colorPaletteDarkOrangeForeground3 = (0, _colorPalette.statusSharedColors).darkOrange.tint30;
-statusColorPaletteTokens.colorPaletteDarkOrangeBorder2 = (0, _colorPalette.statusSharedColors).darkOrange.tint30;
-statusColorPaletteTokens.colorPaletteRedForegroundInverted = (0, _colorPalette.statusSharedColors).red.primary;
-statusColorPaletteTokens.colorPaletteGreenForegroundInverted = (0, _colorPalette.statusSharedColors).green.primary;
-statusColorPaletteTokens.colorPaletteYellowForegroundInverted = (0, _colorPalette.statusSharedColors).yellow.shade30;
-const personaColorPaletteTokens = (0, _sharedColorNames.personaSharedColorNames).reduce((acc, sharedColor)=>{
-    const color = sharedColor.slice(0, 1).toUpperCase() + sharedColor.slice(1);
-    const sharedColorTokens = {
-        [`colorPalette${color}Background2`]: (0, _colorPalette.personaSharedColors)[sharedColor].shade30,
-        [`colorPalette${color}Foreground2`]: (0, _colorPalette.personaSharedColors)[sharedColor].tint40,
-        [`colorPalette${color}BorderActive`]: (0, _colorPalette.personaSharedColors)[sharedColor].tint30
-    };
-    return Object.assign(acc, sharedColorTokens);
-}, {});
-// one-off patches
-personaColorPaletteTokens.colorPaletteDarkRedBackground2 = (0, _colorPalette.personaSharedColors).darkRed.shade20;
-personaColorPaletteTokens.colorPalettePlumBackground2 = (0, _colorPalette.personaSharedColors).plum.shade20;
-const colorPaletteTokens = {
-    ...statusColorPaletteTokens,
-    ...personaColorPaletteTokens
-};
-const colorStatusTokens = Object.entries((0, _statusColorMapping.statusColorMapping)).reduce((acc, [statusColor, sharedColor])=>{
-    const color = statusColor.slice(0, 1).toUpperCase() + statusColor.slice(1);
-    // TODO: double check the mapping with design - see the one-off patches above
-    const statusColorTokens = {
-        [`colorStatus${color}Background1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].shade40,
-        [`colorStatus${color}Background2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].shade30,
-        [`colorStatus${color}Background3`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary,
-        [`colorStatus${color}Foreground1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint30,
-        [`colorStatus${color}Foreground2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint40,
-        [`colorStatus${color}Foreground3`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint20,
-        [`colorStatus${color}BorderActive`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint30,
-        [`colorStatus${color}ForegroundInverted`]: (0, _colorPalette.mappedStatusColors)[sharedColor].shade10,
-        [`colorStatus${color}Border1`]: (0, _colorPalette.mappedStatusColors)[sharedColor].primary,
-        [`colorStatus${color}Border2`]: (0, _colorPalette.mappedStatusColors)[sharedColor].tint20
-    };
-    return Object.assign(acc, statusColorTokens);
-}, {});
-// one-off overrides for colorStatus tokens
-colorStatusTokens.colorStatusDangerForeground3 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).danger].tint30;
-colorStatusTokens.colorStatusDangerBorder2 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).danger].tint30;
-colorStatusTokens.colorStatusSuccessForeground3 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).success].tint40;
-colorStatusTokens.colorStatusSuccessBorder2 = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).success].tint40;
-colorStatusTokens.colorStatusWarningForegroundInverted = (0, _colorPalette.mappedStatusColors)[(0, _statusColorMapping.statusColorMapping).warning].shade20;
-
-},{"../global/colorPalette":"4YIFe","../sharedColorNames":"koxOM","../statusColorMapping":"c4B9M","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7JwI6":[function(require,module,exports) {
-/* !!! DO NOT EDIT !!! */ /* This file has been generated by the token pipeline */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "generateColorTokens", ()=>generateColorTokens);
-var _colors = require("../global/colors");
-const generateColorTokens = (brand)=>({
-        colorNeutralForeground1: (0, _colors.white),
-        colorNeutralForeground1Hover: (0, _colors.white),
-        colorNeutralForeground1Pressed: (0, _colors.white),
-        colorNeutralForeground1Selected: (0, _colors.white),
-        colorNeutralForeground2: (0, _colors.grey)[84],
-        colorNeutralForeground2Hover: (0, _colors.white),
-        colorNeutralForeground2Pressed: (0, _colors.white),
-        colorNeutralForeground2Selected: (0, _colors.white),
-        colorNeutralForeground2BrandHover: brand[100],
-        colorNeutralForeground2BrandPressed: brand[90],
-        colorNeutralForeground2BrandSelected: brand[100],
-        colorNeutralForeground3: (0, _colors.grey)[68],
-        colorNeutralForeground3Hover: (0, _colors.grey)[84],
-        colorNeutralForeground3Pressed: (0, _colors.grey)[84],
-        colorNeutralForeground3Selected: (0, _colors.grey)[84],
-        colorNeutralForeground3BrandHover: brand[100],
-        colorNeutralForeground3BrandPressed: brand[90],
-        colorNeutralForeground3BrandSelected: brand[100],
-        colorNeutralForeground4: (0, _colors.grey)[60],
-        colorNeutralForegroundDisabled: (0, _colors.grey)[36],
-        colorNeutralForegroundInvertedDisabled: (0, _colors.whiteAlpha)[40],
-        colorBrandForegroundLink: brand[100],
-        colorBrandForegroundLinkHover: brand[110],
-        colorBrandForegroundLinkPressed: brand[90],
-        colorBrandForegroundLinkSelected: brand[100],
-        colorNeutralForeground2Link: (0, _colors.grey)[84],
-        colorNeutralForeground2LinkHover: (0, _colors.white),
-        colorNeutralForeground2LinkPressed: (0, _colors.white),
-        colorNeutralForeground2LinkSelected: (0, _colors.white),
-        colorCompoundBrandForeground1: brand[100],
-        colorCompoundBrandForeground1Hover: brand[110],
-        colorCompoundBrandForeground1Pressed: brand[90],
-        colorBrandForeground1: brand[100],
-        colorBrandForeground2: brand[110],
-        colorBrandForeground2Hover: brand[130],
-        colorBrandForeground2Pressed: brand[160],
-        colorNeutralForeground1Static: (0, _colors.grey)[14],
-        colorNeutralForegroundStaticInverted: (0, _colors.white),
-        colorNeutralForegroundInverted: (0, _colors.grey)[14],
-        colorNeutralForegroundInvertedHover: (0, _colors.grey)[14],
-        colorNeutralForegroundInvertedPressed: (0, _colors.grey)[14],
-        colorNeutralForegroundInvertedSelected: (0, _colors.grey)[14],
-        colorNeutralForegroundInverted2: (0, _colors.grey)[14],
-        colorNeutralForegroundOnBrand: (0, _colors.white),
-        colorNeutralForegroundInvertedLink: (0, _colors.white),
-        colorNeutralForegroundInvertedLinkHover: (0, _colors.white),
-        colorNeutralForegroundInvertedLinkPressed: (0, _colors.white),
-        colorNeutralForegroundInvertedLinkSelected: (0, _colors.white),
-        colorBrandForegroundInverted: brand[80],
-        colorBrandForegroundInvertedHover: brand[70],
-        colorBrandForegroundInvertedPressed: brand[60],
-        colorBrandForegroundOnLight: brand[80],
-        colorBrandForegroundOnLightHover: brand[70],
-        colorBrandForegroundOnLightPressed: brand[50],
-        colorBrandForegroundOnLightSelected: brand[60],
-        colorNeutralBackground1: (0, _colors.grey)[16],
-        colorNeutralBackground1Hover: (0, _colors.grey)[24],
-        colorNeutralBackground1Pressed: (0, _colors.grey)[12],
-        colorNeutralBackground1Selected: (0, _colors.grey)[22],
-        colorNeutralBackground2: (0, _colors.grey)[12],
-        colorNeutralBackground2Hover: (0, _colors.grey)[20],
-        colorNeutralBackground2Pressed: (0, _colors.grey)[8],
-        colorNeutralBackground2Selected: (0, _colors.grey)[18],
-        colorNeutralBackground3: (0, _colors.grey)[8],
-        colorNeutralBackground3Hover: (0, _colors.grey)[16],
-        colorNeutralBackground3Pressed: (0, _colors.grey)[4],
-        colorNeutralBackground3Selected: (0, _colors.grey)[14],
-        colorNeutralBackground4: (0, _colors.grey)[4],
-        colorNeutralBackground4Hover: (0, _colors.grey)[12],
-        colorNeutralBackground4Pressed: (0, _colors.black),
-        colorNeutralBackground4Selected: (0, _colors.grey)[10],
-        colorNeutralBackground5: (0, _colors.black),
-        colorNeutralBackground5Hover: (0, _colors.grey)[8],
-        colorNeutralBackground5Pressed: (0, _colors.grey)[2],
-        colorNeutralBackground5Selected: (0, _colors.grey)[6],
-        colorNeutralBackground6: (0, _colors.grey)[20],
-        colorNeutralBackgroundInverted: (0, _colors.white),
-        colorNeutralBackgroundStatic: (0, _colors.grey)[24],
-        colorNeutralBackgroundAlpha: (0, _colors.grey10Alpha)[50],
-        colorNeutralBackgroundAlpha2: (0, _colors.grey12Alpha)[70],
-        colorSubtleBackground: "transparent",
-        colorSubtleBackgroundHover: (0, _colors.grey)[22],
-        colorSubtleBackgroundPressed: (0, _colors.grey)[18],
-        colorSubtleBackgroundSelected: (0, _colors.grey)[20],
-        colorSubtleBackgroundLightAlphaHover: (0, _colors.grey14Alpha)[80],
-        colorSubtleBackgroundLightAlphaPressed: (0, _colors.grey14Alpha)[50],
-        colorSubtleBackgroundLightAlphaSelected: "transparent",
-        colorSubtleBackgroundInverted: "transparent",
-        colorSubtleBackgroundInvertedHover: (0, _colors.blackAlpha)[10],
-        colorSubtleBackgroundInvertedPressed: (0, _colors.blackAlpha)[30],
-        colorSubtleBackgroundInvertedSelected: (0, _colors.blackAlpha)[20],
-        colorTransparentBackground: "transparent",
-        colorTransparentBackgroundHover: "transparent",
-        colorTransparentBackgroundPressed: "transparent",
-        colorTransparentBackgroundSelected: "transparent",
-        colorNeutralBackgroundDisabled: (0, _colors.grey)[8],
-        colorNeutralBackgroundInvertedDisabled: (0, _colors.whiteAlpha)[10],
-        colorNeutralStencil1: (0, _colors.grey)[34],
-        colorNeutralStencil2: (0, _colors.grey)[20],
-        colorNeutralStencil1Alpha: (0, _colors.whiteAlpha)[10],
-        colorNeutralStencil2Alpha: (0, _colors.whiteAlpha)[5],
-        colorBackgroundOverlay: (0, _colors.blackAlpha)[50],
-        colorScrollbarOverlay: (0, _colors.whiteAlpha)[60],
-        colorBrandBackground: brand[70],
-        colorBrandBackgroundHover: brand[80],
-        colorBrandBackgroundPressed: brand[40],
-        colorBrandBackgroundSelected: brand[60],
-        colorCompoundBrandBackground: brand[100],
-        colorCompoundBrandBackgroundHover: brand[110],
-        colorCompoundBrandBackgroundPressed: brand[90],
-        colorBrandBackgroundStatic: brand[80],
-        colorBrandBackground2: brand[20],
-        colorBrandBackground2Hover: brand[40],
-        colorBrandBackground2Pressed: brand[10],
-        colorBrandBackgroundInverted: (0, _colors.white),
-        colorBrandBackgroundInvertedHover: brand[160],
-        colorBrandBackgroundInvertedPressed: brand[140],
-        colorBrandBackgroundInvertedSelected: brand[150],
-        colorNeutralStrokeAccessible: (0, _colors.grey)[68],
-        colorNeutralStrokeAccessibleHover: (0, _colors.grey)[74],
-        colorNeutralStrokeAccessiblePressed: (0, _colors.grey)[70],
-        colorNeutralStrokeAccessibleSelected: brand[100],
-        colorNeutralStroke1: (0, _colors.grey)[40],
-        colorNeutralStroke1Hover: (0, _colors.grey)[46],
-        colorNeutralStroke1Pressed: (0, _colors.grey)[42],
-        colorNeutralStroke1Selected: (0, _colors.grey)[44],
-        colorNeutralStroke2: (0, _colors.grey)[32],
-        colorNeutralStroke3: (0, _colors.grey)[24],
-        colorNeutralStrokeSubtle: (0, _colors.grey)[4],
-        colorNeutralStrokeOnBrand: (0, _colors.grey)[16],
-        colorNeutralStrokeOnBrand2: (0, _colors.white),
-        colorNeutralStrokeOnBrand2Hover: (0, _colors.white),
-        colorNeutralStrokeOnBrand2Pressed: (0, _colors.white),
-        colorNeutralStrokeOnBrand2Selected: (0, _colors.white),
-        colorBrandStroke1: brand[100],
-        colorBrandStroke2: brand[50],
-        colorBrandStroke2Hover: brand[50],
-        colorBrandStroke2Pressed: brand[30],
-        colorBrandStroke2Contrast: brand[50],
-        colorCompoundBrandStroke: brand[100],
-        colorCompoundBrandStrokeHover: brand[110],
-        colorCompoundBrandStrokePressed: brand[90],
-        colorNeutralStrokeDisabled: (0, _colors.grey)[26],
-        colorNeutralStrokeInvertedDisabled: (0, _colors.whiteAlpha)[40],
-        colorTransparentStroke: "transparent",
-        colorTransparentStrokeInteractive: "transparent",
-        colorTransparentStrokeDisabled: "transparent",
-        colorNeutralStrokeAlpha: (0, _colors.whiteAlpha)[10],
-        colorNeutralStrokeAlpha2: (0, _colors.whiteAlpha)[20],
-        colorStrokeFocus1: (0, _colors.black),
-        colorStrokeFocus2: (0, _colors.white),
-        colorNeutralShadowAmbient: "rgba(0,0,0,0.24)",
-        colorNeutralShadowKey: "rgba(0,0,0,0.28)",
-        colorNeutralShadowAmbientLighter: "rgba(0,0,0,0.12)",
-        colorNeutralShadowKeyLighter: "rgba(0,0,0,0.14)",
-        colorNeutralShadowAmbientDarker: "rgba(0,0,0,0.40)",
-        colorNeutralShadowKeyDarker: "rgba(0,0,0,0.48)",
-        colorBrandShadowAmbient: "rgba(0,0,0,0.30)",
-        colorBrandShadowKey: "rgba(0,0,0,0.25)"
-    });
-
-},{"../global/colors":"lVTZS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["gbXMy","bNKaB"], "bNKaB", "parcelRequire3e3d")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["gbXMy","bNKaB"], "bNKaB", "parcelRequire251c")
 
 //# sourceMappingURL=index.0641b553.js.map
